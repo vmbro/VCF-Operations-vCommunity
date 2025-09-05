@@ -2,7 +2,7 @@
     "display_name": "DISPLAY_NAME",
     "name": "iSDK_VCFOperationsvCommunity",
     "description": "DESCRIPTION",
-    "version": "0.1.6.2",
+    "version": "0.1.6.3",
     "vcops_minimum_version": "8.18",
     "disk_space_required": 500,
     "run_scripts_on_all_nodes": "true",
