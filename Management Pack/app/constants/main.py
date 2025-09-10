@@ -1,5 +1,5 @@
 #  Copyright 2024 vCommunity Content MP
-#  Author: Onur Yuzseven
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 ADAPTER_KIND = "VCFOperationsvCommunity"
 ADAPTER_NAME = "VCF Operations vCommunity"
