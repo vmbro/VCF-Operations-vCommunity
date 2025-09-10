@@ -12,6 +12,7 @@ from pyVmomi import vim
 from properties.host.host_advanced_settings import collect_host_properties
 from properties.host.host_profile import collect_host_profile_properties
 from properties.host.host_software_packages import collect_host_software_properties
+from properties.host.host_install_date import collect_host_install_date
 
 logger = logging.getLogger(__name__)
 
@@ -50,6 +51,7 @@ def collect_host_data(
             collect_host_properties(host_obj, host)
             collect_host_profile_properties(host_obj, host)
             collect_host_software_properties(host_obj, host)
+            collect_host_install_date(host_obj, host)
             result.add_object(host_obj)
         else:
             logger.warning(
