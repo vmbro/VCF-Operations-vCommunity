@@ -2,19 +2,30 @@
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
-
+from constants.checkUpdatedValues import checkLastValue
 
 NULL_STATUS = "null"
 logger = logging.getLogger(__name__)
 
 
 def collect_evc_properties(cluster_obj, cluster):
-    evcManager=cluster.EvcManager()
-    evcState=evcManager.evcState
-    currentEVCModeKey= evcState.currentEVCModeKey
-    if(currentEVCModeKey):
-            cluster_obj.with_property("configuration|EVC|Enabled", "True")
-            cluster_obj.with_property("configuration|EVC|EVC Mode", currentEVCModeKey)
-    else:
-            cluster_obj.with_property("configuration|EVC|Enabled", "False")
-            cluster_obj.with_property("configuration|EVC|EVC Mode", NULL_STATUS)
+     evcEnabledKey = "configuration|EVC|Enabled"
+     evcModeKey = "configuration|EVC|EVC Mode"
+     evcManager = cluster.EvcManager()
+     evcState = evcManager.evcState
+     currentEVCModeValue = evcState.currentEVCModeKey
+
+     if currentEVCModeValue:
+         isEnabled = "True"
+         if checkLastValue(cluster_obj, evcEnabledKey, isEnabled, "property"):
+             cluster_obj.with_property(evcEnabledKey, isEnabled)
+     
+         if checkLastValue(cluster_obj, evcModeKey, currentEVCModeValue, "property"):
+             cluster_obj.with_property(evcModeKey, currentEVCModeValue)
+     else:
+         isEnabled = "False"
+         if checkLastValue(cluster_obj, evcEnabledKey, isEnabled, "property"):
+             cluster_obj.with_property(evcEnabledKey, isEnabled)
+     
+         if checkLastValue(cluster_obj, evcModeKey, NULL_STATUS, "property"):
+             cluster_obj.with_property(evcModeKey, NULL_STATUS)

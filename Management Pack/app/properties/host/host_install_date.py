@@ -2,8 +2,9 @@
 #  Author: Scott Bowe scott.bowe@broadcom.com
 
 import logging
-from datetime import datetime, timezone   
+from datetime import timezone   
 
+NULL_STATUS = "null"
 logger = logging.getLogger(__name__)
 
 def collect_host_install_date(host_obj, host):
@@ -16,6 +17,6 @@ def collect_host_install_date(host_obj, host):
                 host_obj.with_property("Config|Install Date|UTC", dt_utc.isoformat())
                 host_obj.with_property("Config|Install Date|EpochSeconds", int(dt_utc.timestamp()))
             else:
-                host_obj.with_property("Config|Install Date|UTC", "unknown")
+                host_obj.with_property("Config|Install Date|UTC", NULL_STATUS)
         except Exception as e:
             logger.exception(f"Failed to retrieve install date for host '{host.name}' (MoID: {host._moId}): {e}")

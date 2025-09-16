@@ -4,6 +4,7 @@
 import logging
 import yaml
 import os
+from constants.checkUpdatedValues import checkLastValue
 
 NULL_STATUS = "null"
 logger = logging.getLogger(__name__)
@@ -20,11 +21,15 @@ def collect_ha_properties(cluster_obj, cluster):
             for item in group_content["properties"]:
                 propertyName = item["name"]
                 if cluster.configuration.dasConfig.enabled == False or cluster.configuration.dasConfig.hostMonitoring == 'disabled':
-                    cluster_obj.with_property(propertyName, NULL_STATUS)
+                    #cluster_obj.with_property(propertyName, NULL_STATUS)
+                    if checkLastValue(cluster_obj, propertyName, NULL_STATUS, "property"):
+                        cluster_obj.with_property(propertyName, NULL_STATUS)
                 else:
                     configPath = item["configPath"]
                     keys = configPath.split('.')
                     propertyValue = cluster
                     for key in keys:
                         propertyValue = getattr(propertyValue, key)
-                    cluster_obj.with_property(propertyName, str(propertyValue))
+                    #cluster_obj.with_property(propertyName, str(propertyValue))
+                    if checkLastValue(cluster_obj, propertyName, str(propertyValue), "property"):
+                        cluster_obj.with_property(propertyName, str(propertyValue))

@@ -8,17 +8,4 @@ Configuration:
     - VM Age
 VM Agent:
   properties:
-  - Disk Enable UUID
-  - Host Log State
-  - Migration ID
-  - Host Log
   - Remote Display Max Connections
-  - SVGA Auto Detect
-  - SVGA Guest Backed Primary Aware
-  - SVGA Present
-  - vMotion checkpoint FB Size
-  - vMotion checkpoint SVGA Primary Size
-  - vMotion SVGA Graphics Memory KB
-  - vMotion SVGA mob Max Size
-  - VMware Tools Internal Version
-  - VMware Tools Required Version

@@ -1,0 +1,16 @@
+<Events>
+  <Log Name="Application">
+    <EventID>1000</EventID>
+    <EventID>1001</EventID>
+    <EventID>1026</EventID>
+  </Log>
+  <Log Name="Security">
+<EventID>4025</EventID>
+  </Log>
+  <Log Name="Setup">
+<EventID>100</EventID>
+  </Log>
+  <Log Name="System">
+    <EventID>6006</EventID>
+  </Log>
+</Events>
