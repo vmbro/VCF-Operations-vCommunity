@@ -4,6 +4,7 @@
 import logging
 import yaml
 import os
+from constants.checkUpdatedValues import checkLastValue
 
 logger = logging.getLogger(__name__)
 current_directory = os.path.dirname(os.path.abspath(__file__))
@@ -20,11 +21,15 @@ def collect_ha_metrics(cluster_obj, cluster):
             for item in group_content["metrics"]:
                 propertyName = item["name"]
                 if cluster.configuration.drsConfig.enabled == False:
-                    cluster_obj.with_metric(propertyName, 0)
+                    #cluster_obj.with_metric(propertyName, 0)
+                    if checkLastValue(cluster_obj, propertyName, 0, "metric"):
+                        cluster_obj.with_metric(propertyName, 0)
                 else:
                     configPath = item["configPath"]
                     keys = configPath.split('.')
                     propertyValue = cluster
                     for key in keys:
                         propertyValue = getattr(propertyValue, key)
-                    cluster_obj.with_metric(propertyName, str(propertyValue))
+                    #cluster_obj.with_metric(propertyName, str(propertyValue))
+                    if checkLastValue(cluster_obj, propertyName, str(propertyValue), "metric"):
+                        cluster_obj.with_metric(propertyName, str(propertyValue))

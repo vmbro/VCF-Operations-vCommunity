@@ -42,22 +42,40 @@ def get_adapter_definition() -> AdapterDefinition:
             "vCenter Server",
             description="FQDN or IP address of the vCenter Server instance.",
         )
-        definition.define_int_parameter(
-            constants.main.PORT_IDENTIFIER, "Port", default=443, advanced=True
+
+        definition.define_string_parameter(
+            "winEventConfigFile",
+            label="Windows Event Log Configuration File Name",
+            description="Enter the configuration file name that contains Windows Event Log IDs. Usage: SolutionConfig/config_file_name",
+            default="SolutionConfig/windowsEventList",
+            required=True,
         )
 
-        # Define the credential definitions below. Use of credentials can be customised
+        definition.define_int_parameter(
+            constants.main.PORT_IDENTIFIER, "Port", default=443, advanced=True, description="Enter the port number for vCenter Server"
+        )
+
+        # Define the credential details below. Use of credentials can be customised
         credential = definition.define_credential_type("vsphere_user", "vCenter Credential")
-        credential.define_string_parameter(constants.main.USER_CREDENTIAL, "User Name")
-        credential.define_password_parameter(constants.main.PASSWORD_CREDENTIAL, "Password")
+        credential.define_string_parameter(constants.main.USER_CREDENTIAL, "vCenter User Name")
+        credential.define_password_parameter(constants.main.PASSWORD_CREDENTIAL, "vCenter Password")
         credential.define_string_parameter("winUser", "Windows User Name", required=False)
         credential.define_password_parameter("winPass", "Windows Password", required=False)
 
         definition.define_enum_parameter("serviceMonitoring",
-            values=["Yes", "No"],
+            values=["Enabled", "Disabled"],
             label="Service Monitoring Enabled",
             description="Choose Yes to enable Service Monitoring",
-            default="No",
+            default="Disabled",
+            required=False,
+            advanced=True
+        )
+
+        definition.define_enum_parameter("winEventMonitoring",
+            values=["Enabled", "Disabled"],
+            label="Windows Event Log Monitoring Status",
+            description="Choose Enable to activate Windows Event Log Monitoring",
+            default="Disabled",
             required=False,
             advanced=True
         )
@@ -70,6 +88,11 @@ def get_adapter_definition() -> AdapterDefinition:
 
     return definition
 
+
+def get_configFile(adapter_instance: AdapterInstance) -> str:
+    configFile = adapter_instance.get_identifier_value("winEventConfigFile")
+    return configFile
+
 def get_winCredential(adapter_instance: AdapterInstance) -> str:
     username = adapter_instance.get_credential_value("winUser")
     password = adapter_instance.get_credential_value("winPass")
@@ -78,6 +101,10 @@ def get_winCredential(adapter_instance: AdapterInstance) -> str:
 def getServiceMonitoringStatus(adapter_instance: AdapterInstance) -> str:
     serviceMonitoringStatus = adapter_instance.get_identifier_value("serviceMonitoring")
     return serviceMonitoringStatus
+
+def getWindowsEventLogMonitoringStatus(adapter_instance: AdapterInstance) -> str:
+    WindowsEventLogMonitoringStatus = adapter_instance.get_identifier_value("winEventMonitoring")
+    return WindowsEventLogMonitoringStatus
 
 def define_cluster_objects(clusterObjectTypes, definition):
     with open(clusterObjectTypes, "r") as file:
@@ -209,7 +236,16 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
             content = service_instance.RetrieveContent()
             logger.error(f"taskManager: {content.taskManager}")
             ServiceMonitoringStatus = getServiceMonitoringStatus(adapter_instance)
+            WindowsEventLogMonitoringStatus = getWindowsEventLogMonitoringStatus(adapter_instance)
             winUser, winPassword = get_winCredential(adapter_instance)
+
+
+            winEventconfigFile = get_configFile(adapter_instance)
+            apiPath = f"api/configurations/files?path={winEventconfigFile}"
+            with adapter_instance.suite_api_client as suite_api:
+                getConfigFile = suite_api.get(url = apiPath)
+   
+            winEventLogConfigFile = getConfigFile.text
             
             with adapter_instance.suite_api_client as client:
                 adapter_instance_id = _get_vcenter_adapter_instance_id(
@@ -222,7 +258,7 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                     return result
                 collect_cluster_data(client, adapter_instance_id, result, content)
                 collect_host_data(client, adapter_instance_id, result, content)
-                collect_vm_data(client, adapter_instance_id, result, content, ServiceMonitoringStatus, winUser, winPassword)
+                collect_vm_data(client, adapter_instance_id, result, content, ServiceMonitoringStatus, WindowsEventLogMonitoringStatus, winUser, winPassword, winEventLogConfigFile)
 
         except Exception as e:
             logger.error("Unexpected collection error")
