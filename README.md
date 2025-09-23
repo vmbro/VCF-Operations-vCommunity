@@ -108,7 +108,7 @@ A Cloud Proxy collector process managing adapter containers, which each correspo
 ![Adapter-Topology](assets/screenshots/Installation-Step-4.png)
 
 ## Integration
-You can simply add your vCenter that you want to extend custom metrics and contents, add your vCenter FQDN and select a Cloud Proxy for the data collection. Other features are optional and left for user choice. If cloud proxy has container registry access then adapter should start data collection shortly.
+You can simply add your vCenter that you want to extend with custom metrics and contents, add your vCenter FQDN and select a Cloud Proxy for the data collection. Other features are optional and left for user choice. If cloud proxy has container registry access then adapter should start data collection shortly.
 
 ![Adapter-Topology](assets/screenshots/Adapter_Account_Integration.png)
 
