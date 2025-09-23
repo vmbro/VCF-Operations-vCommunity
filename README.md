@@ -50,6 +50,15 @@ With this pack, you will gain a ready-to-use yet customizable toolkit that bridg
 * Windows Event Log Monitoring for proactive detection of system issues
 * Advanced content: 44 dashboards, 169 views, 16 reports, and 37 super metrics for analytics and visualization
 
+### Some of collected key metrics
+- Cluster HA/DRS/EVC
+- ESXi Software Packages (VIB driver details)
+- ESXi Advanced Parameters
+- Virtual Machine Advanced Parameters
+- Virtual Machine Age
+- Virtual Machine Snapshot Count
+  
+
 ## System Requirements
 
 ### Platform Requirements
@@ -125,9 +134,5 @@ Submit an issue or contact me via [LinkedIn](https://www.linkedin.com/in/oyuzsev
 ## License
 
 [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
-
-
-
-
 
 [![MIT License](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
