@@ -25,7 +25,10 @@ Also, with some programming and API knowledge, you can do the following:
 
 - [VCF Operations vCommunity](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#vcf-operations-vcommunity)
 - [Description](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#description)
+  - [Key Features](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#key-features)
 - [System Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#system-requirements)
+  - [Platform Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#platform-requirements)
+  - [User Account Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#user-account-requirements)
 - [How does VCF Operations vCommunity Management Pack Work ?](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#how-does-vcf-operations-vcommunity-management-pack-work-)
 - [How Integration SDK Works ?](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#how-integration-sdk-works-)
 - [Installation](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#installation)
