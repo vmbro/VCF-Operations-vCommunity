@@ -125,11 +125,22 @@ You can simply add your vCenter that you want to extend with custom metrics and 
 
 *TBD*
 
-## FAQ
+## Questions & Answers
 
-#### How can I use the VCF Operations vCommunity MP if my Cloud Proxy doesn't have internet(to pull container image) access ?
+### 1. Can I use the VCF Operations vCommunity MP if my Cloud Proxy doesn't have internet access ?
 
-*TBD*
+Yes, but it requires some additional steps to work with public registry. Please see [Using a Private Registry for VCF Operations vCommunity MP](https://github.com/vmbro/VCF-Operations-vCommunity/blob/main/Working-with-Private-Registry.md#using-a-private-registry-for-vcf-operations-vcommunity-mp)
+
+### 2. My Cloud Proxy does not have direct internet access. Can I configure proxy settings in the CP ?
+The cloud proxies support connection through the corporate proxy server. But, the proxy settings are given during OVF deployment.
+
+
+### 3. Which protocols should I have to work with Cloud Proxy ?
+
+HTTPS access is required for all Cloud Proxies that runs VCF Operations vCommunity Management pack to Container Registry access to **ghcr.io**
+
+### 4. Does Cloud Proxy need to have permanent registry/internet access ?
+After installing the .PAK file for the first time Cloud Proxy will try to pull the related container image from the registry. However, Cloud Proxy will try to pull the new container image after .PAK file upgrade process too. Since VCF Operations vCommunity MP continuesly updated it is recommended to have container registry access. This way, administrators can always easily upgrade this package.
 
 
 ## Support
