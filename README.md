@@ -65,7 +65,7 @@ With this pack, you will gain a ready-to-use yet customizable toolkit that bridg
 * Aria Operations 8.18.x and higher including VCF Operations 9.x
 * vCenter Server 8 and higher including VCF 9.x
 * Aria Operations Cloud Proxy
-* Container Registry access to allow Cloud Proxy to install adapter requirements
+* Container Registry access to allow Cloud Proxy to install adapter requirements (For the dark-site environments see the FAQ section for the workaround.)
 
 Cloud Proxy will try to pull that container image from following example registry to set-up the adapter. This is by design of the VCF Operations Integration SDK.
 ```
