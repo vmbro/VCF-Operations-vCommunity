@@ -125,6 +125,12 @@ You can simply add your vCenter that you want to extend with custom metrics and 
 
 *TBD*
 
+## FAQ
+
+#### How can I use the VCF Operations vCommunity MP if my Cloud Proxy doesn't have internet(to pull container image) access ?
+
+*TBD*
+
 
 ## Support
 
