@@ -142,6 +142,11 @@ HTTPS access is required for all Cloud Proxies that runs VCF Operations vCommuni
 ### 4. Does Cloud Proxy need to have permanent registry/internet access ?
 After installing the .PAK file for the first time Cloud Proxy will try to pull the related container image from the registry. However, Cloud Proxy will try to pull the new container image after .PAK file upgrade process too. Since VCF Operations vCommunity MP continuesly updated it is recommended to have container registry access. This way, administrators can always easily upgrade this package.
 
+### 5. I can not install the PAK file due "No signature found on PAK file" error. How can I install the VCF Operations vCommunity MP ?
+Since the PAK file is not signed by VMware you need to enable "*Allow unsigned PAK installation*" feature from the https://VCF_Ops/admin UI Administrator Settings > Security Settings > ACTIVATE UNSIGNED PAK INSTALLATION
+
+After enabling that feature you will see the "*Ignore the PAK file signature checking.*" checkbox available on PAK installation wizard.
+
 
 ## Support
 
