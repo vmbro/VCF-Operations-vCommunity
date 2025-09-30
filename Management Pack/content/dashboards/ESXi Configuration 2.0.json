@@ -7,10 +7,10 @@
       "name": "vSphere World"
    }]},
    "dashboards": [{
-      "shared": false,
+      "shared": true,
       "temporary": false,
       "hidden": true,
-      "creationTime": 1753166327176,
+      "creationTime": 1759198627210,
       "autoswitchEnabled": false,
       "importAttempts": 0,
       "columnProportion": "1",
@@ -599,7 +599,7 @@
       "rank": 0,
       "disabled": false,
       "id": "b1b3ede5-32f2-4c49-a1a8-443dc23bd993",
-      "adapterName": "VMware vSphere",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
       "locked": false,
       "dashboardNavigations": {},
       "widgetInteractions": [
@@ -700,13 +700,13 @@
          }
       ],
       "namePath": "Configuration",
-      "lastUpdateUserId": "8a399472-453b-435f-b57d-84aa33550d08",
+      "lastUpdateUserId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
       "docCenterKey": "vcom_522",
       "columnCount": 1,
-      "userId": "8a399472-453b-435f-b57d-84aa33550d08",
-      "name": "Configuration/ESXi Configuration (new)",
+      "userId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
+      "name": "Configuration/ESXi Configuration 2.0",
       "gridsterMaxColumns": 12,
-      "lastUpdateTime": 1753319678891
+      "lastUpdateTime": 1759215093968
    }],
-   "uuid": "0e32afce-f0d7-4511-a94e-949834232d2e"
+   "uuid": "b8095328-04a4-4094-867d-df8a86821d29"
 }
