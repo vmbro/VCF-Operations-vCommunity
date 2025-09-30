@@ -11,12 +11,12 @@
 
 This management pack lowers the knowledge barrier required to add your own content to VCF Operations. While the MP Builder is better for quick and simple addition, a native management pack empowers you to build more powerful features. 
 
-Also, with some programming and API knowledge, you can do the following:
+With Phyton programming and VCF Operations API knowledge, you can:
 
 * Add your own metrics and properties for the VCF Objects. They can have complex logic as it's all done in programming. Define them into the existing objects.
-* Create your own object. You can define a new object type and
+* Create your own object. You can define a new object type.
 * Add your own alerts, dashboards, reports. To override existing ones, simply use the same ID
-* Add your own super metric. 
+* Add your own super metric. Take note you need to enable them manually in the Policy UI.
 
 ![Adapter](assets/screenshots/VCF_Operations_vCommunity-Adapter.png)
 
