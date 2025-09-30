@@ -36,10 +36,10 @@
       }]
    },
    "dashboards": [{
-      "shared": false,
+      "shared": true,
       "temporary": false,
       "hidden": true,
-      "creationTime": 1753166327179,
+      "creationTime": 1759198633922,
       "autoswitchEnabled": false,
       "importAttempts": 0,
       "columnProportion": "1",
@@ -1549,7 +1549,7 @@
       "rank": 0,
       "disabled": false,
       "id": "4439d7b2-c758-4eca-ad49-42f3e0280d35",
-      "adapterName": "VMware vSphere",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
       "locked": false,
       "dashboardNavigations": {
          "1119e157-da66-40ce-a837-2cfddb5d9175": [{
@@ -1644,14 +1644,14 @@
             "widgetIdReceiver": "1a473266-8376-4492-8c30-b53fc291a536"
          }
       ],
-      "namePath": "Performance",
-      "lastUpdateUserId": "8a399472-453b-435f-b57d-84aa33550d08",
+      "namePath": "Performance/Consumer",
+      "lastUpdateUserId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
       "docCenterKey": "vcom_635",
       "columnCount": 1,
-      "userId": "8a399472-453b-435f-b57d-84aa33550d08",
-      "name": "Performance/VM Performance (new)",
+      "userId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
+      "name": "Performance/Consumer/VM Performance 2.0",
       "gridsterMaxColumns": 12,
-      "lastUpdateTime": 1753322037819
+      "lastUpdateTime": 1759200040811
    }],
-   "uuid": "aabcc4f3-a40f-43c8-bfc6-fd2e86e0b230"
+   "uuid": "e673aac3-971c-4252-bc33-5cbdb56d4a08"
 }
