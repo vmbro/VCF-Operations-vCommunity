@@ -1,5 +1,15 @@
-## EULA - VCF Operations vCommunity Management Pack ##
+CONFIGURATION STEPS
 
-VCF Operations vCommunity is an open-source management pack for VCF Operations. Feel free to use and explore it in your environment! Dive in, experiment, and have fun with it—your feedback helps us improve.
+ENABLE SUPER METRIC
+ * Go to Configuration
+ * Go to Policy Definition
+ * Find the Default Policy. See the Priority column. The one with value D is the default one.
+ * Edit it
+ * Open the Metrics and Properties section
+ * In the "tuype here to apply filters", type "super metric"
+ * Enable them for all objects. DO NOT enable for All Adapter Types as it will apply to all types of objects from all adapters.
 
-Enjoy! (:
+CREATE BUSINESS APPLICATION
+ * Go to Business Applications
+ * Click Add Applications. Choose "Define manually"
+ * For the first application, call it VCF Appliances. You will add all your VCF photon appliances here, including NSX Edge
