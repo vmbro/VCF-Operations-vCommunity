@@ -29,7 +29,7 @@
       "shared": true,
       "temporary": false,
       "hidden": true,
-      "creationTime": 1759198630515,
+      "creationTime": 1759312482660,
       "autoswitchEnabled": false,
       "importAttempts": 0,
       "columnProportion": "1-1",
@@ -319,9 +319,10 @@
                "maxCellCount": 100,
                "oldMetricValues": false,
                "relationshipMode": {"relationshipMode": 0},
+               "description": "",
                "valueSize": 24,
-               "boxHeight": null,
                "title": "Memory Performance",
+               "boxHeight": null,
                "showResourceName": {"showResourceName": false},
                "roundDecimals": 0,
                "mode": {"layoutMode": "fixedView"},
@@ -331,6 +332,7 @@
                   "excludedResources": null,
                   "includedResources": null
                },
+               "viewDetails": "",
                "selfProvider": {"selfProvider": false},
                "resInteractionMode": null,
                "visualTheme": 8,
@@ -482,21 +484,22 @@
                         "colorMethod": 2
                      },
                      {
-                        "yellowBound": null,
+                        "yellowBound": 90,
                         "metricUnitId": "percent",
                         "metricName": "Memory|Demand|Highest Host Workload",
                         "metricKey": "mem|demand|max_host_workload",
                         "handleOldColoring": false,
+                        "maxValue": "",
                         "link": "",
                         "isStringMetric": false,
                         "resourceKindName": "Cluster Compute Resource",
                         "label": "Highest Host Usage",
                         "resourceKindId": "resourceKind:id:0_::_",
-                        "orangeBound": null,
+                        "orangeBound": 95,
                         "unit": "%",
                         "id": "extModel12087-4",
-                        "redBound": null,
-                        "colorMethod": 2
+                        "redBound": 99,
+                        "colorMethod": 0
                      }
                   ],
                   "subMode": "resourceKindAll"
@@ -828,7 +831,7 @@
                   "key": "perm_isDashboardTime_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7"
                },
                {
-                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-performance%2525257Ckpi_pct1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-performance%2525257Ckpi_pct2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-cpu%2525257Cmax_cpu_ready3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-mem%2525257Cmax_vm_mem_contention4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-cpu%2525257Cpercentage_of_vms_facing_cpu_ready5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_f7acd749-35f3-425d-9a67-5bb22336605e-column-mem%2525257Cpercentage_of_vms_facing_memory_contention6%25255Ehidden%25253Db%2525253A0",
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-performance%2525257Ckpi_pct1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-performance%2525257Ckpi_pct2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-cpu%2525257Cmax_cpu_ready3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-mem%2525257Cmax_vm_mem_contention4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-cpu%2525257Cpercentage_of_vms_facing_cpu_ready5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7-column-mem%2525257Cpercentage_of_vms_facing_memory_contention6%25255Ehidden%25253Db%2525253A0",
                   "key": "permTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_0ee796fb-2b02-48fa-8fb0-e376d4e02ee7"
                }
             ]
@@ -2517,9 +2520,10 @@
                "maxCellCount": 100,
                "oldMetricValues": false,
                "relationshipMode": {"relationshipMode": 0},
+               "description": "",
                "valueSize": 24,
-               "boxHeight": null,
                "title": "Network Performance",
+               "boxHeight": null,
                "showResourceName": {"showResourceName": false},
                "roundDecimals": 0,
                "mode": {"layoutMode": "fixedView"},
@@ -2529,6 +2533,7 @@
                   "excludedResources": null,
                   "includedResources": null
                },
+               "viewDetails": "",
                "selfProvider": {"selfProvider": false},
                "resInteractionMode": null,
                "visualTheme": 8,
@@ -2600,6 +2605,7 @@
                         "metricName": "Network:physical|Data Receive Rate",
                         "metricKey": "net:physical|received_average",
                         "handleOldColoring": false,
+                        "maxValue": "",
                         "link": "",
                         "isStringMetric": false,
                         "resourceKindName": "Cluster Compute Resource",
@@ -2617,6 +2623,7 @@
                         "metricName": "Network:physical|Data Transmit Rate",
                         "metricKey": "net:physical|transmitted_average",
                         "handleOldColoring": false,
+                        "maxValue": "",
                         "link": "",
                         "isStringMetric": false,
                         "resourceKindName": "Cluster Compute Resource",
@@ -2634,6 +2641,7 @@
                         "metricName": "Network:virtual|Data Receive Rate",
                         "metricKey": "net:virtual|received_average",
                         "handleOldColoring": false,
+                        "maxValue": "",
                         "link": "",
                         "isStringMetric": false,
                         "resourceKindName": "Cluster Compute Resource",
@@ -2651,6 +2659,7 @@
                         "metricName": "Network:virtual|Data Transmit Rate",
                         "metricKey": "net:virtual|transmitted_average",
                         "handleOldColoring": false,
+                        "maxValue": "",
                         "link": "",
                         "isStringMetric": false,
                         "resourceKindName": "Cluster Compute Resource",
@@ -2768,7 +2777,7 @@
                   "key": "perm_isDashboardTime_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96"
                },
                {
-                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalLatency_average1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalReadLatency_average2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalWriteLatency_average3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257Cusage_average4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CcommandsAveraged_average5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-datastore%2525257Chostcount6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_69f2ed78-b6c8-4abb-916a-6ca34d377242_4a98ba2a-aace-413a-83da-cfad98d336b8-column-summary%2525257Ctotal_number_vms7%25255Ehidden%25253Db%2525253A0",
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalLatency_average1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalReadLatency_average2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CtotalWriteLatency_average3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257Cusage_average4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-devices%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CcommandsAveraged_average5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-datastore%2525257Chostcount6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96-column-summary%2525257Ctotal_number_vms7%25255Ehidden%25253Db%2525253A0",
                   "key": "permTableView_widget_a3df3248-2016-4fbc-a532-e51b05211ded_a054b6e5-2766-411c-92f8-c9f31a681f96"
                }
             ]
@@ -3130,13 +3139,13 @@
          }
       ],
       "namePath": "Performance/Provider",
-      "lastUpdateUserId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
+      "lastUpdateUserId": "5f33b15a-c65e-43c4-80f3-ebf6ceffa55a",
       "docCenterKey": "vcom_636",
       "columnCount": 1,
-      "userId": "6e7bf07b-dee7-464d-814b-efafea4f0cbb",
+      "userId": "5f33b15a-c65e-43c4-80f3-ebf6ceffa55a",
       "name": "Performance/Provider/Cluster Performance 2.0",
       "gridsterMaxColumns": 12,
-      "lastUpdateTime": 1759200014461
+      "lastUpdateTime": 1759316236046
    }],
-   "uuid": "85ec1383-38f3-4a57-a59d-8551b8364a65"
+   "uuid": "dc220610-3855-471e-8115-8fcf1b301244"
 }

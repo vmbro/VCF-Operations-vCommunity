@@ -7,15 +7,15 @@
       "name": "vSphere World"
    }]},
    "dashboards": [{
-      "shared": false,
+      "shared": true,
       "temporary": false,
       "hidden": true,
-      "creationTime": 1753166327179,
+      "creationTime": 1759312484721,
       "autoswitchEnabled": false,
       "importAttempts": 0,
       "columnProportion": "1",
       "importComplete": true,
-      "description": "Highlight VM configuration that needs your attention. Use this dashboard to fix incorrect settings, update outdated components, and reduce overall cost by optimizing your environment. \n\nNo data on a chart means the configuration is optimized.",
+      "description": "Highlight VM storage-related configuration that needs your attention. Use this dashboard to fix incorrect settings, update outdated components, reduce overall complexity and cost by optimizing your environment. \n\nNo data on a chart means the configuration is optimized.",
       "widgets": [
          {
             "collapsed": false,
@@ -147,7 +147,7 @@
                "y": 1
             },
             "type": "View",
-            "title": "Datacenters",
+            "title": "Data Centers",
             "config": {
                "refreshInterval": 300,
                "resource": {
@@ -155,20 +155,22 @@
                   "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
                   "resourceName": "vSphere World",
                   "resourceKindId": "002006VMWAREvSphere World",
-                  "id": "Ext.vcops.chrome.model.Resource-2"
+                  "id": "Ext.vcops.chrome.model.Resource-18"
                },
                "traversalSpecId": null,
                "refreshContent": {"refreshContent": false},
+               "description": "",
                "isUpdatedView": true,
                "chartViewItems": [],
                "selectFirstRow": {"selectFirstRow": false},
+               "viewDetails": "",
                "selfProvider": {"selfProvider": true},
-               "title": "Datacenters",
+               "title": "Data Centers",
                "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
             },
             "height": 666,
             "states": [{
-               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d3378ed5-acc6-4890-b2f1-a1ca377cf9c0_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
                "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6"
             }]
          },
@@ -306,7 +308,7 @@
       "rank": 0,
       "disabled": false,
       "id": "c80749d8-25a1-4867-a3fc-f64f92db9e95",
-      "adapterName": "VMware vSphere",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
       "locked": false,
       "dashboardNavigations": {},
       "widgetInteractions": [
@@ -372,13 +374,13 @@
          }
       ],
       "namePath": "Configuration",
-      "lastUpdateUserId": "8a399472-453b-435f-b57d-84aa33550d08",
+      "lastUpdateUserId": "5f33b15a-c65e-43c4-80f3-ebf6ceffa55a",
       "docCenterKey": "vcom_524",
       "columnCount": 1,
-      "userId": "8a399472-453b-435f-b57d-84aa33550d08",
+      "userId": "5f33b15a-c65e-43c4-80f3-ebf6ceffa55a",
       "name": "Configuration/VM Storage Configuration",
       "gridsterMaxColumns": 12,
-      "lastUpdateTime": 1753322289437
+      "lastUpdateTime": 1759316016165
    }],
-   "uuid": "f5279743-ee86-4f83-b29f-08d4bb3293a7"
+   "uuid": "30f50085-c0b2-4739-b084-62d87a22e328"
 }
