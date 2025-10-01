@@ -1,6 +1,7 @@
-CONFIGURATION STEPS
+=== CONFIGURATION STEPS ===
 
-ENABLE SUPER METRIC
+
+ENABLE SUPER METRICS
  * Go to Configuration
  * Go to Policy Definition
  * Find the Default Policy. See the Priority column. The one with value D is the default one.
@@ -9,7 +10,9 @@ ENABLE SUPER METRIC
  * In the "tuype here to apply filters", type "super metric"
  * Enable them for all objects. DO NOT enable for All Adapter Types as it will apply to all types of objects from all adapters.
 
-CREATE BUSINESS APPLICATION
+CREATE BUSINESS APPLICATIONS
  * Go to Business Applications
  * Click Add Applications. Choose "Define manually"
  * For the first application, call it VCF Appliances. You will add all your VCF photon appliances here, including NSX Edge
+ * Create 1 tier for each type. Do not create sub-tier
+ * Example of tiers: NSX Edges, VCF Operations, vCenter Servers, NSX Managers
