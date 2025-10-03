@@ -121,9 +121,6 @@ You can simply add your vCenter that you want to extend with custom metrics and 
 
 ![Adapter-Topology](assets/screenshots/Adapter_Account_Integration.png)
 
-## Contributing
-
-*TBD*
 
 ## Questions & Answers
 
@@ -149,12 +146,8 @@ After enabling that feature you will see the "*Ignore the PAK file signature che
 
 
 ## Support
+Submit an issue on this repository.
 
-Submit an issue or contact me via [LinkedIn](https://www.linkedin.com/in/oyuzseven/)
-
-
-## License
-
-[Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
-
-[![MIT License](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
+Contacts:
+[LinkedIn](https://www.linkedin.com/in/oyuzseven/)
+[LinkedIn](https://www.linkedin.com/in/e1ang/)
