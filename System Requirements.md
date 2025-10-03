@@ -13,6 +13,11 @@ HTTPS access is required for all Cloud Proxies that runs VCF Operations vCommuni
 
 After installing the .PAK file for the first time Cloud Proxy will try to pull the related container image from the registry. However, Cloud Proxy will try to pull the new container image after .PAK file upgrade process too. Since VCF Operations vCommunity MP continuesly updated it is recommended to have container registry access. This way, administrators can always easily upgrade this package.
 
+If your Cloud Proxy does not have Internet access, follow this to work with public registry.
+[Using a Private Registry for VCF Operations vCommunity MP](https://github.com/vmbro/VCF-Operations-vCommunity/blob/main/Working-with-Private-Registry.md#using-a-private-registry-for-vcf-operations-vcommunity-mp)
+
+FYI, Internet proxy setting is available durng the OVF deployment.
+
 ### User Account Requirements
 #### vCenter Server:
 * An account with read-only permission
