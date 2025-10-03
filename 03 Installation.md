@@ -13,11 +13,11 @@ Login as admin
 
 * Browse the `VCFOperationsvCommunity_x.x.x.pak` file and select "Install the PAK file even if it is already installed." to override the installation and select "Ignore the PAK file signature checking." since VCF Operations vCommunity MP is unsinged to allow VCF Operations install the .pak file. Lastly, upload the file and click Next.
 
-![Adapter-Topology]("Documentation-Images/screenshots/Installation/Installation-Step-1.png")
+![Adapter-Topology](Documentation-Images/screenshots/Installation/Installation-Step-1.png)
 
 * Accept the End User License Agreement to continue and click Next.
 
-![Adapter-Topology](documentation-images/screenshots/Installation/Installation-Step-2.png)
+![Adapter-Topology](Documentation-Images/screenshots/Installation/Installation-Step-2.png)
 
 * Once PAK file installation is completed click FINISH.
 
