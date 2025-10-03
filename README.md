@@ -29,13 +29,7 @@ With Phyton programming and VCF Operations API knowledge, you can:
 - [System Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#system-requirements)
   - [Platform Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#platform-requirements)
   - [User Account Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#user-account-requirements)
-- [How does VCF Operations vCommunity Management Pack Work ?](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#how-does-vcf-operations-vcommunity-management-pack-work-)
-- [How Integration SDK Works ?](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#how-integration-sdk-works-)
-- [Installation](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#installation)
-- [Integration](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#integration)
-- [Contributing](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#contributing)
 - [Support](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#support)
-- [License](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#license)
 
 ## Description
 
