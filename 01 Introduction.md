@@ -18,18 +18,29 @@ With Phyton programming and VCF Operations API knowledge, you can:
 * Add your own alerts, dashboards, reports. To override existing ones, simply use the same ID
 * Add your own super metric. Take note you need to enable them manually in the Policy UI.
 
-![Adapter](assets/screenshots/VCF_Operations_vCommunity-Adapter.png)
+![Adapter](Documentation-Images/screenshots/VCF_Operations_vCommunity-Adapter.png)
 
 ### Dashboards
 New dashboards:
-* Critical Application dashboard
-* vSphere Resource Management dashboard
-* VM Storage Configuration dashboard
+* Critical Business Application 
+* vSphere Resource Management 
+* VM Storage Configuration 
 
 Enhanced dashboards:
 * VM Configuration
-* 
+* VM Capacity
+* VM Performance
+* vSphere Cluster Performance
+* vSphere Cluster Capacity
+* vSphere Cluster Configuration
+* ESXi Configuration
+* vSphere Network Configuration
 
+### Reports
+The reports were designed as 1 integrated suite. Use them to replace all the existing vSphere adapter reports.
+There are 2 types of reports
+* PDF. These are per pillar of operations
+* CSV. These are per object type, for export purpose.
 
 ### Additional Properties & Metrics
 - Cluster HA/DRS/EVC

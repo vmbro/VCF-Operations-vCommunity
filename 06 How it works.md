@@ -4,10 +4,10 @@ Custom Management Packs that are created by VCF Operations Integration SDK requi
 
 If Cloud Proxy has container registry access users can simply install PAK files then create an integration. There will be no need for any other modifications by users in VCF Operations.
 
-![Adapter-Topology](assets/screenshots/VCF_Operations_vCommunity_Topology.svg)
+![Adapter-Topology](Documentation-Images/screenshots/VCF_Operations_vCommunity_Topology.svg)
 
 ## How Integration SDK Works ?
 
 A Cloud Proxy collector process managing adapter containers, which each correspond to one adapter instance. Within each container is the REST server and the adapter process. The ```Commands.cfg``` file tells the REST server how to run the adapter process for each endpoint.
 
-![Adapter-Topology](assets/screenshots/VCF_Operations_Integration_SDK_Topology.png)
+![Adapter-Topology](Documentation-Images/screenshots/VCF_Operations_Integration_SDK_Topology.png)
