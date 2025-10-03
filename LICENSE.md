@@ -350,5 +350,6 @@ licensed material. For the avoidance of doubt, this paragraph does not
 form part of the public licenses.
 
 Creative Commons may be contacted at creativecommons.org.
+
 [![MIT License](https://licensebuttons.net/l/by-nc/4.0/88x31.png)](https://creativecommons.org/licenses/by-nc/4.0/)
 [Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/)
