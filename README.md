@@ -9,7 +9,7 @@
 
 # VCF Operations vCommunity
 
-This management pack lowers the knowledge barrier required to add your own content to VCF Operations. While the MP Builder is better for quick and simple addition, a native management pack empowers you to build more powerful features. 
+This management pack lowers the knowledge barrier required to add your own content to VCF Operations. While the MP Builder is better for quick and simple addition, a native management pack empowers you to build more advanced features. 
 
 With Phyton programming and VCF Operations API knowledge, you can:
 
@@ -20,85 +20,34 @@ With Phyton programming and VCF Operations API knowledge, you can:
 
 ![Adapter](assets/screenshots/VCF_Operations_vCommunity-Adapter.png)
 
+### Dashboards
+New dashboards:
+* Critical Application dashboard
+* vSphere Resource Management dashboard
+* VM Storage Configuration dashboard
 
-## Table of Contents
+Enhanced dashboards:
+* VM Configuration
+* 
 
-- [VCF Operations vCommunity](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#vcf-operations-vcommunity)
-- [Description](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#description)
-  - [Key Features](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#key-features)
-- [System Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#system-requirements)
-  - [Platform Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#platform-requirements)
-  - [User Account Requirements](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#user-account-requirements)
-- [Support](https://github.com/vmbro/VCF-Operations-vCommunity?tab=readme-ov-file#support)
 
-## Description
-
-This Management Pack extends the capabilities of VMware Aria Operations by delivering deeper visibility, smarter monitoring, and actionable insights for your infrastructure. It combines unique custom metrics with Windows-specific monitoring to help you ensure performance, availability, and reliability at scale.
-
-With this pack, you will gain a ready-to-use yet customizable toolkit that bridges the gap between raw infrastructure data and meaningful operational intelligence.
-
-### Key Features:
-
-* Unique custom metrics & properties for extended visibility
-* Windows Service Monitoring to track the status of critical services
-* Windows Event Log Monitoring for proactive detection of system issues
-* Advanced content: 44 dashboards, 169 views, 16 reports, and 37 super metrics for analytics and visualization
-
-### Some of collected key metrics
+### Additional Properties & Metrics
 - Cluster HA/DRS/EVC
-- ESXi Software Packages (VIB driver details)
-- ESXi Advanced Parameters
 - Virtual Machine Advanced Parameters
 - Virtual Machine Age
 - Virtual Machine Snapshot Count
   
+### Advanced Parameters
+You can collect any settings of ESXi, VM and vSphere Clusters. 
 
-## System Requirements
+### ESXi Software Packages
+(VIB driver details)
 
-### Platform Requirements
-* Aria Operations 8.18.x and higher including VCF Operations 9.x
-* vCenter Server 8 and higher including VCF 9.x
-* Aria Operations Cloud Proxy
-* Container Registry access to allow Cloud Proxy to install adapter requirements *(For the dark-site environments please see the [Questions & Answers ](https://github.com/vmbro/VCF-Operations-vCommunity/tree/main?tab=readme-ov-file#questions--answers) section for the workaround)*
+### Windows Service Monitoring:
+* Windows Service Monitoring to track the status of critical services
 
-Cloud Proxy will try to pull that container image from following example registry to set-up the adapter. This is by design of the VCF Operations Integration SDK.
-```
-ghcr.io/vmbro/vcf-operations-vcommunity:x.x.x_x.x
-```
-
-### User Account Requirements
-#### vCenter Server:
-* An account with read-only permission
-* Propagate to children option must be selected
-* ```Host.Configuration.ImageConfiguration``` (Need for collecting ESXi VIB packages)
-
-#### Windows Service Monitoring:
-*TBD*
-
-#### Windows Event Log Monitoring:
-*TBD*
-
-## Questions & Answers
-
-### 1. Can I use the VCF Operations vCommunity MP if my Cloud Proxy doesn't have internet access ?
-
-Yes, but it requires some additional steps to work with public registry. Please see [Using a Private Registry for VCF Operations vCommunity MP](https://github.com/vmbro/VCF-Operations-vCommunity/blob/main/Working-with-Private-Registry.md#using-a-private-registry-for-vcf-operations-vcommunity-mp)
-
-### 2. My Cloud Proxy does not have direct internet access. Can I configure proxy settings in the CP ?
-The cloud proxies support connection through the corporate proxy server. But, the proxy settings are given during OVF deployment.
-
-
-### 3. Which protocols should I have to work with Cloud Proxy ?
-
-HTTPS access is required for all Cloud Proxies that runs VCF Operations vCommunity Management pack to Container Registry access to **ghcr.io**
-
-### 4. Does Cloud Proxy need to have permanent registry/internet access ?
-After installing the .PAK file for the first time Cloud Proxy will try to pull the related container image from the registry. However, Cloud Proxy will try to pull the new container image after .PAK file upgrade process too. Since VCF Operations vCommunity MP continuesly updated it is recommended to have container registry access. This way, administrators can always easily upgrade this package.
-
-### 5. I can not install the PAK file due "No signature found on PAK file" error. How can I install the VCF Operations vCommunity MP ?
-Since the PAK file is not signed by VMware you need to enable "*Allow unsigned PAK installation*" feature from the https://VCF_Ops/admin UI Administrator Settings > Security Settings > ACTIVATE UNSIGNED PAK INSTALLATION
-
-After enabling that feature you will see the "*Ignore the PAK file signature checking.*" checkbox available on PAK installation wizard.
+### Windows Event Log Monitoring:
+* Windows Event Log Monitoring for proactive detection of system issues
 
 
 ## Support
