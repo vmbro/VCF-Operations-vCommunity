@@ -48,11 +48,3 @@ You can collect any settings of ESXi, VM and vSphere Clusters.
 
 ### Windows Event Log Monitoring:
 * Windows Event Log Monitoring for proactive detection of system issues
-
-
-## Support
-Submit an issue on this repository.
-
-Contacts:
-[LinkedIn](https://www.linkedin.com/in/oyuzseven/)
-[LinkedIn](https://www.linkedin.com/in/e1ang/)
