@@ -84,44 +84,6 @@ ghcr.io/vmbro/vcf-operations-vcommunity:x.x.x_x.x
 #### Windows Event Log Monitoring:
 *TBD*
 
-## How does VCF Operations vCommunity Management Pack Work ? 
-Custom Management Packs that are created by VCF Operations Integration SDK require some additional requirements. MPs created by the Integration SDK need to run on only cloud proxy for the data collection. Once you installed the PAK file and created an integration with any account Cloud Proxy tries to access the adapter container registry to pull docker image configuration. After that docker image will install the necessary files that are defined in the DockerFile then the PAK file will be initialized for the data collection process.
-
-If Cloud Proxy has container registry access users can simply install PAK files then create an integration. There will be no need for any other modifications by users in VCF Operations.
-
-![Adapter-Topology](assets/screenshots/VCF_Operations_vCommunity_Topology.svg)
-
-## How Integration SDK Works ?
-
-A Cloud Proxy collector process managing adapter containers, which each correspond to one adapter instance. Within each container is the REST server and the adapter process. The ```Commands.cfg``` file tells the REST server how to run the adapter process for each endpoint.
-
-![Adapter-Topology](assets/screenshots/VCF_Operations_Integration_SDK_Topology.png)
-
-## Installation
-*  Navigate Administration > Integrations > Repository Tab and click Add in VCF Operations 
-
-* Browse the `VCFOperationsvCommunity_x.x.x.pak` file and select "Install the PAK file even if it is already installed." to override the installation and select "Ignore the PAK file signature checking." since VCF Operations vCommunity MP is unsinged to allow VCF Operations install the .pak file. Lastly, upload the file and click Next.
-
-![Adapter-Topology](assets/screenshots/Installation-Step-1.png)
-
-* Accept the End User License Agreement to continue and click Next.
-
-![Adapter-Topology](assets/screenshots/Installation-Step-2.png)
-
-* Once PAK file installation is completed click FINISH.
-
-![Adapter-Topology](assets/screenshots/Installation-Step-3.png)
-
-* You can review the VCF Operations vCommunity Management Pack under the Repository Tab.
-
-![Adapter-Topology](assets/screenshots/Installation-Step-4.png)
-
-## Integration
-You can simply add your vCenter that you want to extend with custom metrics and contents, add your vCenter FQDN and select a Cloud Proxy for the data collection. Other features are optional and left for user choice. If cloud proxy has container registry access then adapter should start data collection shortly.
-
-![Adapter-Topology](assets/screenshots/Adapter_Account_Integration.png)
-
-
 ## Questions & Answers
 
 ### 1. Can I use the VCF Operations vCommunity MP if my Cloud Proxy doesn't have internet access ?
