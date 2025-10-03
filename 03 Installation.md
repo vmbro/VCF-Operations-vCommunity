@@ -21,9 +21,9 @@ Login as admin
 
 * Once PAK file installation is completed click FINISH.
 
-![Adapter-Topology](documentation-images/screenshots/Installation/Installation-Step-3.png)
+![Adapter-Topology](Documentation-Images/screenshots/Installation/Installation-Step-3.png)
 
 * You can review the VCF Operations vCommunity Management Pack under the Repository Tab.
 
-![Adapter-Topology](documentation-images/screenshots/Installation/Installation-Step-4.png)
+![Adapter-Topology](Documentation-Images/screenshots/Installation/Installation-Step-4.png)
 
