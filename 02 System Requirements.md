@@ -22,4 +22,4 @@ FYI, Internet proxy setting is available durng the OVF deployment.
 #### vCenter Server:
 * An account with read-only permission
 * Propagate to children option must be selected
-* ```Host.Configuration.ImageConfiguration``` (Need for collecting ESXi VIB packages)
+* ```Host.Configuration.ImageConfiguration``` (Need for collecting ESXi VIB packages, ESXi Install Date)
