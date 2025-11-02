@@ -1,0 +1,495 @@
+{
+   "entries": {
+      "resourceKind": [
+         {
+            "resourceKindKey": "Datacenter",
+            "internalId": "resourceKind:id:1_::_",
+            "adapterKindKey": "VMWARE"
+         },
+         {
+            "resourceKindKey": "vSphere World",
+            "internalId": "resourceKind:id:0_::_",
+            "adapterKindKey": "VMWARE"
+         }
+      ],
+      "resource": [{
+         "resourceKindKey": "vSphere World",
+         "internalId": "resource:id:0_::_",
+         "adapterKindKey": "VMWARE",
+         "identifiers": [],
+         "name": "vSphere World"
+      }]
+   },
+   "dashboards": [{
+      "shared": true,
+      "temporary": false,
+      "hidden": true,
+      "creationTime": 1762090923516,
+      "autoswitchEnabled": false,
+      "importAttempts": 0,
+      "columnProportion": "1",
+      "importComplete": true,
+      "description": "Highlight vSphere network configuration that needs your attention. Use this dashboard to fix incorrect settings, update outdated components, and reduce overall cost by optimizing your environment. The dashboard is organized top down, where configuration that needs your attention is shown first. No data on a chart means the configuration is optimized.",
+      "widgets": [
+         {
+            "collapsed": false,
+            "id": "a5564515-b723-4263-994b-99982b6037b0",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 5,
+               "y": 10
+            },
+            "type": "View",
+            "title": "Distributed Switches",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Distributed Switches",
+               "viewDefinitionId": "ba5d47b2-2a6d-4f19-8e11-105fb13c5bf9"
+            },
+            "height": 267,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Ctotal_number_hosts1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Cversion2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-capability%2525257CnicTeamingPolicy3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_teaming4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_vlan_mtu5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-Super%25252520Metric%2525257Csm_f30f298c-385f-4ef8-b511-4092a348a3466%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-Super%25252520Metric%2525257Csm_0c648c9c-cede-4403-b8fe-500067629bf07%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "7d628521-8269-486b-b345-f348f1241591",
+            "gridsterCoords": {
+               "w": 2,
+               "x": 7,
+               "h": 5,
+               "y": 5
+            },
+            "type": "View",
+            "title": "Port Group: Allow Promiscuous Mode",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Port Group: Allow Promiscuous Mode",
+               "viewDefinitionId": "24bd3eec-5fe8-4a90-9ad9-fa570b791973"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "id": "a7c91bba-721c-4757-945d-cead46faa813",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 8,
+               "y": 15
+            },
+            "type": "View",
+            "title": "Port Groups",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "vSphere Networking-VMWARE-vSphere World",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Port Groups",
+               "viewDefinitionId": "49b13b68-dee2-483d-8df8-1b6d7957d01c"
+            },
+            "height": 438,
+            "states": [
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-summary%2525257Cused_num_ports1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-Super%25252520Metric%2525257Csm_3ec095da-c812-4baf-b0fa-3c24133925182%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cbacking_type3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Csecurity%2525257Cvlan_id4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Csecurity%2525257Cvlan_trunk_id5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cblock_override_allowed6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Clive_port_moving_allowed7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cipfix_override_allowed8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cnetwork_resourcepool_moving_override_allowed9%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cport_config_reset_at_disconnect10%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Csecurity_policy_override_allowed11%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cshaping_override_allowed12%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cuplink_teaming_override_allowed13%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cvendor_config_override_allowed14%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Coverride%2525257Cvlan_override_allowed15%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Csecurity%2525257Callow_promiscuous16%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Csecurity%2525257Cforged_transmits17%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cpolicies%2525257Csecurity%2525257Cmac_changes18%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-summary%2525257Cmax_num_ports19%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257CsegmentID20%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257ClogicalSwitchUuid21%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813-column-config%2525257Cuplink22%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813"
+               },
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22DAYS%22%2C%22count%22%3A7%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3A%5B%5D%2C%22tuesdayHours%22%3A%5B%5D%2C%22wednesdayHours%22%3A%5B%5D%2C%22thursdayHours%22%3A%5B%5D%2C%22fridayHours%22%3A%5B%5D%2C%22saturdayHours%22%3A%5B%5D%2C%22sundayHours%22%3A%5B%5D%7D",
+                  "key": "permSelectedDate_widget_769d7441-2926-413a-99cc-7641c0c78b63_a7c91bba-721c-4757-945d-cead46faa813"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "41ffc0f5-3d6c-4993-a67d-ffb4e492704f",
+            "gridsterCoords": {
+               "w": 2,
+               "x": 11,
+               "h": 5,
+               "y": 5
+            },
+            "type": "View",
+            "title": "Port Group: Allow MAC Address Change",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Port Group: Allow MAC Address Change",
+               "viewDefinitionId": "0a898851-197b-4e82-baf6-a2a89acd600a"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "id": "d064f862-92fa-4c20-9307-617d55c5a4ab",
+            "gridsterCoords": {
+               "w": 2,
+               "x": 9,
+               "h": 5,
+               "y": 5
+            },
+            "type": "View",
+            "title": "Port Group: Allow Forged Transmit",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Port Group: Allow Forged Transmit",
+               "viewDefinitionId": "6dbbe2bc-2593-4288-9d4c-23995e28009d"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "id": "40d0886e-2707-4e87-a2d5-a17082919cf4",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 3,
+               "h": 5,
+               "y": 5
+            },
+            "type": "View",
+            "title": "Switch Version",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Switch Version",
+               "viewDefinitionId": "1fa18cd9-f908-4120-9c81-797282a3db37"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "id": "8951f5cd-f8cb-4a77-8f14-1a83afef8205",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 1,
+               "h": 8,
+               "y": 23
+            },
+            "type": "View",
+            "title": "ESXi Hosts",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "ESXi Hosts",
+               "viewDefinitionId": "6f0a54e7-c3a5-42bb-a989-fda47cf1c50a"
+            },
+            "height": 438,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-host%2525253A10.156.17.100%2525257Cconfig_outofsync2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-host%2525253A10.156.17.100%2525257Cteaming_mismatch3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-host%2525253A10.156.17.100%2525257Cmtu_mismatch4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-host%2525253A10.156.17.100%2525257Cmtu_unsupported5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205-column-host%2525253A10.156.17.100%2525257Cvlans_unsupported6%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_8951f5cd-f8cb-4a77-8f14-1a83afef8205"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "54428e56-d55b-41fc-9161-1ef1d1add193",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 7,
+               "h": 8,
+               "y": 23
+            },
+            "type": "View",
+            "title": "VMs",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "vSphere Networking-VMWARE-vSphere World",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs",
+               "viewDefinitionId": "f982ee15-5502-49e2-8efc-0a405b5bfa83"
+            },
+            "height": 438,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-summary%2525257Cruntime%2525257CpowerState1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-summary%2525257Cconfig%2525257CnumEthernetCards2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-net%2525253A4000%2525257Cip_address3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-net%2525253A4000%2525257Cmac_address4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-summary%2525257CparentDatacenter5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-summary%2525257CparentCluster6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193-column-summary%2525257Cguest%2525257CfullName7%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_54428e56-d55b-41fc-9161-1ef1d1add193"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "157f5e61-01c4-4f79-b30e-45aefc2b7630",
+            "gridsterCoords": {
+               "w": 5,
+               "x": 3,
+               "h": 4,
+               "y": 1
+            },
+            "type": "HealthChart",
+            "title": "Configuration Issues",
+            "config": {
+               "yellowBound": 1,
+               "metricName": "Super Metrics|Total Network Configuration Issues",
+               "metricKey": "Super Metric|sm_0c648c9c-cede-4403-b8fe-500067629bf0",
+               "relationshipMode": {"relationshipMode": 0},
+               "sortByDir": {"orderByDir": "asc"},
+               "title": "Configuration Issues",
+               "showResourceName": {"showResourceName": false},
+               "chartHeight": 135,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "all",
+               "metricType": {"metricType": "custom"},
+               "filterMode": "tagPicker",
+               "tagFilter": null,
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": false},
+               "refreshInterval": 300,
+               "resource": [],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:0_::_",
+               "orangeBound": 5,
+               "metricFullName": "Super Metrics|Total Network Configuration Issues",
+               "showMetricLabel": {"showMetricLabel": false},
+               "depth": 1,
+               "metricLabel": "",
+               "redBound": 10
+            },
+            "height": 210,
+            "states": [{
+               "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+               "key": "permDateRange_HealthChart_widget_769d7441-2926-413a-99cc-7641c0c78b63_157f5e61-01c4-4f79-b30e-45aefc2b7630"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "gridsterCoords": {
+               "w": 2,
+               "x": 1,
+               "h": 9,
+               "y": 1
+            },
+            "type": "View",
+            "title": "Select a DC or World",
+            "config": {
+               "refreshInterval": 300,
+               "resource": {
+                  "resourceId": "resource:id:0_::_",
+                  "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
+                  "resourceName": "vSphere World",
+                  "resourceKindId": "002006VMWAREvSphere World",
+                  "id": "Ext.vcops.chrome.model.Resource-14"
+               },
+               "traversalSpecId": null,
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": true},
+               "title": "Select a DC or World",
+               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+            },
+            "height": 495,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_cdb643b9-cfc0-46e6-b3b4-778055645d1f"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "c86fcd8c-f253-4940-9940-e5b668b88353",
+            "gridsterCoords": {
+               "w": 5,
+               "x": 8,
+               "h": 4,
+               "y": 1
+            },
+            "type": "HealthChart",
+            "title": "Network Speed Degradation",
+            "config": {
+               "yellowBound": 1,
+               "metricName": "Super Metrics|Total Network Speed Degradation",
+               "metricKey": "Super Metric|sm_3d21df83-083e-46b6-a6c0-5f7f2ae776c5",
+               "relationshipMode": {"relationshipMode": 0},
+               "sortByDir": {"orderByDir": "asc"},
+               "title": "Network Speed Degradation",
+               "showResourceName": {"showResourceName": false},
+               "chartHeight": 135,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "all",
+               "metricType": {"metricType": "custom"},
+               "filterMode": "tagPicker",
+               "tagFilter": null,
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": false},
+               "refreshInterval": 300,
+               "resource": [],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:1_::_",
+               "orangeBound": 2,
+               "metricFullName": "Super Metrics|Total Network Speed Degradation",
+               "showMetricLabel": {"showMetricLabel": false},
+               "depth": 1,
+               "metricLabel": "",
+               "redBound": 4
+            },
+            "height": 210,
+            "states": [{
+               "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+               "key": "permDateRange_HealthChart_widget_769d7441-2926-413a-99cc-7641c0c78b63_c86fcd8c-f253-4940-9940-e5b668b88353"
+            }]
+         }
+      ],
+      "states": [],
+      "homeTab": false,
+      "rank": 0,
+      "disabled": false,
+      "id": "769d7441-2926-413a-99cc-7641c0c78b63",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "locked": false,
+      "dashboardNavigations": {},
+      "widgetInteractions": [
+         {
+            "widgetIdProvider": "a5564515-b723-4263-994b-99982b6037b0",
+            "type": "resourceId",
+            "widgetIdReceiver": "a7c91bba-721c-4757-945d-cead46faa813"
+         },
+         {
+            "widgetIdProvider": "a5564515-b723-4263-994b-99982b6037b0",
+            "type": "resourceId",
+            "widgetIdReceiver": "8951f5cd-f8cb-4a77-8f14-1a83afef8205"
+         },
+         {
+            "widgetIdProvider": "a5564515-b723-4263-994b-99982b6037b0",
+            "type": "resourceId",
+            "widgetIdReceiver": "54428e56-d55b-41fc-9161-1ef1d1add193"
+         },
+         {
+            "widgetIdProvider": "8951f5cd-f8cb-4a77-8f14-1a83afef8205",
+            "type": "resourceId",
+            "widgetIdReceiver": "54428e56-d55b-41fc-9161-1ef1d1add193"
+         },
+         {
+            "widgetIdProvider": "a7c91bba-721c-4757-945d-cead46faa813",
+            "type": "resourceId",
+            "widgetIdReceiver": "54428e56-d55b-41fc-9161-1ef1d1add193"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "157f5e61-01c4-4f79-b30e-45aefc2b7630"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "7d628521-8269-486b-b345-f348f1241591"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "d064f862-92fa-4c20-9307-617d55c5a4ab"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "41ffc0f5-3d6c-4993-a67d-ffb4e492704f"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "a5564515-b723-4263-994b-99982b6037b0"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "40d0886e-2707-4e87-a2d5-a17082919cf4"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "a7c91bba-721c-4757-945d-cead46faa813"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "54428e56-d55b-41fc-9161-1ef1d1add193"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "8951f5cd-f8cb-4a77-8f14-1a83afef8205"
+         },
+         {
+            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
+            "type": "resourceId",
+            "widgetIdReceiver": "c86fcd8c-f253-4940-9940-e5b668b88353"
+         }
+      ],
+      "namePath": "vCommunity",
+      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "docCenterKey": "vcom_523",
+      "columnCount": 1,
+      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "name": "vCommunity/vSphere Network Configuration 2.0",
+      "gridsterMaxColumns": 12,
+      "lastUpdateTime": 1762090923479
+   }],
+   "uuid": "ee645c77-4ce6-489a-acc7-51016e01d229"
+}
