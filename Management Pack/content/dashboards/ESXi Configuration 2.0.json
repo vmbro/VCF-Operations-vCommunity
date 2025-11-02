@@ -1,0 +1,712 @@
+{
+   "entries": {"resource": [{
+      "resourceKindKey": "vSphere World",
+      "internalId": "resource:id:0_::_",
+      "adapterKindKey": "VMWARE",
+      "identifiers": [],
+      "name": "vSphere World"
+   }]},
+   "dashboards": [{
+      "shared": true,
+      "temporary": false,
+      "hidden": true,
+      "creationTime": 1762090917923,
+      "autoswitchEnabled": false,
+      "importAttempts": 0,
+      "columnProportion": "1",
+      "importComplete": true,
+      "description": "Highlight ESXi Host configurations that need your attention. Use this dashboard to fix incorrect settings, update outdated components and reduce overall cost by optimizing your environment. The dashboard is organized top down, where configuration that needs your attention is shown first. No data on a chart means the configuration is optimized.",
+      "widgets": [
+         {
+            "collapsed": false,
+            "x": 3,
+            "y": 2,
+            "id": "23342fed-1006-449f-abd8-56bea2e96664",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 4,
+               "h": 5,
+               "y": 6
+            },
+            "type": "View",
+            "title": "BIOS Version",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "BIOS Version",
+               "viewDefinitionId": "c94b11bf-18c5-41c4-80fe-26ae5882dd45"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "x": 2,
+            "y": 1,
+            "id": "eeb1153e-adea-4557-a096-37f4babecc3e",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 7,
+               "h": 5,
+               "y": 1
+            },
+            "type": "View",
+            "title": "CPU Model",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Model",
+               "viewDefinitionId": "38896046-e276-47f0-9c78-fd0e1c74b364"
+            },
+            "height": 267,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_toolbarVisible_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_eeb1153e-adea-4557-a096-37f4babecc3e"
+            }]
+         },
+         {
+            "collapsed": false,
+            "x": 4,
+            "y": 1,
+            "id": "98af9247-40c9-4e34-a3a6-9c1a51dd60da",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 13,
+               "y": 21
+            },
+            "type": "View",
+            "title": "All ESXi Configuration",
+            "config": {
+               "refreshInterval": 300,
+               "resource": {
+                  "resourceId": "resource:id:0_::_",
+                  "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
+                  "resourceName": "vSphere World",
+                  "resourceKindId": "002006VMWAREvSphere World",
+                  "id": "Ext.vcops.chrome.model.Resource-147"
+               },
+               "traversalSpecId": null,
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": true},
+               "title": "All ESXi Configuration",
+               "viewDefinitionId": "4d9b6ad6-3325-42ff-8593-77793e547a4d"
+            },
+            "height": 723,
+            "states": [
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22DAYS%22%2C%22count%22%3A7%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3Anull%2C%22tuesdayHours%22%3Anull%2C%22wednesdayHours%22%3Anull%2C%22thursdayHours%22%3Anull%2C%22fridayHours%22%3Anull%2C%22saturdayHours%22%3Anull%2C%22sundayHours%22%3Anull%7D",
+                  "key": "permSelectedDate_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da"
+               },
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257Cvendor1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CvendorModel2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cproduct%2525257CapiVersion3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-summary%2525257Cversion4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CbiosVersion5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-cpu%2525257CcpuModel6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CcpuInfo%2525257CnumCpuPackages7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CcpuInfo%2525257Chz8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CcpuInfo%2525257CnumCpuCores9%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257ChyperThread%2525257Cactive10%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257ChyperThread%2525257Cavailable11%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-mem%2525257CtotalCapacity_average12%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CpowerManagementTechnoloy13%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CpowerManagementPolicy14%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-sys%2525257CvmotionEnabled15%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Csecurity%2525257Cservice%2525253ANTP%25252520Daemon%2525257CisRunning16%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Csecurity%2525257Cservice%2525253ASNMP%25252520Server%2525257CisRunning17%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Csecurity%2525257Cservice%2525253ASSH%2525257CisRunning18%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257CstorageDevice%2525257CmultipathInfo%2525257CnumberofActivePath19%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257CstorageDevice%2525257CmultipathInfo%2525257CmultipathPolicy20%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257CstorageDevice%2525257CmultipathInfo%2525257CnumberofActivePath21%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257CstorageDevice%2525257CplugStoreTopology%2525257CnumberofPath22%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-runtime%2525257CcryptoState23%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cnetwork%2525257Cnnic24%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cnetwork%2525257Clinkspeed25%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-summary%2525257CparentCluster26%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-summary%2525257CparentDatacenter27%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-summary%2525257CparentVcenter28%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cnetwork%2525257Cportgroup%2525257Callow_promiscuous_rollup29%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cnetwork%2525257Cportgroup%2525257Cforged_transmits_rollup30%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-config%2525257Cnetwork%2525257Cportgroup%2525257Cmac_changes_rollup31%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CbiosReleaseDate32%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CenclosureSerialNumberTag33%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CserialNumberTag34%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da-column-hardware%2525257CserviceTag35%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_98af9247-40c9-4e34-a3a6-9c1a51dd60da"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "05e4c11f-8d57-40e0-ada6-3eb17940933f",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 7,
+               "h": 4,
+               "y": 17
+            },
+            "type": "View",
+            "title": "NIC Speeds (Mbps)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "NIC Speeds (Mbps)",
+               "viewDefinitionId": "d4ba9e73-bc26-4f5f-8cef-504a37cfc988"
+            },
+            "height": 210
+         },
+         {
+            "collapsed": false,
+            "id": "dd829104-0cf3-40fb-89b6-136ce3d07826",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 4,
+               "h": 4,
+               "y": 17
+            },
+            "type": "View",
+            "title": "Hyper Threading enabled?",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Hyper Threading enabled?",
+               "viewDefinitionId": "74639bd8-2ece-4032-b22f-ffc23e65598f"
+            },
+            "height": 210
+         },
+         {
+            "collapsed": false,
+            "id": "daaa0500-67f1-474c-9513-feb7ed25a11c",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 1,
+               "h": 4,
+               "y": 17
+            },
+            "type": "View",
+            "title": "Active Storage Paths",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Active Storage Paths",
+               "viewDefinitionId": "51ea3aa0-2671-44da-ac00-8c265767ad83"
+            },
+            "height": 210
+         },
+         {
+            "collapsed": false,
+            "id": "d8f080be-d3a9-43da-a879-f701bb83b945",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 5,
+               "h": 6,
+               "y": 11
+            },
+            "type": "View",
+            "title": "CPU Throughput (GHz)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Throughput (GHz)",
+               "viewDefinitionId": "e2d1f3c7-336f-4eeb-80a1-144d1252bc5e"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "x": 1,
+            "y": 2,
+            "id": "b531a63a-459a-44cb-9aa4-069eaee5d077",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 6,
+               "y": 11
+            },
+            "type": "View",
+            "title": "Memory Capacity (TB)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Memory Capacity (TB)",
+               "viewDefinitionId": "5c20ba39-9d8b-4272-b01d-8dbafeded995"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "x": 1,
+            "y": 2,
+            "id": "1ba7723a-4322-455a-8ff8-8196f2acd474",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 1,
+               "h": 6,
+               "y": 11
+            },
+            "type": "View",
+            "title": "CPU Capacity (cores)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Capacity (cores)",
+               "viewDefinitionId": "45281acb-5643-4a0c-b4d2-300548289b89"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "x": 1,
+            "y": 2,
+            "id": "c6787972-92d5-431f-941a-8b7a548a8ea5",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 1,
+               "h": 5,
+               "y": 6
+            },
+            "type": "View",
+            "title": "ESXi Versions",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "ESXi Versions",
+               "viewDefinitionId": "524d0468-8f9d-460b-a2a5-95c2d8846661"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "x": 2,
+            "y": 1,
+            "id": "bcfd7e12-4762-4eda-8385-535345074883",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 4,
+               "h": 5,
+               "y": 1
+            },
+            "type": "View",
+            "title": "CPU Sockets",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Sockets",
+               "viewDefinitionId": "41127d01-e62b-4d46-89d4-7293ed86103c"
+            },
+            "height": 267
+         },
+         {
+            "collapsed": false,
+            "x": 2,
+            "y": 1,
+            "id": "0a8fe6c4-7f7c-4ef1-b198-d9a601fa18f6",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 10,
+               "h": 5,
+               "y": 6
+            },
+            "type": "View",
+            "title": "Power Management (BIOS)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Power Management (BIOS)",
+               "viewDefinitionId": "d204cfc6-c31e-480f-9d12-008fb57a3dfa"
+            },
+            "height": 267,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_0a8fe6c4-7f7c-4ef1-b198-d9a601fa18f6"
+            }]
+         },
+         {
+            "collapsed": false,
+            "x": 2,
+            "y": 1,
+            "id": "1aee9e23-99ad-487c-b55a-74da539e5ebb",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 7,
+               "h": 5,
+               "y": 6
+            },
+            "type": "View",
+            "title": "Power Management (ESXi)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Power Management (ESXi)",
+               "viewDefinitionId": "224daf12-865a-44da-9763-55a2841c8bab"
+            },
+            "height": 267,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_1aee9e23-99ad-487c-b55a-74da539e5ebb"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 1,
+               "h": 5,
+               "y": 1
+            },
+            "type": "View",
+            "title": "Select a DC or World",
+            "config": {
+               "refreshInterval": 300,
+               "resource": {
+                  "resourceId": "resource:id:0_::_",
+                  "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
+                  "resourceName": "vSphere World",
+                  "resourceKindId": "002006VMWAREvSphere World",
+                  "id": "Ext.vcops.chrome.model.Resource-14"
+               },
+               "traversalSpecId": null,
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": true},
+               "title": "Select a DC or World",
+               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+            },
+            "height": 267,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_7afa72b0-f8c3-4f06-8086-707277df2fff"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "f86f252f-dc43-4eae-bfb9-3af966e4cc09",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 1,
+               "h": 6,
+               "y": 34
+            },
+            "type": "View",
+            "title": "Network Interfaces",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Network Interfaces",
+               "viewDefinitionId": "39b1dc9d-2218-4ade-8fd7-a75f07dda262"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_f86f252f-dc43-4eae-bfb9-3af966e4cc09-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_f86f252f-dc43-4eae-bfb9-3af966e4cc09-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_f86f252f-dc43-4eae-bfb9-3af966e4cc09-column-net%2525253Avmk0%2525257Cip_address2%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_f86f252f-dc43-4eae-bfb9-3af966e4cc09"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "6b3989d1-8399-48e5-9341-328e75905691",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 7,
+               "h": 6,
+               "y": 34
+            },
+            "type": "View",
+            "title": "Storage Adapters",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Storage Adapters",
+               "viewDefinitionId": "8069cc3c-0866-4b7a-850d-1b82ab5f080e"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_6b3989d1-8399-48e5-9341-328e75905691-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_6b3989d1-8399-48e5-9341-328e75905691-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_6b3989d1-8399-48e5-9341-328e75905691-column-storageAdapter%2525253Avmhba0%2525257ChbaDriver2%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_6b3989d1-8399-48e5-9341-328e75905691"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "a8bd19a2-bdc9-4c58-9327-f9e6157236d5",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 10,
+               "h": 4,
+               "y": 17
+            },
+            "type": "View",
+            "title": "NIC Counts",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "NIC Counts",
+               "viewDefinitionId": "39e00d79-920b-4d6a-bf44-e7eb2eb69df8"
+            },
+            "height": 210
+         },
+         {
+            "collapsed": false,
+            "id": "1bb06708-123b-4f1a-b520-40967f184f51",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 10,
+               "h": 6,
+               "y": 34
+            },
+            "type": "View",
+            "title": "Security Policies",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Security Policies",
+               "viewDefinitionId": "c91284fc-127a-483f-8ed2-84cc161c44ad"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_1bb06708-123b-4f1a-b520-40967f184f51-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_1bb06708-123b-4f1a-b520-40967f184f51-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_1bb06708-123b-4f1a-b520-40967f184f51-column-config%2525257Csecurity%2525257Cservice%2525253ADirect%25252520Console%25252520UI%2525257Cpolicy2%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_1bb06708-123b-4f1a-b520-40967f184f51"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "562c1935-a0cb-4f1f-8019-8cda375faae2",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 10,
+               "h": 5,
+               "y": 1
+            },
+            "type": "View",
+            "title": "CPU Speed (GHz)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["legend"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Speed (GHz)",
+               "viewDefinitionId": "44fe1b68-813f-4381-a74f-74432b97c1e7"
+            },
+            "height": 266,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_562c1935-a0cb-4f1f-8019-8cda375faae2"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "9962928b-9afa-42e1-b751-ef5f94ae34ed",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 4,
+               "h": 6,
+               "y": 34
+            },
+            "type": "View",
+            "title": "Network Cards",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Network Cards",
+               "viewDefinitionId": "e77a32c0-16f4-4d3e-aabe-0d1354154d4b"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed-column-net%2525253Avmnic0%2525257Cspeed2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed-column-net%2525253Avmnic0%2525257CconfiguredSpeed3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed-column-net%2525253Avmnic0%2525257CnicDriver4%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_b1b3ede5-32f2-4c49-a1a8-443dc23bd993_9962928b-9afa-42e1-b751-ef5f94ae34ed"
+            }]
+         }
+      ],
+      "states": [],
+      "homeTab": false,
+      "rank": 0,
+      "disabled": false,
+      "id": "b1b3ede5-32f2-4c49-a1a8-443dc23bd993",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "locked": false,
+      "dashboardNavigations": {},
+      "widgetInteractions": [
+         {
+            "widgetIdProvider": "98af9247-40c9-4e34-a3a6-9c1a51dd60da",
+            "type": "resourceId",
+            "widgetIdReceiver": "f86f252f-dc43-4eae-bfb9-3af966e4cc09"
+         },
+         {
+            "widgetIdProvider": "98af9247-40c9-4e34-a3a6-9c1a51dd60da",
+            "type": "resourceId",
+            "widgetIdReceiver": "6b3989d1-8399-48e5-9341-328e75905691"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "bcfd7e12-4762-4eda-8385-535345074883"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "23342fed-1006-449f-abd8-56bea2e96664"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "c6787972-92d5-431f-941a-8b7a548a8ea5"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "eeb1153e-adea-4557-a096-37f4babecc3e"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "dd829104-0cf3-40fb-89b6-136ce3d07826"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "0a8fe6c4-7f7c-4ef1-b198-d9a601fa18f6"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "1aee9e23-99ad-487c-b55a-74da539e5ebb"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "1ba7723a-4322-455a-8ff8-8196f2acd474"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "d8f080be-d3a9-43da-a879-f701bb83b945"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "b531a63a-459a-44cb-9aa4-069eaee5d077"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "05e4c11f-8d57-40e0-ada6-3eb17940933f"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "daaa0500-67f1-474c-9513-feb7ed25a11c"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "98af9247-40c9-4e34-a3a6-9c1a51dd60da"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "a8bd19a2-bdc9-4c58-9327-f9e6157236d5"
+         },
+         {
+            "widgetIdProvider": "98af9247-40c9-4e34-a3a6-9c1a51dd60da",
+            "type": "resourceId",
+            "widgetIdReceiver": "1bb06708-123b-4f1a-b520-40967f184f51"
+         },
+         {
+            "widgetIdProvider": "7afa72b0-f8c3-4f06-8086-707277df2fff",
+            "type": "resourceId",
+            "widgetIdReceiver": "562c1935-a0cb-4f1f-8019-8cda375faae2"
+         },
+         {
+            "widgetIdProvider": "98af9247-40c9-4e34-a3a6-9c1a51dd60da",
+            "type": "resourceId",
+            "widgetIdReceiver": "9962928b-9afa-42e1-b751-ef5f94ae34ed"
+         }
+      ],
+      "namePath": "vCommunity",
+      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "docCenterKey": "vcom_522",
+      "columnCount": 1,
+      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "name": "vCommunity/ESXi Configuration 2.0",
+      "gridsterMaxColumns": 12,
+      "lastUpdateTime": 1762090917900
+   }],
+   "uuid": "c105a18b-a9d5-4a9d-a8c1-c7dd7f6a0f29"
+}
