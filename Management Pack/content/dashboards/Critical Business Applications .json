@@ -1,0 +1,580 @@
+{
+   "entries": {
+      "resourceKind": [
+         {
+            "resourceKindKey": "Manual Application",
+            "internalId": "resourceKind:id:0_::_",
+            "adapterKindKey": "Container"
+         },
+         {
+            "resourceKindKey": "VirtualMachine",
+            "internalId": "resourceKind:id:1_::_",
+            "adapterKindKey": "VMWARE"
+         },
+         {
+            "resourceKindKey": "Enterprise",
+            "internalId": "resourceKind:id:2_::_",
+            "adapterKindKey": "Container"
+         },
+         {
+            "resourceKindKey": "BusinessService",
+            "internalId": "resourceKind:id:3_::_",
+            "adapterKindKey": "Container"
+         }
+      ],
+      "resource": [{
+         "resourceKindKey": "Enterprise",
+         "internalId": "resource:id:0_::_",
+         "adapterKindKey": "Container",
+         "identifiers": [],
+         "name": "Entire Enterprise Applications"
+      }]
+   },
+   "dashboards": [{
+      "shared": true,
+      "temporary": false,
+      "hidden": false,
+      "creationTime": 1762090908962,
+      "autoswitchEnabled": false,
+      "importAttempts": 0,
+      "columnProportion": "1-1",
+      "importComplete": true,
+      "description": "It shows Multi-tier Business Applications, focusing on their performance and availability.",
+      "widgets": [
+         {
+            "collapsed": false,
+            "id": "8954a8ec-6b02-4280-80c8-3712d5b5d354",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 5,
+               "h": 13,
+               "y": 6
+            },
+            "type": "HealthChart",
+            "title": "Tiers in the selected Applications",
+            "config": {
+               "yellowBound": 75,
+               "metricName": "Super Metrics|OYW Business Application Tier KPI (%)",
+               "metricKey": "Super Metric|sm_ad345475-262c-4f2e-8fa5-dbef75e09810",
+               "relationshipMode": {"relationshipMode": -1},
+               "sortByDir": {"orderByDir": "asc"},
+               "title": "Tiers in the selected Applications",
+               "showResourceName": {"showResourceName": true},
+               "chartHeight": 135,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "all",
+               "filterMode": "tagPicker",
+               "metricType": {"metricType": "custom"},
+               "tagFilter": null,
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": false},
+               "refreshInterval": 300,
+               "resource": [],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:0_::_",
+               "orangeBound": 50,
+               "metricFullName": "Super Metrics|OYW Business Application Tier KPI (%)",
+               "depth": 1,
+               "showMetricLabel": {"showMetricLabel": false},
+               "metricLabel": "",
+               "redBound": 25
+            },
+            "height": 723,
+            "states": [
+               {
+                  "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+                  "key": "permDateRange_HealthChart_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_8954a8ec-6b02-4280-80c8-3712d5b5d354"
+               },
+               {
+                  "value": "b%3A1",
+                  "key": "perm_toolbarVisible_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_8954a8ec-6b02-4280-80c8-3712d5b5d354"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "b31406b8-e596-4c9c-8aed-508d19e33952",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 13,
+               "y": 6
+            },
+            "type": "HealthChart",
+            "title": "Virtual Machines in selected Tier",
+            "config": {
+               "yellowBound": 75,
+               "metricName": "Super Metrics|VM Performance (%)",
+               "metricKey": "Super Metric|sm_9ee466de-616a-41a9-b573-e8513e646ea3",
+               "relationshipMode": {"relationshipMode": -1},
+               "sortByDir": {"orderByDir": "desc"},
+               "title": "Virtual Machines in selected Tier",
+               "showResourceName": {"showResourceName": true},
+               "chartHeight": 135,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "all",
+               "metricType": {"metricType": "custom"},
+               "filterMode": "tagPicker",
+               "tagFilter": {
+                  "path": ["/source/kind/kind:resourceKind:id:1_::_"],
+                  "value": {
+                     "bus": [],
+                     "adapterKind": [],
+                     "kind": ["resourceKind:id:1_::_"],
+                     "exclaim": false,
+                     "healthRange": [],
+                     "maintenanceSchedule": [],
+                     "adapterInstance": [],
+                     "collector": [],
+                     "tier": [],
+                     "state": [],
+                     "tag": [],
+                     "day": [],
+                     "status": []
+                  }
+               },
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": false},
+               "refreshInterval": 300,
+               "resource": [],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:1_::_",
+               "orangeBound": 50,
+               "metricFullName": "Super Metrics|OYW VM KPI (%)",
+               "showMetricLabel": {"showMetricLabel": false},
+               "depth": 1,
+               "metricLabel": "",
+               "redBound": 25
+            },
+            "height": 723,
+            "states": [
+               {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_b31406b8-e596-4c9c-8aed-508d19e33952"
+               },
+               {
+                  "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+                  "key": "permDateRange_HealthChart_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_b31406b8-e596-4c9c-8aed-508d19e33952"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "1d4f97a6-a13c-472b-bad2-6d04b35b52eb",
+            "gridsterCoords": {
+               "w": 8,
+               "x": 1,
+               "h": 11,
+               "y": 19
+            },
+            "type": "View",
+            "title": "All VMs in the selected Applications",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "All VMs in the selected Applications",
+               "viewDefinitionId": "e8c8b1c6-02de-438f-973d-f64ba76c7d5f"
+            },
+            "height": 609,
+            "states": [
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-summary%2525257Cguest%2525257CfullName1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-summary%2525257Cguest%2525257CipAddress2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-Guest%25252520OS%25252520Services%2525257CmkServiceCount3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-config%2525257Chardware%2525257CnumCpu4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-cpu%2525257Cusagemhz_average5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-config%2525257Chardware%2525257CmemoryKB6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-config%2525257CcpuAllocation%2525257Climit7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-config%2525257CmemoryAllocation%2525257Climit8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-mem%2525257CballoonPct9%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-mem%2525257Cconsumed_average10%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-mem%2525257Ccompressed_average11%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-net%2525257Cusage_average12%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-virtualDisk%2525253AAggregate%25252520of%25252520all%25252520instances%2525257Cusage13%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-virtualDisk%2525253AAggregate%25252520of%25252520all%25252520instances%2525257CcommandsAveraged_average14%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-config%2525257Cversion15%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb-column-summary%2525257Cguest%2525257CtoolsRunningStatus16%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+               },
+               {
+                  "value": "b%3A1",
+                  "key": "perm_toolbarVisible_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_isDashboardTime_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+               },
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22DAYS%22%2C%22count%22%3A1%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3A%5B%5D%2C%22tuesdayHours%22%3A%5B%5D%2C%22wednesdayHours%22%3A%5B%5D%2C%22thursdayHours%22%3A%5B%5D%2C%22fridayHours%22%3A%5B%5D%2C%22saturdayHours%22%3A%5B%5D%2C%22sundayHours%22%3A%5B%5D%7D",
+                  "key": "permSelectedDate_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "0cbd8e2e-609a-437a-b2aa-7e92fa7962be",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 5,
+               "y": 1
+            },
+            "type": "HealthChart",
+            "title": "Average of all Business Applications Performance",
+            "config": {
+               "yellowBound": 75,
+               "metricName": "Super Metrics|OYW Business Applications Performance (%)",
+               "metricKey": "Super Metric|sm_84915f16-b31d-4bd7-bf8e-50306db9323a",
+               "relationshipMode": {"relationshipMode": 0},
+               "sortByDir": {"orderByDir": "asc"},
+               "title": "Average of all Business Applications Performance",
+               "showResourceName": {"showResourceName": false},
+               "chartHeight": 190,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "resource",
+               "filterMode": "tagPicker",
+               "metricType": {"metricType": "custom"},
+               "tagFilter": null,
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": true},
+               "refreshInterval": 300,
+               "resource": [{
+                  "name": "Entire Enterprise Applications",
+                  "id": "resource:id:0_::_"
+               }],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:2_::_",
+               "orangeBound": 50,
+               "metricFullName": "Super Metrics|OYW Business Applications Performance (%)",
+               "depth": 1,
+               "showMetricLabel": {"showMetricLabel": false},
+               "metricLabel": "",
+               "redBound": 25
+            },
+            "height": 267,
+            "states": [{
+               "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+               "key": "permDateRange_HealthChart_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_0cbd8e2e-609a-437a-b2aa-7e92fa7962be"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "16ec6c7e-bfea-4093-b6ab-10252f0704c6",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 1,
+               "h": 13,
+               "y": 6
+            },
+            "type": "HealthChart",
+            "title": "Business Applications",
+            "config": {
+               "yellowBound": 75,
+               "metricName": "Super Metrics|Business Application Performance (%)",
+               "metricKey": "Super Metric|sm_ca2bb2f8-9536-40bf-863e-c9b4e36b6952",
+               "relationshipMode": {"relationshipMode": -1},
+               "sortByDir": {"orderByDir": "asc"},
+               "title": "Business Applications",
+               "showResourceName": {"showResourceName": true},
+               "chartHeight": 135,
+               "metricUnit": {
+                  "metricUnitId": -1,
+                  "metricUnitName": "Default Unit"
+               },
+               "mode": "resource",
+               "metricType": {"metricType": "custom"},
+               "filterMode": "tagPicker",
+               "tagFilter": null,
+               "paginationNumber": 15,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selectFirstRow": {"selectFirstRow": false},
+               "sortBy": "metricValue",
+               "selfProvider": {"selfProvider": true},
+               "refreshInterval": 300,
+               "resource": [{
+                  "name": "Entire Enterprise Applications",
+                  "id": "resource:id:0_::_"
+               }],
+               "refreshContent": {"refreshContent": false},
+               "resourceKindId": "resourceKind:id:3_::_",
+               "orangeBound": 50,
+               "metricFullName": "Super Metrics|OYW Business Application Performance (%)",
+               "showMetricLabel": {"showMetricLabel": false},
+               "depth": 1,
+               "metricLabel": "",
+               "redBound": 25
+            },
+            "height": 723,
+            "states": [
+               {
+                  "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
+                  "key": "permDateRange_HealthChart_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_16ec6c7e-bfea-4093-b6ab-10252f0704c6"
+               },
+               {
+                  "value": "b%3A1",
+                  "key": "perm_toolbarVisible_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_16ec6c7e-bfea-4093-b6ab-10252f0704c6"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 11,
+               "y": 19
+            },
+            "type": "View",
+            "title": "OS Services",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "OS Services",
+               "viewDefinitionId": "caa77302-9958-4ac0-bcf0-aefcc386b634"
+            },
+            "height": 609,
+            "states": [
+               {
+                  "value": "b%3A0",
+                  "key": "perm_isDashboardTime_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+               },
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22DAYS%22%2C%22count%22%3A7%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3A%5B%5D%2C%22tuesdayHours%22%3A%5B%5D%2C%22wednesdayHours%22%3A%5B%5D%2C%22thursdayHours%22%3A%5B%5D%2C%22fridayHours%22%3A%5B%5D%2C%22saturdayHours%22%3A%5B%5D%2C%22sundayHours%22%3A%5B%5D%7D",
+                  "key": "permSelectedDate_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+               },
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-summary%2525257CincomingConnectionCount1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-summary%2525257CoutgoingConnectionCount2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-DynamicPort3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-Port4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-Status5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-Version6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-summary%2525257CPid7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6-column-InstallPath8%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_d1dd41f6-3bf3-492c-af43-2858ec923a14_1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+               }
+            ]
+         }
+      ],
+      "states": [{
+         "value": "o%3AdateRange%3Ds%253Alast6Hour%5EdateRangeText%3Ds%253A6H",
+         "key": "permDashboardTime_dashboard_d1dd41f6-3bf3-492c-af43-2858ec923a14"
+      }],
+      "homeTab": false,
+      "rank": 0,
+      "disabled": false,
+      "id": "d1dd41f6-3bf3-492c-af43-2858ec923a14",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "locked": false,
+      "dashboardNavigations": {
+         "b31406b8-e596-4c9c-8aed-508d19e33952": [
+            {
+               "id": "dbc48f7d-ef63-4874-9752-58edc8ebdda0",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "a1c6479e-8500-4357-ab5e-a27db452f4bd"
+               }]
+            },
+            {
+               "id": "a10e7aaa-8fa7-4373-8ebb-87a9cc7daaec",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "584b09f3-b41a-4634-896f-9f3eceba017b"
+               }]
+            },
+            {
+               "id": "1d19810f-ff4d-489c-b7f3-afd35645937d",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "88c0471a-a2af-4fa3-9a79-efba5c35b799"
+               }]
+            },
+            {
+               "id": "69ab9c94-6b00-4af2-ad43-92bd38446bab",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "7c2a4c54-faa1-4272-bf73-3d23c228540e"
+               }]
+            },
+            {
+               "id": "847d404f-eebb-4c77-ae47-063f99715485",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "16cda8f3-5f8e-4e51-92c1-2a1fc0c57009"
+               }]
+            }
+         ],
+         "1d4f97a6-a13c-472b-bad2-6d04b35b52eb": [
+            {
+               "id": "a10e7aaa-8fa7-4373-8ebb-87a9cc7daaec",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "584b09f3-b41a-4634-896f-9f3eceba017b"
+               }]
+            },
+            {
+               "id": "1d19810f-ff4d-489c-b7f3-afd35645937d",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "88c0471a-a2af-4fa3-9a79-efba5c35b799"
+               }]
+            },
+            {
+               "id": "847d404f-eebb-4c77-ae47-063f99715485",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "16cda8f3-5f8e-4e51-92c1-2a1fc0c57009"
+               }]
+            }
+         ],
+         "16ec6c7e-bfea-4093-b6ab-10252f0704c6": [
+            {
+               "id": "a10e7aaa-8fa7-4373-8ebb-87a9cc7daaec",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "584b09f3-b41a-4634-896f-9f3eceba017b"
+               }]
+            },
+            {
+               "id": "69ab9c94-6b00-4af2-ad43-92bd38446bab",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "7c2a4c54-faa1-4272-bf73-3d23c228540e"
+               }]
+            },
+            {
+               "id": "5e7c2510-dc74-42e5-8bf3-616f1d14e382",
+               "widgets": [
+                  {
+                     "interactionType": "resourceId",
+                     "id": "5883a28d-dea9-406b-ace6-b900afa6e43f"
+                  },
+                  {
+                     "interactionType": "resourceId",
+                     "id": "a99a1a93-da09-4fd1-ac85-ec9e48b750e5"
+                  }
+               ]
+            },
+            {
+               "id": "2519417f-ccab-4648-9e02-0db92cebaa7f",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "7b2e1be5-eec6-4fdd-8cd8-401174c432a8"
+               }]
+            },
+            {
+               "id": "4e036192-7592-4a78-a5ad-276f2bfa5980",
+               "widgets": []
+            }
+         ],
+         "26238eda-830e-49e5-8405-4f766c7ed1aa": [{
+            "id": "1d19810f-ff4d-489c-b7f3-afd35645937d",
+            "widgets": [{
+               "interactionType": "resourceId",
+               "id": "88c0471a-a2af-4fa3-9a79-efba5c35b799"
+            }]
+         }],
+         "8954a8ec-6b02-4280-80c8-3712d5b5d354": [
+            {
+               "id": "a10e7aaa-8fa7-4373-8ebb-87a9cc7daaec",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "584b09f3-b41a-4634-896f-9f3eceba017b"
+               }]
+            },
+            {
+               "id": "69ab9c94-6b00-4af2-ad43-92bd38446bab",
+               "widgets": [{
+                  "interactionType": "resourceId",
+                  "id": "7c2a4c54-faa1-4272-bf73-3d23c228540e"
+               }]
+            }
+         ]
+      },
+      "widgetInteractions": [
+         {
+            "widgetIdProvider": "8954a8ec-6b02-4280-80c8-3712d5b5d354",
+            "type": "resourceId",
+            "widgetIdReceiver": "b31406b8-e596-4c9c-8aed-508d19e33952"
+         },
+         {
+            "widgetIdProvider": "8954a8ec-6b02-4280-80c8-3712d5b5d354",
+            "type": "resourceId",
+            "widgetIdReceiver": "1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+         },
+         {
+            "widgetIdProvider": "16ec6c7e-bfea-4093-b6ab-10252f0704c6",
+            "type": "resourceId",
+            "widgetIdReceiver": "8954a8ec-6b02-4280-80c8-3712d5b5d354"
+         },
+         {
+            "widgetIdProvider": "16ec6c7e-bfea-4093-b6ab-10252f0704c6",
+            "type": "resourceId",
+            "widgetIdReceiver": "b31406b8-e596-4c9c-8aed-508d19e33952"
+         },
+         {
+            "widgetIdProvider": "16ec6c7e-bfea-4093-b6ab-10252f0704c6",
+            "type": "resourceId",
+            "widgetIdReceiver": "1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+         },
+         {
+            "widgetIdProvider": "16ec6c7e-bfea-4093-b6ab-10252f0704c6",
+            "type": "resourceId",
+            "widgetIdReceiver": "1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+         },
+         {
+            "widgetIdProvider": "8954a8ec-6b02-4280-80c8-3712d5b5d354",
+            "type": "resourceId",
+            "widgetIdReceiver": "1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+         },
+         {
+            "widgetIdProvider": "b31406b8-e596-4c9c-8aed-508d19e33952",
+            "type": "resourceId",
+            "widgetIdReceiver": "1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+         },
+         {
+            "widgetIdProvider": "1d4f97a6-a13c-472b-bad2-6d04b35b52eb",
+            "type": "resourceId",
+            "widgetIdReceiver": "1e8bcfa0-3191-4a07-b2aa-49c1d8b378f6"
+         },
+         {
+            "widgetIdProvider": "0cbd8e2e-609a-437a-b2aa-7e92fa7962be",
+            "type": "resourceId",
+            "widgetIdReceiver": "1d4f97a6-a13c-472b-bad2-6d04b35b52eb"
+         }
+      ],
+      "namePath": "vCommunity",
+      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "columnCount": 1,
+      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "name": "vCommunity/Critical Business Applications",
+      "gridsterMaxColumns": 12,
+      "lastUpdateTime": 1762090908908
+   }],
+   "uuid": "e9aa3239-342f-4192-bcfb-02a4ae43a048"
+}
