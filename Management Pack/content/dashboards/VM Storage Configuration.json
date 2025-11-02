@@ -1,0 +1,384 @@
+{
+   "entries": {"resource": [{
+      "resourceKindKey": "vSphere World",
+      "internalId": "resource:id:0_::_",
+      "adapterKindKey": "VMWARE",
+      "identifiers": [],
+      "name": "vSphere World"
+   }]},
+   "dashboards": [{
+      "shared": true,
+      "temporary": false,
+      "hidden": true,
+      "creationTime": 1762090911363,
+      "autoswitchEnabled": false,
+      "importAttempts": 0,
+      "columnProportion": "1",
+      "importComplete": true,
+      "description": "Highlight VM configuration that needs your attention. Use this dashboard to fix incorrect settings, update outdated components, and reduce overall cost by optimizing your environment. \n\nNo data on a chart means the configuration is optimized.",
+      "widgets": [
+         {
+            "collapsed": false,
+            "x": 3,
+            "y": 1,
+            "id": "563102f1-9cb6-4737-9b10-8f82b7c6af07",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 6,
+               "y": 7
+            },
+            "type": "View",
+            "title": "VM Disks: Size",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VM Disks: Size",
+               "viewDefinitionId": "c655b25c-42be-4512-9c9b-8b4d6beefd71"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "x": 1,
+            "y": 1,
+            "id": "33641db4-8053-4ef3-8274-b1ba602483aa",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 5,
+               "h": 6,
+               "y": 7
+            },
+            "type": "View",
+            "title": "VM Disks: Count",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VM Disks: Count",
+               "viewDefinitionId": "e0e0972a-2da0-4544-a53f-9e55b09c74a3"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "id": "c28c4348-5467-4a87-8762-8dea4750ac96",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 5,
+               "y": 13
+            },
+            "type": "View",
+            "title": "VMs Configuration",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs Configuration",
+               "viewDefinitionId": "f6d0ed4e-9a22-4129-8d5c-150846b6a37b"
+            },
+            "height": 267,
+            "states": [
+               {
+                  "value": "b%3A0",
+                  "key": "perm_isDashboardTime_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96"
+               },
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-config%2525257Chardware%2525257CdiskSpace1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-config%2525257CnumVMDKs2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-config%2525257CnumRDMs3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-diskspace%2525257Csnapshot%2525257CsnapshotAge4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257Csnapshot_space_used5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257Csnapshot_count6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257Cdatastore7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257CparentCluster8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257CparentDatacenter9%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96-column-summary%2525257CparentFolder10%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96"
+               },
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22DAYS%22%2C%22count%22%3A7%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3Anull%2C%22tuesdayHours%22%3Anull%2C%22wednesdayHours%22%3Anull%2C%22thursdayHours%22%3Anull%2C%22fridayHours%22%3Anull%2C%22saturdayHours%22%3Anull%2C%22sundayHours%22%3Anull%7D",
+                  "key": "permSelectedDate_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_c28c4348-5467-4a87-8762-8dea4750ac96"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "x": 1,
+            "y": 1,
+            "id": "42d2fd49-71fa-429e-8e83-2cad173275b8",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 7,
+               "h": 6,
+               "y": 1
+            },
+            "type": "View",
+            "title": "VM Snapshots",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VM Snapshots",
+               "viewDefinitionId": "4d71034d-6368-4284-be94-94887f87eddc"
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "id": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 1,
+               "h": 12,
+               "y": 1
+            },
+            "type": "View",
+            "title": "Datacenters",
+            "config": {
+               "refreshInterval": 300,
+               "resource": {
+                  "resourceId": "resource:id:0_::_",
+                  "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
+                  "resourceName": "vSphere World",
+                  "resourceKindId": "002006VMWAREvSphere World",
+                  "id": "Ext.vcops.chrome.model.Resource-2"
+               },
+               "traversalSpecId": null,
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": true},
+               "title": "Datacenters",
+               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+            },
+            "height": 666,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_8b4f8b58-26b3-43ac-868c-9477932826b6"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "5c298af8-34f2-42fa-9fe9-a721535e378a",
+            "gridsterCoords": {
+               "w": 2,
+               "x": 5,
+               "h": 6,
+               "y": 1
+            },
+            "type": "View",
+            "title": "VMs with RDM Disks",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs with RDM Disks",
+               "viewDefinitionId": "3ab2df38-8a5e-40df-912c-a354b5526d3f"
+            },
+            "height": 324,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_5c298af8-34f2-42fa-9fe9-a721535e378a"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "40fc281a-0dbe-4290-a6c9-e26279f50d00",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 5,
+               "h": 6,
+               "y": 18
+            },
+            "type": "View",
+            "title": "Virtual Disks of selected VM",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Virtual Disks of selected VM",
+               "viewDefinitionId": "56abf797-0534-4b73-bc27-693317a206ac"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257Clabel2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257CconfiguredGB3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257Cdatastore4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257CisRDM5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257CiopsLimit6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257Cprovisioning_type7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257CscsiControllerType8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00-column-virtualDisk%2525253Ascsi0%2525253A0%2525257CscsiBusSharing9%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_40fc281a-0dbe-4290-a6c9-e26279f50d00"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "fe7c64f4-0aa4-4782-84f6-11591c74492b",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 6,
+               "y": 18
+            },
+            "type": "View",
+            "title": "Snapshots of selected VM",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Snapshots of selected VM",
+               "viewDefinitionId": "7d0d858d-628d-49e9-b076-4fb15d757cc3"
+            },
+            "height": 324,
+            "states": [
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-diskspace%2525253A262%2525257Csnapshot%2525253Asnapshot-1%2525257Cname2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-diskspace%2525253A262%2525257Csnapshot%2525253Asnapshot-1%2525257CnumberOfDays3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-diskspace%2525253A262%2525257Csnapshot%2525253Asnapshot-1%2525257Cused4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b-column-diskspace%2525253A262%2525257Csnapshot%2525253Asnapshot-1%2525257CaccessTime5%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_isDashboardTime_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_fe7c64f4-0aa4-4782-84f6-11591c74492b"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "ec371f77-cb78-4d0f-8100-f9a1aca8dc13",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 1,
+               "h": 6,
+               "y": 18
+            },
+            "type": "View",
+            "title": "Guest OS Partitions of selected VM",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Guest OS Partitions of selected VM",
+               "viewDefinitionId": "72cefd21-9a01-45e6-a33c-ea2a6897ac5d"
+            },
+            "height": 324,
+            "states": [
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13-column-guestfilesystem%2525253A/%2525257Ccapacity2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13-column-guestfilesystem%2525253A/%2525257Cusage3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13-column-guestfilesystem%2525253A/%2525257Cpercentage4%25255Ehidden%25253Db%2525253A0",
+                  "key": "permTableView_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_isDashboardTime_widget_c80749d8-25a1-4867-a3fc-f64f92db9e95_ec371f77-cb78-4d0f-8100-f9a1aca8dc13"
+               }
+            ]
+         }
+      ],
+      "states": [],
+      "homeTab": false,
+      "rank": 0,
+      "disabled": false,
+      "id": "c80749d8-25a1-4867-a3fc-f64f92db9e95",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "locked": false,
+      "dashboardNavigations": {},
+      "widgetInteractions": [
+         {
+            "widgetIdProvider": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "type": "resourceId",
+            "widgetIdReceiver": "563102f1-9cb6-4737-9b10-8f82b7c6af07"
+         },
+         {
+            "widgetIdProvider": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "type": "resourceId",
+            "widgetIdReceiver": "33641db4-8053-4ef3-8274-b1ba602483aa"
+         },
+         {
+            "widgetIdProvider": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "type": "resourceId",
+            "widgetIdReceiver": "42d2fd49-71fa-429e-8e83-2cad173275b8"
+         },
+         {
+            "widgetIdProvider": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "type": "resourceId",
+            "widgetIdReceiver": "5c298af8-34f2-42fa-9fe9-a721535e378a"
+         },
+         {
+            "widgetIdProvider": "c28c4348-5467-4a87-8762-8dea4750ac96",
+            "type": "resourceId",
+            "widgetIdReceiver": "40fc281a-0dbe-4290-a6c9-e26279f50d00"
+         },
+         {
+            "widgetIdProvider": "c28c4348-5467-4a87-8762-8dea4750ac96",
+            "type": "resourceId",
+            "widgetIdReceiver": "fe7c64f4-0aa4-4782-84f6-11591c74492b"
+         },
+         {
+            "widgetIdProvider": "c28c4348-5467-4a87-8762-8dea4750ac96",
+            "type": "resourceId",
+            "widgetIdReceiver": "ec371f77-cb78-4d0f-8100-f9a1aca8dc13"
+         },
+         {
+            "widgetIdProvider": "42d2fd49-71fa-429e-8e83-2cad173275b8",
+            "type": "resourceId",
+            "widgetIdReceiver": "c28c4348-5467-4a87-8762-8dea4750ac96"
+         },
+         {
+            "widgetIdProvider": "33641db4-8053-4ef3-8274-b1ba602483aa",
+            "type": "resourceId",
+            "widgetIdReceiver": "c28c4348-5467-4a87-8762-8dea4750ac96"
+         },
+         {
+            "widgetIdProvider": "563102f1-9cb6-4737-9b10-8f82b7c6af07",
+            "type": "resourceId",
+            "widgetIdReceiver": "c28c4348-5467-4a87-8762-8dea4750ac96"
+         },
+         {
+            "widgetIdProvider": "8b4f8b58-26b3-43ac-868c-9477932826b6",
+            "type": "resourceId",
+            "widgetIdReceiver": "c28c4348-5467-4a87-8762-8dea4750ac96"
+         },
+         {
+            "widgetIdProvider": "5c298af8-34f2-42fa-9fe9-a721535e378a",
+            "type": "resourceId",
+            "widgetIdReceiver": "c28c4348-5467-4a87-8762-8dea4750ac96"
+         }
+      ],
+      "namePath": "vCommunity",
+      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "docCenterKey": "vcom_524",
+      "columnCount": 1,
+      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "name": "vCommunity/VM Storage Configuration",
+      "gridsterMaxColumns": 12,
+      "lastUpdateTime": 1762090911311
+   }],
+   "uuid": "4605d513-0bfa-4573-8dfd-a049e76fb340"
+}
