@@ -1,0 +1,655 @@
+{
+   "entries": {
+      "resourceKind": [
+         {
+            "resourceKindKey": "VirtualMachine",
+            "internalId": "resourceKind:id:0_::_",
+            "adapterKindKey": "VMWARE"
+         },
+         {
+            "resourceKindKey": "ClusterComputeResource",
+            "internalId": "resourceKind:id:1_::_",
+            "adapterKindKey": "VMWARE"
+         }
+      ],
+      "resource": [{
+         "resourceKindKey": "vSphere World",
+         "internalId": "resource:id:0_::_",
+         "adapterKindKey": "VMWARE",
+         "identifiers": [],
+         "name": "vSphere World"
+      }]
+   },
+   "dashboards": [{
+      "shared": true,
+      "temporary": false,
+      "hidden": true,
+      "creationTime": 1762090922173,
+      "autoswitchEnabled": false,
+      "importAttempts": 0,
+      "columnProportion": "1",
+      "importComplete": true,
+      "description": "Monitor the capacity of VMs. This dashboard lists all the hosts with their capacity remaining and time remaining. Select a VM and its detailed capacity over time will be automatically shown.",
+      "widgets": [
+         {
+            "collapsed": false,
+            "id": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 1,
+               "h": 21,
+               "y": 11
+            },
+            "type": "View",
+            "title": "VMs Capacity in the Selected Datacenter",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs Capacity in the Selected Datacenter",
+               "viewDefinitionId": "b669d11e-3eb1-41b1-9f56-b5a5823ba385"
+            },
+            "height": 1179,
+            "states": [
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22advancedTimeMode%22%3Afalse%2C%22fromTime%22%3Anull%2C%22unit%22%3A%22WEEKS%22%2C%22count%22%3A1%2C%22priorUnit%22%3Anull%2C%22priorCount%22%3Anull%2C%22startSubUnit%22%3Anull%2C%22startPeriod%22%3Anull%2C%22toTime%22%3Anull%2C%22endUnit%22%3Anull%2C%22endCount%22%3Anull%2C%22endSubUnit%22%3Anull%2C%22endPeriod%22%3Anull%2C%22isRealTimeData%22%3Anull%2C%22mondayHours%22%3Anull%2C%22tuesdayHours%22%3Anull%2C%22wednesdayHours%22%3Anull%2C%22thursdayHours%22%3Anull%2C%22fridayHours%22%3Anull%2C%22saturdayHours%22%3Anull%2C%22sundayHours%22%3Anull%7D",
+                  "key": "permSelectedDate_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214"
+               },
+               {
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-0%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CnumCpu1%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run2%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A2%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run3%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A3%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cusage_average4%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A4%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Ccpu_queue5%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A5%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cvcpu_usage_disparity6%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A6%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CmemoryKB7%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A7%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Cmem.free_latest8%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A8%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257CcreateDate9%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A9",
+                  "key": "permTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "5e457c3c-c349-43ba-bc2e-4d68fb54f7da",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 7,
+               "h": 7,
+               "y": 11
+            },
+            "type": "View",
+            "title": "CPU Utilization (%)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Utilization (%)",
+               "viewDefinitionId": "b8af9e79-a062-4e3b-8501-7bbc64a6a3f9"
+            },
+            "height": 381,
+            "states": [
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22dashboardTime%22%3Atrue%7D",
+                  "key": "permSelectedDate_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5e457c3c-c349-43ba-bc2e-4d68fb54f7da"
+               },
+               {
+                  "value": "b%3A1",
+                  "key": "perm_isDashboardTime_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5e457c3c-c349-43ba-bc2e-4d68fb54f7da"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5e457c3c-c349-43ba-bc2e-4d68fb54f7da"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "a02ab80b-704c-449b-9c6f-f6eb1e1692ad",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 7,
+               "h": 7,
+               "y": 18
+            },
+            "type": "View",
+            "title": "Memory Utilization (GB)",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Memory Utilization (GB)",
+               "viewDefinitionId": "40152c12-1d12-440c-b79e-e9d172deb9a1"
+            },
+            "height": 381,
+            "states": [
+               {
+                  "value": "s%3A%7B%22minType%22%3A%22.TimeIntervalControl%22%2C%22count%22%3A%2224%22%2C%22unit%22%3A%22HOUR%22%7D",
+                  "key": "permSelectedDate_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_a02ab80b-704c-449b-9c6f-f6eb1e1692ad"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_a02ab80b-704c-449b-9c6f-f6eb1e1692ad"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "98b0b159-9742-4461-8294-abe611691d12",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 1,
+               "h": 6,
+               "y": 32
+            },
+            "type": "Scoreboard",
+            "title": "Relevant Configuration",
+            "config": {
+               "maxCellCount": 100,
+               "oldMetricValues": false,
+               "relationshipMode": {"relationshipMode": 0},
+               "valueSize": 14,
+               "boxHeight": null,
+               "title": "Relevant Configuration",
+               "showResourceName": {"showResourceName": false},
+               "roundDecimals": 0,
+               "mode": {"layoutMode": "fixedSize"},
+               "labelSize": 12,
+               "customFilter": {
+                  "filter": [],
+                  "excludedResources": null,
+                  "includedResources": null
+               },
+               "selfProvider": {"selfProvider": false},
+               "resInteractionMode": null,
+               "visualTheme": 4,
+               "showMetricName": {"showMetricName": true},
+               "refreshInterval": 300,
+               "resource": [],
+               "showDT": {"showDT": true},
+               "refreshContent": {"refreshContent": false},
+               "showMetricUnit": {"showMetricUnit": false},
+               "depth": 1,
+               "metric": {
+                  "mode": "resourceKind",
+                  "resourceMetrics": [],
+                  "resourceKindMetrics": [
+                     {
+                        "yellowBound": null,
+                        "metricName": "Configuration|Version",
+                        "metricKey": "config|version",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-2",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Summary|vSphere Folder",
+                        "metricKey": "summary|folder",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-3",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Summary|vSphere Tag",
+                        "metricKey": "summary|tag",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-4",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricUnitId": null,
+                        "metricName": "Summary|Parent Cluster",
+                        "metricKey": "summary|parentCluster",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "Cluster",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "unit": "",
+                        "id": "extModel65271-5",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Summary|Guest Operating System|Guest OS from Tools",
+                        "metricKey": "summary|guest|fullName",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-6",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Summary|Guest Operating System|Guest OS IP Address",
+                        "metricKey": "summary|guest|ipAddress",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-7",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Summary|Guest Operating System|Hostname",
+                        "metricKey": "summary|guest|hostName",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": true,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-8",
+                        "redBound": null,
+                        "colorMethod": 2
+                     },
+                     {
+                        "yellowBound": null,
+                        "metricName": "Configuration|Number of Virtual Disks",
+                        "metricKey": "config|numVMDKs",
+                        "handleOldColoring": false,
+                        "link": "",
+                        "isStringMetric": false,
+                        "resourceKindName": "Virtual Machine",
+                        "label": "",
+                        "resourceKindId": "resourceKind:id:0_::_",
+                        "orangeBound": null,
+                        "id": "extModel65271-9",
+                        "redBound": null,
+                        "colorMethod": 2
+                     }
+                  ],
+                  "subMode": "resourceKindAll"
+               },
+               "showSparkline": {"showSparkline": false},
+               "boxColumns": 2,
+               "periodLength": null
+            },
+            "height": 324
+         },
+         {
+            "collapsed": false,
+            "id": "b66196c6-54c0-48ca-b4f6-ed4364026d54",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 7,
+               "h": 7,
+               "y": 25
+            },
+            "type": "View",
+            "title": "CPU Run Queue",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "CPU Run Queue",
+               "viewDefinitionId": "fa10900c-2d88-41d6-86c9-046349ccc5bf"
+            },
+            "height": 381
+         },
+         {
+            "collapsed": false,
+            "id": "ab14b904-2203-4ca5-8adc-c283b63543f0",
+            "gridsterCoords": {
+               "w": 3,
+               "x": 10,
+               "h": 7,
+               "y": 25
+            },
+            "type": "View",
+            "title": "Memory Paging",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Memory Paging",
+               "viewDefinitionId": "df2e3054-5db5-478f-bb7d-fbcaccd7960e"
+            },
+            "height": 381
+         },
+         {
+            "collapsed": false,
+            "id": "8f4571a1-a94a-4d32-a099-f0b0e8e19809",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 1,
+               "h": 6,
+               "y": 1
+            },
+            "type": "View",
+            "title": "Datacenters",
+            "config": {
+               "refreshInterval": 300,
+               "resource": {
+                  "resourceId": "resource:id:0_::_",
+                  "traversalSpecId": "vSphere Hosts and Clusters-VMWARE-vSphere World",
+                  "resourceName": "vSphere World",
+                  "id": "Ext.vcops.chrome.model.Resource-1",
+                  "resourceKindId": "002006VMWAREvSphere World"
+               },
+               "traversalSpecId": null,
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": true},
+               "selfProvider": {"selfProvider": true},
+               "title": "Datacenters",
+               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-summary%2525257Ctotal_number_clusters1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-summary%2525257Ctotal_number_hosts2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-summary%2525257Ctotal_number_datastores3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-summary%2525257Ctotal_number_vms4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809-column-summary%2525257CparentVcenter5%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_8f4571a1-a94a-4d32-a099-f0b0e8e19809"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "b7c688df-9e34-497a-be1a-df4e35a95f13",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 9,
+               "h": 6,
+               "y": 1
+            },
+            "type": "View",
+            "title": "VMs by Capacity Remaining",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs by Capacity Remaining",
+               "viewDefinitionId": "11dd432d-6c6f-4872-8c0a-2d9975856f66"
+            },
+            "height": 324,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_b7c688df-9e34-497a-be1a-df4e35a95f13"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "f0468633-2a4e-4ae8-925f-62f85d7cd127",
+            "gridsterCoords": {
+               "w": 12,
+               "x": 1,
+               "h": 4,
+               "y": 7
+            },
+            "type": "Heatmap",
+            "title": "VMs by Capacity Remaining",
+            "config": {
+               "mode": "all",
+               "configs": [{
+                  "colorBy": {
+                     "metricKey": "OnlineCapacityAnalytics|capacityRemainingPercentage",
+                     "value": "Capacity Analytics Generated|Capacity Remaining Percentage (%)"
+                  },
+                  "focusOnGroups": true,
+                  "color": {
+                     "minValue": 0,
+                     "thresholds": {
+                        "values": [
+                           0,
+                           5,
+                           10,
+                           80
+                        ],
+                        "colors": [
+                           "#DE3F30",
+                           "#ED891F",
+                           "#ECC33E",
+                           "#74B43B",
+                           "#8D8B8D"
+                        ]
+                     },
+                     "maxValue": 100
+                  },
+                  "sizeBy": {
+                     "metricKey": null,
+                     "value": ""
+                  },
+                  "relationalGrouping": false,
+                  "groupBy": {
+                     "originalText": "Cluster Compute Resource",
+                     "typeId": "resourceKind:id:1_::_",
+                     "id": "004null002006VMWAREClusterComputeResource",
+                     "text": "Cluster Compute Resource",
+                     "type": "resourceKind",
+                     "parentText": "vCenter Adapter",
+                     "parentId": "VMWARE"
+                  },
+                  "attributeKind": {"value": ""},
+                  "thenBy": null,
+                  "mode": {"mode": false},
+                  "resourceKind": "resourceKind:id:0_::_",
+                  "filterMode": "tagPicker",
+                  "solidColoring": true,
+                  "name": "Capacity Remaining"
+               }],
+               "depth": 10,
+               "refreshInterval": 300,
+               "resource": [],
+               "refreshContent": {"refreshContent": false},
+               "relationshipMode": {"relationshipMode": -1},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs by Capacity Remaining",
+               "value": 0
+            },
+            "height": 210,
+            "states": [
+               {
+                  "value": "o%3A",
+                  "key": "perm_HeatMap_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "permBtn_showTextBtn_perm_HeatMap_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
+               },
+               {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
+               }
+            ]
+         },
+         {
+            "collapsed": false,
+            "id": "206a5170-43d2-47c6-a813-29f31039e447",
+            "gridsterCoords": {
+               "w": 4,
+               "x": 5,
+               "h": 6,
+               "y": 1
+            },
+            "type": "View",
+            "title": "VMs by Time Remaining",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": ["labels"],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "VMs by Time Remaining",
+               "viewDefinitionId": "a62de769-9b4b-462e-906c-b4a27457ec88"
+            },
+            "height": 324,
+            "states": [{
+               "value": "b%3A0",
+               "key": "perm_isDashboardTime_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_206a5170-43d2-47c6-a813-29f31039e447"
+            }]
+         },
+         {
+            "collapsed": false,
+            "id": "5b1aa4aa-d4c8-4b04-b623-fd4eb997f209",
+            "gridsterCoords": {
+               "w": 6,
+               "x": 7,
+               "h": 6,
+               "y": 32
+            },
+            "type": "View",
+            "title": "Disk Consumption",
+            "config": {
+               "refreshInterval": 300,
+               "resource": null,
+               "traversalSpecId": "",
+               "refreshContent": {"refreshContent": false},
+               "isUpdatedView": true,
+               "chartViewItems": [],
+               "selectFirstRow": {"selectFirstRow": false},
+               "selfProvider": {"selfProvider": false},
+               "title": "Disk Consumption",
+               "viewDefinitionId": "72cefd21-9a01-45e6-a33c-ea2a6897ac5d"
+            },
+            "height": 324,
+            "states": [{
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209-column-0%25255Ehidden%25253Db%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209-column-Instance%25252520Name1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209-column-guestfilesystem%2525253A/%2525257Ccapacity2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209-column-guestfilesystem%2525253A/%2525257Cusage3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209-column-guestfilesystem%2525253A/%2525257Cpercentage4%25255Ehidden%25253Db%2525253A0",
+               "key": "permTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_5b1aa4aa-d4c8-4b04-b623-fd4eb997f209"
+            }]
+         }
+      ],
+      "states": [{
+         "value": "o%3AdateRange%3Ds%253Alast24Hour%5EdateRangeText%3Ds%253A24H",
+         "key": "permDashboardTime_dashboard_4e036192-7592-4a78-a5ad-276f2bfa5980"
+      }],
+      "homeTab": false,
+      "rank": 0,
+      "disabled": false,
+      "id": "4e036192-7592-4a78-a5ad-276f2bfa5980",
+      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "locked": false,
+      "dashboardNavigations": {"58f2c9bb-f2c7-4262-b057-25d45533040d": []},
+      "widgetInteractions": [
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "5e457c3c-c349-43ba-bc2e-4d68fb54f7da"
+         },
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "a02ab80b-704c-449b-9c6f-f6eb1e1692ad"
+         },
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "98b0b159-9742-4461-8294-abe611691d12"
+         },
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "b66196c6-54c0-48ca-b4f6-ed4364026d54"
+         },
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "ab14b904-2203-4ca5-8adc-c283b63543f0"
+         },
+         {
+            "widgetIdProvider": "8f4571a1-a94a-4d32-a099-f0b0e8e19809",
+            "type": "resourceId",
+            "widgetIdReceiver": "206a5170-43d2-47c6-a813-29f31039e447"
+         },
+         {
+            "widgetIdProvider": "8f4571a1-a94a-4d32-a099-f0b0e8e19809",
+            "type": "resourceId",
+            "widgetIdReceiver": "b7c688df-9e34-497a-be1a-df4e35a95f13"
+         },
+         {
+            "widgetIdProvider": "8f4571a1-a94a-4d32-a099-f0b0e8e19809",
+            "type": "resourceId",
+            "widgetIdReceiver": "ba708955-8e7f-4fab-9f13-b5332afe9214"
+         },
+         {
+            "widgetIdProvider": "8f4571a1-a94a-4d32-a099-f0b0e8e19809",
+            "type": "resourceId",
+            "widgetIdReceiver": "f0468633-2a4e-4ae8-925f-62f85d7cd127"
+         },
+         {
+            "widgetIdProvider": "f0468633-2a4e-4ae8-925f-62f85d7cd127",
+            "type": "resourceId",
+            "widgetIdReceiver": "ba708955-8e7f-4fab-9f13-b5332afe9214"
+         },
+         {
+            "widgetIdProvider": "ba708955-8e7f-4fab-9f13-b5332afe9214",
+            "type": "resourceId",
+            "widgetIdReceiver": "5b1aa4aa-d4c8-4b04-b623-fd4eb997f209"
+         }
+      ],
+      "namePath": "vCommunity",
+      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "docCenterKey": "vcom_554",
+      "columnCount": 1,
+      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "name": "vCommunity/VM Capacity 2.0",
+      "gridsterMaxColumns": 12,
+      "lastUpdateTime": 1762090922150
+   }],
+   "uuid": "00a5b37d-a8ad-43cc-8dc9-3d48cfc307af"
+}
