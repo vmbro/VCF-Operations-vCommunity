@@ -15,3 +15,7 @@ CREATE BUSINESS APPLICATIONS
  * For the first application, call it VCF Appliances. You will add all your VCF photon appliances here, including NSX Edge
  * Create one tier for each type, do not create sub-tiers
  * Example of tiers: NSX Edges, VCF Operations, vCenter Servers, NSX Managers
+
+CONFIGURE ADAPTER INSTANCE
+ * Go to Administration - Integrations - ADD
+ * Configure the adapter instance as desired, it must use a Cloud Proxy for collection
