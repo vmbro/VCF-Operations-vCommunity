@@ -7,7 +7,7 @@ https://github.com/vmbro/VCF-Operations-vCommunity/blob/main/Documentation-Image
 You will need the following fields:
 
 1. Name: name of your Adapter Instance
-2. Description: description of your Adapter Instances
+2. Description: description of your Adapter Instance
 3. vCenter Server: FQDN or IP of your vCenter target
 4. ESXi Advanced Parameters Config File: esxi_advanced_settings.  This can be adjusted to include additional Advanced System Settings via Infrastructure Operations - Configurations - Management Pack Configuration - System Defined.  These are the System - Advanced System Settings as seen on ESXi Hosts in vCenter via the Configure tab.
 5. ESXi VIB Driver Config File: esxi_vib_drivers.  This can be adjusted to include additional Packages via Infrastructure Operations - Configurations - Management Pack Configuration - System Defined.  These are the System - Packages as seen on ESXi Hosts in vCenter via the Configure tab.
