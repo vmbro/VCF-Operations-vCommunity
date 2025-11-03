@@ -7,7 +7,7 @@ This Management Pack was built by Broadcom TAM Onur Yuzseven, using the VCF Oper
 3.  Capture VM Advanced Paramters
 4.  Capture VM Options
 
-The user can customize what is being captured above by editing the appropriate XML files, which are installed with examples by default.
+The user can customize what is being captured above by editing the assocaited XML files, which are installed with examples by default.
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
@@ -31,8 +31,7 @@ Enhanced Dashboards:
 * vSphere Network Configuration
 
 ### Reports
-The Reports were designed as 1 integrated suite. Use them to replace all the existing vSphere adapter reports.
-There are two types of Reports: PDF and CSV
+The Reports were designed as 1 integrated suite. Use them to replace all the existing vSphere adapter reports.  There are two types of Reports: PDF and CSV
 
 ### Additional Properties & Metrics
 - Cluster HA/DRS/EVC
@@ -40,14 +39,3 @@ There are two types of Reports: PDF and CSV
 - Virtual Machine Age
 - Virtual Machine Snapshot Count
   
-### Advanced Parameters
-You can collect any settings of ESXi, VM and vSphere Clusters. 
-
-### ESXi Software Packages
-(VIB driver details)
-
-### Windows Service Monitoring:
-* Windows Service Monitoring to track the status of critical services
-
-### Windows Event Log Monitoring:
-* Windows Event Log Monitoring for proactive detection of system issues
