@@ -14,7 +14,6 @@ In addition to the four use cases above, this Management Pack also addresses the
 1.  Captures Windows Services (currently all that are set to Automatic)
 2.  Catpures Windows Event Log Events (as configured in windows_event_list.xml)
 
-### Dashboards
 New Dashboards:
 * Critical Business Application 
 * vSphere Resource Management 
@@ -30,8 +29,11 @@ Enhanced Dashboards:
 * ESXi Configuration
 * vSphere Network Configuration
 
-### Reports
-The Reports were designed as 1 integrated suite. Use them to replace all the existing vSphere adapter reports.  There are two types of Reports: PDF and CSV
+Reports:
+Reports were designed to replace all the existing vSphere adapter reports.  There are two types of Reports: PDF and CSV
+
+Super Metrics:
+Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics.  They must be enabled in Policy's after Management Pack installation.
 
 ### Additional Properties & Metrics
 - Cluster HA/DRS/EVC
