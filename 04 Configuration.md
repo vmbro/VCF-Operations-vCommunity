@@ -2,7 +2,7 @@
 ## Configuration and Integration
 Once the vCommunity Management Pack has been installed, you will create an Adapter Instance for your vCenter/s.
 
-https://github.com/vmbro/VCF-Operations-vCommunity/blob/main/Documentation-Images/screenshots/Configuration/Adapter_Instance_Configuration.png
+![Adapter Config](/Documentation-Images/screenshots/screenshots/Configuration/Adapter_Instance_Configuration.png
 
 You will need the following fields:
 
