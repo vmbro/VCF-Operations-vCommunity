@@ -35,9 +35,8 @@ Reports were designed to replace all the existing vSphere adapter reports.  Ther
 Super Metrics:
 Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics.  They must be enabled in Policy's after Management Pack installation.
 
-### Additional Properties & Metrics
+Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
-- Virtual Machine Advanced Parameters
 - Virtual Machine Age
 - Virtual Machine Snapshot Count
   
