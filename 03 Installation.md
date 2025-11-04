@@ -6,9 +6,9 @@ After enabling that feature you will see the "*Ignore the PAK file signature che
 
 One this has been done you can install the Management Pack.
 
-*  Navigate Administration > Integrations > Repository Tab and click Add in VCF Operations 
+*  Navigate Administration > Integrations > Repository Tab and click ADD 
 
-* Browse the `VCFOperationsvCommunity_x.x.x.pak` file and select "Install the PAK file even if it is already installed." to override the installation and select "Ignore the PAK file signature checking." since VCF Operations vCommunity MP is unsinged to allow VCF Operations install the .pak file. Lastly, upload the file and click Next.
+* Browse the `VCFOperationsvCommunity_x.x.x.pak` file and select "Install the PAK file even if it is already installed." to override the installation and select "Ignore the PAK file signature checking." since VCF Operations vCommunity MP is unsinged to allow VCF Operations install the .pak file. Lastly, upload the file and click NEXT.
 
 ![Adapter-Topology](Documentation-Images/screenshots/Installation/Installation-Step-1.png)
 
