@@ -4,9 +4,6 @@ Since the PAK file is not signed by VMware you need to enable "*Allow unsigned P
 
 After enabling that feature you will see the "*Ignore the PAK file signature checking.*" checkbox available on PAK installation wizard.
 
-Go to https://your-vR-Ops/admin
-Login as admin
-
 
 ##
 *  Navigate Administration > Integrations > Repository Tab and click Add in VCF Operations 
