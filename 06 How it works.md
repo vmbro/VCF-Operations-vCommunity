@@ -1,8 +1,8 @@
 
 ## How does VCF Operations vCommunity Management Pack Work ? 
-Custom Management Packs that are created by VCF Operations Integration SDK require some additional requirements. MPs created by the Integration SDK need to run on only cloud proxy for the data collection. Once you installed the PAK file and created an integration with any account Cloud Proxy tries to access the adapter container registry to pull docker image configuration. After that docker image will install the necessary files that are defined in the DockerFile then the PAK file will be initialized for the data collection process.
+Custom Management Packs created using the VCF Operations Integration SDK have some additional requirements. First, their Adapter Instances need to run on a Cloud Proxy for data collection. Once you've  installed the Management Pack and created an Adapter Instance, the Cloud Proxy tries to access the adapter container registry to pull the docker image configuration.  After that docker image will install the necessary files that are defined in the DockerFile then the PAK file will be initialized for the data collection process.
 
-If Cloud Proxy has container registry access users can simply install PAK files then create an integration. There will be no need for any other modifications by users in VCF Operations.
+If the Cloud Proxy has container registry access (access to the Internet), users can simply install the Management Pack then create Adapter Instances.  There is no need for any other modifications by users in VCF Operations.
 
 ![Adapter-Topology](Documentation-Images/screenshots/VCF_Operations_vCommunity_Topology.svg)
 
