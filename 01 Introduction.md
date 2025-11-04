@@ -18,8 +18,6 @@ With Phyton programming and VCF Operations API knowledge, you can:
 * Add your own Alerts, Dashboards, and Reports. To override existing ones, simply use the same ID.
 * Add your own Super Metrics. Note you need to enable them manually in the Policy UI.
 
-![Adapter](Documentation-Images/screenshots/VCF_Operations_vCommunity-Adapter.png)
-
 ### Dashboards
 New Dashboards:
 * Critical Business Application 
