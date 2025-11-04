@@ -9,24 +9,24 @@
 
 # VCF Operations vCommunity
 
-This management pack lowers the knowledge barrier required to add your own content to VCF Operations. While the MP Builder is better for quick and simple addition, a native management pack empowers you to build more advanced features. 
+This Management Pack gives the user the ability to add your own content to VCF Operations. While the Management Pack Builder is an option for targets with REST APIs, the vCommunity Management Pack was built using the Integration SDK and offers more advanced features. 
 
 With Phyton programming and VCF Operations API knowledge, you can:
 
-* Add your own metrics and properties for the VCF Objects. They can have complex logic as it's all done in programming. Define them into the existing objects.
-* Create your own object. You can define a new object type.
-* Add your own alerts, dashboards, reports. To override existing ones, simply use the same ID
-* Add your own super metric. Take note you need to enable them manually in the Policy UI.
+* Add your own Metrics and Properties for existing VCF Objects. 
+* Create your own Object Types.
+* Add your own Alerts, Dashboards, and Reports. To override existing ones, simply use the same ID.
+* Add your own Super Metrics. Note you need to enable them manually in the Policy UI.
 
 ![Adapter](Documentation-Images/screenshots/VCF_Operations_vCommunity-Adapter.png)
 
 ### Dashboards
-New dashboards:
+New Dashboards:
 * Critical Business Application 
 * vSphere Resource Management 
 * VM Storage Configuration 
 
-Enhanced dashboards:
+Enhanced Dashboards:
 * VM Configuration
 * VM Capacity
 * VM Performance
@@ -37,25 +37,20 @@ Enhanced dashboards:
 * vSphere Network Configuration
 
 ### Reports
-The reports were designed as 1 integrated suite. Use them to replace all the existing vSphere adapter reports.
-There are 2 types of reports
-* PDF. These are per pillar of operations
-* CSV. These are per object type, for export purpose.
+Reports were designed to replace all the existing Reports that came out-of-the-box.
+There are 2 types of reports: PDF and CSV.
 
 ### Additional Properties & Metrics
 - Cluster HA/DRS/EVC
+- ESXi Host System Advanced System Settings
+- ESXi Host Software Packages
 - Virtual Machine Advanced Parameters
+- Virtual Machine Options
 - Virtual Machine Age
 - Virtual Machine Snapshot Count
-  
-### Advanced Parameters
-You can collect any settings of ESXi, VM and vSphere Clusters. 
-
-### ESXi Software Packages
-(VIB driver details)
 
 ### Windows Service Monitoring:
-* Windows Service Monitoring to track the status of critical services
+* Windows Service Monitoring to track the status of critical services (currently we monitor all Windows Services set to Automatic
 
 ### Windows Event Log Monitoring:
-* Windows Event Log Monitoring for proactive detection of system issues
+* Windows Event Log Monitoring 
