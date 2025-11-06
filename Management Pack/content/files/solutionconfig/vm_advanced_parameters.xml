@@ -1,0 +1,7 @@
+<vmAdvParameters>
+  <!--Remove comments if you want to monitor VM Advanced Parameters.-->
+  <!--You can add any advanced settings parameter as following-->
+  <!-- vmware.tools.requiredversion -->
+  RemoteDisplay.maxConnections,
+  svga.present
+</vmAdvParameters>
