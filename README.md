@@ -9,17 +9,17 @@
 
 This Management Pack was built by Broadcom TAM Onur Yuzseven, using the VCF Operations Integration SDK.  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
 
-1.  Capture ESXi Host Advanced System Settings
-2.  Capture ESXi Host Software Packages
-3.  Capture VM Advanced Paramters
-4.  Capture VM Options
+1.  Capture ESXi Host Advanced System Settings (esxi_advanced_system_settings.xml)
+2.  Capture ESXi Host Software Packages (esxi_packages.xml)
+3.  Capture VM Advanced Paramters (vm_advanced_parameters.xml)
+4.  Capture VM Options (vm_options.xml)
 
-The user can customize what is being captured above by editing the assocaited XML files, which are installed with examples by default.
+The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default.
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
-1.  Captures Windows Services (currently all that are set to Automatic)
-2.  Catpures Windows Event Log Events (as configured in windows_event_list.xml)
+1.  Captures Windows Services (windows_service_list.xml))
+2.  Catpures Windows Event Log Events (windows_event_list.xml)
 
 New Dashboards:
 * Critical Business Application 
