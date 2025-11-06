@@ -44,6 +44,5 @@ Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommun
 
 Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
-- Virtual Machine Age
 - Virtual Machine Snapshot Count
   
