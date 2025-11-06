@@ -18,10 +18,9 @@ def getVMAge(vmCreateDate):
     vmCreateDate = datetime.fromisoformat(vmCreateDate)
     now = datetime.now(timezone.utc)
     if vmCreateDate > now:
-        vmAge = NULL_STATUS
+        vmAge = "Invalid date"
     else:
         vmAge = (now - vmCreateDate).days
-
     return vmAge
 
 
@@ -39,5 +38,4 @@ def collect_vm_Age_metrics(vm_obj, vm):
                 for key in keys:
                     propertyValue = getattr(propertyValue, key)
                 propertyValue = getVMAge(propertyValue)
-                if not propertyValue == NULL_STATUS:
-                    vm_obj.with_metric(propertyName, str(propertyValue))
+                vm_obj.with_property(propertyName, str(propertyValue))

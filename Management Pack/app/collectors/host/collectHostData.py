@@ -21,8 +21,6 @@ def collect_host_data(
     adapter_instance_id: str,
     result: CollectResult,
     content: Any,
-    esxiAdvSettings,
-    esxiVIBDrivers
 ) -> None:
     container = content.rootFolder
     view_type = [vim.HostSystem]
@@ -50,11 +48,9 @@ def collect_host_data(
     for host in children:
         host_obj = hosts_by_uuid.get(host._moId)
         if host_obj:
-            if esxiAdvSettings:
-                collect_host_properties(host_obj, host, esxiAdvSettings)
-            #collect_host_profile_properties(host_obj, host)
-            if esxiVIBDrivers:
-                collect_host_software_properties(host_obj, host, esxiVIBDrivers)
+            collect_host_properties(host_obj, host)
+            collect_host_profile_properties(host_obj, host)
+            collect_host_software_properties(host_obj, host)
             collect_host_install_date(host_obj, host)
             result.add_object(host_obj)
         else:

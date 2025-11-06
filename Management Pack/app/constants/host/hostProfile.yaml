@@ -1,8 +1,8 @@
 Host Profile:
   properties:
-    - name: "vCommunity|Configuration|Host Profile|Last Check Time"
+    - name: "Config|Host Profile|Last Check Time (days ago)"
       configPath: "complianceCheckResult.checkTime"
-    - name: "vCommunity|Configuration|Host Profile|Compliance Status"
+    - name: "Config|Host Profile|Compliance Status"
       configPath: "complianceCheckResult.complianceStatus"
-    - name: "vCommunity|Configuration|Host Profile|Profile Name"
+    - name: "Config|Host Profile|Profile Name"
       configPath: "complianceCheckResult.profile.name"

@@ -1,9 +1,0 @@
-<vmConfigs>
-  <!--Remove comments if you want to VM Configuration properties.-->
-  <!--You can add any advanced settings parameter as following-->
-  config.nestedHVEnabled,
-  config.latencySensitivity.level,
-  config.maxMksConnections,
-  <!-- config.memoryAllocation.shares.level-->
-  <!-- config.memoryAllocation.shares.shares -->
-</vmConfigs>
