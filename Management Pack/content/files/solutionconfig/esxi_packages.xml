@@ -1,0 +1,14 @@
+<packages>
+  <!--Remove comments if you want to monitor VIB drivers.-->
+  <!--You can add any advanced settings parameter as following-->
+  <!-- nsx-opsagent -->
+  qlnativefc,
+  <!-- vsan -->
+  <!-- vsanhealth -->
+  nsxcli,
+  nenic,
+  nfnic,
+  <!-- nsx-host -->
+  <!-- nsx-monitoring -->
+  i40en
+</packages>

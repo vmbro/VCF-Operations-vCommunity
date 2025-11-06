@@ -28,7 +28,10 @@ def collect_vm_data(
     WindowsEventLogMonitoringStatus,
     winUser,
     winPassword,
-    winEventLogConfigFile
+    winEventLogConfigFile,
+    vmConfigs,
+    vmAdvParameters,
+    windowsServices
 ) -> None:
     container = content.rootFolder
     view_type = [vim.VirtualMachine]
@@ -57,12 +60,14 @@ def collect_vm_data(
         vm_obj = vms_by_uuid.get(vm._moId)
         if vm_obj:
             collect_vm_metrics(vm_obj, vm)
-            collect_vm_config_properties(vm_obj, vm)
-            collect_vm_Age_metrics(vm_obj, vm)
-            collect_vm_extraconfig_properties(vm_obj, vm)
+            if vmConfigs:
+                collect_vm_config_properties(vm_obj, vm, vmConfigs)
+            #collect_vm_Age_metrics(vm_obj, vm)
+            if vmAdvParameters:
+                collect_vm_extraconfig_properties(vm_obj, vm, vmAdvParameters)
             #collect_vm_scsi_controller_properties(vm_obj,vm) need to check this function
             if str(ServiceMonitoringStatus) == "Enabled":
-                collect_vm_service_properties(vm_obj, vm, content, winUser, winPassword)
+                collect_vm_service_properties(vm_obj, vm, content, winUser, winPassword, windowsServices)
                 logger.info(f"Service Monitoring is enabled. VCF Operations vCommunity will start service monitoring. Service Monitoring Status: {ServiceMonitoringStatus}")
             else:
                 logger.debug(f"Service Monitoring is disabled. Service collection will not started. Service Monitoring Status: {ServiceMonitoringStatus}")

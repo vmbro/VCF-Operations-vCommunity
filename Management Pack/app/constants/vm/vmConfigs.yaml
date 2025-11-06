@@ -1,13 +1,13 @@
 Snapshot:
   metrics:
-    - name: "diskspace|snapshot|Snapshot Count"
+    - name: "vCommunity|Snapshot|Count"
 Config:
   properties:
-    - name: "Config|Latency Sensitivity"
+    - name: "vCommunity|Options|Latency Sensitivity"
       configPath: "config.latencySensitivity.level"
-    - name: "Config|Nested HV Enabled"
+    - name: "vCommunity|Options|Nested HV Enabled"
       configPath: "config.nestedHVEnabled"
 Age:
   properties:
-    - name: "Config|VM Age"
+    - name: "vCommunity|Summary|VM Age"
       configPath: "config.createDate"

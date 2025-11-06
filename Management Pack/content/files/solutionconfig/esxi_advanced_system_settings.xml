@@ -1,0 +1,34 @@
+<advancedSettings>
+  <!--Remove comments if you want to monitor advanced setting parameters.-->
+  <!--You can add any advanced settings parameter as following-->
+  <!-- Syslog.global.LogDir -->
+  Syslog.global.logHost,
+  <!-- Syslog.global.auditRecord.remoteEnable -->
+  <!-- Syslog.global.auditRecord.storageEnable -->
+  <!-- Syslog.global.auditRecord.storageCapacity -->
+  Syslog.global.auditRecord.storageDirectory,
+  Syslog.global.logLevel,
+  Syslog.global.logFiltersEnable,
+  Syslog.global.certificate.checkSSLCerts,
+  Config.HostAgent.plugins.solo.enableMob,
+  <!-- Config.Etc.issue -->
+  Config.HostAgent.log.level,
+  Config.HostAgent.vmacore.soap.sessionTimeout,
+  Security.AccountUnlockTime,
+  Security.AccountLockFailures,
+  Security.PasswordMaxDays,
+  <!-- Security.PasswordQualityControl -->
+  <!-- UserVars.ESXiShellInteractiveTimeOut -->
+  <!-- UserVars.HostClientSessionTimeout -->
+  UserVars.SuppressHyperthreadWarning,
+  UserVars.SuppressShellWarning,
+  UserVars.DcuiTimeOut,
+  UserVars.ESXiShellTimeOut
+  <!-- UserVars.ESXiVPsDisabledProtocols -->
+  <!-- Mem.MemEagerZero -->
+  <!-- Mem.ShareForceSalting -->
+  <!-- Net.BMCNetworkEnable -->
+  <!-- Net.DVFilterBindIpAddress -->
+  <!-- Annotations.WelcomeMessage -->
+  <!-- VMkernel.Boot.execInstalledOnly -->
+</advancedSettings>
