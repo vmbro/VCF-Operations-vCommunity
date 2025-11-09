@@ -1,6 +1,9 @@
 <advancedSettings>
-  <!--Remove comments if you want to monitor advanced setting parameters.-->
-  <!--You can add any advanced settings parameter as following-->
+  <!--
+  To monitor a particular setting, uncomment the line. It will be collected and appear in the policy. 
+  For details for each setting refer to https://github.com/lamw/esxi-advanced-and-kernel-settings/blob/master/esxi-901-advanced-settings.md
+  -->
+
   <!-- Syslog.global.LogDir -->
   Syslog.global.logHost,
   <!-- Syslog.global.auditRecord.remoteEnable -->
@@ -10,6 +13,7 @@
   Syslog.global.logLevel,
   Syslog.global.logFiltersEnable,
   Syslog.global.certificate.checkSSLCerts,
+
   Config.HostAgent.plugins.solo.enableMob,
   <!-- Config.Etc.issue -->
   Config.HostAgent.log.level,
