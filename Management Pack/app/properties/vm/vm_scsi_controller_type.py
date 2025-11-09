@@ -21,27 +21,27 @@ def collect_vm_scsi_controller_properties(vm_obj, vm):
         devices = getattr(hw, "device", []) if hw else []
 
         ctrls = [d for d in devices if isinstance(d, vim.vm.device.VirtualSCSIController)]
-        vm_obj.with_property("Config|SCSI Controllers|Count", len(ctrls))
+        vm_obj.with_property("vCommunity|Config|SCSI Controllers|Count", len(ctrls))
 
         def pretty_type(ctrl):
             if isinstance(ctrl, vim.vm.device.ParaVirtualSCSIController):
                 return "VMware Paravirtual (PVSCSI)"
-            if isinstance(ctrl, vim.vm.device.LsiLogicSASController):
+            if isinstance(ctrl, vim.vm.device.VirtualLsiLogicSASController):
                 return "LSI Logic SAS"
-            if isinstance(ctrl, vim.vm.device.LsiLogicController):
+            if isinstance(ctrl, vim.vm.device.VirtualLsiLogicController):
                 return "LSI Logic Parallel"
-            if isinstance(ctrl, vim.vm.device.BusLogicController):
+            if isinstance(ctrl, vim.vm.device.VirtualBusLogicController):
                 return "BusLogic"
             return type(ctrl).__name__
 
         for c in ctrls:
             bus = getattr(c, "busNumber", None)
             bus_str = str(bus) if bus is not None else "unknown"
-            vm_obj.with_property(f"Config|SCSI Controllers|{bus_str}|Type", pretty_type(c))
+            vm_obj.with_property(f"vCommunity|Config|SCSI Controllers|{bus_str}|Type", pretty_type(c))
 
         # Emit a sentinel when there are no controllers (keeps dashboards happy)
         if not ctrls:
-            vm_obj.with_property("Config|SCSI Controllers|0|Type", NULL_STATUS)
+            vm_obj.with_property("vCommunity|Config|SCSI Controllers|0|Type", NULL_STATUS)
 
     except Exception as e:
         logger.exception(
