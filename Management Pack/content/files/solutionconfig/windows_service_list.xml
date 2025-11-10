@@ -3,6 +3,13 @@
   <!--You can add any service name as following-->
   <!-- Dhcp -->
   <!-- WinDefend -->
+  DNS,
   Dnscache,
-  MpsSvc
+  MpsSvc,
+  NTDS,
+  spooler,
+  sshd,
+  TermService,
+  VeeamBackupSvc,
+  WinDefend
 </windowsServices>
