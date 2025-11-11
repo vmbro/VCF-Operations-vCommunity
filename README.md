@@ -7,7 +7,7 @@
 
 # VCF Operations vCommunity Management Pack
 
-This Management Pack was built by Broadcom TAM Onur Yuzseven, using the VCF Operations Integration SDK.  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
+This Management Pack was built by Broadcom TAM [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/), using the VCF Operations Integration SDK.  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
 
 1.  Capture ESXi Host Advanced System Settings (esxi_advanced_system_settings.xml)
 2.  Capture ESXi Host Software Packages (esxi_packages.xml)
@@ -18,8 +18,10 @@ The user can customize what is being captured above by editing the associated XM
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
-1.  Captures Windows Services (windows_service_list.xml))
-2.  Catpures Windows Event Log Events (windows_event_list.xml)
+1.  Captures MS Windows Services (windows_service_list.xml))
+2.  Catpures MS Windows Event Log Events (windows_event_list.xml)
+
+The above implementation is agentless. It uses GuestAPI with the provided Guest OS credentials.
 
 New Dashboards:
 * Critical Business Application 
@@ -37,10 +39,11 @@ Enhanced Dashboards:
 * vSphere Network Configuration
 
 Reports:
-Reports were designed to replace all the existing vSphere adapter reports.  There are two types of Reports: PDF and CSV
+Reports were designed to replace all the existing vSphere adapter reports. They were designed top down, as a set.
+They are also purpose-built. The PDF format and the CSV format is targetted for their specific use cases.
 
 Super Metrics:
-Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics.  They must be enabled in Policy's after Management Pack installation.
+Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics. You can bulk enable them in Policy, after Management Pack installation.
 
 Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
