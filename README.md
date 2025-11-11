@@ -29,7 +29,7 @@ New Dashboards:
 * vSphere Resource Management 
 * VM Storage Configuration 
 
-Enhanced Dashboards:
+Enhanced Dashboards (replacing existing ones):
 * VM Configuration
 * VM Capacity
 * VM Performance
@@ -44,8 +44,9 @@ Reports were designed to replace all the existing vSphere adapter reports. They 
 They are also purpose-built. The PDF format and the CSV format is targetted for their specific use cases.
 
 Super Metrics:
-Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics. You can bulk enable them in Policy, after Management Pack installation.
+They are used in the dashboards. Super Metrics can be found here: https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics. You can bulk enable them in Policy, after Management Pack installation.
 
+The above was provided by [Iwan Rahabok](https://www.linkedin.com/in/e1ang/). They are documented in his books, available for download [here](https://broadcom.box.com/v/OpsYourWorld). 
 Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
 - Virtual Machine Snapshot Count
