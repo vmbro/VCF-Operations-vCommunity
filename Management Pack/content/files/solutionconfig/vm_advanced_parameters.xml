@@ -1,11 +1,13 @@
 <vmAdvParameters>
+  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  
   <!--
   Configuration file for VM Advanced Parameters as shown in vCenter.
   Add VM Advanced Parameter Attribute to start monitoring it.
   -->
 
-  nvram,
-  svga.present,
+  <!-- nvram, -->
+  <!-- svga.present, -->
   <!-- pciBridge0.present, -->
   <!-- pciBridge4.present, -->
   <!-- pciBridge4.virtualDev, -->
@@ -49,10 +51,10 @@
   <!-- guestInfo.detailed.data, -->
   <!-- namespaceMgr.dbFile, -->
   <!-- guestinfo.ovfEnv, -->
-  guestinfo.vmtools.buildNumber,
-  guestinfo.vmtools.description,
-  guestinfo.vmtools.versionNumber,
-  guestinfo.vmtools.versionString,
-  guestinfo.vmware.components.available,
+  <!-- guestinfo.vmtools.buildNumber, -->
+  <!-- guestinfo.vmtools.description, -->
+  <!-- guestinfo.vmtools.versionNumber, -->
+  <!-- guestinfo.vmtools.versionString, -->
+  <!-- guestinfo.vmware.components.available, -->
   <!-- guestinfo.appInfo, -->
 </vmAdvParameters>
