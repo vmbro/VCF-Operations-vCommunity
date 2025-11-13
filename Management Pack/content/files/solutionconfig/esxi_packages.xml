@@ -1,4 +1,6 @@
 <packages>
+  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  
   <!--
   Remove comments if you want to monitor VIB drivers.
   You can add any advanced settings parameter as following.
@@ -20,8 +22,8 @@
   <!-- irdman, -->
   <!-- iser, -->
   <!-- ixgben, -->
-  lpfc,
-  lpnic,
+  <!-- lpfc, -->
+  <!-- lpnic, -->
   <!-- lsi-mr3, -->
   <!-- lsi-msgpt35, -->
   <!-- lsi-msgpt3, -->
@@ -86,8 +88,8 @@
   <!-- nsx-esx-datapath, -->
   <!-- nsx-exporter, -->
   <!-- nsx-headless-controller, -->
-  nsx-host,
-  <!-- nsx-monitoring, -->
+  <!-- nsx-host, -->
+  <!-- nsx-monitoring -->
   <!-- nsx-mpa, -->
   <!-- nsx-nestdb, -->
   <!-- nsx-netopa, -->
@@ -104,7 +106,7 @@
   <!-- nsx-snproxy, -->
   <!-- nsxcli, -->
   <!-- podvm-router, -->
-  qlnativefc,
+  <!-- qlnativefc, -->
   <!-- trx, -->
   <!-- vcls-pod-crx, -->
   <!-- vdfs, -->
