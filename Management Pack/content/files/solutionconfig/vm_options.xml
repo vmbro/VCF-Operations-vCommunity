@@ -46,6 +46,20 @@
   <!-- config.sgxInfo.flcMode, -->
   <!-- config.sgxInfo.lePubKeyHash, -->
   <!-- config.sgxInfo.requireAttestation, -->
+  <!-- config.tools.afterPowerOn, -->
+  <!-- config.tools.afterResume, -->
+  <!-- config.tools.beforeGuestReboot, -->
+  <!-- config.tools.beforeGuestShutdown, -->
+  <!-- config.tools.beforeGuestStandby, -->
+  <!-- config.tools.customizationKeyId, -->
+  <!-- config.tools.lastInstallInfo.counter, -->
+  <!-- config.tools.lastInstallInfo.fault, -->
+  <!-- config.tools.pendingCustomization, -->
+  <!-- config.tools.syncTimeWithHost, -->
+  <!-- config.tools.syncTimeWithHostAllowed, -->
+  <!-- config.tools.toolsInstallType, -->
+  <!-- config.tools.toolsUpgradePolicy, -->
+  <!-- config.tools.toolsVersion, -->
   <!-- config.vAssertsEnabled, -->
   <!-- config.vFlashCacheReservation, -->
   <!-- config.vPMCEnabled, -->
