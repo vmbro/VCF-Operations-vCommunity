@@ -1,9 +1,52 @@
 <vmConfigs>
-  <!--Remove comments if you want to VM Configuration properties.-->
-  <!--You can add any advanced settings parameter as following-->
-  config.nestedHVEnabled,
+  <!--
+  Configuration file for VM Options as shown in vCenter.
+  Add VM Options Key as defined in vCenter MOB UI.
+  -->
+
+  <!-- config.alternateGuestName, -->
+  <!-- config.changeTrackingEnabled, -->
+  <!-- config.bootOptions.bootDelay, -->
+  <!-- config.bootOptions.bootOrder, -->
+  <!-- config.bootOptions.bootRetryDelay, -->
+  <!-- config.bootOptions.bootRetryEnabled, -->
+  <!-- config.bootOptions.efiSecureBootEnabled, -->
+  <!-- config.bootOptions.enterBIOSSetup, -->
+  <!-- config.bootOptions.networkBootProtocol, -->
+  <!-- config.flags.cbrcCacheEnabled, -->
+  <!-- config.flags.disableAcceleration, -->
+  <!-- config.flags.diskUuidEnabled, -->
+  <!-- config.flags.enableLogging, -->
+  <!-- config.flags.faultToleranceType, -->
+  <!-- config.flags.htSharing, -->
+  <!-- config.flags.monitorType, -->
+  <!-- config.flags.recordReplayEnabled, -->
+  <!-- config.flags.runWithDebugInfo, -->
+  <!-- config.flags.snapshotDisabled, -->
+  <!-- config.flags.snapshotLocked, -->
+  <!-- config.flags.snapshotPowerOffBehavior, -->
+  <!-- config.flags.useToe, -->
+  <!-- config.flags.vbsEnabled, -->
+  <!-- config.flags.virtualExecUsage, -->
+  <!-- config.flags.virtualMmuUsage, -->
+  <!-- config.flags.virtualExecUsage, -->
   config.latencySensitivity.level,
+  config.latencySensitivity.sensitivity,
   config.maxMksConnections,
-  <!-- config.memoryAllocation.shares.level-->
-  <!-- config.memoryAllocation.shares.shares -->
+  <!-- config.migrateEncryption, -->
+  config.nestedHVEnabled,
+  <!-- config.scheduledHardwareUpgradeInfo.fault, -->
+  <!-- config.scheduledHardwareUpgradeInfo.scheduledHardwareUpgradeStatus, -->
+  <!-- config.scheduledHardwareUpgradeInfo.upgradePolicy, -->
+  <!-- config.scheduledHardwareUpgradeInfo.versionKey, -->
+  <!-- config.sevEnabled, -->
+  <!-- config.sgxInfo.epcSize, -->
+  <!-- config.sgxInfo.flcMode, -->
+  <!-- config.sgxInfo.lePubKeyHash, -->
+  <!-- config.sgxInfo.requireAttestation, -->
+  <!-- config.vAssertsEnabled, -->
+  <!-- config.vFlashCacheReservation, -->
+  <!-- config.vPMCEnabled, -->
+  <!-- config.vmOpNotificationTimeout, -->
+  <!-- config.vmOpNotificationToAppEnabled, -->
 </vmConfigs>

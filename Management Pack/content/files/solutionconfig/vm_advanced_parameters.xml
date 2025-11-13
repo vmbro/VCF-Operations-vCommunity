@@ -1,7 +1,58 @@
 <vmAdvParameters>
-  <!--Remove comments if you want to monitor VM Advanced Parameters.-->
-  <!--You can add any advanced settings parameter as following-->
-  <!-- vmware.tools.requiredversion -->
-  RemoteDisplay.maxConnections,
-  svga.present
+  <!--
+  Configuration file for VM Advanced Parameters as shown in vCenter.
+  Add VM Advanced Parameter Attribute to start monitoring it.
+  -->
+
+  nvram,
+  svga.present,
+  <!-- pciBridge0.present, -->
+  <!-- pciBridge4.present, -->
+  <!-- pciBridge4.virtualDev, -->
+  <!-- pciBridge4.functions, -->
+  <!-- pciBridge5.present, -->
+  <!-- pciBridge5.virtualDev, -->
+  <!-- pciBridge5.functions, -->
+  <!-- pciBridge6.present, -->
+  <!-- pciBridge6.virtualDev, -->
+  <!-- pciBridge6.functions, -->
+  <!-- pciBridge7.present, -->
+  <!-- pciBridge7.virtualDev, -->
+  <!-- pciBridge7.functions, -->
+  <!-- hpet0.present, -->
+  <!-- ide0:0.autodetect, -->
+  <!-- viv.moid, -->
+  <!-- vmxstats.filename, -->
+  <!-- numa.autosize.cookie, -->
+  <!-- numa.autosize.vcpu.maxPerVirtualNode, -->
+  <!-- sched.swap.derivedName, -->
+  <!-- pciBridge0.pciSlotNumber, -->
+  <!-- pciBridge4.pciSlotNumber, -->
+  <!-- pciBridge5.pciSlotNumber, -->
+  <!-- pciBridge6.pciSlotNumber, -->
+  <!-- pciBridge7.pciSlotNumber, -->
+  <!-- scsi0.pciSlotNumber, -->
+  <!-- scsi0:2.redo, -->
+  <!-- scsi0:1.redo, -->
+  <!-- scsi0:0.redo, -->
+  <!-- scsi0.sasWWID, -->
+  <!-- vmotion.checkpointFBSize, -->
+  <!-- vmotion.checkpointSVGAPrimarySize, -->
+  <!-- monitor.phys_bits_used, -->
+  <!-- softPowerOff, -->
+  <!-- vmware.tools.internalversion, -->
+  <!-- vmware.tools.requiredversion, -->
+  <!-- migrate.hostLogState, -->
+  <!-- migrate.migrationId, -->
+  <!-- migrate.hostLog, -->
+  <!-- tools.capability.verifiedSamlToken, -->
+  <!-- guestInfo.detailed.data, -->
+  <!-- namespaceMgr.dbFile, -->
+  <!-- guestinfo.ovfEnv, -->
+  guestinfo.vmtools.buildNumber,
+  guestinfo.vmtools.description,
+  guestinfo.vmtools.versionNumber,
+  guestinfo.vmtools.versionString,
+  guestinfo.vmware.components.available,
+  <!-- guestinfo.appInfo, -->
 </vmAdvParameters>
