@@ -1,8 +1,11 @@
 <windowsServices>
+  
+  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  
   <!--Remove comments if you want to monitor Windows Services.-->
   <!--You can add any service name as following-->
   <!-- Dhcp -->
   <!-- WinDefend -->
-  Dnscache,
-  MpsSvc
+  <!-- Dnscache, -->
+  <!-- MpsSvc -->
 </windowsServices>
