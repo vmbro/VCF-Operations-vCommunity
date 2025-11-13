@@ -1,4 +1,6 @@
 <vmConfigs>
+  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  
   <!--
   Configuration file for VM Options as shown in vCenter.
   Add VM Options Key as defined in vCenter MOB UI.
@@ -30,11 +32,11 @@
   <!-- config.flags.virtualExecUsage, -->
   <!-- config.flags.virtualMmuUsage, -->
   <!-- config.flags.virtualExecUsage, -->
-  config.latencySensitivity.level,
-  config.latencySensitivity.sensitivity,
-  config.maxMksConnections,
+  <!-- config.latencySensitivity.level, -->
+  <!-- config.latencySensitivity.sensitivity, -->
+  <!-- config.maxMksConnections, -->
   <!-- config.migrateEncryption, -->
-  config.nestedHVEnabled,
+  <!-- config.nestedHVEnabled, -->
   <!-- config.scheduledHardwareUpgradeInfo.fault, -->
   <!-- config.scheduledHardwareUpgradeInfo.scheduledHardwareUpgradeStatus, -->
   <!-- config.scheduledHardwareUpgradeInfo.upgradePolicy, -->
