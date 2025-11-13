@@ -1,4 +1,6 @@
 <advancedSettings>
+  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  
   <!--
   To monitor a particular setting, uncomment the line. It will be collected and appear in the policy. 
   For details for each setting refer to https://github.com/lamw/esxi-advanced-and-kernel-settings/blob/master/esxi-901-advanced-settings.md
@@ -27,7 +29,7 @@
   <!-- Config.HostAgent.level[Vcsvc].logLevel, -->
   <!-- Config.HostAgent.level[Vimsvc].logLevel, -->
   <!-- Config.HostAgent.level[Vmsvc].logLevel, -->
-  Config.HostAgent.log.level,
+  <!-- Config.HostAgent.log.level, -->
   <!-- Config.HostAgent.plugins.hostsvc.esxAdminsGroup, -->
   <!-- Config.HostAgent.plugins.hostsvc.esxAdminsGroupAutoAdd, -->
   <!-- Config.HostAgent.plugins.solo.disableRemoteEsxcli, -->
@@ -52,10 +54,10 @@
   <!-- Config.HostAgent.ssl.keyStore.allowAny, -->
   <!-- Config.HostAgent.ssl.keyStore.allowSelfSigned, -->
   <!-- Config.HostAgent.ssl.keyStore.discardLeaf, -->
-  Config.HostAgent.ssl.minPrivateKeyLength,
-  Config.HostAgent.ticketing.thumbprintTypes,
-  Config.HostAgent.vmacore.soap.maxSessionCount,
-  Config.HostAgent.vmacore.soap.sessionTimeout,
+  <!-- Config.HostAgent.ssl.minPrivateKeyLength, -->
+  <!-- Config.HostAgent.ticketing.thumbprintTypes, -->
+  <!-- Config.HostAgent.vmacore.soap.maxSessionCount, -->
+  <!-- Config.HostAgent.vmacore.soap.sessionTimeout, -->
   <!-- Cpu.AllowWideVsmp, -->
   <!-- Cpu.BoundLagQuanta, -->
   <!-- Cpu.CommRateThreshold, -->
