@@ -7,7 +7,9 @@
 
 # VCF Operations vCommunity Management Pack
 
-This Management Pack was built by Broadcom TAM [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/), using the [VCF Operations Integration SDK](https://github.com/vmware/vmware-aria-operations-integration-sdk).  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
+This free Management Pack was developed by [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/) as his contribution to the vCommunity (VMUG, vExpert, VCP). It's not an official VMware project, and there is no support from VMware GSS. Deploy at your own risk, or consult PSO for a custom solution. 
+
+It's built using the [VCF Operations Integration SDK](https://github.com/vmware/vmware-aria-operations-integration-sdk).  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
 
 1.  Capture ESXi Host Advanced System Settings (esxi_advanced_system_settings.xml)
 2.  Capture ESXi Host Software Packages (esxi_packages.xml)
