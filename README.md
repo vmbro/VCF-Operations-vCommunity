@@ -14,15 +14,16 @@ This Management Pack was built by Broadcom TAM [Onur Yuzseven](https://www.linke
 3.  Capture VM Advanced Paramters (vm_advanced_parameters.xml)
 4.  Capture VM Options (vm_options.xml)
 
-The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations). 
+The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/). 
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
-1.  Captures MS Windows Services (windows_service_list.xml))
-2.  Catpures MS Windows Event Log Events (windows_event_list.xml)
+1.  Captures Microsoft Windows Services (windows_service_list.xml))
+2.  Captures Microsoft Windows Event Log Events (windows_event_list.xml)
 
-The above implementation is agentless. It uses GuestAPI with the provided Guest OS credentials. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-2). 
-As it does not come with a dashboard, Dale Hassinger has created a cool dashboard [here](https://www.vcrocs.info/vcommunity-mp-windows-servers-services/). 
+The above implementation is _agentless_. It uses GuestAPI with the provided Guest OS credentials. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-2). 
+As it does not come with a dashboard, [Dale Hassinger](https://www.linkedin.com/in/dalehassinger/) has created a cool dashboard [here](https://www.vcrocs.info/vcommunity-mp-windows-servers-services/). 
+Before monitoring hundreds of Windows machine, check the additional load in both VCF Operations and the Windows machine.
 
 New Dashboards:
 * Critical Business Application 
