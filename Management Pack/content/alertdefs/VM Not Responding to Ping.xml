@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><alertContent>
+    <AlertDefinitions>
+        <AlertDefinition adapterKind="VMWARE" description="VM Not Responding to Ping" disableInBasePolicy="true" id="AlertDefinition-e9a17aeb-4ffc-4397-b9ed-7275de844db0" name="VM Not Responding to Ping" resourceKind="VirtualMachine" subType="19" type="15">
+            <State severity="automatic">
+                <SymptomSet applyOn="self" operator="and" ref="SymptomDefinition-222170fe-9dd7-4ec2-8ff1-0f9e79b53391"/>
+                <Impact key="health" type="badge"/>
+            </State>
+        </AlertDefinition>
+    </AlertDefinitions>
+    <SymptomDefinitions>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-222170fe-9dd7-4ec2-8ff1-0f9e79b53391" name="Condition_7de10c12-1a75-4f37-a33e-33b92be267af" resourceKind="VirtualMachine" symptomDefType="condition_self">
+            <State severity="critical">
+                <Condition key="vCommunity|Availability|Ping|Status" operator="=" thresholdType="static" type="metric" value="0.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+    </SymptomDefinitions>
+</alertContent>
