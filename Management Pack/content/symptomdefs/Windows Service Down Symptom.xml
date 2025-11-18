@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?><alertContent>
+    <SymptomDefinitions>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-7675759b-2ca0-4847-87ed-e3e23acdf7a5" name="Windows Service Down" resourceKind="VirtualMachine">
+            <State severity="warning">
+                <Condition instanced="true" key="vCommunity|Guest OS|Services:DHCP Client|Service Status" operator="!=" thresholdType="static" type="property" value="Running" valueType="string"/>
+            </State>
+        </SymptomDefinition>
+    </SymptomDefinitions>
+</alertContent>
