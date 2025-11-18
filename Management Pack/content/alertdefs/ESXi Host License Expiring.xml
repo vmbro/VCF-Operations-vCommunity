@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?><alertContent>
+    <AlertDefinitions>
+        <AlertDefinition adapterKind="VMWARE" description="ESXi Host License Expiring" disableInBasePolicy="true" id="AlertDefinition-3ec480a2-49a0-4e9d-b745-5ab5923a2c9f" name="ESXi Host License Expiring" resourceKind="HostSystem" subType="19" type="15">
+            <State severity="automatic">
+                <SymptomSets operator="or">
+                    <SymptomSet applyOn="self" operator="and" ref="SymptomDefinition-9803e6a3-d41c-47f7-8a21-1504a5a99821"/>
+                    <SymptomSet applyOn="self" operator="and">
+                        <Symptom ref="SymptomDefinition-7a5c6ce4-9444-4cdd-a050-0fe3bca6e7c9"/>
+                        <Symptom ref="SymptomDefinition-b0d54ebb-12df-464e-89a1-b3934a93072f"/>
+                    </SymptomSet>
+                    <SymptomSet applyOn="self" operator="and">
+                        <Symptom ref="SymptomDefinition-ff8e08f4-5af5-4f93-bb5d-4bdb3ff07070"/>
+                        <Symptom ref="SymptomDefinition-a3587501-0d08-4786-af15-feb353279e67"/>
+                    </SymptomSet>
+                    <SymptomSet applyOn="self" operator="and">
+                        <Symptom ref="SymptomDefinition-e0fbe746-272c-4b51-8d93-bc59124f8f7d"/>
+                        <Symptom ref="SymptomDefinition-c6e76934-1b3c-4991-b57c-9d713c64d31c"/>
+                    </SymptomSet>
+                </SymptomSets>
+                <Impact key="health" type="badge"/>
+            </State>
+        </AlertDefinition>
+    </AlertDefinitions>
+    <SymptomDefinitions>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-9803e6a3-d41c-47f7-8a21-1504a5a99821" name="Condition_c6a38afa-6d69-4c73-a88c-c764e66db49b" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="critical">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&lt;" thresholdType="static" type="metric" value="30.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-7a5c6ce4-9444-4cdd-a050-0fe3bca6e7c9" name="Condition_d2f954fc-3121-49db-bb9a-33c04afb8de2" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="warning">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&gt;=" thresholdType="static" type="metric" value="30.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-b0d54ebb-12df-464e-89a1-b3934a93072f" name="Condition_b8e3e3de-2a06-4dbd-9829-a12ffe048677" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="warning">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&lt;" thresholdType="static" type="metric" value="60.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-a3587501-0d08-4786-af15-feb353279e67" name="Condition_191895ee-451e-43f5-9237-3c24344ffe70" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="immediate">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&gt;=" thresholdType="static" type="metric" value="60.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-ff8e08f4-5af5-4f93-bb5d-4bdb3ff07070" name="Condition_93e95c4e-63aa-4e04-b332-cc27317966e2" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="immediate">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&lt;" thresholdType="static" type="metric" value="90.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-c6e76934-1b3c-4991-b57c-9d713c64d31c" name="Condition_b9573d67-e858-44b2-afa5-d04d757dab0c" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="info">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&gt;=" thresholdType="static" type="metric" value="90.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-e0fbe746-272c-4b51-8d93-bc59124f8f7d" name="Condition_eefdbe0c-98aa-49a0-ba96-e398864ea68e" resourceKind="HostSystem" symptomDefType="condition_self">
+            <State severity="info">
+                <Condition key="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days" operator="&lt;" thresholdType="static" type="metric" value="160.0" valueType="numeric"/>
+            </State>
+        </SymptomDefinition>
+    </SymptomDefinitions>
+</alertContent>
