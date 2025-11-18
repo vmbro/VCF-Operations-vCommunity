@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><alertContent>
+    <AlertDefinitions>
+        <AlertDefinition adapterKind="VMWARE" description="Windows Service Down" disableInBasePolicy="true" id="AlertDefinition-07dcccaa-eac3-4501-9dfc-34deccb963e9" name="Windows Service Down" resourceKind="VirtualMachine" subType="19" type="15">
+            <State severity="automatic">
+                <SymptomSet applyOn="self" operator="and" ref="SymptomDefinition-7675759b-2ca0-4847-87ed-e3e23acdf7a5"/>
+                <Impact key="health" type="badge"/>
+            </State>
+        </AlertDefinition>
+    </AlertDefinitions>
+    <SymptomDefinitions>
+        <SymptomDefinition adapterKind="VMWARE" disableInBasePolicy="true" id="SymptomDefinition-7675759b-2ca0-4847-87ed-e3e23acdf7a5" name="Windows Service Status Down" resourceKind="VirtualMachine">
+            <State severity="warning">
+                <Condition instanced="true" key="vCommunity|Guest OS|Services:DHCP Client|Service Status" operator="!=" thresholdType="static" type="property" value="Running" valueType="string"/>
+            </State>
+        </SymptomDefinition>
+    </SymptomDefinitions>
+</alertContent>
