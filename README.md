@@ -13,7 +13,7 @@ It's built using the [VCF Operations Integration SDK](https://github.com/vmware/
 
 1.  Capture ESXi Host Advanced System Settings (esxi_advanced_system_settings.xml)
 2.  Capture ESXi Host Software Packages (esxi_packages.xml)
-3.  Capture VM Advanced Paramters (vm_advanced_parameters.xml)
+3.  Capture VM Advanced Parameters (vm_advanced_parameters.xml)
 4.  Capture VM Options (vm_options.xml)
 
 The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/). 
@@ -55,3 +55,4 @@ Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
 - Virtual Machine Snapshot Count
   
+Test drive it at VMware Hands-on Lab [here](https://labs.hol.vmware.com/HOL/catalog/lab/26848). [Abhijit Timble](https://www.linkedin.com/in/abhijit-timble-75878514/) has installed it so you can evaluate it before deciding in your environment.
