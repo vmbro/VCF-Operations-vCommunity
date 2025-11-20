@@ -1,22 +1,20 @@
-#  Copyright 2024 vCommunity MP
-#  Author: Onur Yuzseven
+#  Copyright 2025 vCommunity MP
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import os
-import time
 import logging
 import requests
 import csv
 from io import StringIO
 from pyVmomi import vim
-from aria.ops.event import Criticality
 
 logger = logging.getLogger(__name__)
 
 prefix = "VCFOperationsvCommunity-"
-suffix = "-EventLog-TEMP"
+suffix = "-OSInfo-TEMP"
 current_directory = os.path.dirname(os.path.abspath(__file__))
-eventLogScript = "getWindowsEventLogs.ps1"
-eventLogScriptPath = os.path.join(current_directory, "getWindowsEventLogs.ps1")
+osInfoScript = "getWindowsOSInformation.ps1"
+osInfoScriptPath = os.path.join(current_directory, "getWindowsOSInformation.ps1")
 
 
 def fileTransfer(vm, creds, content, scriptPath, tempDir, script):
@@ -125,7 +123,7 @@ def createTempFile(fileManager, vm, creds, filePath, data):
         logger.error(f"Exception during file creation on {vm.name}: {e}")
         return False, None
 
-def collect_windows_events(vm_obj, vm, content, winUser, winPassword, winEventLogConfigFile):
+def collect_vm_os_information_properties(vm_obj, vm, content, winUser, winPassword):
     processManager = content.guestOperationsManager.processManager
     fileManager = content.guestOperationsManager.fileManager
     creds = vim.vm.guest.NamePasswordAuthentication(username=winUser, password=winPassword)
@@ -133,72 +131,60 @@ def collect_windows_events(vm_obj, vm, content, winUser, winPassword, winEventLo
     toolsStatus = vm.guest.toolsStatus
     guestOSFamily = vm.guest.guestFamily
     if toolsStatus == "toolsOk" and guestOSFamily == "windowsGuest":
-        logger.info(f"Started Windows Event log reading for {vm.name}")
+        logger.info(f"Collecting Windows OS Information properties for {vm.name}")
         systemRootPath = "C:\\Windows"
         tempDirPath = systemRootPath + "\\Temp"
         powershellPath = systemRootPath + "\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
         try:
             tempDir = fileManager.CreateTemporaryDirectory(vm, creds, prefix, suffix, tempDirPath)
-            tempFileStatus, tempFile = createTempFile(fileManager, vm, creds, tempDir, winEventLogConfigFile)
-            tempFileName = tempFile.split("EventLog-TEMP\\")[-1]
-            FileExist = checkFile(fileManager, vm, creds, tempDir, tempFileName)
 
-            if tempFileStatus and FileExist:
-                command = f"\"& '{tempDir}\\{eventLogScript}' '{tempFile}' | Export-Csv -Path '{tempDir}\\Event_Log.csv' -NoTypeInformation -Encoding UTF8\""
-                fileTransferStatus = fileTransfer(vm, creds, content, eventLogScriptPath, tempDir, eventLogScript)
-                if fileTransferStatus:
-                    executeProgram(powershellPath, command, processManager, vm, creds)
-                    eventLogOutputPath = f"{tempDir}\\Event_Log.csv"
-                    eventLogResult = readOutput(fileManager, vm, creds, eventLogOutputPath)
-                    reader = csv.reader(StringIO(eventLogResult))
-                    rows = list(reader)
-                    if rows:
-                        header = rows[0]
-                        eventLevelIndex = header.index("Level")
-                        eventMessageIndex = header.index("Event")
-                    
-                        for row in rows[1:]:
-                            try:
-                                eventLevel = row[eventLevelIndex]
-                                eventMessage = row[eventMessageIndex]
-                            except Exception as e:
-                                logger.error(f"CSV parsing error on {vm.name}: {e}")
-                                continue
+            command = f"\"& '{tempDir}\\{osInfoScript}' | Export-Csv -Path '{tempDir}\\OSInfo.csv' -NoTypeInformation -Encoding UTF8\""
+            fileTransferStatus = fileTransfer(vm, creds, content, osInfoScriptPath, tempDir, osInfoScript)
+            if fileTransferStatus:
+                executeProgram(powershellPath, command, processManager, vm, creds)
+                OSInfoOutputPath = f"{tempDir}\\OSInfo.csv"
+                OSInfoResult = readOutput(fileManager, vm, creds, OSInfoOutputPath)
+                reader = csv.reader(StringIO(OSInfoResult))
+                rows = list(reader)
+                if rows:
+                    header = rows[0]
+                    osNameIndex = header.index("Name")
+                    osVersionIndex = header.index("Version")
+                    osBuildNumberIndex = header.index("BuildNumber")
+                    osOSArchitectureIndex = header.index("OSArchitecture")
+                    osLastBootUpTimeIndex = header.index("LastBootUpTime")
+                    osReleaseIdIndex = header.index("ReleaseId")
 
-                            if eventLevel == "Information":
-                                criticality = Criticality.INFO
-                            elif eventLevel == "Verbose":
-                                criticality = Criticality.INFO
-                            elif eventLevel == "Warning":
-                                criticality = Criticality.WARNING
-                            elif eventLevel == "Error":
-                                criticality = Criticality.IMMEDIATE
-                            elif eventLevel == "Critical":
-                                criticality = Criticality.CRITICAL
-                            else:
-                                criticality = Criticality.INFO
+                    for row in rows[1:]:
+                        try:
+                            osName = row[osNameIndex]
+                            osVersion = row[osVersionIndex]
+                            osBuildNumber = row[osBuildNumberIndex]
+                            osOSArchitecture = row[osOSArchitectureIndex]
+                            osLastBootUpTime = row[osLastBootUpTimeIndex]
+                            osReleaseId = row[osReleaseIdIndex]
+                            logger.info(f"Parsed OS Information for {vm.name}: Name={osName}, Version={osVersion}, BuildNumber={osBuildNumber}, Architecture={osOSArchitecture}, LastBootUpTime={osLastBootUpTime}, ReleaseId={osReleaseId}")
+                        except Exception as e:
+                            logger.error(f"CSV parsing error on {vm.name}: {e}")
+                            continue
 
-                            formattedMessage = f"[WindowsEvent-{eventLevel} {eventMessage}"
-                            now = int(time.time() * 1000)
-                            vm_obj.with_event(
-                                message=formattedMessage,
-                                criticality=criticality,
-                                auto_cancel=True,
-                                watch_wait_cycle=1,
-                                cancel_wait_cycle=3,
-                                update_date=now
-                            )
-                            logger.info(f"Sending Windows Event details for {vm.name}")
-                    else:
-                        logger.info(f"Can not find Windows Event details on {vm.name}")
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS Name", osName)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS Version", osVersion)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS BuildNumber", osBuildNumber)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS Architecture", osOSArchitecture)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS Last Boot Up Time", osLastBootUpTime)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Operating System|OS Release ID", osReleaseId)
+
+                        logger.info(f"Sending Windows Operating System informations for {vm.name}")
                 else:
-                    logger.info(f"File transfer failed. Skipping Windows Event Log reading on {vm.name} ")
+                    logger.info(f"Can not find Windows Operating System informations on {vm.name}")
             else:
-                logger.error(f"Cannot find the Windows Event Log XML file on {vm.name}")
+                logger.error(f"Cannot find the Windows Operating System information CSV file on {vm.name}")
 
         except Exception as e:
-            logger.error("An error occurred during Windows Event Log collection: {e}")
-            
+            logger.error(f"Failed to create temporary directory on {vm.name}: {e}")
+            return
+        
         finally:
             try:
                 if tempDir:

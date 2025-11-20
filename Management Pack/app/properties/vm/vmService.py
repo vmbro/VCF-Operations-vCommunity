@@ -1,12 +1,10 @@
-#  Copyright 2024 vCommunity Content MP
-#  Author: Onur Yuzseven
+#  Copyright 2024 vCommunity MP
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import os
-import time
 import logging
 import requests
 from pyVmomi import vim
-from aria.ops.event import Criticality
 
 logger = logging.getLogger(__name__)
 
@@ -145,11 +143,8 @@ def collect_vm_service_properties(vm_obj, vm, content, winUser, winPassword, win
                 executeProgram(powershellPath, command, processManager, vm, creds)
                 servicesOutputPath = f"{tempDir}\\Services.csv"
                 serviceResult = readOutput(fileManager, vm, creds, servicesOutputPath)
-                logger.error(f"serviceResult: {serviceResult}")
                 lines = serviceResult.splitlines()
-                logger.error(f"lines: {lines}")
                 if serviceResult.strip():
-                    logger.error(f"serviceResult.strip(): {serviceResult.strip()}")
                     header = lines[0].split(',')
                     serviceNameIndex = header.index('"Name"')
                     serviceDisplayNameIndex = header.index('"DisplayName"')
@@ -161,24 +156,25 @@ def collect_vm_service_properties(vm_obj, vm, content, winUser, winPassword, win
                         serviceDisplayName = columns[serviceDisplayNameIndex].strip('"')
                         serviceStatus = columns[serviceStatusIndex].strip('"')
                         serviceStartType = columns[serviceStartTypeIndex].strip('"')
-                        vm_obj.with_property(f"vCommunity|Guest OS|Services|{serviceDisplayName}|Service Name", serviceName)
-                        vm_obj.with_property(f"vCommunity|Guest OS|Services|{serviceDisplayName}|Service Status", serviceStatus)
-                        vm_obj.with_property(f"vCommunity|Guest OS|Services|{serviceDisplayName}|Service Start Type", serviceStartType)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Services:{serviceDisplayName}|Service Name", serviceName)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Services:{serviceDisplayName}|Service Status", serviceStatus)
+                        vm_obj.with_property(f"vCommunity|Guest OS|Services:{serviceDisplayName}|Service Start Type", serviceStartType)
 
-                        logger.info(f"Sending Windows Event details for {vm.name}")
+                        logger.info(f"Sending Windows Service details for {vm.name}")
                 else:
-                    logger.info(f"Can not find Windows Event details on {vm.name}")
+                    logger.info(f"Can not find Windows Service details on {vm.name}")
             else:
-                logger.error(f"Cannot find the Windows Event Log XML file on {vm.name}")
+                logger.error(f"Cannot find the Windows Service CSV file on {vm.name}")
 
-            if tempDir and fileTransferStatus:
-                try:
-                    fileManager.DeleteDirectory(vm, creds, tempDir, True)
-                    logger.info(f"Temp folder {tempDir} has been cleared on {vm.name}")
-                except Exception as e:
-                    logger.error(f"Failed to delete temp folder {tempDir} on {vm.name}: {e}")
         except Exception as e:
             logger.error(f"Failed to create temporary directory on {vm.name}: {e}")
             return
+        
+        finally:
+            try:
+                if tempDir:
+                    fileManager.DeleteDirectoryInGuest(vm, creds, tempDir, True)
+            except:
+                pass
     else:
         logger.info(f"Skipping {vm.name} is not a Windows Guest.")

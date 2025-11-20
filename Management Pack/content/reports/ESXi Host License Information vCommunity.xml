@@ -23,7 +23,7 @@
                         
             <Controls>
                                 
-                <Control id="time-interval-selector_id_2748" type="time-interval-selector" visible="false">
+                <Control id="time-interval-selector_id_890" type="time-interval-selector" visible="false">
                                         
                     <Property name="advancedTimeMode" value="false"/>
                                         
@@ -33,7 +33,7 @@
                                     
                 </Control>
                                 
-                <Control id="attributes-selector_id_2749" type="attributes-selector" visible="false">
+                <Control id="attributes-selector_id_891" type="attributes-selector" visible="false">
                                         
                     <Property name="attributeInfos">
                                                 
@@ -45,7 +45,29 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Name"/>
+                                    <Property name="attributeKey" value="Instance Name"/>
+                                        
+                                    <Property name="rollUpCount" value="0"/>
+                                        
+                                    <Property name="isInstancedGroup" value="true"/>
+                                        
+                                    <Property name="showInstanceName" value="true"/>
+                                        
+                                    <Property name="instanceGroupName" value="GROUP_vCommunity"/>
+                                        
+                                    <Property name="keepInstanceSummary" value="true"/>
+                                    
+                                </Value>
+                                                            
+                            </Item>
+                                                        
+                            <Item>
+                                
+                                <Value>
+                                        
+                                    <Property name="objectType" value="RESOURCE"/>
+                                        
+                                    <Property name="attributeKey" value="vCommunity|Licensing:Evaluation Mode|Edition Key"/>
                                         
                                     <Property name="isStringAttribute" value="true"/>
                                         
@@ -67,7 +89,7 @@
                                         
                                     <Property name="isProperty" value="true"/>
                                         
-                                    <Property name="displayName" value="License"/>
+                                    <Property name="displayName" value="Edition"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -83,7 +105,7 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|License Key"/>
+                                    <Property name="attributeKey" value="vCommunity|Licensing:Evaluation Mode|License Key"/>
                                         
                                     <Property name="isStringAttribute" value="true"/>
                                         
@@ -121,7 +143,7 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|License Expiration Date"/>
+                                    <Property name="attributeKey" value="vCommunity|Licensing:Evaluation Mode|License Expiration Date"/>
                                         
                                     <Property name="isStringAttribute" value="true"/>
                                         
@@ -159,7 +181,7 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="vCommunity|Licensing:vSphere 8 Enterprise Plus for VCF|Remaining Days"/>
+                                    <Property name="attributeKey" value="vCommunity|Licensing:Evaluation Mode|Remaining Days"/>
                                         
                                     <Property name="isStringAttribute" value="false"/>
                                         
@@ -183,15 +205,7 @@
                                         
                                     <Property name="isProperty" value="false"/>
                                         
-                                    <Property name="yellowBound" value="90"/>
-                                        
-                                    <Property name="orangeBound" value="60"/>
-                                        
-                                    <Property name="redBound" value="30"/>
-                                        
-                                    <Property name="ascendingRange" value="true"/>
-                                        
-                                    <Property name="displayName" value="Days to Expiration"/>
+                                    <Property name="displayName" value="Days to Expire"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -207,7 +221,7 @@
                                     
                 </Control>
                                 
-                <Control id="pagination-control_id_2750" type="pagination-control" visible="true">
+                <Control id="pagination-control_id_892" type="pagination-control" visible="true">
                                         
                     <Property name="start" value="0"/>
                                         
@@ -215,7 +229,7 @@
                                     
                 </Control>
                                 
-                <Control id="metadata_id_2751" type="metadata" visible="false">
+                <Control id="metadata_id_893" type="metadata" visible="false">
                                         
                     <Property name="maxPointsCount" value="5000"/>
                                         
@@ -229,7 +243,7 @@
                         
             <DataProviders>
                                 
-                <DataProvider dataType="list-view" id="list-view_id_2747"/>
+                <DataProvider dataType="list-view" id="list-view_id_889"/>
                             
             </DataProviders>
                         
