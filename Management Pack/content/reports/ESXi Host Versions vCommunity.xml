@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<Content>
+        
+    <Views>
+                
+        <ViewDef id="8a6d966f-76f4-4cd0-8e33-97fa3c6c0e0d">
+                        
+            <Title>ESXi Host Versions vCommunity</Title>
+                        
+            <Description>ESXi Host Versions vCommunity</Description>
+                        
+            <SubjectType adapterKind="VMWARE" resourceKind="HostSystem" type="descendant"/>
+                        
+            <Usage>dashboard</Usage>
+                        
+            <Usage>report</Usage>
+                        
+            <Usage>details</Usage>
+                        
+            <Usage>content</Usage>
+                        
+            <Controls>
+                                
+                <Control id="time-interval-selector_id_2507" type="time-interval-selector" visible="false">
+                                        
+                    <Property name="advancedTimeMode" value="false"/>
+                                        
+                    <Property name="unit" value="DAYS"/>
+                                        
+                    <Property name="count" value="7"/>
+                                    
+                </Control>
+                                
+                <Control id="attributes-selector_id_2508" type="attributes-selector" visible="false">
+                                        
+                    <Property name="attributeInfos">
+                                                
+                        <List>
+                                                        
+                            <Item>
+                                
+                                <Value>
+                                        
+                                    <Property name="objectType" value="RESOURCE"/>
+                                        
+                                    <Property name="attributeKey" value="summary|version"/>
+                                        
+                                    <Property name="isStringAttribute" value="true"/>
+                                        
+                                    <Property name="adapterKind" value="VMWARE"/>
+                                        
+                                    <Property name="resourceKind" value="HostSystem"/>
+                                        
+                                    <Property name="rollUpCount" value="0"/>
+                                        
+                                    <Property name="isProperty" value="true"/>
+                                        
+                                    <Property name="displayName" value="ESXi Version"/>
+                                    
+                                </Value>
+                                                            
+                            </Item>
+                                                    
+                        </List>
+                                            
+                    </Property>
+                                    
+                </Control>
+                                
+                <Control id="buckets-control_id_2509" type="buckets-control" visible="false">
+                                        
+                    <Property name="dynamicCalcFunction" value="DISCRETE"/>
+                                        
+                    <Property name="isDynamic" value="true"/>
+                                        
+                    <Property name="isSum" value="false"/>
+                                    
+                </Control>
+                                
+                <Control id="metadata_id_2510" type="metadata" visible="false">
+                                        
+                    <Property name="maxPointsCount" value="5000"/>
+                                        
+                    <Property name="distributionColor" value="4ECAC2"/>
+                                        
+                    <Property name="hideObjectNameColumn" value="false"/>
+                                        
+                    <Property name="listTopResultSize" value="-1"/>
+                                    
+                </Control>
+                            
+            </Controls>
+                        
+            <DataProviders>
+                                
+                <DataProvider dataType="distribution-view" id="distribution-view_id_2506"/>
+                            
+            </DataProviders>
+                        
+            <Presentation type="bar-chart"/>
+                    
+        </ViewDef>
+            
+    </Views>
+    
+</Content>
