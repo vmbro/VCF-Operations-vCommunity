@@ -1,10 +1,9 @@
-#  Copyright 2024 vCommunity Content MP
+#  Copyright 2024 vCommunity MP
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import os
 import sys
 import json
-import yaml
 import atexit
 import xml.etree.ElementTree as ET
 import constants.main
@@ -18,7 +17,6 @@ from aria.ops.object import Object
 from aria.ops.result import CollectResult
 from aria.ops.result import EndpointResult
 from aria.ops.result import TestResult
-from aria.ops.definition.units import Units
 from aria.ops.suite_api_client import key_to_object
 from aria.ops.suite_api_client import SuiteApiClient
 from aria.ops.timer import Timer
@@ -30,10 +28,6 @@ from collectors.vm.collectVMData import collect_vm_data
 
 logger = logging.getLogger(__name__)
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-clusterObjectTypes = os.path.join(current_directory, "constants/cluster/clusterObjectTypes.yaml")
-hostObjectTypes = os.path.join(current_directory, "constants/host/hostObjectTypes.yaml")
-vmObjectTypes = os.path.join(current_directory, "constants/vm/vmObjectTypes.yaml")
 
 def get_adapter_definition() -> AdapterDefinition:
     with Timer(logger, "Get Adapter Definition"):
@@ -77,6 +71,10 @@ def get_adapter_definition() -> AdapterDefinition:
             required=False,
         )
 
+        definition.define_int_parameter(
+            constants.main.PORT_IDENTIFIER, "Port", default=443, advanced=True, description="Enter the port number for vCenter Server"
+        )
+
         definition.define_string_parameter(
             "win_service_config_file",
             label="Windows Service Configuration File",
@@ -95,20 +93,9 @@ def get_adapter_definition() -> AdapterDefinition:
             advanced=True
         )
 
-        definition.define_int_parameter(
-            constants.main.PORT_IDENTIFIER, "Port", default=443, advanced=True, description="Enter the port number for vCenter Server"
-        )
-
-        # Define the credential details below. Use of credentials can be customised
-        credential = definition.define_credential_type("vsphere_user", "vCenter Credential")
-        credential.define_string_parameter(constants.main.USER_CREDENTIAL, "vCenter User Name")
-        credential.define_password_parameter(constants.main.PASSWORD_CREDENTIAL, "vCenter Password")
-        credential.define_string_parameter("winUser", "Windows User Name", required=False)
-        credential.define_password_parameter("winPass", "Windows Password", required=False)
-
         definition.define_enum_parameter("serviceMonitoring",
             values=["Enabled", "Disabled"],
-            label="Service Monitoring Enabled",
+            label="Guest OS Service Monitoring Status",
             description="Choose Yes to enable Service Monitoring",
             default="Disabled",
             required=False,
@@ -124,17 +111,22 @@ def get_adapter_definition() -> AdapterDefinition:
             advanced=True
         )
 
-        #define_cluster_objects(clusterObjectTypes, definition)
-        #define_host_objects(hostObjectTypes, definition)
-        #define_vm_objects(vmObjectTypes, definition)
+
+        ### --- Adapter definitions --- ###
+
+        # Credentials
+        credential = definition.define_credential_type("vsphere_user", "vCenter Credential")
+        credential.define_string_parameter(constants.main.USER_CREDENTIAL, "vCenter User Name")
+        credential.define_password_parameter(constants.main.PASSWORD_CREDENTIAL, "vCenter Password")
+        credential.define_string_parameter("winUser", "Windows User Name", required=False)
+        credential.define_password_parameter("winPass", "Windows Password", required=False)
 
 
-        # Object definitions #
-        # Cluster Compute Resource Object Types, Groups and Metrics
-
+        # Cluster Compute Resource
         clusterComputeResource = definition.define_object_type("Cluster Compute Resource", "Cluster Compute Resource")
         vCommunity = clusterComputeResource.define_group("vCommunity", "vCommunity")
         clusterConfiguration = vCommunity.define_group("Cluster Configuration", "Cluster Configuration")
+
         vSphereHA = clusterConfiguration.define_group("vSphere HA", "vSphere HA")
         vSphereHA.define_string_property("Host Monitoring", "Host Monitoring")
         vSphereHA.define_string_property("Host Isolation", "Response \\ Host Isolation")
@@ -154,49 +146,66 @@ def get_adapter_definition() -> AdapterDefinition:
         evc.define_string_property("Mode", "Mode")
 
 
+        # Host System
         hostSystem = definition.define_object_type("Host System", "Host System")
         vCommunity = hostSystem.define_group("vCommunity", "vCommunity")
         hostSystemConfiguration = vCommunity.define_group("Configuration", "Configuration")
+
         advancedSystemSettings = hostSystemConfiguration.define_group("AdvancedSystemSettings", "Advanced System Settings")
         advancedSystemSettings. define_string_property("Key", "Key")
 
-        #hostProfile = hostSystemConfiguration.define_group("Host Profile", "Host Profile")
-        #hostProfile.define_string_property("Last Check Time", "Last Check Time")
-        #hostProfile.define_string_property("Compliance Status", "Compliance Status")
-        #hostProfile.define_string_property("Profile Name", "Profile Name")
+        licensing = vCommunity.define_instanced_group("Licensing", "Licensing")
+        licensing.define_string_property("Name", "Name")
+        licensing.define_string_property("License Key", "License Key")
+        licensing.define_string_property("License Expiration Date", "License Expiration Date")
+        licensing.define_metric("Remaining Days", "Remaining Days")
+        licensing.define_string_property("Edition Key", "Edition Key")
 
         installDate = hostSystemConfiguration.define_group("Install Date", "Install Date")
         installDate.define_string_property("UTC", "UTC")
 
         packages = hostSystemConfiguration.define_instanced_group("Packages", "Packages", instance_required=True)
-        packages.define_numeric_property("Package Name", "Package Name")
-        packages.define_numeric_property("Package Version", "Package Version")
-        packages.define_numeric_property("Acceptance Level", "Acceptance Level")
-        packages.define_numeric_property("Maintenance Mode Required", "Maintenance Mode Required")
-        packages.define_numeric_property("Package Summary", "Package Summary")
-        packages.define_numeric_property("Package Type", "Package Type")
-        packages.define_numeric_property("Package Vendor", "Package Vendor")
+        packages.define_string_property("Package Name", "Package Name")
+        packages.define_string_property("Package Version", "Package Version")
+        packages.define_string_property("Acceptance Level", "Acceptance Level")
+        packages.define_string_property("Maintenance Mode Required", "Maintenance Mode Required")
+        packages.define_string_property("Package Summary", "Package Summary")
+        packages.define_string_property("Package Type", "Package Type")
+        packages.define_string_property("Package Vendor", "Package Vendor")
 
 
+        # Virtual Machine
         virtualMachine = definition.define_object_type("Virtual Machine", "Virtual Machine")
         vCommunity = virtualMachine.define_group("vCommunity", "vCommunity")
+        configuration = vCommunity.define_group("Configuration", "Configuration")
 
         snapshot = vCommunity.define_group("Snapshot", "Snapshot")
         snapshot.define_metric("Count", "Count")
 
-        advancedParameters = vCommunity.define_group("Advanced Parameters", "Advanced Parameters")
-        advancedParameters. define_string_property("Parameter Key", "Parameter Key")
+        advancedParameters = configuration.define_group("Advanced Parameters", "Advanced Parameters")
+        advancedParameters.define_string_property("Parameter Key", "Parameter Key")
+
+        scsiControllers = configuration.define_instanced_group("SCSI Controllers", "SCSI Controllers")
+        scsiControllers.define_string_property("Type", "Type")
+        scsiControllers.define_metric("SCSI Controllers Count", "Count")
 
         options = vCommunity.define_group("Options", "Options")
         options.define_string_property("Option Key", "Option Key")
 
-        #summary = virtualMachine.define_group("Summary", "Summary")
-        #summary.define_metric("VM Age", "VM Age")
-
         guestOS = vCommunity.define_group("Guest OS", "Guest OS")
-        guestOS.define_string_property("Service Name", "Service Name")
-        guestOS.define_string_property("Service Status", "Service Status")
-        guestOS.define_string_property("Service Start Type", "Service Start Type")
+
+        services = guestOS.define_instanced_group("Services", "Services")
+        services.define_string_property("Service Name", "Service Name")
+        services.define_string_property("Service Status", "Service Status")
+        services.define_string_property("Service Start Type", "Service Start Type")
+
+        operatingSystem = guestOS.define_group("Operating System", "Operating System")
+        operatingSystem.define_string_property("OS Name", "OS Name")
+        operatingSystem.define_string_property("OS Version", "OS Version")
+        operatingSystem.define_string_property("OS BuildNumber", "OS BuildNumber")
+        operatingSystem.define_string_property("OS Architecture", "OS Architecture")
+        operatingSystem.define_string_property("OS Last Boot Up Time", "OS Last Boot Up Time")
+        operatingSystem.define_string_property("OS Release ID", "OS Release ID")
 
 
         logger.debug(f"Returning adapter definition: {definition.to_json()}")
@@ -240,110 +249,6 @@ def getServiceMonitoringStatus(adapter_instance: AdapterInstance) -> str:
 def getWindowsEventLogMonitoringStatus(adapter_instance: AdapterInstance) -> str:
     WindowsEventLogMonitoringStatus = adapter_instance.get_identifier_value("winEventMonitoring")
     return WindowsEventLogMonitoringStatus
-
-
-#def define_cluster_objects(clusterObjectTypes, definition):
-#    with open(clusterObjectTypes, "r") as file:
-#        data = yaml.safe_load(file)
-#
-#    clusterComputeResource = definition.define_object_type("Cluster Compute Resource")
-#    clusterConfiguration = clusterComputeResource.define_group("Cluster Configuration")
-#    for group_name, group_content in data.items():
-#        if group_name == "vSphere HA":
-#            vSphereHA = clusterConfiguration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    vSphereHA.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    vSphereHA.define_metric(metric)
-#
-#        if group_name == "DRS":
-#            drs = clusterConfiguration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    drs.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    drs.define_metric(metric)
-#
-#        if group_name == "EVC":
-#            evc = clusterConfiguration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    evc.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    evc.define_metric(metric)
-#
-#
-#def define_host_objects(hostObjectTypes, definition):
-#    with open(hostObjectTypes, "r") as file:
-#        data = yaml.safe_load(file)
-#
-#    HostSystem = definition.define_object_type("Host System")
-#    configuration = HostSystem.define_group("Configuration")
-#    for group_name, group_content in data.items():
-#        if group_name == "Host Agent":
-#            hostAgent = configuration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    hostAgent.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    hostAgent.define_metric(metric)
-#        if group_name == "Host Profile":
-#            hostProfileGroup = configuration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    hostProfileGroup.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    hostProfileGroup.define_metric(metric)
-#    
-#    SoftwarePackages = configuration.define_group("Software Packages")
-#    SoftwarePackages.define_string_property("Package Name")
-#
-#
-#def define_vm_objects(vmObjectTypes, definition):
-#    with open(vmObjectTypes, "r") as file:
-#        data = yaml.safe_load(file)
-#
-#    virtualMachine = definition.define_object_type("Virtual Machine")
-#    diskSpace = virtualMachine.define_group("Disk Space")
-#    for group_name, group_content in data.items():
-#        if group_name == "Snapshot":
-#            snapshot = diskSpace.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    snapshot.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    snapshot.define_metric(metric)
-#
-#        if group_name == "Configuration":
-#            configuration = virtualMachine.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    configuration.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    configuration.define_metric(metric)
-#
-#        if group_name == "VM Agent":
-#            configuration = virtualMachine.define_group(group_name)
-#            vmAgent = configuration.define_group(group_name)
-#            if "properties" in group_content:
-#                for property in group_content["properties"]:
-#                    vmAgent.define_string_property(property)
-#            if "metrics" in group_content:
-#                for metric in group_content["metrics"]:
-#                    vmAgent.define_metric(metric)
-#
-#    summary = virtualMachine.define_group("Summary")
-#    guest = summary.define_group("Guest")
-#    services = guest.define_group("Services")
-#    services.define_string_property("Service Name")
 
 
 def get_config_file_data(adapter_instance: AdapterInstance, configFile) -> str:

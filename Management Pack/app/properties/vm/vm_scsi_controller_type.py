@@ -1,4 +1,4 @@
-#  Copyright 2025 vCommunity Content MP
+#  Copyright 2025 vCommunity MP
 #  Author: Scott Bowe scott.bowe@broadcom.com
 
 import logging
@@ -21,7 +21,7 @@ def collect_vm_scsi_controller_properties(vm_obj, vm):
         devices = getattr(hw, "device", []) if hw else []
 
         ctrls = [d for d in devices if isinstance(d, vim.vm.device.VirtualSCSIController)]
-        vm_obj.with_property("vCommunity|Config|SCSI Controllers|Count", len(ctrls))
+        vm_obj.with_metric("vCommunity|Configuration|SCSI Controllers|Count", len(ctrls))
 
         def pretty_type(ctrl):
             if isinstance(ctrl, vim.vm.device.ParaVirtualSCSIController):
@@ -37,11 +37,13 @@ def collect_vm_scsi_controller_properties(vm_obj, vm):
         for c in ctrls:
             bus = getattr(c, "busNumber", None)
             bus_str = str(bus) if bus is not None else "unknown"
-            vm_obj.with_property(f"vCommunity|Config|SCSI Controllers|{bus_str}|Type", pretty_type(c))
+            vm_obj.with_property(f"vCommunity|Configuration|SCSI Controllers:{bus_str}|Type", pretty_type(c))
 
+        # TODO: we should remove following block since we are working with instanced metrics.
+              # If there is no scsi controller, we don't need to push metric manually.
         # Emit a sentinel when there are no controllers (keeps dashboards happy)
-        if not ctrls:
-            vm_obj.with_property("vCommunity|Config|SCSI Controllers|0|Type", NULL_STATUS)
+        #if not ctrls:
+        #    vm_obj.with_property("vCommunity|Config|SCSI Controllers|0|Type", NULL_STATUS)
 
     except Exception as e:
         logger.exception(

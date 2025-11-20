@@ -1,4 +1,4 @@
-#  Copyright 2024 vCommunity Content MP
+#  Copyright 2024 vCommunity MP
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
@@ -10,9 +10,9 @@ from aria.ops.suite_api_client import SuiteApiClient
 from constants.main import VCENTER_ADAPTER_KIND
 from pyVmomi import vim
 from properties.host.host_advanced_settings import collect_host_properties
-from properties.host.host_profile import collect_host_profile_properties
 from properties.host.host_software_packages import collect_host_software_properties
 from properties.host.host_install_date import collect_host_install_date
+from properties.host.host_licensing import collect_host_licensing_data
 
 logger = logging.getLogger(__name__)
 
@@ -45,17 +45,23 @@ def collect_host_data(
         host.get_identifier_value("VMEntityObjectID"): host for host in hosts
     }
 
+    licenseManager = content.licenseManager
+    assignmentManager = licenseManager.licenseAssignmentManager
+    
     # Push your metrics below
     children = container_view.view
     for host in children:
         host_obj = hosts_by_uuid.get(host._moId)
+        assignedLicenses = assignmentManager.QueryAssignedLicenses(host._moId)
+
         if host_obj:
             if esxiAdvSettings:
                 collect_host_properties(host_obj, host, esxiAdvSettings)
-            #collect_host_profile_properties(host_obj, host)
             if esxiVIBDrivers:
                 collect_host_software_properties(host_obj, host, esxiVIBDrivers)
             collect_host_install_date(host_obj, host)
+            if assignedLicenses:
+                collect_host_licensing_data(host_obj, host, assignedLicenses)
             result.add_object(host_obj)
         else:
             logger.warning(
