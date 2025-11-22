@@ -16,7 +16,7 @@ It's built using the [VCF Operations Integration SDK](https://github.com/vmware/
 3.  Capture VM Advanced Parameters (vm_advanced_parameters.xml)
 4.  Capture VM Options (vm_options.xml)
 
-The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/). 
+The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) and this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-3) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/). 
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
