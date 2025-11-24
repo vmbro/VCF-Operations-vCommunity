@@ -1,13 +1,16 @@
 <advancedSettings>
-  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  <!-- 
+      THIS IS JUST A REFERENCE. IT HAS THE COMPLETE SET OF COLLECTION.
+      
+  -->
   
   <!--
   To monitor a particular setting, uncomment the line. It will be collected and appear in the policy. 
   For details for each setting refer to https://github.com/lamw/esxi-advanced-and-kernel-settings/blob/master/esxi-901-advanced-settings.md
   -->
 
-  <!-- CBRC.DCacheMemReserved, -->
-  <!-- CBRC.Enable, -->
+CBRC.DCacheMemReserved, 
+CBRC.Enable, 
   <!-- COW.COWMaxHeapSizeMB, -->
   <!-- COW.COWMaxREPageCacheszMB, -->
   <!-- COW.COWMinREPageCacheszMB, -->
