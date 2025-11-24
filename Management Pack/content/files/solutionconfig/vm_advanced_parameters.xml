@@ -2,8 +2,10 @@
   <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
   
   <!--
-  Configuration file for VM Advanced Parameters as shown in vCenter.
-  Add VM Advanced Parameter Attribute to start monitoring it.
+  The list of advanced settings as shown in the "Advanced Parameters" tab in the "Edit Settings" dialog box in the vCenter UI.
+  Uncomment a line to start monitoring it.
+  Only add a new parameter as needed for experimental features or as instructed by technical support.
+  Legacy parameters such as scsi0:1.redo has been removed.
   -->
 
   <!-- nvram, -->
