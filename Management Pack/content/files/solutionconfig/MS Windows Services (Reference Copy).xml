@@ -6,11 +6,9 @@
       To monitor a setting, simply copy the line to the working file.
   
     -->
-
-
   
-  <!-- Dhcp -->
-  <!-- WinDefend -->
-  <!-- Dnscache, -->
-  <!-- MpsSvc -->
+   Dhcp, 
+   WinDefend, 
+   Dnscache, 
+   MpsSvc -->
 </windowsServices>
