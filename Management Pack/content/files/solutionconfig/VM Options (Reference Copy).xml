@@ -8,84 +8,89 @@
       To monitor a setting, simply copy the line to the working file.
   -->
      
-  <!--          General Options          -->
-  <!-- config.alternateGuestName, -->
 
-  <!--          VMware Remote Console Options          -->
+   <!--        General Options         -->
+   config.alternateGuestName,
 
-  <!--          Encryption          -->
+            VMware Remote Console Options         -->
 
-  <!--          Confidential Compute          -->
+   <!--         Encryption         -->
 
-  <!--          VMware Tools          -->
-  <!-- config.tools.afterPowerOn, -->
-  <!-- config.tools.afterResume, -->
-  <!-- config.tools.beforeGuestReboot, -->
-  <!-- config.tools.beforeGuestShutdown, -->
-  <!-- config.tools.beforeGuestStandby, -->
-  <!-- config.tools.customizationKeyId, -->
-  <!-- config.tools.lastInstallInfo.counter, -->
-  <!-- config.tools.lastInstallInfo.fault, -->
-  <!-- config.tools.pendingCustomization, -->
-  <!-- config.tools.syncTimeWithHost, -->
-  <!-- config.tools.syncTimeWithHostAllowed, -->
-  <!-- config.tools.toolsInstallType, -->
-  <!-- config.tools.toolsUpgradePolicy, -->
-  <!-- config.tools.toolsVersion, -->
+   <!--         Confidential Compute         -->
 
-  <!--          Boot Options          -->
-  <!-- config.bootOptions.bootDelay, -->
-  <!-- config.bootOptions.bootOrder, -->
-  <!-- config.bootOptions.bootRetryDelay, -->
-  <!-- config.bootOptions.bootRetryEnabled, -->
-  <!-- config.bootOptions.efiSecureBootEnabled, -->
-  <!-- config.bootOptions.enterBIOSSetup, -->
-  <!-- config.bootOptions.networkBootProtocol, -->
+   <!--         VMware Tools         -->
+   config.tools.afterPowerOn,
+   config.tools.afterResume,
+   config.tools.beforeGuestReboot,
+   config.tools.beforeGuestShutdown,
+   config.tools.beforeGuestStandby,
+   config.tools.customizationKeyId,
+   config.tools.lastInstallInfo.counter,
+   config.tools.lastInstallInfo.fault,
+   config.tools.pendingCustomization,
+   config.tools.syncTimeWithHost,
+   config.tools.syncTimeWithHostAllowed,
+   config.tools.toolsInstallType,
+   config.tools.toolsUpgradePolicy,
+   config.tools.toolsVersion,
 
-  <!--          Power Management          -->
+   <!--         Boot Options         -->
+   config.bootOptions.bootDelay,
+   config.bootOptions.bootOrder,
+   config.bootOptions.bootRetryDelay,
+   config.bootOptions.bootRetryEnabled,
+   config.bootOptions.efiSecureBootEnabled,
+   config.bootOptions.enterBIOSSetup,
+   config.bootOptions.networkBootProtocol,
 
-  <!--          Advanced          -->
-  <!-- config.flags.enableLogging, -->
-  <!-- config.flags.runWithDebugInfo, -->
-  <!-- config.latencySensitivity.level, -->
-  <!-- config.latencySensitivity.sensitivity, -->
+   <!--         Power Management         -->
 
-  <!--          CPU Topology          -->
+   <!--         Advanced         -->
+   config.flags.enableLogging,
+   config.flags.runWithDebugInfo,
+   config.latencySensitivity.level,
+   config.latencySensitivity.sensitivity,
+
+   <!--         CPU Topology         -->
 
 
   
-  <!--          NOT YET CATEGORISED AS NOT MAPPABLE IN THE UI          -->  
-  <!-- config.changeTrackingEnabled, -->
-  <!-- config.flags.cbrcCacheEnabled, -->
-  <!-- config.flags.disableAcceleration, -->
-  <!-- config.flags.diskUuidEnabled, -->
-  <!-- config.flags.faultToleranceType, -->
-  <!-- config.flags.htSharing, -->
-  <!-- config.flags.monitorType, -->
-  <!-- config.flags.recordReplayEnabled, -->
-  <!-- config.flags.snapshotDisabled, -->
-  <!-- config.flags.snapshotLocked, -->
-  <!-- config.flags.snapshotPowerOffBehavior, -->
-  <!-- config.flags.useToe, -->
-  <!-- config.flags.vbsEnabled, -->
-  <!-- config.flags.virtualExecUsage, -->
-  <!-- config.flags.virtualMmuUsage, -->
-  <!-- config.flags.virtualExecUsage, -->
-  <!-- config.maxMksConnections, -->
-  <!-- config.migrateEncryption, -->
-  <!-- config.nestedHVEnabled, -->
-  <!-- config.scheduledHardwareUpgradeInfo.fault, -->
-  <!-- config.scheduledHardwareUpgradeInfo.scheduledHardwareUpgradeStatus, -->
-  <!-- config.scheduledHardwareUpgradeInfo.upgradePolicy, -->
-  <!-- config.scheduledHardwareUpgradeInfo.versionKey, -->
-  <!-- config.sevEnabled, -->
-  <!-- config.sgxInfo.epcSize, -->
-  <!-- config.sgxInfo.flcMode, -->
-  <!-- config.sgxInfo.lePubKeyHash, -->
-  <!-- config.sgxInfo.requireAttestation, -->
-  <!-- config.vAssertsEnabled, -->
-  <!-- config.vFlashCacheReservation, -->
-  <!-- config.vPMCEnabled, -->
-  <!-- config.vmOpNotificationTimeout, -->
-  <!-- config.vmOpNotificationToAppEnabled, -->
+   <!--         NOT YET CATEGORISED AS NOT MAPPABLE IN THE UI           -->
+   config.changeTrackingEnabled,
+   config.flags.cbrcCacheEnabled,
+   config.flags.disableAcceleration,
+   config.flags.diskUuidEnabled,
+   config.flags.faultToleranceType,
+   config.flags.htSharing,
+   config.flags.monitorType,
+   config.flags.recordReplayEnabled,
+   config.flags.snapshotDisabled,
+   config.flags.snapshotLocked,
+   config.flags.snapshotPowerOffBehavior,
+   config.flags.useToe,
+   config.flags.vbsEnabled,
+   config.flags.virtualExecUsage,
+   config.flags.virtualMmuUsage,
+   config.flags.virtualExecUsage,
+   config.maxMksConnections,
+   config.migrateEncryption,
+   config.nestedHVEnabled,
+   config.scheduledHardwareUpgradeInfo.fault,
+   config.scheduledHardwareUpgradeInfo.scheduledHardwareUpgradeStatus,
+   config.scheduledHardwareUpgradeInfo.upgradePolicy,
+   config.scheduledHardwareUpgradeInfo.versionKey,
+   config.sevEnabled,
+   config.sgxInfo.epcSize,
+   config.sgxInfo.flcMode,
+   config.sgxInfo.lePubKeyHash,
+   config.sgxInfo.requireAttestation,
+   config.vAssertsEnabled,
+   config.vFlashCacheReservation,
+   config.vPMCEnabled,
+   config.vmOpNotificationTimeout,
+   config.vmOpNotificationToAppEnabled,
+
+
+
+  
 </vmConfigs>
