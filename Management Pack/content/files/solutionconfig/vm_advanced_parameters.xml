@@ -36,9 +36,6 @@
   <!-- pciBridge6.pciSlotNumber, -->
   <!-- pciBridge7.pciSlotNumber, -->
   <!-- scsi0.pciSlotNumber, -->
-  <!-- scsi0:2.redo, -->
-  <!-- scsi0:1.redo, -->
-  <!-- scsi0:0.redo, -->
   <!-- scsi0.sasWWID, -->
   <!-- vmotion.checkpointFBSize, -->
   <!-- vmotion.checkpointSVGAPrimarySize, -->
