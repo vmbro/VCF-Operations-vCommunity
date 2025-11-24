@@ -1,10 +1,8 @@
 <windowsServices>
     <!-- 
-      
       This is just a reference file. The actual file used by the adapter is the one with filename ending (Your Copy).
       It is a reference file as it has the complete list. 
       To monitor a setting, simply copy the line to the working file.
-  
     -->
   
    Dhcp, 
