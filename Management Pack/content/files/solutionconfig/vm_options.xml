@@ -8,6 +8,7 @@
   -->
      
   <!--          General Options          -->
+  <!-- config.alternateGuestName, -->
 
   <!--          VMware Remote Console Options          -->
 
@@ -43,23 +44,24 @@
   <!--          Power Management          -->
 
   <!--          Advanced          -->
+  <!-- config.flags.enableLogging, -->
+  <!-- config.flags.runWithDebugInfo, -->
+  <!-- config.latencySensitivity.level, -->
+  <!-- config.latencySensitivity.sensitivity, -->
 
   <!--          CPU Topology          -->
 
 
   
-  
-  <!-- config.alternateGuestName, -->
+  <!--          NOT YET CATEGORISED AS NOT MAPPABLE IN THE UI          -->  
   <!-- config.changeTrackingEnabled, -->
   <!-- config.flags.cbrcCacheEnabled, -->
   <!-- config.flags.disableAcceleration, -->
   <!-- config.flags.diskUuidEnabled, -->
-  <!-- config.flags.enableLogging, -->
   <!-- config.flags.faultToleranceType, -->
   <!-- config.flags.htSharing, -->
   <!-- config.flags.monitorType, -->
   <!-- config.flags.recordReplayEnabled, -->
-  <!-- config.flags.runWithDebugInfo, -->
   <!-- config.flags.snapshotDisabled, -->
   <!-- config.flags.snapshotLocked, -->
   <!-- config.flags.snapshotPowerOffBehavior, -->
@@ -68,8 +70,6 @@
   <!-- config.flags.virtualExecUsage, -->
   <!-- config.flags.virtualMmuUsage, -->
   <!-- config.flags.virtualExecUsage, -->
-  <!-- config.latencySensitivity.level, -->
-  <!-- config.latencySensitivity.sensitivity, -->
   <!-- config.maxMksConnections, -->
   <!-- config.migrateEncryption, -->
   <!-- config.nestedHVEnabled, -->
