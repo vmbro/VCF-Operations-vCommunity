@@ -1,9 +1,10 @@
 <packages>
-  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
+  <!-- 
+      ESXi Software Packages (VIB drivers).
+      This is just a reference file. The actual file used by the adapter is the one with filename ending (Your Copy).
+      It is a reference file as it has the complete list. 
+      To monitor a setting, simply copy the line to the working file.
   
-  <!--
-  Remove comments if you want to monitor VIB drivers.
-  You can add any advanced settings parameter as following.
   -->
 
   <!-- atlantic, -->
