@@ -1,5 +1,4 @@
 <vmConfigs>
-
   <!-- 
       The list of settings as shown under the "VM Options" tab in the "Edit Settings" dialog box in the vCenter UI.
       If required, add VM Options Key as defined in vCenter MOB UI.
