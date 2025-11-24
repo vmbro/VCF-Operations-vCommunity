@@ -1,5 +1,4 @@
 <vmConfigs>
-  
   <!-- 
      This is the actual file that will be used to collect the properties in your environment.
      Manually copy the entries (lines) from the Reference Copy that you want to monitor.
