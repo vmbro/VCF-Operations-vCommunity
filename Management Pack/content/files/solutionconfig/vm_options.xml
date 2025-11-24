@@ -2,12 +2,36 @@
   <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
   
   <!--
-  Configuration file for VM Options as shown in vCenter.
+  The list of settings as shown under the "VM Options" tab in the "Edit Settings" dialog box in the vCenter UI.
+  Uncomment a line to start monitoring it.
   Add VM Options Key as defined in vCenter MOB UI.
   -->
+     
+  <!--          General Options          -->
 
-  <!-- config.alternateGuestName, -->
-  <!-- config.changeTrackingEnabled, -->
+  <!--          VMware Remote Console Options          -->
+
+  <!--          Encryption          -->
+
+  <!--          Confidential Compute          -->
+
+  <!--          VMware Tools          -->
+  <!-- config.tools.afterPowerOn, -->
+  <!-- config.tools.afterResume, -->
+  <!-- config.tools.beforeGuestReboot, -->
+  <!-- config.tools.beforeGuestShutdown, -->
+  <!-- config.tools.beforeGuestStandby, -->
+  <!-- config.tools.customizationKeyId, -->
+  <!-- config.tools.lastInstallInfo.counter, -->
+  <!-- config.tools.lastInstallInfo.fault, -->
+  <!-- config.tools.pendingCustomization, -->
+  <!-- config.tools.syncTimeWithHost, -->
+  <!-- config.tools.syncTimeWithHostAllowed, -->
+  <!-- config.tools.toolsInstallType, -->
+  <!-- config.tools.toolsUpgradePolicy, -->
+  <!-- config.tools.toolsVersion, -->
+
+  <!--          Boot Options          -->
   <!-- config.bootOptions.bootDelay, -->
   <!-- config.bootOptions.bootOrder, -->
   <!-- config.bootOptions.bootRetryDelay, -->
@@ -15,6 +39,18 @@
   <!-- config.bootOptions.efiSecureBootEnabled, -->
   <!-- config.bootOptions.enterBIOSSetup, -->
   <!-- config.bootOptions.networkBootProtocol, -->
+
+  <!--          Power Management          -->
+
+  <!--          Advanced          -->
+
+  <!--          CPU Topology          -->
+
+
+  
+  
+  <!-- config.alternateGuestName, -->
+  <!-- config.changeTrackingEnabled, -->
   <!-- config.flags.cbrcCacheEnabled, -->
   <!-- config.flags.disableAcceleration, -->
   <!-- config.flags.diskUuidEnabled, -->
@@ -46,20 +82,6 @@
   <!-- config.sgxInfo.flcMode, -->
   <!-- config.sgxInfo.lePubKeyHash, -->
   <!-- config.sgxInfo.requireAttestation, -->
-  <!-- config.tools.afterPowerOn, -->
-  <!-- config.tools.afterResume, -->
-  <!-- config.tools.beforeGuestReboot, -->
-  <!-- config.tools.beforeGuestShutdown, -->
-  <!-- config.tools.beforeGuestStandby, -->
-  <!-- config.tools.customizationKeyId, -->
-  <!-- config.tools.lastInstallInfo.counter, -->
-  <!-- config.tools.lastInstallInfo.fault, -->
-  <!-- config.tools.pendingCustomization, -->
-  <!-- config.tools.syncTimeWithHost, -->
-  <!-- config.tools.syncTimeWithHostAllowed, -->
-  <!-- config.tools.toolsInstallType, -->
-  <!-- config.tools.toolsUpgradePolicy, -->
-  <!-- config.tools.toolsVersion, -->
   <!-- config.vAssertsEnabled, -->
   <!-- config.vFlashCacheReservation, -->
   <!-- config.vPMCEnabled, -->
