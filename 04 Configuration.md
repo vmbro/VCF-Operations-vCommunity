@@ -1,5 +1,4 @@
-
-## Configuration and Integration
+# Configuration and Integration
 Once the vCommunity Management Pack has been installed, you will create an Adapter Instance for your vCenter/s.  
 
 You will need the following fields:
@@ -19,3 +18,7 @@ You will need the following fields:
 13. Advanced Settings - Service Monitoring Enabled: Enabled/Disabled.  This will enable/disable Windows Service monitoring.  By default, we will capture Windows Services listed in the windows_service_list configuration file.
 14. Advanced Settings - Windows Event Log Monitoring Status: Enabled/Disabled.  This will enable/disable Windows Event Log Monitoring as defined by the windows_event_list.xml configuration file.
 
+# Advanced Configuration
+
+You can tailor the ___ into different vCenter servers. For example, you can monitor 50 ESXi Advanced Settings for Production vCenter Servers, and only 5 for non production environment. To do this, you need to create 2 files. 
+Here are the steps. 
