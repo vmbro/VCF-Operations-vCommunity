@@ -11,13 +11,17 @@
     <EventID>1001</EventID>
     <EventID>1026</EventID>
   </Log>
+  
   <Log Name="Security">
-<EventID>4025</EventID>
+    <EventID>4025</EventID>
   </Log>
+  
   <Log Name="Setup">
-<EventID>100</EventID>
+    <EventID>100</EventID>
   </Log>
+  
   <Log Name="System">
     <EventID>6006</EventID>
   </Log>
+  
 </Events>
