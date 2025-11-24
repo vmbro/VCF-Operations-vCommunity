@@ -1,4 +1,5 @@
-  <!-- 
+<Events>
+<!-- 
      This is the actual file that will be used to collect the properties in your environment.
      Manually copy the entries (lines) from the Reference Copy that you want to monitor.
      The reason we have 2 separate files is any changes on the Reference Copy will not impact your environment during upgrade process.
@@ -11,3 +12,4 @@
      LIMITATIONS:
      Once collected, a property stays with the object forever. You cannot delete it, unless the object itself is deleted.
   -->
+</Events>
