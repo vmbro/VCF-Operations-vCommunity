@@ -1244,5 +1244,5 @@ VVOL.vvolMaxRBZRetries,
 VVOL.vvolSpaceStatsCacheSize,
 VVOL.vvolSwapFilePersist,
 VVOL.vvolUnbindBatchSize,
-XvMotion.VMFSOptimizations,
+XvMotion.VMFSOptimizations
 </advancedSettings>
