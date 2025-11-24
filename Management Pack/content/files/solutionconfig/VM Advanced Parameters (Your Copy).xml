@@ -1,3 +1,4 @@
+<vmAdvParameters>
   <!-- 
      This is the actual file that will be used to collect the properties in your environment.
      Manually copy the entries (lines) from the Reference Copy that you want to monitor.
@@ -11,3 +12,7 @@
      LIMITATIONS:
      Once collected, a property stays with the object forever. You cannot delete it, unless the object itself is deleted.
   -->
+  
+  nvram,
+  guestinfo.appInfo
+</vmAdvParameters>
