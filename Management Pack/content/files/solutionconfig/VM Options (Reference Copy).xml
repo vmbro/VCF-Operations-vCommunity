@@ -1,10 +1,11 @@
 <vmConfigs>
-  <!-- DO NOT EDIT THIS CONFIG FILE, CLONE IT  -->
-  
-  <!--
-  The list of settings as shown under the "VM Options" tab in the "Edit Settings" dialog box in the vCenter UI.
-  Uncomment a line to start monitoring it.
-  Add VM Options Key as defined in vCenter MOB UI.
+
+  <!-- 
+      The list of settings as shown under the "VM Options" tab in the "Edit Settings" dialog box in the vCenter UI.
+      If required, add VM Options Key as defined in vCenter MOB UI.
+      This is just a reference file. The actual file used by the adapter is the one with filename ending (Your Copy).
+      It is a reference file as it has the complete list. 
+      To monitor a setting, simply copy the line to the working file.
   -->
      
   <!--          General Options          -->
