@@ -5,7 +5,7 @@ To monitor a setting, simply copy the line to the working file.
   
 For details for each setting see https://github.com/lamw/esxi-advanced-and-kernel-settings/blob/master/esxi-901-advanced-settings.md. 
 
-====================
+=========================================================================
 CBRC.DCacheMemReserved, 
 CBRC.Enable, 
 COW.COWMaxHeapSizeMB,
