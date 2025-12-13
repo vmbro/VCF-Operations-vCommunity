@@ -6,7 +6,7 @@ Once the **VCF Operations vCommunity Management Pack** has been installed, the f
 
 Follow these steps within VCF Operations:
 
-1.  Navigate to **Administration** $\rightarrow$ **Integrations** $\rightarrow$ **Repository** Tab.
+1.  Navigate to **Administration** --> **Integrations** --> **Repository** Tab.
 2.  Click on the **"VCF Operations vCommunity"** tile.
 3.  Click **"Add Account"**.
 
@@ -24,12 +24,12 @@ Provide the required information in the fields:
 
 ### 1.2. Configuration File Selection
 
-The management pack uses customizable XML configuration files to define what data to collect. These default files are located under **Infrastructure Operations** $\rightarrow$ **Configurations** $\rightarrow$ **Management Pack Configuration** $\rightarrow$ **System Defined**.
+The management pack uses customizable XML configuration files to define what data to collect. These default files are located under **Infrastructure Operations** --> **Configurations** --> **Management Pack Configuration** --> **System Defined**.
 
 | Field | Configuration File (Default) | Description of Collected Data |
 | :--- | :--- | :--- |
-| **ESXi Advanced System Settings Config File** | `esxi_advanced_system_settings.xml` | System $\rightarrow$ Advanced System Settings as seen on ESXi Hosts via vCenter's **Configure** tab. |
-| **ESXi Software Packages Config File** | `esxi_packages.xml` | System $\rightarrow$ Packages as seen on ESXi Hosts via vCenter's **Configure** tab. |
+| **ESXi Advanced System Settings Config File** | `esxi_advanced_system_settings.xml` | System --> Advanced System Settings as seen on ESXi Hosts via vCenter's **Configure** tab. |
+| **ESXi Software Packages Config File** | `esxi_packages.xml` | System --> Packages as seen on ESXi Hosts via vCenter's **Configure** tab. |
 | **VM Advanced Parameters Config File** | `vm_advanced_parameters.xml` | Advanced Parameters for VMs (visible in vCenter MOB UI under `config -> extraConfig` section). |
 | **VM Options Config File** | `vm_options.xml` | VM Options for VMs (visible in vCenter MOB UI under `config` option). |
 
@@ -55,7 +55,7 @@ You can **tailor the monitoring scope** for different vCenter servers or environ
 
 ### 3.1. Steps to Create Custom Configuration Files
 
-1.  **Duplicate the Default File:** Navigate to **Infrastructure Operations** $\rightarrow$ **Configurations** $\rightarrow$ **Management Pack Configuration** $\rightarrow$ **System Defined**.
+1.  **Duplicate the Default File:** Navigate to **Infrastructure Operations** --> **Configurations** --> **Management Pack Configuration** --> **System Defined**.
 2.  Locate the desired file (e.g., `esxi_advanced_system_settings.xml`).
 3.  Click the **Clone** icon to create a copy.
     * **Name the new file** to reflect its purpose (e.g., `esxi_adv_settings_non_prod.xml`).
