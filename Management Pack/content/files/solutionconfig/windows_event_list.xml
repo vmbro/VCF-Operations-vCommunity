@@ -1,0 +1,26 @@
+<Events>
+  <!--
+  DO NOT EDIT THIS CONFIG FILE, CLONE IT
+  It shouldn't used by the adapter. The reason is any changes on this default config file will be overwritten during next upgrade process.
+  
+  It is a reference file as it has the example list of Windows Event IDs. 
+
+  LIMITATIONS:
+  Once collected, a property stays with the object forever. You cannot delete it, unless the object itself is deleted.
+  -->
+  
+  <Log Name="Application">
+    <EventID>1000</EventID>
+    <EventID>1001</EventID>
+    <EventID>1026</EventID>
+  </Log>
+  <Log Name="Security">
+<EventID>4025</EventID>
+  </Log>
+  <Log Name="Setup">
+<EventID>100</EventID>
+  </Log>
+  <Log Name="System">
+    <EventID>6006</EventID>
+  </Log>
+</Events>

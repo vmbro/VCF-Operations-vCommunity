@@ -33,3 +33,21 @@ def collect_drs_properties(cluster_obj, drs_config):
                     #cluster_obj.with_property(propertyName, str(propertyValue))
                     if checkLastValue(cluster_obj, propertyName, str(propertyValue), "property"):
                         cluster_obj.with_property(propertyName, str(propertyValue))
+
+    drs = getattr(drs_config.configurationEx, "drsConfig", None)
+    options = getattr(drs, "option", None)
+
+    cpuOverCommitment = None
+
+    if options:
+        for opt in options:
+            # opt = vim.option.OptionValue
+            if opt.key == "MaxVcpusPerCore":
+                cpuOverCommitment = int(opt.value)
+                break
+
+    if cpuOverCommitment is None:
+        cluster_obj.with_property("vCommunity|Cluster Configuration|DRS|CPU Over-Commitment", "N/A")
+    else:
+        print(f"MaxVcpusPerCore: {cpuOverCommitment}")
+        cluster_obj.with_property("vCommunity|Cluster Configuration|DRS|CPU Over-Commitment", str(cpuOverCommitment))

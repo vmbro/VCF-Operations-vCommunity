@@ -13,6 +13,7 @@ from properties.host.host_advanced_settings import collect_host_properties
 from properties.host.host_software_packages import collect_host_software_properties
 from properties.host.host_install_date import collect_host_install_date
 from properties.host.host_licensing import collect_host_licensing_data
+from properties.host.host_uplink import collect_host_uplink
 
 logger = logging.getLogger(__name__)
 
@@ -60,6 +61,7 @@ def collect_host_data(
             if esxiVIBDrivers:
                 collect_host_software_properties(host_obj, host, esxiVIBDrivers)
             collect_host_install_date(host_obj, host)
+            collect_host_uplink(host_obj, host)
             if assignedLicenses:
                 collect_host_licensing_data(host_obj, host, assignedLicenses)
             result.add_object(host_obj)

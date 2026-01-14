@@ -1,0 +1,78 @@
+<vmConfigs>
+  <!--
+  DO NOT EDIT THIS CONFIG FILE, CLONE IT
+  It shouldn't used by the adapter. The reason is any changes on this default config file will be overwritten during next upgrade process.
+
+  The list of settings as shown under the "VM Options" tab in the "Edit Settings" dialog box in the vCenter UI.
+  If required, add VM Options Key as defined in vCenter MOB UI.
+  
+  It is a reference file as it has the example list of vm options. 
+  To monitor a setting, simply copy the line to the working file.
+
+  All lines must be separated by comma, except the last line.
+  Remove comments if you want to monitor virtual machine options.
+
+  LIMITATIONS:
+  Once collected, a property stays with the object forever. You cannot delete it, unless the object itself is deleted.
+  -->
+
+  <!-- config.alternateGuestName, -->
+  <!-- config.changeTrackingEnabled, -->
+  <!-- config.bootOptions.bootDelay, -->
+  <!-- config.bootOptions.bootOrder, -->
+  <!-- config.bootOptions.bootRetryDelay, -->
+  <!-- config.bootOptions.bootRetryEnabled, -->
+  <!-- config.bootOptions.efiSecureBootEnabled, -->
+  <!-- config.bootOptions.enterBIOSSetup, -->
+  <!-- config.bootOptions.networkBootProtocol, -->
+  <!-- config.flags.cbrcCacheEnabled, -->
+  <!-- config.flags.disableAcceleration, -->
+  <!-- config.flags.diskUuidEnabled, -->
+  <!-- config.flags.enableLogging, -->
+  <!-- config.flags.faultToleranceType, -->
+  <!-- config.flags.htSharing, -->
+  <!-- config.flags.monitorType, -->
+  <!-- config.flags.recordReplayEnabled, -->
+  <!-- config.flags.runWithDebugInfo, -->
+  <!-- config.flags.snapshotDisabled, -->
+  <!-- config.flags.snapshotLocked, -->
+  <!-- config.flags.snapshotPowerOffBehavior, -->
+  <!-- config.flags.useToe, -->
+  <!-- config.flags.vbsEnabled, -->
+  <!-- config.flags.virtualExecUsage, -->
+  <!-- config.flags.virtualMmuUsage, -->
+  <!-- config.flags.virtualExecUsage, -->
+  <!-- config.latencySensitivity.level, -->
+  <!-- config.latencySensitivity.sensitivity, -->
+  <!-- config.maxMksConnections, -->
+  <!-- config.migrateEncryption, -->
+  <!-- config.nestedHVEnabled, -->
+  <!-- config.scheduledHardwareUpgradeInfo.fault, -->
+  <!-- config.scheduledHardwareUpgradeInfo.scheduledHardwareUpgradeStatus, -->
+  <!-- config.scheduledHardwareUpgradeInfo.upgradePolicy, -->
+  <!-- config.scheduledHardwareUpgradeInfo.versionKey, -->
+  <!-- config.sevEnabled, -->
+  <!-- config.sgxInfo.epcSize, -->
+  <!-- config.sgxInfo.flcMode, -->
+  <!-- config.sgxInfo.lePubKeyHash, -->
+  <!-- config.sgxInfo.requireAttestation, -->
+  <!-- config.tools.afterPowerOn, -->
+  <!-- config.tools.afterResume, -->
+  <!-- config.tools.beforeGuestReboot, -->
+  <!-- config.tools.beforeGuestShutdown, -->
+  <!-- config.tools.beforeGuestStandby, -->
+  <!-- config.tools.customizationKeyId, -->
+  <!-- config.tools.lastInstallInfo.counter, -->
+  <!-- config.tools.lastInstallInfo.fault, -->
+  <!-- config.tools.pendingCustomization, -->
+  <!-- config.tools.syncTimeWithHost, -->
+  <!-- config.tools.syncTimeWithHostAllowed, -->
+  <!-- config.tools.toolsInstallType, -->
+  <!-- config.tools.toolsUpgradePolicy, -->
+  <!-- config.tools.toolsVersion, -->
+  <!-- config.vAssertsEnabled, -->
+  <!-- config.vFlashCacheReservation, -->
+  <!-- config.vPMCEnabled, -->
+  <!-- config.vmOpNotificationTimeout, -->
+  <!-- config.vmOpNotificationToAppEnabled, -->
+</vmConfigs>
