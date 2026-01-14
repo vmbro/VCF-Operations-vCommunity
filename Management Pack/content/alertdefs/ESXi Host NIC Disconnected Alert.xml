@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><alertContent>
+    <AlertDefinitions>
+        <AlertDefinition adapterKind="VMWARE" cancelCycle="2" description="ESXi Host NIC Disconnected" disableInBasePolicy="true" id="AlertDefinition-1e5a233a-36ef-4961-8e35-499de49390ee" name="ESXi Host NIC Disconnected" resourceKind="HostSystem" subType="19" type="15" waitCycle="2">
+            <State severity="automatic">
+                <SymptomSet applyOn="self" operator="and" ref="SymptomDefinition-c8d1e671-d0ea-489f-acc4-46e34cc246b6"/>
+                <Impact key="health" type="badge"/>
+            </State>
+        </AlertDefinition>
+    </AlertDefinitions>
+    <SymptomDefinitions>
+        <SymptomDefinition adapterKind="VMWARE" cancelCycle="2" disableInBasePolicy="true" id="SymptomDefinition-c8d1e671-d0ea-489f-acc4-46e34cc246b6" name="ESXi Host NIC Disconnected" resourceKind="HostSystem" waitCycle="2">
+            <State severity="critical">
+                <Condition instanced="true" key="vCommunity|Network|Device:vmnic0|Status" operator="!=" thresholdType="static" type="property" value="Connected" valueType="string"/>
+            </State>
+        </SymptomDefinition>
+    </SymptomDefinitions>
+</alertContent>
