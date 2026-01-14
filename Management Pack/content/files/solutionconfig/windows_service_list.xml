@@ -1,0 +1,18 @@
+<windowsServices>
+  <!--
+  DO NOT EDIT THIS CONFIG FILE, CLONE IT
+  It shouldn't used by the adapter. The reason is any changes on this default config file will be overwritten during next upgrade process.
+  
+  It is a reference file as it has the example list of Windows services. 
+
+  LIMITATIONS:
+  Once collected, a property stays with the object forever. You cannot delete it, unless the object itself is deleted.
+  -->
+  
+  <!--Remove comments if you want to monitor Windows Services.-->
+  <!--You can add any service name as following-->
+  <!-- Dhcp -->
+  <!-- WinDefend -->
+  <!-- Dnscache, -->
+  <!-- MpsSvc -->
+</windowsServices>

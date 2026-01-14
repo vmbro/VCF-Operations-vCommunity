@@ -139,6 +139,7 @@ def get_adapter_definition() -> AdapterDefinition:
         drs = clusterConfiguration.define_group("DRS", "DRS")
         drs.define_string_property("Proactive DRS", "Proactive DRS")
         drs.define_string_property("Scale Descendants Shares", "Scale Descendants Shares")
+        drs.define_string_property("CPU Over-Commitment","CPU Over-Commitment")
         drs.define_metric("DRS Score", "DRS Score")
 
         evc = clusterConfiguration.define_group("EVC", "EVC")
@@ -172,6 +173,13 @@ def get_adapter_definition() -> AdapterDefinition:
         packages.define_string_property("Package Summary", "Package Summary")
         packages.define_string_property("Package Type", "Package Type")
         packages.define_string_property("Package Vendor", "Package Vendor")
+
+        hostSystemNetwork = vCommunity.define_group("Network", "Network")
+        networkDevice = hostSystemNetwork.define_instanced_group("Device", "Device", instance_required=True)
+        networkDevice.define_string_property("Device Name", "Device Name")
+        networkDevice.define_string_property("Driver Version", "Driver Version")
+        networkDevice.define_string_property("Firmware Version", "Firmware Version")
+        networkDevice.define_string_property("Status", "Status")
 
 
         # Virtual Machine
