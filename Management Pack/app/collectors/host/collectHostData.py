@@ -15,7 +15,7 @@ from properties.host.host_install_date import collect_host_install_date
 from properties.host.host_licensing import collect_host_licensing_data
 from properties.host.host_uplink import collect_host_uplink
 
-logger = logging.getLogger(__name__)
+logger = logging.getLogger("collect_host_data")
 
 def collect_host_data(
     suite_api_client: SuiteApiClient,
@@ -52,20 +52,22 @@ def collect_host_data(
     # Push your metrics below
     children = container_view.view
     for host in children:
-        host_obj = hosts_by_uuid.get(host._moId)
-        assignedLicenses = assignmentManager.QueryAssignedLicenses(host._moId)
+            hostConnectionState = host.runtime.connectionState
+            host_obj = hosts_by_uuid.get(host._moId)
 
-        if host_obj:
-            if esxiAdvSettings:
-                collect_host_properties(host_obj, host, esxiAdvSettings)
-            if esxiVIBDrivers:
-                collect_host_software_properties(host_obj, host, esxiVIBDrivers)
-            collect_host_install_date(host_obj, host)
-            collect_host_uplink(host_obj, host)
-            if assignedLicenses:
-                collect_host_licensing_data(host_obj, host, assignedLicenses)
-            result.add_object(host_obj)
-        else:
-            logger.warning(
-                f"Could not find host '{host.name}' with MoID: {host._moId}."
-            )
+            if hostConnectionState != "connected":
+                 logger.debug(f"Host: '{host.name}' (MoID: {host._moId}) is not processed because connection state is '{hostConnectionState}'. Expected: 'connected'.")
+            elif hostConnectionState == "connected" and host_obj:
+                logger.info(f"Started data collection on host: '{host.name}' (MoID: {host._moId})")
+                assignedLicenses = assignmentManager.QueryAssignedLicenses(host._moId)
+                if esxiAdvSettings:
+                    collect_host_properties(host_obj, host, esxiAdvSettings)
+                if esxiVIBDrivers:
+                    collect_host_software_properties(host_obj, host, esxiVIBDrivers)
+                collect_host_install_date(host_obj, host)
+                collect_host_uplink(host_obj, host)
+                if assignedLicenses:
+                    collect_host_licensing_data(host_obj, host, assignedLicenses)
+                result.add_object(host_obj)
+            else:
+                logger.warning(f"Could not find host '{host.name}' with MoID: {host._moId} or host is in an unexpected state.")
