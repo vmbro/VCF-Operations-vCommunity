@@ -16,13 +16,14 @@ def collect_vm_config_properties(vm_obj, vm, vmConfigs):
             for key in keys:
                 propertyValue = getattr(propertyValue, key)
 
-            if propertyValue:
+            if str(propertyValue):
                 vm_obj.with_property(f"vCommunity|Options|{configPath}", str(propertyValue))
+                logger.info(f"Successfully pushed {configPath} info for {vm.name} | {configPath} is {str(propertyValue)}")
             else:
-                logger.debug(f"Skipped None property: {configPath}")
+                logger.debug(f"Skipped None property: {configPath} for {vm.name} | {configPath} is {str(propertyValue)}")
 
         except AttributeError:
-            logger.warning(f"Attribute not found on VM: {configPath} propertyValue: {propertyValue}")
+            logger.warning(f"Attribute not found on VM: {configPath} propertyValue: {str(propertyValue)}")
 
         except Exception as e:
             logger.error(f"Error while collecting VM config {configPath}: {e}")
