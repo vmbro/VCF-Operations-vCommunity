@@ -1,6 +1,6 @@
 
 ### Platform Requirements
-* VCF Operations 9.0 or higher
+* VCF Operations 8.18.x or higher
 * vCenter Server 8 and higher including VCF 9.x
 * VCF Operations Cloud Proxy
 * Container Registry access to allow Cloud Proxy to install adapter requirements *(For the dark-site environments please see the [Questions & Answers ](https://github.com/vmbro/VCF-Operations-vCommunity/tree/main?tab=readme-ov-file#questions--answers) section for the workaround)*
