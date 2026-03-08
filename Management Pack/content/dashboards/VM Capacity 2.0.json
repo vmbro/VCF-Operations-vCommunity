@@ -21,10 +21,10 @@
       }]
    },
    "dashboards": [{
-      "shared": true,
+      "shared": false,
       "temporary": false,
       "hidden": true,
-      "creationTime": 1762090922173,
+      "creationTime": 1772872155272,
       "autoswitchEnabled": false,
       "importAttempts": 0,
       "columnProportion": "1",
@@ -65,7 +65,7 @@
                   "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214"
                },
                {
-                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-0%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CnumCpu1%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A1%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run2%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A2%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run3%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A3%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cusage_average4%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A4%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Ccpu_queue5%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A5%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cvcpu_usage_disparity6%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A6%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CmemoryKB7%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A7%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Cmem.free_latest8%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A8%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257CcreateDate9%25255Ehidden%25253Db%2525253A0%25255Eindex%25253Dn%2525253A9",
+                  "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CnumCpu1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cnet_run3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cusage_average4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Ccpu_queue5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-cpu%2525257Cvcpu_usage_disparity6%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257Chardware%2525257CmemoryKB7%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-guest%2525257Cmem.free_latest8%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214-column-config%2525257CcreateDate9%25255Ehidden%25253Db%2525253A0",
                   "key": "permTableView_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_ba708955-8e7f-4fab-9f13-b5332afe9214"
                }
             ]
@@ -502,16 +502,16 @@
             "height": 210,
             "states": [
                {
+                  "value": "b%3A0",
+                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
+               },
+               {
                   "value": "o%3A",
                   "key": "perm_HeatMap_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
                },
                {
                   "value": "b%3A0",
                   "key": "permBtn_showTextBtn_perm_HeatMap_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
-               },
-               {
-                  "value": "b%3A0",
-                  "key": "perm_toolbarVisible_widget_4e036192-7592-4a78-a5ad-276f2bfa5980_f0468633-2a4e-4ae8-925f-62f85d7cd127"
                }
             ]
          },
@@ -582,7 +582,7 @@
       "rank": 0,
       "disabled": false,
       "id": "4e036192-7592-4a78-a5ad-276f2bfa5980",
-      "adapterName": "iSDK_VCFOperationsvCommunity",
+      "adapterName": "VMware vSphere",
       "locked": false,
       "dashboardNavigations": {"58f2c9bb-f2c7-4262-b057-25d45533040d": []},
       "widgetInteractions": [
@@ -642,14 +642,14 @@
             "widgetIdReceiver": "5b1aa4aa-d4c8-4b04-b623-fd4eb997f209"
          }
       ],
-      "namePath": "vCommunity",
-      "lastUpdateUserId": "303829ed-8f02-4b76-821b-2663304cc852",
+      "namePath": "Capacity",
+      "lastUpdateUserId": "ab6c3520-10b3-416d-99f2-e2f447bb4f9e",
       "docCenterKey": "vcom_554",
       "columnCount": 1,
-      "userId": "303829ed-8f02-4b76-821b-2663304cc852",
-      "name": "vCommunity/VM Capacity 2.0",
+      "userId": "ab6c3520-10b3-416d-99f2-e2f447bb4f9e",
+      "name": "Capacity/VM Capacity (new)",
       "gridsterMaxColumns": 12,
-      "lastUpdateTime": 1762090922150
+      "lastUpdateTime": 1772968192965
    }],
-   "uuid": "00a5b37d-a8ad-43cc-8dc9-3d48cfc307af"
+   "uuid": "3861f866-111d-4542-a1f4-c9e814749293"
 }
