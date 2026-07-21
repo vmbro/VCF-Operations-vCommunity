@@ -1,35 +1,46 @@
-#  Copyright 2025 vCommunity MP
+#  Copyright 2026 VCF Operations vCommunity Management Pack
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
 from datetime import datetime, timezone
 logger = logging.getLogger(__name__)
 
-def collect_host_licensing_data(host_obj, host, assignedLicenses):
+def collect_host_licensing_data(host_obj, host_name, assigned_licenses):
     try:
-        for license in assignedLicenses:
-            licenseData = license.assignedLicense
-            expirationDate = None
-            remainingDays = None
+        if not assigned_licenses:
+            return
 
-            if hasattr(licenseData, "properties") and licenseData.properties:
-                for prop in licenseData.properties:
-                    if prop.key == "expirationDate":
-                        expirationDate = prop.value
-                        break
+        now = datetime.now(timezone.utc)
 
-            licenseName = getattr(licenseData, "name", "Unknown")
-            licenseKey = getattr(licenseData, "licenseKey", "Unknown")
-            licenseEditionKey = getattr(licenseData, "editionKey", "Unknown")
+        for lic in assigned_licenses:
+            license_data = getattr(lic, "assignedLicense", None)
+            if not license_data:
+                continue
 
-            now = datetime.now(timezone.utc)
-            remainingDays = (expirationDate - now).days
+            license_name = getattr(license_data, "name", "Unknown")
+            license_key = getattr(license_data, "licenseKey", "Unknown")
+            edition_key = getattr(license_data, "editionKey", "Unknown")
 
-            host_obj.with_property(f"vCommunity|Licensing:{licenseName}|Name", licenseName)
-            host_obj.with_property(f"vCommunity|Licensing:{licenseName}|License Key", licenseKey)
-            host_obj.with_property(f"vCommunity|Licensing:{licenseName}|License Expiration Date", str(expirationDate))
-            host_obj.with_metric(f"vCommunity|Licensing:{licenseName}|Remaining Days", remainingDays)
-            host_obj.with_property(f"vCommunity|Licensing:{licenseName}|Edition Key", licenseEditionKey)
+            expiration_date = None
+
+            for prop in getattr(license_data, "properties", []):
+                if prop.key == "expirationDate":
+                    expiration_date = prop.value
+                    break
+
+            remaining_days = None
+            if expiration_date:
+                remaining_days = (expiration_date - now).days
+
+            host_obj.with_property(f"vCommunity|Licensing:{license_name}|Name", license_name)
+            host_obj.with_property(f"vCommunity|Licensing:{license_name}|License Key", license_key)
+            host_obj.with_property(f"vCommunity|Licensing:{license_name}|Edition Key", edition_key)
+
+            if expiration_date:
+                host_obj.with_property(f"vCommunity|Licensing:{license_name}|License Expiration Date",str(expiration_date))
+
+            if remaining_days is not None:
+                host_obj.with_metric(f"vCommunity|Licensing:{license_name}|Remaining Days", remaining_days)
+
     except Exception as e:
-        message = f"Failed to retrieve licensing info for host '{host.name}' (MoID: {host._moId}): {e}"
-        logger.exception(message)
+        logger.warning(f"Failed to retrieve ESX license properties for : {host_name} - {repr(e)}")

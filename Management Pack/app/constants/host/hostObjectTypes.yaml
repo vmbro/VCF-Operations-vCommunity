@@ -1,9 +1,0 @@
-Host Agent:
-  properties:
-    - Annotation Welcome Message
-    - Log Level
-Host Profile:
-  properties:
-    - Last Check Time (days ago)
-    - Compliance Status
-    - Profile Name

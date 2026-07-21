@@ -1,4 +1,4 @@
-#  Copyright 2024 vCommunity MP
+#  Copyright 2026 VCF Operations vCommunity Management Pack
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 ADAPTER_KIND = "VCFOperationsvCommunity"
