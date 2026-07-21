@@ -1,53 +1,45 @@
-#  Copyright 2024 vCommunity MP
+#  Copyright 2026 VCF Operations vCommunity Management Pack
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
-import yaml
-import os
-from constants.checkUpdatedValues import checkLastValue
+
+logger = logging.getLogger(__name__)
 
 NULL_STATUS = "null"
-logger = logging.getLogger(__name__)
-current_directory = os.path.dirname(os.path.abspath(__file__))
-clusterConfigs = os.path.join(current_directory, "../../constants/cluster/clusterConfigs.yaml")
 
+def collect_drs_properties(cluster_obj, cluster_name, prop_dict):
+    try:
+        proactiveDrsEnabled = "vCommunity|Cluster Configuration|DRS|Proactive DRS"
+        scaleDescendantsShares = "vCommunity|Cluster Configuration|DRS|Scale Descendants Shares"
+        cpuOverCommitment = "vCommunity|Cluster Configuration|DRS|CPU Over-Commitment"
+        enableVmBehaviorOverrides = "vCommunity|Cluster Configuration|DRS|Virtual Machine Automation Enabled"
+        cpuOverCommitmentValue = None
+        drsEnabled = prop_dict.get("configuration.drsConfig.enabled")
+        clusterConfigurationEx = prop_dict.get("configurationEx")
+        proactiveDrsConfig = getattr(clusterConfigurationEx, "proactiveDrsConfig")
+        proactiveDrsEnabledValue = getattr(proactiveDrsConfig, "enabled")
+        enableVmBehaviorOverridesValue = prop_dict.get("configuration.drsConfig.enableVmBehaviorOverrides")
+        scaleDescendantsSharesValue = prop_dict.get("configuration.drsConfig.scaleDescendantsShares")
+        drsConfig = getattr(clusterConfigurationEx, "drsConfig")
+        options = getattr(drsConfig, "option", None)
 
-def collect_drs_properties(cluster_obj, drs_config):
-    with open(clusterConfigs, "r") as file:
-        data = yaml.safe_load(file)
+        if options:
+            for opt in options:
+                if opt.key == "MaxVcpusPerCore":
+                    cpuOverCommitmentValue = int(opt.value)
+                    break
 
-    for group_name, group_content in data.items():
-        if group_name and group_name == "DRS" and "properties" in group_content:
-            for item in group_content["properties"]:
-                propertyName = item["name"]
-                if drs_config.configuration.drsConfig.enabled == False:
-                    #cluster_obj.with_property(propertyName, NULL_STATUS)
-                    if checkLastValue(cluster_obj, propertyName, NULL_STATUS, "property"):
-                        cluster_obj.with_property(propertyName, NULL_STATUS)
-                else:
-                    configPath = item["configPath"]
-                    keys = configPath.split('.')
-                    propertyValue = drs_config
-                    for key in keys:
-                        propertyValue = getattr(propertyValue, key)
-                    #cluster_obj.with_property(propertyName, str(propertyValue))
-                    if checkLastValue(cluster_obj, propertyName, str(propertyValue), "property"):
-                        cluster_obj.with_property(propertyName, str(propertyValue))
+        proactive_final = str(proactiveDrsEnabledValue) if (drsEnabled and proactiveDrsEnabledValue is not None) else NULL_STATUS
+        scale_shares_final = str(scaleDescendantsSharesValue) if (drsEnabled and scaleDescendantsSharesValue is not None) else NULL_STATUS
+        cpuOverCommitment_final = str(cpuOverCommitmentValue) if (drsEnabled and cpuOverCommitmentValue is not None) else NULL_STATUS
+        enableVmBehaviorOverridesValue_final = str(enableVmBehaviorOverridesValue) if (drsEnabled and enableVmBehaviorOverridesValue is not None) else NULL_STATUS
 
-    drs = getattr(drs_config.configurationEx, "drsConfig", None)
-    options = getattr(drs, "option", None)
+        cluster_obj.with_property(proactiveDrsEnabled, str(proactive_final))
+        cluster_obj.with_property(scaleDescendantsShares, str(scale_shares_final))
+        cluster_obj.with_property(cpuOverCommitment, str(cpuOverCommitment_final))
+        cluster_obj.with_property(enableVmBehaviorOverrides, str(enableVmBehaviorOverridesValue_final))
 
-    cpuOverCommitment = None
+        logger.debug(f"Successfully collected vSphere Cluster DRS properties for : {cluster_name}")
 
-    if options:
-        for opt in options:
-            # opt = vim.option.OptionValue
-            if opt.key == "MaxVcpusPerCore":
-                cpuOverCommitment = int(opt.value)
-                break
-
-    if cpuOverCommitment is None:
-        cluster_obj.with_property("vCommunity|Cluster Configuration|DRS|CPU Over-Commitment", "N/A")
-    else:
-        print(f"MaxVcpusPerCore: {cpuOverCommitment}")
-        cluster_obj.with_property("vCommunity|Cluster Configuration|DRS|CPU Over-Commitment", str(cpuOverCommitment))
+    except Exception as e:
+        logger.warning(f"Failed to retrieve vSphere Cluster DRS properties for : {cluster_name} - {repr(e)}")

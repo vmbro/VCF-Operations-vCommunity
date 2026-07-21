@@ -1,34 +1,28 @@
-#  Copyright 2024 vCommunity MP
+#  Copyright 2026 VCF Operations vCommunity Management Pack
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
-import yaml
-import os
-from constants.checkUpdatedValues import checkLastValue
 
 logger = logging.getLogger(__name__)
-current_directory = os.path.dirname(os.path.abspath(__file__))
-clusterConfigs = os.path.join(current_directory, "../../constants/cluster/clusterConfigs.yaml")
 
 
-def collect_drs_metrics(cluster_obj, drs_config):
-    with open(clusterConfigs, "r") as file:
-        data = yaml.safe_load(file)
+def collect_drs_metrics(cluster_obj, cluster_name, prop_dict):
+    try:
+        drsScore = "vCommunity|Cluster Configuration|DRS|DRS Score"
+        drsSummary = prop_dict.get("summary")
+        drsScoreValue= getattr(drsSummary, "drsScore")
+        drsEnabled = prop_dict.get("configuration.drsConfig.enabled")
 
-    for group_name, group_content in data.items():
-        if group_name and group_name == "DRS" and "metrics" in group_content:
-            for item in group_content["metrics"]:
-                propertyName = item["name"]
-                if drs_config.configuration.drsConfig.enabled == False:
-                    #cluster_obj.with_metric(propertyName, 0)
-                    if checkLastValue(cluster_obj, propertyName, 0, "metric"):
-                        cluster_obj.with_metric(propertyName, 0)
-                else:
-                    configPath = item["configPath"]
-                    keys = configPath.split('.')
-                    propertyValue = drs_config
-                    for key in keys:
-                        propertyValue = getattr(propertyValue, key)
-                    #cluster_obj.with_metric(propertyName, str(propertyValue))
-                    if checkLastValue(cluster_obj, propertyName, str(propertyValue), "metric"):
-                        cluster_obj.with_metric(propertyName, str(propertyValue))
+        if not drsEnabled:
+            cluster_obj.with_metric(drsScore, 0)
+
+        elif drsScoreValue < 0:
+            cluster_obj.with_metric(drsScore, 0)
+
+        else:
+            cluster_obj.with_metric(drsScore, int(drsScoreValue))
+
+        logger.debug(f"Successfully collected vSphere Cluster DRS metrics for the cluster: {cluster_name}")
+
+    except Exception as e:
+        logger.warning(f"Failed to retrieve vSphere Cluster DRS metrics for : {cluster_name} - {repr(e)}")

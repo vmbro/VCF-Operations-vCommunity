@@ -1,3 +1,6 @@
+#  Copyright 2026 VCF Operations vCommunity Management Pack
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
+
 $output = @()
 
 $os = Get-CimInstance Win32_OperatingSystem

@@ -1,5 +1,5 @@
-#  Copyright 2024 vCommunity MP
-#  Author: Onur Yuzseven
+#  Copyright 2026 VCF Operations vCommunity Management Pack
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import os
 import time

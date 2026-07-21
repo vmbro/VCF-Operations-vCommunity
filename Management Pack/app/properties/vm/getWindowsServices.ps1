@@ -1,3 +1,6 @@
+#  Copyright 2026 VCF Operations vCommunity Management Pack
+#  Author: Onur Yuzseven onur.yuzseven@broadcom.com
+
 param (
     [Parameter(Mandatory = $true)]
     [string[]]$serviceList

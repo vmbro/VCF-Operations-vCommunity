@@ -1,29 +1,20 @@
-#  Copyright 2024 vCommunity MP
+#  Copyright 2026 VCF Operations vCommunity Management Pack
 #  Author: Onur Yuzseven onur.yuzseven@broadcom.com
 
 import logging
-import os
 
-NULL_STATUS = "null"
 logger = logging.getLogger(__name__)
 
-def collect_vm_config_properties(vm_obj, vm, vmConfigs):
-    for configPath in vmConfigs:
-        try:
-            keys = configPath.split('.')
-            propertyValue = vm
+def collect_vm_config_properties(vm_obj, vm_name, prop_dict, vmConfigs):
+    try:
+        for configPath in vmConfigs:
+            value = prop_dict.get(configPath)
 
-            for key in keys:
-                propertyValue = getattr(propertyValue, key)
+            if value is None:
+                continue
 
-            if str(propertyValue):
-                vm_obj.with_property(f"vCommunity|Options|{configPath}", str(propertyValue))
-                logger.info(f"Successfully pushed {configPath} info for {vm.name} | {configPath} is {str(propertyValue)}")
-            else:
-                logger.debug(f"Skipped None property: {configPath} for {vm.name} | {configPath} is {str(propertyValue)}")
+            vm_obj.with_property(f"vCommunity|Options|{configPath}", str(value))
+            logger.debug(f"VM config property {configPath} for {vm_name} has been pushed | Value: {value}")
 
-        except AttributeError:
-            logger.warning(f"Attribute not found on VM: {configPath} propertyValue: {str(propertyValue)}")
-
-        except Exception as e:
-            logger.error(f"Error while collecting VM config {configPath}: {e}")
+    except Exception as e:
+        logger.warning(f"Failed to retrieve VM configuration properties for : {vm_name} - {repr(e)}")
