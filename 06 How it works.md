@@ -4,7 +4,8 @@ Custom Management Packs created using the VCF Operations Integration SDK have so
 
 If the Cloud Proxy has container registry access (access to the Internet), users can simply install the Management Pack then create Adapter Instances.  There is no need for any other modifications by users in VCF Operations.
 
-![Adapter-Topology](Documentation-Images/screenshots/VCF_Operations_vCommunity_Topology.svg)
+![Adapter-Topology](Documentation-Images/screenshots/vCommunity_Adapter_Topology.svg)
+
 
 ## How Integration SDK Works ?
 
