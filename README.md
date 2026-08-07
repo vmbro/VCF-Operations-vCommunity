@@ -66,6 +66,7 @@ Login to VMware Hands-on Lab, then test drive [this MP](https://labs.hol.vmware.
 - [Configuration](docs/configuration.md)
 - [How It Works](docs/how-it-works.md)
 - [Dark Site Installation](docs/dark-site.md)
+- [Metrics & Properties Reference](docs/metrics-reference.md)
 
 
 ## Tools
