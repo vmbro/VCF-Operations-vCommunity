@@ -1,19 +1,35 @@
+# Installation
 
-## Enable Unsigned Adapter
-Since the PAK file is not signed by VMware you need to enable "*Allow unsigned PAK installation*" feature from the https://VCF_Ops/admin UI Administrator Settings > Security Settings > ACTIVATE UNSIGNED PAK INSTALLATION
+**On this page:**
 
-After enabling that feature you will see the "*Ignore the PAK file signature checking.*" checkbox available on PAK installation wizard.
+- [Enable Unsigned PAK Installation](#enable-unsigned-pak-installation)
+- [Install the Management Pack](#install-the-management-pack)
 
-One this has been done you can install the Management Pack.
+---
 
-*  Navigate Administration > Integrations > Repository Tab and click ADD 
+## Enable Unsigned PAK Installation
 
-* Browse the `VCFOperationsvCommunity_x.x.x.pak` file and select "Install the PAK file even if it is already installed." to override the installation and select "Ignore the PAK file signature checking." since VCF Operations vCommunity MP is unsinged to allow VCF Operations install the .pak file. Lastly, upload the file and click NEXT.
+Since the PAK file is not signed by VMware/Broadcom (this is a community-built, unofficial Management Pack — see the main [README](../README.md)), you need to enable unsigned PAK installation once per VCF Operations instance:
 
-* Accept the End User License Agreement to continue and click Next.
+1. Go to `https://<VCF_Ops>/admin` → **Administrator Settings** → **Security Settings** → **Activate Unsigned PAK Installation**.
 
-* Once PAK file installation is completed click FINISH.
+After enabling this, the **"Ignore the PAK file signature checking"** checkbox will appear during the PAK installation wizard.
 
-* You can review the VCF Operations vCommunity Management Pack under the Repository Tab.
+---
 
+## Install the Management Pack
 
+1. Navigate to **Administration** → **Integrations** → **Repository** tab, and click **Add**.
+2. Browse to the `VCFOperationsvCommunity_x.x.x.pak` file. Select:
+   - **"Install the PAK file even if it is already installed"** — to override an existing installation.
+   - **"Ignore the PAK file signature checking"** — required, since this Management Pack is unsigned.
+
+   Upload the file and click **Next**.
+3. Accept the End User License Agreement, then click **Next**.
+4. Once installation completes, click **Finish**.
+
+You can review the VCF Operations vCommunity Management Pack under the **Repository** tab.
+
+---
+
+**Next:** [Configuration](configuration.md) — create your first Adapter Instance.
