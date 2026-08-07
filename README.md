@@ -56,3 +56,8 @@ Additional Properties & Metrics:
 - Virtual Machine Snapshot Count
   
 Login to VMware Hands-on Lab, then test drive [this MP](https://labs.hol.vmware.com/HOL/catalog/lab/26848). [Abhijit Timble](https://www.linkedin.com/in/abhijit-timble-75878514/) has installed it so you can evaluate it before deciding in your environment.
+
+
+## Tools
+
+- **[Bulk Adapter Instance Importer](tools/importer/importer.md)** — Onboard many vCenters at once from a CSV file instead of configuring each Adapter Instance manually.
