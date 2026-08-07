@@ -7,7 +7,8 @@
 
 # VCF Operations vCommunity Management Pack
 
-If your team maintains a config workbook as the source of truth for ESXi and VM settings, this Management Pack is what turns that workbook into continuously monitored, compliance-checkable data in VCF Operations.
+If your team maintains a config workbook as the source of truth for ESXi and VM settings, this Management Pack is what turns that workbook into continuously monitored, compliance-checkable data in VCF Operations. Please read [Why it matters ?](docs/why-it-matters.md) Page for use cases.
+
 
 This free Management Pack was developed by [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/) as his contribution to the vCommunity (VMUG, vExpert, VCP). It's not an official VMware project, and there is no support from VMware GSS. Deploy at your own risk, or consult PSO for a custom solution.
 
@@ -63,13 +64,13 @@ Login to VMware Hands-on Lab, then test drive [this MP](https://labs.hol.vmware.
 ## Documentation
 
 - [Introduction](docs/introduction.md)
+- [Why it matters ?](docs/why-it-matters.md)
 - [System Requirements](docs/system-requirements.md)
 - [Installation](docs/installation.md)
 - [Configuration](docs/configuration.md)
 - [How It Works](docs/how-it-works.md)
 - [Dark Site Installation](docs/dark-site.md)
 - [Metrics & Properties Reference](docs/metrics-reference.md)
-
 
 ## Tools
 
