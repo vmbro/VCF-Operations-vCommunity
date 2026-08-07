@@ -14,6 +14,17 @@ The problem is that standard vCenter and VCF Operations monitoring doesn't track
 
 In short: **stable environments start with consistent configuration, and you can't keep configuration consistent if you can't see it.**
 
+## From Config Workbook to Continuous Compliance
+
+Many organizations already formalize this problem: they maintain a **config workbook** — a documented baseline of expected ESXi and VM settings, agreed and governed across lab and production sites — as their source of truth. On top of that, they typically layer two kinds of validation:
+
+- A **periodic best-practice health check** (run occasionally, findings interpreted as "best practice" vs. "accepted deviation").
+- **Continuous compliance validation** inside VCF Operations — comparing the running environment against the workbook's expected state, and flagging drift automatically.
+
+That second layer only works for data VCF Operations actually collects. Out of the box, it does not collect ESXi Advanced System Settings or VM Advanced Parameters at the granularity a config workbook cares about — so the workbook's standards have nothing to be checked against, no matter how well governed the workbook itself is.
+
+**This is exactly the gap the vCommunity Management Pack closes.** Point its configuration files at the same settings your workbook already defines, and those values become live, continuously updated properties in VCF Operations — ready to feed compliance rules, dashboards, or alerts. The workbook stays your source of truth; this Management Pack is what makes that truth checkable, continuously, at scale — rather than only during the next scheduled health check.
+
 ## What It Collects
 
 Out of the box, and fully customizable via simple configuration files, the Management Pack captures:
