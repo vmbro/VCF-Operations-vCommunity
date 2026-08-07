@@ -1,13 +1,13 @@
-[![Blog](https://img.shields.io/badge/vSphere%20vCommunity%20Management%20Pack-157BAD)]([https://github.com/vmbro/VCF-Operations-vCommunity-Content](https://github.com/vmbro/VCF-Operations-vCommunity-Content))
+[![Blog](https://img.shields.io/badge/vSphere%20vCommunity%20Management%20Pack-157BAD)](https://github.com/vmbro/VCF-Operations-vCommunity-Content)
 [![MP Version](https://img.shields.io/github/v/release/vmbro/VCF-Operations-vCommunity)](https://badge.fury.io/gh/vmbro%2Fvcf-operations-vcommunity-content)
-[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/vmbro/VCF-Operations-vCommunity/total)]([https://github.com/vmbro/VCF-Operations-vCommunity-Content](https://github.com/vmbro/VCF-Operations-vCommunity-Content))
-[![Blog](https://img.shields.io/github/repo-size/vmbro/vcf-operations-vcommunity-content?style=flat)]([https://vmbro.com/](https://github.com/vmbro/VCF-Operations-vCommunity-Content))
-[![Blog](https://img.shields.io/github/stars/vmbro/vcf-operations-vcommunity-content?style=flat)]([https://github.com/vmbro/VCF-Operations-vCommunity-Content/stargazers](https://github.com/vmbro/VCF-Operations-vCommunity-Content/stargazers))
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/vmbro/VCF-Operations-vCommunity/total)](https://github.com/vmbro/VCF-Operations-vCommunity-Content)
+[![Blog](https://img.shields.io/github/repo-size/vmbro/vcf-operations-vcommunity-content?style=flat)](https://vmbro.com/)
+[![Blog](https://img.shields.io/github/stars/vmbro/vcf-operations-vcommunity-content?style=flat)](https://github.com/vmbro/VCF-Operations-vCommunity-Content/stargazers)
 
 
 # VCF Operations vCommunity Management Pack
 
-This free Management Pack was developed by [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/) as his contribution to the vCommunity (VMUG, vExpert, VCP). It's not an official VMware project, and there is no support from VMware GSS. Deploy at your own risk, or consult PSO for a custom solution. 
+This free Management Pack was developed by [Onur Yuzseven](https://www.linkedin.com/in/oyuzseven/) as his contribution to the vCommunity (VMUG, vExpert, VCP). It's not an official VMware project, and there is no support from VMware GSS. Deploy at your own risk, or consult PSO for a custom solution.
 
 It's built using the [VCF Operations Integration SDK](https://github.com/vmware/vmware-aria-operations-integration-sdk).  It uses the Python programming language and the VCF Operations API.  It was developed originally for the following use cases:
 
@@ -16,21 +16,21 @@ It's built using the [VCF Operations Integration SDK](https://github.com/vmware/
 3.  Capture VM Advanced Parameters (vm_advanced_parameters.xml)
 4.  Capture VM Options (vm_options.xml)
 
-The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) and this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-3) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/). 
+The user can customize what is being captured above by editing the associated XML files, which are installed with examples by default. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations) and this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-3) by [Brock Peterson](https://www.linkedin.com/in/brockpetersonbdcvmw/).
 
 In addition to the four use cases above, this Management Pack also addresses these two use cases:
 
 1.  Captures Microsoft Windows Services (windows_service_list.xml))
 2.  Captures Microsoft Windows Event Log Events (windows_event_list.xml)
 
-The above implementation is _agentless_. It uses GuestAPI with the provided Guest OS credentials. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-2). 
-As it does not come with a dashboard, [Dale Hassinger](https://www.linkedin.com/in/dalehassinger/) has created a cool dashboard [here](https://www.vcrocs.info/vcommunity-mp-windows-servers-services/). 
+The above implementation is _agentless_. It uses GuestAPI with the provided Guest OS credentials. For details, see this [blog](https://www.brockpeterson.com/post/vcommunity-management-pack-for-vcf-operations-part-2).
+As it does not come with a dashboard, [Dale Hassinger](https://www.linkedin.com/in/dalehassinger/) has created a cool dashboard [here](https://www.vcrocs.info/vcommunity-mp-windows-servers-services/).
 Before monitoring hundreds of Windows machine, check the additional load in both VCF Operations and the Windows machine.
 
 New Dashboards:
-* Critical Business Application 
-* vSphere Resource Management 
-* VM Storage Configuration 
+* Critical Business Application
+* vSphere Resource Management
+* VM Storage Configuration
 
 Enhanced Dashboards (replacing existing ones):
 * VM Configuration
@@ -49,15 +49,32 @@ They are also purpose-built. The PDF format and the CSV format is targetted for 
 Super Metrics:
 They are used in the dashboards. Super Metrics can be found [here](https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics). You can bulk enable them in Policy, after Management Pack installation.
 
-The above was provided by [Iwan Rahabok](https://www.linkedin.com/in/e1ang/). They are documented in his books, available for download [here](https://broadcom.box.com/v/OpsYourWorld). 
+The above was provided by [Iwan Rahabok](https://www.linkedin.com/in/e1ang/). They are documented in his books, available for download [here](https://broadcom.box.com/v/OpsYourWorld).
 
 Additional Properties & Metrics:
 - Cluster HA/DRS/EVC
 - Virtual Machine Snapshot Count
-  
+
 Login to VMware Hands-on Lab, then test drive [this MP](https://labs.hol.vmware.com/HOL/catalog/lab/26848). [Abhijit Timble](https://www.linkedin.com/in/abhijit-timble-75878514/) has installed it so you can evaluate it before deciding in your environment.
+
+
+## Documentation
+
+- [Introduction](docs/introduction.md)
+- [System Requirements](docs/system-requirements.md)
+- [Installation](docs/installation.md)
+- [Configuration](docs/configuration.md)
+- [How It Works](docs/how-it-works.md)
+- [Dark Site Installation](docs/dark-site.md)
 
 
 ## Tools
 
 - **[Bulk Adapter Instance Importer](tools/importer/importer.md)** — Onboard many vCenters at once from a CSV file instead of configuring each Adapter Instance manually.
+
+
+## Community
+
+- [Contributing](CONTRIBUTING.md)
+- [Support](SUPPORT.md)
+- [License](LICENSE)
