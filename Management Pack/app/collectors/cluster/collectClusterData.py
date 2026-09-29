@@ -15,6 +15,7 @@ from metrics.cluster.drs_metrics import collect_drs_metrics
 from properties.cluster.evc_properties import collect_evc_properties
 from properties.cluster.dpm_properties import collect_dpm_properties
 from properties.cluster.cluster_configuration_properties import collect_cluster_configuration_properties
+from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -65,6 +66,29 @@ def collect_cluster_data(
         cluster.get_identifier_value("VMEntityObjectID"): cluster for cluster in clusters
     }
 
+    # Retrieve HostSystem and VirtualMachine resources for bulk metric lookup
+    hosts: List[Object] = suite_api_client.query_for_resources(
+        {
+            "adapterKind": [VCENTER_ADAPTER_KIND],
+            "resourceKind": ["HostSystem"],
+            "adapterInstanceId": [adapter_instance_id],
+        }
+    )
+    hosts_by_uuid: dict[str, Object] = {
+        host.get_identifier_value("VMEntityObjectID"): host for host in hosts
+    }
+
+    vms: List[Object] = suite_api_client.query_for_resources(
+        {
+            "adapterKind": [VCENTER_ADAPTER_KIND],
+            "resourceKind": ["VirtualMachine"],
+            "adapterInstanceId": [adapter_instance_id],
+        }
+    )
+    vms_by_uuid: dict[str, Object] = {
+        vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
+    }
+
     for cluster_data in cluster_props:
         try:
             cluster_ref = cluster_data.obj
@@ -84,6 +108,7 @@ def collect_cluster_data(
             collect_drs_metrics(cluster_obj, cluster_name, prop_dict)
             collect_dpm_properties(cluster_obj, cluster_name, prop_dict)
             collect_cluster_configuration_properties(cluster_obj, cluster_name, prop_dict)
+            collect_cluster_performance_metrics(cluster_obj, cluster_ref, vms_by_uuid, hosts_by_uuid, suite_api_client)
 
             result.add_object(cluster_obj)
 
