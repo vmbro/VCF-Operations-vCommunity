@@ -6,7 +6,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 **On this page:**
 
-- [Cluster](#cluster) (22 items)
+- [Cluster](#cluster) (33 items)
 - [Host](#host) (46 items)
 - [Datastore](#datastore) (9 items)
 - [Virtual Machine](#virtual-machine) (51 items)
@@ -40,6 +40,17 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Enabled` | Whether Enhanced vMotion Compatibility (EVC) mode is enabled on the cluster. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Mode` | If enabled, the EVC mode key the cluster is running (e.g. intel-cascadelake) - determines the exposed CPU feature baseline. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|DPM\|Host Power Action Rate` | If Distributed Power Management (DPM) is enabled, the aggressiveness level (1-5) controlling how fast hosts are powered on/off. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Cluster Performance` | Key Performance Indicator (0-100 %) of the cluster, combining the 10 sub-metrics below. 100 is perfect. See [Cluster Performance KPI](cluster-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|CPU Ready` | Average 20-second peak CPU Ready (%) across the VMs in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|CPU Co-Stop` | Average 20-second peak CPU Co-Stop (%) across the VMs in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Memory Contention` | Average 20-second peak memory contention (%) across the VMs in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM Memory Contention` | Highest 20-second peak memory contention (%) of any VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets over the last 30 minutes, on the worst host in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|vMotions per 100 Running VMs` | Number of vMotions in the last collection cycle, per 100 running VMs. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Memory Zip Swap` | Share (%) of VM memory in the cluster that is compressed or swapped out. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Memory Ballooned` | Share (%) of VM memory in the cluster that is ballooned. |
 
 [⬆ Back to top](#metrics--properties-reference)
 
@@ -198,4 +209,4 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 ---
 
-**Total: 139 template rows across 5 object types.**
+**Total: 150 template rows across 5 object types.**

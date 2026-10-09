@@ -31,6 +31,7 @@ from collectors.host.collectHostData import collect_host_data
 from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
+from metrics.cluster import cluster_performance_metrics
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
@@ -139,18 +140,11 @@ def get_adapter_definition() -> AdapterDefinition:
         clusterConfiguration.define_metric("Number of Effective Hosts", "Number of Effective Hosts")
         clusterConfiguration.define_string_property("Overall Status", "Overall Status")
 
-        clusterPerformance = vCommunity.define_group("Cluster Performance", "Cluster Performance")
-        clusterPerformance.define_metric("CPU Ready", "CPU Ready", unit="%")
-        clusterPerformance.define_metric("CPU Co-Stop", "CPU Co-Stop", unit="%")
-        clusterPerformance.define_metric("Memory Contention", "Memory Contention", unit="%")
-        clusterPerformance.define_metric("Worst VM CPU Ready", "Worst VM CPU Ready", unit="%")
-        clusterPerformance.define_metric("Worst VM CPU Co-Stop", "Worst VM CPU Co-Stop", unit="%")
-        clusterPerformance.define_metric("Worst VM Memory Contention", "Worst VM Memory Contention", unit="%")
-        clusterPerformance.define_metric("Worst ESXi Bad Network Packets", "Worst ESXi Bad Network Packets", unit="%")
-        clusterPerformance.define_metric("Total vMotions", "Total vMotions", unit="%")
-        clusterPerformance.define_metric("Memory Zip Swap", "Memory Zip Swap", unit="%")
-        clusterPerformance.define_metric("Memory Ballooned", "Memory Ballooned", unit="%")
-        clusterPerformance.define_metric("Cluster Performance", "Cluster Performance", unit="%")
+        # The sub-metric list lives in one place: METRICS in cluster_performance_metrics.py
+        clusterPerformance = vCommunity.define_group(cluster_performance_metrics.GROUP, cluster_performance_metrics.GROUP)
+        for metric in cluster_performance_metrics.METRICS:
+            clusterPerformance.define_metric(metric.name, metric.name, unit=metric.unit)
+        clusterPerformance.define_metric(cluster_performance_metrics.KPI_NAME, cluster_performance_metrics.KPI_NAME, unit="%")
 
         vSphereHA = clusterConfiguration.define_group("vSphere HA", "vSphere HA")
         vSphereHA.define_string_property("Host Monitoring", "Host Monitoring")

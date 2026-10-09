@@ -108,7 +108,7 @@ def collect_cluster_data(
             collect_drs_metrics(cluster_obj, cluster_name, prop_dict)
             collect_dpm_properties(cluster_obj, cluster_name, prop_dict)
             collect_cluster_configuration_properties(cluster_obj, cluster_name, prop_dict)
-            collect_cluster_performance_metrics(cluster_obj, cluster_ref, vms_by_uuid, hosts_by_uuid, suite_api_client)
+            collect_cluster_performance_metrics(cluster_obj, cluster_name, cluster_ref, vms_by_uuid, hosts_by_uuid, suite_api_client)
 
             result.add_object(cluster_obj)
 
