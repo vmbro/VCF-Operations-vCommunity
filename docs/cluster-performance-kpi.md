@@ -78,7 +78,7 @@ Each limit is double the one before it. The worst-VM rows have higher limits tha
   - KPI = `(9 × 100 + 18.75 × 8) / (9 + 8)` = `1050 / 17` ≈ **61.76**.
   - A plain average would give about 91.9. The weighting makes the one bad sub-metric show.
 
-The same examples are checked by the tests in [`Management Pack/tests/test_cluster_performance_metrics.py`](../Management%20Pack/tests/test_cluster_performance_metrics.py).
+The same examples are checked by the tests in [`Management Pack/tests/test_cluster_performance_metrics.py`](../Management%20Pack/tests/test_cluster_performance_metrics.py) and [`test_kpi_score.py`](../Management%20Pack/tests/test_kpi_score.py).
 
 ## Missing data
 
@@ -91,7 +91,9 @@ Common reasons for no data: the cluster has no running VMs, the vCenter adapter 
 
 ## Changing the KPI
 
-The sub-metrics, their units and their limits are one table, `METRICS`, at the top of the code file. The tiers and weights are a second table, `TIERS`.
+The sub-metrics, their units and their limits are one table, `METRICS`, at the top of the code file. Each row starts with the value where the score is 100, which is 0 for every sub-metric here.
+
+The tiers and weights are a second table, `TIERS`, in [`Management Pack/app/metrics/kpi_score.py`](../Management%20Pack/app/metrics/kpi_score.py). That file holds the scoring for every KPI, so a change there also changes [VM Performance](vm-performance-kpi.md).
 
 - To change a limit, edit the row.
 - To remove a sub-metric, delete its row and the line that supplies its value.

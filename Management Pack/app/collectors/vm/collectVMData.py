@@ -16,6 +16,7 @@ from properties.vm.vm_disk import collect_vm_disk
 from properties.vm.vm_configurations import collect_vm_configurations
 from properties.vm.vmOSInformation import collect_vm_os_information_properties
 from events.vm.collect_windows_event_logs import collect_windows_events
+from metrics.vm.vm_performance_metrics import read_vm_performance_stats, collect_vm_performance_metrics
 from utils.vi_property_collector import retrieve_properties
 from pyVmomi import vim
 
@@ -79,6 +80,7 @@ def collect_vm_data(
     propertyPaths.append("summary.config.vmPathName")
     propertyPaths.append("config.memoryAllocation.shares.level")
     propertyPaths.append("guest")
+    propertyPaths.append("runtime.powerState")
 
     vm_props = retrieve_properties(content, vim.VirtualMachine, propertyPaths)
 
@@ -95,6 +97,9 @@ def collect_vm_data(
     vms_by_uuid: dict[str, Object] = {
         vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
     }
+
+    # Read the stats of all VMs in bulk, instead of one call per VM
+    vm_performance_stats = read_vm_performance_stats(suite_api_client, vms)
 
     for vm_data in vm_props:
         try:
@@ -116,6 +121,10 @@ def collect_vm_data(
                 
             collect_vm_disk(vm_obj, prop_dict, vm_name)
             collect_vm_configurations(vm_obj, prop_dict, vm_name)
+
+            # A powered-off VM only has old stats, so it gets no performance score
+            if prop_dict.get("runtime.powerState") == "poweredOn":
+                collect_vm_performance_metrics(vm_obj, vm_name, vm_performance_stats.get(vm_obj.get_id(), {}))
 
 
             # TODO need to improve data collection 

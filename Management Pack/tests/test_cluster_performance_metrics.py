@@ -8,64 +8,35 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 
+from metrics.kpi_score import kpi_score
 from metrics.cluster import cluster_performance_metrics as cp
+from fakes import FakeSuiteApi, FakeObject, FakeMoRef
 
 CLUSTER_ID = "cluster-1"
 ALL_ZERO = {metric.name: 0.0 for metric in cp.METRICS}
-CPU_READY = cp.METRICS[0]   # green 1, yellow 2, orange 4, zero-at 8
-
-
-# --- Scoring one sub-metric -------------------------------------------------
-
-def test_score_at_each_tier_boundary():
-    assert cp.score_metric(CPU_READY, 0.0) == (100.0, 1.0)
-    assert cp.score_metric(CPU_READY, 1.0) == (75.0, 2.0)
-    assert cp.score_metric(CPU_READY, 2.0) == (50.0, 4.0)
-    assert cp.score_metric(CPU_READY, 4.0) == (25.0, 8.0)
-    assert cp.score_metric(CPU_READY, 8.0) == (0.0, 8.0)
-
-
-def test_score_drops_in_a_straight_line_inside_a_tier():
-    assert cp.score_metric(CPU_READY, 0.5) == (87.5, 1.0)     # halfway through green
-    assert cp.score_metric(CPU_READY, 3.0) == (37.5, 4.0)     # halfway through orange
-    assert cp.score_metric(CPU_READY, 5.0) == (18.75, 8.0)    # a quarter of the way through red
-
-
-def test_score_never_goes_below_zero_or_above_100():
-    assert cp.score_metric(CPU_READY, 500.0) == (0.0, 8.0)
-    assert cp.score_metric(CPU_READY, -1.0) == (100.0, 1.0)
 
 
 # --- The KPI ----------------------------------------------------------------
 
 def test_all_zeros_is_100():
-    assert cp.cluster_performance_score(ALL_ZERO) == 100.0
+    assert kpi_score(cp.METRICS, ALL_ZERO) == 100.0
 
 
 def test_one_red_metric_is_not_hidden_by_nine_good_ones():
     # CPU Ready = 5 scores 18.75 with weight 8. The other nine score 100 with weight 1.
     # KPI = (9 x 100 + 18.75 x 8) / (9 + 8) = 1050 / 17 = 61.76. A plain average would give 91.9.
-    assert cp.cluster_performance_score({**ALL_ZERO, "CPU Ready": 5.0}) == 61.76
+    assert kpi_score(cp.METRICS, {**ALL_ZERO, "CPU Ready": 5.0}) == 61.76
 
 
 def test_everything_at_its_worst_is_0():
-    assert cp.cluster_performance_score({metric.name: metric.zero_at for metric in cp.METRICS}) == 0.0
+    assert kpi_score(cp.METRICS, {metric.name: metric.zero_at for metric in cp.METRICS}) == 0.0
 
 
 def test_missing_metric_is_left_out_not_scored_as_perfect():
     # Only two sub-metrics have data: one perfect (100, weight 1), one at the start of red (25, weight 8).
     # KPI = (100 x 1 + 25 x 8) / 9 = 33.33. Counting the eight missing ones as perfect would give 64.71.
     values = {"CPU Ready": 0.0, "CPU Co-Stop": 4.0, "Memory Ballooned": None}
-    assert cp.cluster_performance_score(values) == 33.33
-
-
-def test_no_data_at_all_gives_no_kpi():
-    assert cp.cluster_performance_score({}) is None
-
-
-def test_every_tier_limit_is_higher_than_the_one_before():
-    for metric in cp.METRICS:
-        assert 0 < metric.green < metric.yellow < metric.orange < metric.zero_at, metric.name
+    assert kpi_score(cp.METRICS, values) == 33.33
 
 
 # --- Sub-metric formulas ----------------------------------------------------
@@ -95,52 +66,6 @@ def test_memory_formulas():
 
 
 # --- End to end, with a fake VCF Operations ---------------------------------
-
-class FakeResponse:
-    def __init__(self, body, status_code=200):
-        self.body = body
-        self.status_code = status_code
-
-    def json(self):
-        return self.body
-
-
-class FakeSuiteApi:
-    """Answers stats queries from {resource id: {stat key: [samples]}}."""
-
-    def __init__(self, samples, status_code=200):
-        self.samples = samples
-        self.status_code = status_code
-
-    def post(self, path, json):
-        values = []
-        for resource_id in json["resourceId"]:
-            stats = [
-                {"statKey": {"key": key}, "timestamps": list(range(len(data))), "data": data}
-                for key, data in self.samples.get(resource_id, {}).items() if key in json["statKey"]
-            ]
-            values.append({"resourceId": resource_id, "stat-list": {"stat": stats}})
-        return FakeResponse({"values": values}, self.status_code)
-
-
-class FakeObject:
-    def __init__(self, resource_id):
-        self.resource_id = resource_id
-        self.metrics = {}
-
-    def get_id(self):
-        return self.resource_id
-
-    def with_metric(self, key, value):
-        self.metrics[key] = value
-
-
-class FakeMoRef:
-    def __init__(self, mo_id, vm=(), host=()):
-        self._moId = mo_id
-        self.vm = list(vm)
-        self.host = list(host)
-
 
 def collect(samples, status_code=200):
     cluster_obj = FakeObject(CLUSTER_ID)

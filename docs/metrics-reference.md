@@ -9,7 +9,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 - [Cluster](#cluster) (33 items)
 - [Host](#host) (46 items)
 - [Datastore](#datastore) (9 items)
-- [Virtual Machine](#virtual-machine) (51 items)
+- [Virtual Machine](#virtual-machine) (53 items)
 - [vCenter](#vcenter) (11 items)
 
 ---
@@ -133,6 +133,8 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|VM Performance\|VM Performance` | Key Performance Indicator (0-100 %) of a powered-on VM, combining 14 sub-metrics. 100 is perfect. See [VM Performance KPI](vm-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|VM Performance\|Memory Zip Swap` | Compressed plus swapped memory of the VM, as a share (%) of the memory the guest uses. |
 | ⚪ Property | `vCommunity\|Options\|`<config_path>`` | Value of a VM config field (e.g. config.bootOptions.bootDelay) tracked via the vm_options config file. One property per tracked field; skipped entirely if the value is None. |
 | ⚪ Property | `vCommunity\|Configuration\|Advanced Parameters\|`<key>`` | Value of a VM advanced parameter (extraConfig, e.g. svga.present) tracked via the vm_advanced_parameters config file. |
 | 🟢 Metric | `vCommunity\|Configuration\|SCSI Controllers\|Count` | Number of SCSI controllers attached to the VM. |
