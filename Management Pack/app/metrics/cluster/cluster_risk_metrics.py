@@ -35,17 +35,20 @@ KPI_NAME = "Cluster Risk"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 # Every sub-metric here is "lower is better".
+# A last value True means "skip when green": the source table marks the green range "Excluded",
+# so the row counts in the KPI only when it is outside green.
 METRICS = [
-    #       name                                      unit   best  green  yellow  orange  zero-at
+    #       name                                      unit   best  green  yellow  orange  zero-at  skip-when-green
 
     # --- Utilization: how busy the busiest host is ---
-    Metric("Highest ESXi CPU Thread Utilization",     "%",   0.0,  60.0,  80.0,   90.0,   95.0),
+    # Green (below 60 %) and Memory Consumed green (below 80 %) are "Excluded": a host that is not busy
+    # says nothing about risk, so it is left out rather than scored 100.
+    Metric("Highest ESXi CPU Thread Utilization",     "%",   0.0,  60.0,  80.0,   90.0,   95.0,   True),
     # Ratio between the busiest and the least busy host. 1 means the load is spread evenly.
-    # The source table has green = "1" and red = "2". The scoring needs a range for every tier, so
-    # two limits are assumptions: green ends at 1.125 (half of yellow), and red ends at 2.75
-    # (as wide as orange). Yellow and orange match the source table.
-    Metric("Worst ESXi CPU Imbalance",                None,  1.0,  1.125, 1.25,   2.0,    2.75),
-    Metric("Highest ESXi Memory Consumed",            "%",   0.0,  80.0,  90.0,   95.0,   100.0),
+    # Green is exactly 1, as in the source table: any imbalance is yellow. The source table gives red as
+    # "2" only, so where red ends is an assumption: 2.75, as wide as orange.
+    Metric("Worst ESXi CPU Imbalance",                None,  1.0,  1.0,   1.25,   2.0,    2.75),
+    Metric("Highest ESXi Memory Consumed",            "%",   0.0,  80.0,  90.0,   95.0,   100.0,  True),
 
     # --- Saturation: the host is already reclaiming memory from its VMs ---
     Metric("Worst ESXi Memory Ballooned",             "%",   0.0,  1.0,   2.0,    4.0,    8.0),

@@ -22,11 +22,17 @@ def test_all_zeros_is_100():
     assert kpi_score(cp.METRICS, ALL_ZERO) == 100.0
 
 
-def test_one_red_metric_is_not_hidden_by_eight_good_ones():
+def test_one_red_metric_is_not_hidden_by_seven_good_ones():
     # 90th Percentile VM CPU Ready = 5 is a quarter into red (4 to 8): it scores 18.75 with weight 8.
-    # The other eight score 100 with weight 1.
-    # KPI = (8 x 100 + 18.75 x 8) / (8 + 8) = 950 / 16 = 59.38. A plain average would give 91.0.
-    assert kpi_score(cp.METRICS, {**ALL_ZERO, "90th Percentile VM CPU Ready": 5.0}) == 59.38
+    # Bad network packets are 0, so they are skipped (no free 100). The other seven score 100 with weight 1.
+    # KPI = (7 x 100 + 18.75 x 8) / (7 + 8) = 850 / 15 = 56.67. A plain average would give 89.8.
+    assert kpi_score(cp.METRICS, {**ALL_ZERO, "90th Percentile VM CPU Ready": 5.0}) == 56.67
+
+
+def test_any_bad_packet_is_yellow_and_counts():
+    # Green is exactly 0. A tiny share of bad packets is already yellow: it scores almost 75, with weight 2.
+    # KPI = (8 x 100 + 74.38 x 2) / (8 + 2) = 94.88
+    assert kpi_score(cp.METRICS, {**ALL_ZERO, "Highest ESXi Bad Network Packets": 0.005}) == 94.88
 
 
 def test_everything_at_its_worst_is_0():
@@ -44,7 +50,7 @@ def test_limits_match_the_source_table():
     assert limits["90th Percentile VM CPU Co-Stop"] == (0.5, 1, 2, 4)
     assert limits["90th Percentile VM Memory Latency"] == (0.5, 1, 2, 4)
     assert limits["90th Percentile VM Disk Latency"] == (20, 40, 60, 80)
-    assert limits["Highest ESXi Bad Network Packets"][1:] == (0.2, 0.4, 0.8)   # green 0.1 is assumed
+    assert limits["Highest ESXi Bad Network Packets"] == (0, 0.2, 0.4, 0.8)   # green is exactly 0
 
 
 # --- Sub-metric formulas ----------------------------------------------------

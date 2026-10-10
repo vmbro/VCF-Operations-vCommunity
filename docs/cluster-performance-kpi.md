@@ -73,19 +73,22 @@ KPI = Σ(score × weight) / Σ(weight)
 | 90th Percentile VM CPU Co-Stop | % | 0.5 | 1 | 2 | 4 |
 | 90th Percentile VM Memory Latency | % | 0.5 | 1 | 2 | 4 |
 | 90th Percentile VM Disk Latency | ms | 20 | 40 | 60 | 80 |
-| Highest ESXi Bad Network Packets | % | 0.1 * | 0.2 | 0.4 | 0.8 |
+| Highest ESXi Bad Network Packets | % | Excluded (exactly 0) | 0.2 | 0.4 | 0.8 |
 
 The worst-VM rows have higher limits than the 90th-percentile rows, because a single VM peaks far above most of the others.
 
-\* **Assumed limit.** The source table gives green as "0 %" and yellow as "< 0.2". The scoring needs a range for every tier, so green ends at 0.1. Orange and red match the source table.
+
+**Excluded.** The green range (exactly 0) of bad network packets is marked "Excluded" in the source table. Bad packets are rare. While they are 0, the sub-metric is left out of the KPI, so it does not add a free 100 that would hide the others. Any bad packet is yellow (green is exactly 0), and then it counts.
 
 ## Worked examples
 
-- **All 9 sub-metrics are 0.** Each scores 100 with weight 1. KPI = **100**.
+- **All 9 sub-metrics are 0.** Bad network packets are skipped. The other 8 score 100 with weight 1. KPI = **100**.
 - **Same, except 90th Percentile VM CPU Ready = 5** (red tier):
   - It is a quarter of the way through red (from 4 to 8), so it scores `25 − (¼ × 25) = 18.75`, with weight 8.
-  - KPI = `(8 × 100 + 18.75 × 8) / (8 + 8)` = `950 / 16` ≈ **59.38**.
-  - A plain average would give about 91.0. The weighting makes the one bad sub-metric show.
+  - Bad network packets are 0, so they are skipped. The other 7 score 100 with weight 1.
+  - KPI = `(7 × 100 + 18.75 × 8) / (7 + 8)` = `850 / 15` ≈ **56.67**.
+  - A plain average would give about 89.8. The weighting makes the one bad sub-metric show.
+- **Same as the first example, except a tiny share of bad packets (0.005 %).** It is yellow, scores about 74.4 with weight 2, and now counts. KPI ≈ **94.88**.
 - **One VM has 200 ms disk latency, the others 0.** Worst VM Disk Latency is 200 (orange to red). The 90th percentile stays 0, because one VM is not a broad problem.
 
 The same examples are checked by the tests in [`Management Pack/tests/test_cluster_performance_metrics.py`](../Management%20Pack/tests/test_cluster_performance_metrics.py).

@@ -62,8 +62,10 @@ KPI_NAME = "Cluster Performance"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 # Every sub-metric here is "lower is better", and 0 is perfect.
+# A last value True means "skip when green": the source table marks the green range "Excluded",
+# so the row counts in the KPI only when it is outside green.
 METRICS = [
-    #       name                                      unit   best  green  yellow  orange  zero-at
+    #       name                                      unit   best  green  yellow  orange  zero-at  skip-when-green
 
     # --- How deep? The worst VM in the cluster. ---
     # Time the VM was ready to run but had to wait for a physical CPU.
@@ -83,9 +85,9 @@ METRICS = [
 
     # --- The worst ESXi host in the cluster ---
     # Errored and dropped packets as a share of all packets, on the host where that share is highest.
-    # The source table has green = "0 %" and yellow = "< 0.2". The green limit 0.1 is an assumption,
-    # because the scoring needs a range for every tier. Orange and red match the source table.
-    Metric("Highest ESXi Bad Network Packets",        "%",   0.0,  0.1,   0.2,    0.4,    0.8),
+    # Green (exactly 0) is "Excluded" in the source table: dropped packets are rare, so while it is 0 it is
+    # left out of the KPI instead of giving it a free 100 (skip when green). Any bad packet is yellow.
+    Metric("Highest ESXi Bad Network Packets",        "%",   0.0,  0.0,   0.2,    0.4,    0.8,    True),
 ]
 
 # Every sub-metric is published on the cluster, because none of them exists there as a stat already.

@@ -31,8 +31,20 @@ Direction: most sub-metrics are "lower is better", so their limits go up
 (0, 1, 2, 4, 8). A "higher is better" sub-metric, such as free memory, has
 limits that go down (1024, 512, 256, 128, 0). Both use the same code.
 
+Green can be a single value: when the green limit equals "best", only that
+value is green. Any other value starts in yellow, at 75 with weight 2. Use this
+when the source table gives green as one value, such as "0 %".
+
 Missing data: a sub-metric with no data is left out of the KPI. It is never
 treated as 0, because 0 usually means "perfect".
+
+Skip when green: the source tables mark some green ranges "Excluded". Being in
+green there says nothing about health: dropped packets are rare, and low CPU or
+memory utilization is not a sign of good performance. Scoring them 100 every
+cycle would give the KPI a free pass that hides the other sub-metrics. A row
+with skip_when_green=True is left out of the KPI while it is green, exactly like
+missing data. It counts only when it leaves green. If every sub-metric with data
+was left out this way, nothing is wrong, so the KPI is 100.
 
 Used by: every KPI module, such as cluster/cluster_performance_metrics.py and
 vm/vm_performance_metrics.py. A change here changes all of them.
@@ -49,6 +61,7 @@ class Metric(NamedTuple):
     yellow: float           # the yellow tier ends here
     orange: float           # the orange tier ends here
     zero_at: float          # the red tier ends here, and the score reaches 0
+    skip_when_green: bool = False   # True: left out of the KPI while green, see "Skip when green" above
 
 
 TIERS = [
@@ -59,6 +72,7 @@ TIERS = [
     ("red",     25.0,                    8.0),
 ]
 SCORE_DROP_PER_TIER = 25.0
+GREEN_WEIGHT = TIERS[0][2]
 
 
 def score_metric(metric: Metric, value: float) -> Tuple[float, float]:
@@ -69,12 +83,16 @@ def score_metric(metric: Metric, value: float) -> Tuple[float, float]:
         value = -value
         limits = [-limit for limit in limits]
 
-    # A value better than "best" still scores 100.
+    # "best", or better than "best", scores 100.
     tier_start = limits[0]
-    value = max(value, tier_start)
+    if value <= tier_start:
+        return 100.0, GREEN_WEIGHT
 
     # Find the tier the value is in. Red is the last tier, so it also takes every value beyond zero-at.
     for (tier_name, score_at_start, weight), tier_end in zip(TIERS, limits[1:]):
+        # A tier with no width, such as green when it is a single value, holds no value. Go to the next one.
+        if tier_end == tier_start:
+            continue
         if value < tier_end or tier_name == "red":
             # 0.0 at the start of the tier, 1.0 at its end. The cap keeps the score at 0 beyond zero-at.
             distance_into_tier = min((value - tier_start) / (tier_end - tier_start), 1.0)
@@ -90,19 +108,24 @@ def kpi_score(metrics: List[Metric], values: Dict[str, Optional[float]]) -> Opti
     """
     total_weighted_score = 0.0
     total_weight = 0.0
+    any_data = False
 
     for metric in metrics:
         value = values.get(metric.name)
         # No data: leave the sub-metric out, so it adds neither score nor weight.
         if value is None:
             continue
+        any_data = True
         score, weight = score_metric(metric, value)
+        # Skip when green: a rare problem that is not happening gets no free pass. Leave it out too.
+        if metric.skip_when_green and weight == GREEN_WEIGHT:
+            continue
         total_weighted_score += score * weight
         total_weight += weight
 
-    # Every sub-metric was left out.
     if total_weight == 0:
-        return None
+        # Every sub-metric with data was green and skipped: nothing is wrong. No data at all: no KPI.
+        return 100.0 if any_data else None
     return round(total_weighted_score / total_weight, 2)
 
 

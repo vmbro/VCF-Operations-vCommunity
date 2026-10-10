@@ -33,7 +33,7 @@ from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
 from metrics.cluster import cluster_performance_metrics
-from metrics.vm import vm_performance_metrics
+from metrics.vm import vm_performance_metrics, guest_os_performance_metrics
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
@@ -296,6 +296,7 @@ def get_adapter_definition() -> AdapterDefinition:
         configuration = vCommunity.define_group("Configuration", "Configuration")
 
         define_kpi(vCommunity, vm_performance_metrics)
+        define_kpi(vCommunity, guest_os_performance_metrics)
 
         configuration.define_string_property("CPU Allocation Share Level", "CPU Allocation Share Level")
         configuration.define_string_property("VM Change Version", "VM Change Version")

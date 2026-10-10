@@ -19,9 +19,9 @@ Every sub-metric is "lower is better".
 
 | Group | Sub-metric | Unit | Green ends at | Yellow ends at | Orange ends at | Score hits 0 at |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| Utilization | Highest ESXi CPU Thread Utilization | % | 60 | 80 | 90 | 95 |
-| Utilization | Worst ESXi CPU Imbalance | ratio | 1.125 * | 1.25 | 2 | 2.75 * |
-| Utilization | Highest ESXi Memory Consumed | % | 80 | 90 | 95 | 100 |
+| Utilization | Highest ESXi CPU Thread Utilization | % | Excluded (below 60) | 80 | 90 | 95 |
+| Utilization | Worst ESXi CPU Imbalance | ratio | 1 (exactly) | 1.25 | 2 | 2.75 * |
+| Utilization | Highest ESXi Memory Consumed | % | Excluded (below 80) | 90 | 95 | 100 |
 | Saturation | Worst ESXi Memory Ballooned | % | 1 | 2 | 4 | 8 |
 | Saturation | Worst ESXi Memory Zip Swap (swapped + compressed) | % | 0.25 | 0.5 | 1 | 2 |
 | Saturation | Worst ESXi Memory Tiering Latency | µs | 150 | 300 | 450 | 600 |
@@ -34,12 +34,11 @@ Every sub-metric is "lower is better".
 
 The score is 100 at 0 for every row, except CPU Imbalance, where it is 100 at 1 (a perfectly even load).
 
-\* **Assumed limits.** The source table gives CPU Imbalance a single value for green ("1") and for red ("2"). The scoring needs a range for every tier, so:
+**CPU Imbalance:** green is exactly 1, as in the source table. Any imbalance is yellow.
 
-- Green ends at 1.125, halfway through the source table's yellow range.
-- Red ends at 2.75, so red is as wide as orange.
+\* **Assumed limit.** The source table gives red for CPU Imbalance as "2" only, so where red ends is not given. It is set to 2.75, so red is as wide as orange. Confirm or change this value before the KPI is built.
 
-Confirm or change these two values before the KPI is built.
+**Excluded.** The green ranges of CPU Thread Utilization and Memory Consumed are marked "Excluded" in the source table. A host that is not busy says nothing about risk. So while they are green, these sub-metrics are left out of the KPI instead of scoring 100. They count once they leave green.
 
 ## How the score is calculated
 

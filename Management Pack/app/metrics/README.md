@@ -7,18 +7,19 @@ There are two kinds of metric here:
 - **Plain metrics.** One value, read from vCenter and published. Example: DRS Score.
 - **KPIs.** One 0-100 % score per object, built from many sub-metrics. Most of this page is about KPIs.
 
-## The four KPIs
+## The five KPIs
 
-All four use the same scoring, in `kpi_score.py`. Each has its own table of sub-metrics and limits.
+All five use the same scoring, in `kpi_score.py`. Each has its own table of sub-metrics and limits.
 
 | KPI | Object | Sub-metrics | Status | Source of the limits |
 | :--- | :--- | :--- | :--- | :--- |
 | Cluster Performance | Cluster | 9 | Working | `docs/Complex Metrics/vSphere Cluster Performance metric.png` |
-| VM Performance | VM | 14 | Working | The "VM Performance" super metric in `content/supermetrics` |
+| VM Performance | VM | 9 | Working | `docs/Complex Metrics/Virtual Motherboard Performance metric.png` |
+| Guest OS Performance | VM | 4 | Working | `docs/Complex Metrics/Guest OS Performance metric.png` |
 | Cluster Risk | Cluster | 12 | Stub. Table done, collection not written. | `docs/Complex Metrics/vSphere Cluster Risk metric.png` |
 | ESXi Performance | ESXi host | 9 | Stub. Table done, collection not written. | `docs/Complex Metrics/vSphere ESXi Performance metric.png` |
 
-A stub has its final `METRICS` table, so the table tests check it. Its entry point publishes nothing, and it is not yet called by a collector or declared in `adapter.py`. Three limits are assumptions (one in Cluster Performance and ESXi Performance, two in Cluster Risk), because the source table gives a single value where the scoring needs a range. They are marked in the code and on the user pages.
+A stub has its final `METRICS` table, so the table tests check it. Its entry point publishes nothing, and it is not yet called by a collector or declared in `adapter.py`. One limit is an assumption: where red ends for CPU Imbalance in Cluster Risk, because the source table gives red as a single value. It is marked in the code and on the user page.
 
 ## What is in this folder
 
@@ -28,7 +29,8 @@ A stub has its final `METRICS` table, so the table tests check it. Its entry poi
 | `cluster/cluster_performance_metrics.py` | Cluster Performance KPI. One score per cluster, from 9 sub-metrics. |
 | `cluster/cluster_risk_metrics.py` | Cluster Risk KPI. Stub. One score per cluster, from 12 sub-metrics. |
 | `cluster/drs_metrics.py` | DRS Score. A plain metric, not a KPI. |
-| `vm/vm_performance_metrics.py` | VM Performance KPI. One score per powered-on VM, from 14 sub-metrics. |
+| `vm/vm_performance_metrics.py` | VM Performance KPI. One score per powered-on VM, from 9 sub-metrics. Also reads the stats of Guest OS Performance. |
+| `vm/guest_os_performance_metrics.py` | Guest OS Performance KPI. One score per powered-on VM with VMware Tools, from 4 sub-metrics. |
 | `host/esxi_performance_metrics.py` | ESXi Performance KPI. Stub. One score per ESXi host, from 9 sub-metrics. |
 
 Two files outside this folder belong to the same design:
@@ -98,11 +100,44 @@ Example with 10 sub-metrics, nine at 100 and one at 18.75 (red):
 - Plain average: about 91.9. The problem is hidden.
 - Weighted: `(9 × 100 + 18.75 × 8) / (9 + 8)` ≈ 61.76. The problem shows.
 
+### Green as a single value
+
+A source table sometimes gives green as one value, such as "0 %", not a range. Write the green limit equal to best:
+
+```python
+#       name                   unit  best  green  yellow  orange  zero-at
+Metric("Bad Network Packets",  "%",  0.0,  0.0,   0.2,    0.4,    0.8),
+```
+
+Only exactly 0 is green and scores 100. Any other value starts in yellow, at 75 with weight 2. Values are rounded to two decimals first, so noise below 0.005 still counts as 0.
+
+### Skip when green
+
+The source tables mark some green ranges "Excluded". Being green there says nothing about health: dropped packets are rare, and low CPU or memory utilization is not a sign of good performance. Scored as 100 every cycle, these rows would add a free pass that hides the other sub-metrics. Set the last value of their row to `True`:
+
+```python
+#       name                                  unit  best  green  yellow  orange  zero-at  skip-when-green
+Metric("Highest ESXi CPU Thread Utilization", "%",  0.0,  60.0,  80.0,   90.0,   95.0,    True),
+```
+
+- While the sub-metric is green, it is left out of the KPI, the same as missing data.
+- Once it leaves green, it counts like any other sub-metric.
+- If every sub-metric with data was skipped this way, nothing is wrong, and the KPI is 100.
+
+Rows with skip when green today, as marked "Excluded" in the source tables:
+
+| KPI | Sub-metrics |
+| :--- | :--- |
+| Cluster Performance | Highest ESXi Bad Network Packets |
+| VM Performance | CPU Run (below 95 %) |
+| Cluster Risk | Highest ESXi CPU Thread Utilization (below 60 %), Highest ESXi Memory Consumed (below 80 %) |
+| ESXi Performance | ESXi Bad Network Packets |
+
 ### Missing data
 
 A sub-metric with no data is left out of the KPI. It is never counted as 0, because for most sub-metrics 0 means "perfect" and would make the object look healthier than it is.
 
-- If no sub-metric has data, the KPI is not published for that cycle.
+- If no sub-metric has data, the KPI is not published for that cycle. (If some had data but all were skipped when green, the KPI is 100.)
 - A sub-metric formula returns `None` to say "no data". It does not return 0.
 
 ### What is published
@@ -110,7 +145,8 @@ A sub-metric with no data is left out of the KPI. It is never counted as 0, beca
 Each KPI module has a list named `PUBLISHED_METRICS`. The KPI itself is always published. A sub-metric is published only if the object does not already have it as a stat.
 
 - **Cluster Performance** publishes all 9 sub-metrics. They are worst values and 90th percentiles over the cluster's VMs and hosts, so the cluster does not have them.
-- **VM Performance** publishes one sub-metric, Memory Zip Swap, because it is calculated. The other 13 are read from stats the VM already has, or are a unit conversion of one. Publishing them again would store every number twice, for every VM.
+- **VM Performance** publishes one sub-metric, Memory Zip Swap, because it is calculated. The other 8 are read from stats the VM already has. Publishing them again would store every number twice, for every VM.
+- **Guest OS Performance** publishes only the KPI. Its 4 sub-metrics are stats the VM already has, or a simple conversion of one.
 
 ## What happens in one collection cycle
 
@@ -169,11 +205,13 @@ python -m pytest tests
 | `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI, stubs included. |
 | `test_cluster_performance_metrics.py` | Cluster Performance formulas and worked examples. |
 | `test_vm_performance_metrics.py` | VM Performance formulas and worked examples. |
+| `test_guest_os_performance_metrics.py` | Guest OS Performance formulas and worked examples. |
 
 ## Pages for users
 
 - [Cluster Performance KPI](../../../docs/cluster-performance-kpi.md)
 - [VM Performance KPI](../../../docs/vm-performance-kpi.md)
+- [Guest OS Performance KPI](../../../docs/guest-os-performance-kpi.md)
 - [Cluster Risk KPI](../../../docs/cluster-risk-kpi.md) (planned)
 - [ESXi Performance KPI](../../../docs/esxi-performance-kpi.md) (planned)
 - [Metrics & Properties Reference](../../../docs/metrics-reference.md)

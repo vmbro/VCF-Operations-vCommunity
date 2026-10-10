@@ -27,9 +27,9 @@ Every sub-metric is "lower is better", and 0 is perfect. The VM stats are the 20
 | How broad? | 90th Percentile VM CPU Co-Stop | % | 0.5 | 1 | 2 | 4 |
 | How broad? | 90th Percentile VM Memory Latency | % | 0.5 | 1 | 2 | 4 |
 | How broad? | 90th Percentile VM Disk Latency (read/write) | ms | 20 | 40 | 60 | 80 |
-| ESXi | ESXi Bad Network Packets (errored + dropped) | % | 0.1 * | 0.2 | 0.4 | 0.8 |
+| ESXi | ESXi Bad Network Packets (errored + dropped) | % | Excluded (exactly 0) | 0.2 | 0.4 | 0.8 |
 
-\* **Assumed limit.** The source table gives green as "0 %" and yellow as "< 0.2". The scoring needs a range for every tier, so green ends at 0.1. Orange and red match the source table. Confirm or change this value before the KPI is built.
+**Bad network packets:** green is exactly 0, and marked "Excluded" in the source table. Any bad packet is yellow. While it is 0 the sub-metric is skipped (left out of the KPI), because the problem is rare and would otherwise add a free 100.
 
 ## How the score is calculated
 

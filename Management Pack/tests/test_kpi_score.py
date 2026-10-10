@@ -11,11 +11,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 from metrics.kpi_score import Metric, score_metric, kpi_score
 from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
 from metrics.host import esxi_performance_metrics
-from metrics.vm import vm_performance_metrics
+from metrics.vm import vm_performance_metrics, guest_os_performance_metrics
 from utils import ops_stats
 from fakes import FakeSuiteApi
 
-KPI_MODULES = [cluster_performance_metrics, vm_performance_metrics, cluster_risk_metrics, esxi_performance_metrics]
+KPI_MODULES = [
+    cluster_performance_metrics, vm_performance_metrics, guest_os_performance_metrics,
+    cluster_risk_metrics, esxi_performance_metrics,
+]
 
 #                    name                 unit   best    green  yellow  orange  zero-at
 CPU_READY   = Metric("CPU Ready",         "%",   0.0,    1.0,   2.0,    4.0,    8.0)      # lower is better
@@ -96,14 +99,51 @@ def test_no_data_at_all_gives_no_kpi():
     assert kpi_score([CPU_READY, FREE_MEMORY], {}) is None
 
 
+# --- Green as a single value ------------------------------------------------
+
+#                    name           unit  best  green  yellow  orange  zero-at
+BAD_PACKETS = Metric("Bad Packets", "%",  0.0,  0.0,   0.2,    0.4,    0.8)
+
+
+def test_green_as_a_single_value():
+    assert score_metric(BAD_PACKETS, 0.0) == (100.0, 1.0)      # only exactly 0 is green
+    assert score_metric(BAD_PACKETS, 0.1) == (62.5, 2.0)       # halfway through yellow (0 to 0.2)
+    assert score_metric(BAD_PACKETS, 0.2) == (50.0, 4.0)
+    assert score_metric(BAD_PACKETS, 0.8) == (0.0, 8.0)
+
+
+# --- Skip when green --------------------------------------------------------
+
+#                         name             unit  best  green  yellow  orange  zero-at  skip-when-green
+RARE_BALLOON  = Metric("Memory Ballooned", "%",  0.0,  1.0,   2.0,    4.0,    8.0,     True)
+
+
+def test_skipped_while_green_so_no_free_pass():
+    # Ballooning at 0.5 is green, so it is left out. Only CPU Ready counts.
+    # Without the skip: (18.75 x 8 + 87.5 x 1) / 9 = 26.39. With it: 18.75.
+    assert kpi_score([CPU_READY, RARE_BALLOON], {"CPU Ready": 5.0, "Memory Ballooned": 0.5}) == 18.75
+
+
+def test_counts_once_it_leaves_green():
+    # Ballooning at 3 is halfway through orange: 37.5 with weight 4. CPU Ready at 0: 100 with weight 1.
+    # KPI = (37.5 x 4 + 100 x 1) / 5 = 50.0
+    assert kpi_score([CPU_READY, RARE_BALLOON], {"CPU Ready": 0.0, "Memory Ballooned": 3.0}) == 50.0
+
+
+def test_only_skipped_green_metrics_means_nothing_is_wrong():
+    assert kpi_score([RARE_BALLOON], {"Memory Ballooned": 0.0}) == 100.0
+    assert kpi_score([RARE_BALLOON], {"Memory Ballooned": None}) is None    # no data is still no KPI
+
+
 # --- Every KPI table --------------------------------------------------------
 
 def test_limits_of_every_sub_metric_go_one_way_only():
     for kpi in KPI_MODULES:
         for metric in kpi.METRICS:
             limits = [metric.best, metric.green, metric.yellow, metric.orange, metric.zero_at]
-            going_up = all(a < b for a, b in zip(limits, limits[1:]))
-            going_down = all(a > b for a, b in zip(limits, limits[1:]))
+            # best and green may be equal: green is then a single value. The other limits must differ.
+            going_up = limits[0] <= limits[1] and all(a < b for a, b in zip(limits[1:], limits[2:]))
+            going_down = limits[0] >= limits[1] and all(a > b for a, b in zip(limits[1:], limits[2:]))
             assert going_up or going_down, f"{kpi.KPI_NAME}: {metric.name}"
 
 

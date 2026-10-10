@@ -1,33 +1,30 @@
 # VM Performance KPI
 
-**VM Performance** is a single 0-100 % score for a virtual machine. 100 is perfect. It combines 14 sub-metrics, and the worse a sub-metric is, the more it pulls the score down.
+**VM Performance** is a single 0-100 % score for a virtual machine. 100 is perfect. It scores the VM as a virtual motherboard: is ESXi giving it the CPU, memory, disk and network it asks for? It combines 9 sub-metrics, and the worse a sub-metric is, the more it pulls the score down.
 
-Use it to watch many VMs at once. When the score drops, open the sub-metrics on that VM to see which one caused it.
+What happens inside Windows or Linux is scored separately, by [Guest OS Performance](guest-os-performance-kpi.md).
 
 It is published on every powered-on VM as `vCommunity|VM Performance|VM Performance`. A powered-off VM gets no score.
 
 Code: [`Management Pack/app/metrics/vm/vm_performance_metrics.py`](../Management%20Pack/app/metrics/vm/vm_performance_metrics.py)
 
-## Step 1: Collect the 14 sub-metrics
+Source of the sub-metrics and limits: [`Complex Metrics/Virtual Motherboard Performance metric.png`](Complex%20Metrics/Virtual%20Motherboard%20Performance%20metric.png)
 
-Twelve sub-metrics are stats the VM already has. They are read as they are, and are not published a second time. Two are calculated.
+## Step 1: Collect the 9 sub-metrics
 
-| Sub-metric | Source |
-| :--- | :--- |
-| CPU Ready | `cpu\|20_sec_peak_readyPct` |
-| CPU Co-Stop | `cpu\|20_sec_peak_costopPct` |
-| CPU IO Wait | `cpu\|20_sec_peak_iowaitPct` |
-| CPU Overlap | `cpu\|20_sec_peak_overlap` |
-| CPU Run | `cpu\|net_run` |
-| Guest CPU Queue | `guest\|20_sec_peak_cpu_queue` |
-| Memory Contention | `mem\|20_sec_peak_host_contentionPct` |
-| Memory Ballooned | `mem\|balloonPct` |
-| Memory Zip Swap | Calculated: `(mem\|compressed_average + mem\|swapped_average) / guest\|used_memory × 100`. Published as `vCommunity\|VM Performance\|Memory Zip Swap`. |
-| Guest Page-Out Rate | `guest\|page.outRate_latest` |
-| Guest Free Memory | Calculated: `guest\|mem.free_latest / 1024`, which converts KB to MB |
-| Disk Latency | `virtualDisk\|20_sec_peak_totalLatency_average` |
-| Guest Disk Queue | `guest\|20_sec_peak_disk_queue` |
-| Network Dropped Tx | `net\|droppedTxPct_max` |
+Eight sub-metrics are stats the VM already has. They are read as they are, and are not published a second time. Memory Zip Swap is calculated.
+
+| Group | Sub-metric | Source |
+| :--- | :--- | :--- |
+| VM contention | CPU Co-Stop | `cpu\|20_sec_peak_costopPct` |
+| VM contention | CPU Ready | `cpu\|20_sec_peak_readyPct` |
+| VM contention | CPU Overlap | `cpu\|20_sec_peak_overlap` |
+| VM contention | Memory Contention | `mem\|20_sec_peak_host_contentionPct` |
+| VM contention | Disk Latency | `virtualDisk\|20_sec_peak_totalLatency_average` |
+| VM contention | Network Dropped Tx | `net\|droppedTxPct_max` |
+| VM utilization | CPU Run | `cpu\|net_run` |
+| IaaS high utilization | Memory Ballooned | `mem\|balloonPct` |
+| IaaS high utilization | Memory Zip Swap | Calculated: `(mem\|compressed_average + mem\|swapped_average) / guest\|used_memory × 100`. Published as `vCommunity\|VM Performance\|Memory Zip Swap`. |
 
 The 20-second peaks are used where they exist, not the 5-minute averages. This makes the KPI a leading indicator.
 
@@ -37,37 +34,31 @@ The scoring is the same for every KPI. It is described in [Cluster Performance K
 
 ## Limits per sub-metric
 
-| Sub-metric | Score is 100 at | Green ends at | Yellow ends at | Orange ends at | Score hits 0 at |
+| Sub-metric | Unit | Green ends at | Yellow ends at | Orange ends at | Score hits 0 at |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| CPU Ready | 0 | 2 | 4 | 8 | 16 |
-| CPU Co-Stop | 0 | 1 | 2 | 4 | 8 |
-| CPU IO Wait | 0 | 1 | 2 | 4 | 8 |
-| CPU Overlap | 0 | 0.5 | 1 | 2 | 4 |
-| CPU Run | 60 | 80 | 90 | 95 | 100 |
-| Guest CPU Queue | 0 | 1 | 2 | 4 | 8 |
-| Memory Contention | 0 | 0.5 | 1 | 2 | 4 |
-| Memory Ballooned | 0 | 2 | 4 | 8 | 16 |
-| Memory Zip Swap | 0 | 0.5 | 1 | 2 | 4 |
-| Guest Page-Out Rate | 0 | 1000 | 2000 | 4000 | 8000 |
-| Guest Free Memory (MB) | 1024 | 512 | 256 | 128 | 0 |
-| Disk Latency | 0 | 20 | 40 | 80 | 160 |
-| Guest Disk Queue | 0 | 20 | 40 | 80 | 160 |
-| Network Dropped Tx | 0 | 0.25 | 0.5 | 1 | 2 |
+| CPU Co-Stop | % | 1 | 2 | 4 | 8 |
+| CPU Ready | % | 2 | 4 | 8 | 16 |
+| CPU Overlap | % | 0.5 | 1 | 2 | 4 |
+| Memory Contention | % | 0.5 | 1 | 2 | 4 |
+| Disk Latency | ms | 10 | 20 | 40 | 80 |
+| Network Dropped Tx | % | 0.25 | 0.5 | 1 | 2 |
+| CPU Run | % | Excluded (below 95) | 97 | 99 | 100 |
+| Memory Ballooned | % | 2 | 4 | 8 | 16 |
+| Memory Zip Swap | % | 0.25 | 0.5 | 1 | 2 |
 
-Two rows are different from the rest:
+Every sub-metric is "lower is better", and 0 is perfect.
 
-- **Guest Free Memory** is "higher is better", so its limits go down. 1 GB or more of free memory scores 100.
-- **CPU Run** only starts to count above 60 %. A VM that runs at 60 % or less scores 100 on this sub-metric.
+**Excluded.** The green range of CPU Run is marked "Excluded" in the source table. A VM that runs below 95 % is not busy, which says nothing about its performance. So while CPU Run is below 95 %, it is left out of the KPI instead of scoring 100. Above 95 %, the VM itself is too small, and CPU Run counts like any other sub-metric.
 
 ## Worked examples
 
-- **All 14 sub-metrics are at their best.** Each scores 100 with weight 1. KPI = **100**.
+- **Nothing wrong, CPU Run below 95 %.** CPU Run is left out. The other 8 score 100 with weight 1. KPI = **100**.
 - **Same, except CPU Ready = 10** (red tier):
   - CPU Ready is a quarter of the way through red (from 8 to 16), so it scores `25 − (¼ × 25) = 18.75`, with weight 8.
-  - KPI = `(13 × 100 + 18.75 × 8) / (13 + 8)` = `1450 / 21` ≈ **69.05**.
-- **Same, except Guest Free Memory = 192 MB** (orange tier):
-  - It is halfway through orange (from 256 down to 128), so it scores `37.5`, with weight 4.
-  - KPI = `(13 × 100 + 37.5 × 4) / (13 + 4)` = `1450 / 17` ≈ **85.29**.
+  - KPI = `(7 × 100 + 18.75 × 8) / (7 + 8)` = `850 / 15` ≈ **56.67**.
+- **Same as the first, except CPU Run = 98 %** (orange tier):
+  - It is halfway through orange (from 97 to 99), so it scores `37.5`, with weight 4.
+  - KPI = `(8 × 100 + 37.5 × 4) / (8 + 4)` = `950 / 12` ≈ **79.17**.
 
 The same examples are checked by the tests in [`Management Pack/tests/test_vm_performance_metrics.py`](../Management%20Pack/tests/test_vm_performance_metrics.py).
 
@@ -75,15 +66,16 @@ The same examples are checked by the tests in [`Management Pack/tests/test_vm_pe
 
 A sub-metric with no data is left out of the KPI. It is never counted as perfect.
 
-- A VM without VMware Tools has no guest stats. Five sub-metrics need them: Guest CPU Queue, Guest Disk Queue, Guest Page-Out Rate, Guest Free Memory and Memory Zip Swap. The KPI of such a VM is built from the other nine.
+- A VM without VMware Tools has no Memory Zip Swap, because that needs `guest|used_memory`. The KPI of such a VM is built from the other sub-metrics.
 - If no sub-metric has data, the KPI is not published.
-
-This is different from the "VM Performance" super metric that this KPI replaces. The super metric returned no value at all when one input was missing.
+- A powered-off VM gets no KPI, because its stats are old.
 
 ## Changing the KPI
 
-The sub-metrics and their limits are one table, `METRICS`, at the top of the code file.
+The sub-metrics, their units and their limits are one table, `METRICS`, at the top of the code file.
 
 - To change a limit, edit the row.
-- To add a sub-metric that is read from a VM stat as it is, add a row to `METRICS` and a line to `SOURCE_STATS`.
-- To remove one, delete the row and its line in `SOURCE_STATS`.
+- To add a sub-metric that is a VM stat as it is, add a row to `METRICS` and a line to `SOURCE_STATS`.
+- To exclude a green range, set the last value of the row to `True`.
+
+The adapter definition reads the same table, so there is nothing else to update.
