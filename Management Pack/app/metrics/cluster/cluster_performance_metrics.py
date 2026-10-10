@@ -1,178 +1,241 @@
 #  Copyright 2026 VCF Operations vCommunity Management Pack
+"""Cluster Performance KPI.
+
+What it is
+----------
+One 0-100 % score per vSphere cluster. 100 is perfect. It answers one question:
+are the VMs in this cluster getting the CPU, memory, disk and network they ask for?
+It measures actual contention, not potential. It is built from the 9 sub-metrics
+in METRICS below.
+
+The sub-metrics answer two questions about the powered-on VMs in the cluster:
+    How deep?   The worst VM. Shows a problem that hits one VM hard.
+    How broad?  The 90th percentile across the VMs. Shows a problem that many
+                VMs share. 90 % of the VMs are at or below this value.
+A ninth sub-metric covers the network of the worst ESXi host.
+
+Published on the cluster as:
+    vCommunity|Cluster Performance|Cluster Performance      the KPI
+    vCommunity|Cluster Performance|<sub-metric name>        each of the 9 sub-metrics
+
+How it is calculated
+--------------------
+1. Read the stats of the cluster's powered-on VMs and of its ESXi hosts from
+   VCF Operations. The vCenter adapter has already collected them.
+2. Calculate the 9 sub-metric values from those stats.
+3. Score each value and combine the scores into the KPI. This step is the same
+   for every KPI and is explained in metrics/kpi_score.py.
+
+Where the limits come from
+--------------------------
+docs/Complex Metrics/vSphere Cluster Performance metric.png. The worst-VM rows
+have higher limits than the 90th-percentile rows, because a single VM peaks far
+above most of the others.
+
+Missing data
+------------
+A sub-metric with no data is not published and is left out of the KPI. It is
+never treated as 0, because 0 means "perfect".
+
+How to change it
+----------------
+To re-tune a sub-metric, edit its row in METRICS. To add a VM stat, add a line
+to VM_STATS and its two rows to METRICS.
+
+Called from: collectors/cluster/collectClusterData.py, once per cluster.
+Overall approach for all KPIs: metrics/README.md
+Description for people who do not read code: docs/cluster-performance-kpi.md
+"""
 import logging
-from typing import Dict, List, Tuple
+import math
+from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
+from metrics.kpi_score import Metric, kpi_score, percent, has_all
+from utils.ops_stats import read_latest_stats, read_stat_totals
 
 logger = logging.getLogger(__name__)
 
+# The names shown in VCF Operations: the group that holds the metrics, and the KPI inside it.
+GROUP = "Cluster Performance"
+KPI_NAME = "Cluster Performance"
 
-def _score_component(val: float, t1: float, t2: float, t3: float, max_span: float) -> Tuple[float, float]:
-    """Calculates weighted tier score and weight for one component metric."""
-    if val < t1:
-        score = (100.0 - ((val - 0.0) / t1 * 25.0)) * 1.0
-        weight = 1.0
-    elif val < t2:
-        score = (75.0 - ((val - t1) / (t2 - t1) * 25.0)) * 2.0
-        weight = 2.0
-    elif val < t3:
-        score = (50.0 - ((val - t2) / (t3 - t2) * 25.0)) * 4.0
-        weight = 4.0
-    else:
-        over = min(val - t3, max_span)
-        score = (25.0 - (over / max_span * 25.0)) * 8.0
-        weight = 8.0
-    return score, weight
+# One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
+# Every sub-metric here is "lower is better", and 0 is perfect.
+METRICS = [
+    #       name                                      unit   best  green  yellow  orange  zero-at
+
+    # --- How deep? The worst VM in the cluster. ---
+    # Time the VM was ready to run but had to wait for a physical CPU.
+    Metric("Worst VM CPU Ready",                      "%",   0.0,  4.0,   8.0,    16.0,   32.0),
+    # Time a multi-vCPU VM was held back so that its vCPUs stay in step.
+    Metric("Worst VM CPU Co-Stop",                    "%",   0.0,  2.0,   4.0,    8.0,    16.0),
+    # Time the VM waited for memory that the host had swapped out or compressed.
+    Metric("Worst VM Memory Latency",                 "%",   0.0,  1.0,   2.0,    4.0,    8.0),
+    # Read and write latency of the VM's virtual disks.
+    Metric("Worst VM Disk Latency",                   "ms",  0.0,  40.0,  80.0,   160.0,  320.0),
+
+    # --- How broad? The 90th percentile across the VMs in the cluster. ---
+    Metric("90th Percentile VM CPU Ready",            "%",   0.0,  1.0,   2.0,    4.0,    8.0),
+    Metric("90th Percentile VM CPU Co-Stop",          "%",   0.0,  0.5,   1.0,    2.0,    4.0),
+    Metric("90th Percentile VM Memory Latency",       "%",   0.0,  0.5,   1.0,    2.0,    4.0),
+    Metric("90th Percentile VM Disk Latency",         "ms",  0.0,  20.0,  40.0,   60.0,   80.0),
+
+    # --- The worst ESXi host in the cluster ---
+    # Errored and dropped packets as a share of all packets, on the host where that share is highest.
+    # The source table has green = "0 %" and yellow = "< 0.2". The green limit 0.1 is an assumption,
+    # because the scoring needs a range for every tier. Orange and red match the source table.
+    Metric("Highest ESXi Bad Network Packets",        "%",   0.0,  0.1,   0.2,    0.4,    0.8),
+]
+
+# Every sub-metric is published on the cluster, because none of them exists there as a stat already.
+PUBLISHED_METRICS = METRICS
 
 
-def compute_cluster_performance_kpi(sub_metrics: Dict[str, float]) -> float:
-    """Computes overall Cluster Performance (%) using the 10 created sub-metric values."""
-    specs = {
-        "ready": (sub_metrics.get("ready", 0.0), 1.0, 2.0, 4.0, 4.0),
-        "co_stop": (sub_metrics.get("co_stop", 0.0), 1.0, 2.0, 4.0, 4.0),
-        "mem_latc": (sub_metrics.get("mem_latc", 0.0), 0.5, 1.0, 2.0, 2.0),
-        "m_ready": (sub_metrics.get("m_ready", 0.0), 4.0, 8.0, 16.0, 16.0),
-        "m_co_stop": (sub_metrics.get("m_co_stop", 0.0), 2.0, 4.0, 8.0, 8.0),
-        "m_mem_latc": (sub_metrics.get("m_mem_latc", 0.0), 1.0, 2.0, 4.0, 4.0),
-        "bad_net": (sub_metrics.get("bad_net", 0.0), 0.2, 0.4, 0.8, 0.8),
-        "vmotion": (sub_metrics.get("vmotion", 0.0), 1.0, 2.0, 4.0, 4.0),
-        "mem_stress": (sub_metrics.get("mem_stress", 0.0), 0.25, 0.5, 1.0, 1.0),
-        "balloon": (sub_metrics.get("balloon", 0.0), 1.0, 2.0, 4.0, 4.0),
-    }
+# ---------------------------------------------------------------------------
+# The VCF Operations stats that the sub-metrics are built from.
+# ---------------------------------------------------------------------------
 
-    total_score = 0.0
-    total_weight = 0.0
+# Read from each powered-on VM in the cluster.
+# VM stat -> (sub-metric holding the worst VM, sub-metric holding the 90th percentile).
+# The 20-second peak stats are used instead of the 5-minute averages so the KPI is a leading indicator.
+VM_STATS = {
+    "cpu|20_sec_peak_readyPct":                     ("Worst VM CPU Ready",       "90th Percentile VM CPU Ready"),
+    "cpu|20_sec_peak_costopPct":                    ("Worst VM CPU Co-Stop",     "90th Percentile VM CPU Co-Stop"),
+    "mem|20_sec_peak_host_contentionPct":           ("Worst VM Memory Latency",  "90th Percentile VM Memory Latency"),
+    "virtualDisk|20_sec_peak_totalLatency_average": ("Worst VM Disk Latency",    "90th Percentile VM Disk Latency"),
+}
 
-    for val, t1, t2, t3, max_span in specs.values():
-        s, w = _score_component(val, t1, t2, t3, max_span)
-        total_score += s
-        total_weight += w
+# Read from each ESXi host in the cluster. These are packet counts per collection cycle.
+HOST_BAD_PACKET_STATS = [
+    "net|errorsRx_summation_sum", "net|errorsTx_summation_sum",
+    "net|droppedRx_summation_sum", "net|droppedTx_summation_sum",
+]
+HOST_PACKET_STATS = ["net|packetsRx_summation_sum", "net|packetsTx_summation_sum"]
 
-    return round(total_score / total_weight, 2) if total_weight > 0 else 100.0
+# Bad packets are added up over this window. A single collection cycle is too noisy:
+# one burst of drops would push the sub-metric into the red tier, where its weight is 8.
+BAD_PACKET_WINDOW_MINUTES = 30
 
+
+# ---------------------------------------------------------------------------
+# Sub-metric formulas. Each returns None when it has no data to work with.
+# ---------------------------------------------------------------------------
+
+def percentile_90(numbers: List[float]) -> Optional[float]:
+    """The value that 90 % of the numbers are at or below. None when the list is empty.
+
+    Nearest-rank method: sort the numbers and take the one at position 90 % of the count, rounded up.
+    With 20 VMs that is the 18th lowest. With fewer than 10 VMs it is the highest.
+    """
+    if not numbers:
+        return None
+    position = math.ceil(0.9 * len(numbers))
+    return sorted(numbers)[position - 1]
+
+
+def vm_contention_values(suite_api_client: SuiteApiClient, vm_ids: List[str]) -> Dict[str, Optional[float]]:
+    """Worst-VM and 90th-percentile value of each stat in VM_STATS."""
+    # One request for all VMs of the cluster.
+    latest_by_vm = read_latest_stats(suite_api_client, vm_ids, list(VM_STATS))
+    values = {}
+
+    for stat_key, (worst_name, percentile_name) in VM_STATS.items():
+        # A VM that does not have this stat is left out.
+        per_vm = [vm_stats[stat_key] for vm_stats in latest_by_vm.values() if stat_key in vm_stats]
+        values[worst_name] = max(per_vm) if per_vm else None
+        values[percentile_name] = percentile_90(per_vm)
+    return values
+
+
+def highest_host_bad_packet_pct(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Optional[float]:
+    """Highest share of errored or dropped packets on any one host, over BAD_PACKET_WINDOW_MINUTES."""
+    totals_by_host = read_stat_totals(
+        suite_api_client, host_ids, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS, BAD_PACKET_WINDOW_MINUTES
+    )
+    per_host = []
+
+    for totals in totals_by_host.values():
+        # A host with one of the six counters missing would give a wrong share, so it is skipped.
+        if not has_all(totals, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS):
+            continue
+        bad_packets = sum(totals[key] for key in HOST_BAD_PACKET_STATS)
+        all_packets = sum(totals[key] for key in HOST_PACKET_STATS)
+        # None when the host sent and received no packets at all.
+        bad_pct = percent(bad_packets, all_packets)
+        if bad_pct is not None:
+            per_host.append(bad_pct)
+
+    return max(per_host) if per_host else None
+
+
+# ---------------------------------------------------------------------------
+# Finding the cluster's VMs and hosts.
+# ---------------------------------------------------------------------------
+
+def powered_on_vms_by_host(vm_props) -> Dict[str, List[str]]:
+    """{host MoRef id: [MoRef ids of the powered-on VMs on that host]}.
+
+    vm_props is the vCenter answer for every VM, with the properties runtime.host and runtime.powerState.
+    A powered-off VM is left out: its last stats in VCF Operations are old and would skew the KPI.
+    """
+    vms_by_host = {}
+    for vm_data in vm_props:
+        props = {prop.name: prop.val for prop in vm_data.propSet}
+        host = props.get("runtime.host")
+        if host is None or props.get("runtime.powerState") != "poweredOn":
+            continue
+        vms_by_host.setdefault(host._moId, []).append(vm_data.obj._moId)
+    return vms_by_host
+
+
+def resource_ids(moids: List[str], objects_by_moid: Dict[str, Object]) -> List[str]:
+    """VCF Operations resource ids of the vCenter objects (VMs or hosts) that VCF Operations knows about."""
+    # vCenter names an object by its MoRef id. VCF Operations uses its own id, which the stats API needs.
+    return [objects_by_moid[moid].get_id() for moid in moids if moid in objects_by_moid]
+
+
+# ---------------------------------------------------------------------------
+# Entry point, called once per cluster.
+# ---------------------------------------------------------------------------
 
 def collect_cluster_performance_metrics(
     cluster_obj: Object,
-    cluster_ref,
-    vms_by_uuid: Dict[str, Object],
-    hosts_by_uuid: Dict[str, Object],
+    cluster_name: str,
+    vm_ids: List[str],
+    host_ids: List[str],
     suite_api_client: SuiteApiClient
 ) -> None:
-    """Collects raw stats, creates 10 individual metrics on cluster_obj, then computes Cluster Performance (%) from them."""
-    if not cluster_obj or not cluster_obj.get_id():
-        return
+    """Publishes the sub-metrics in METRICS, then the Cluster Performance KPI computed from them.
 
-    # 1. Fetch Cluster direct metrics
-    res_id = cluster_obj.get_id()
-    cluster_stats = {}
-    res = suite_api_client.get(f"api/resources/{res_id}/stats/latest")
-    if res.status_code == 200:
-        for item in res.json().get("values", []):
-            k = item.get("statKey", {}).get("key")
-            stats = item.get("stat-list", {}).get("stat", [])
-            if k and stats:
-                cluster_stats[k] = float(stats[-1]["value"])
+    vm_ids are the VCF Operations ids of the cluster's powered-on VMs, host_ids those of its ESXi hosts.
+    """
+    try:
+        if not cluster_obj or not cluster_obj.get_id():
+            return
 
-    vmotion_num = cluster_stats.get("summary|number_vmotion", 0.0)
-    vmotion_den = cluster_stats.get("summary|number_running_vms", 1.0)
-    vmotion_pct = round((vmotion_num / vmotion_den * 100.0) if vmotion_den > 0 else 0.0, 2)
+        # Step 1 and 2: read the stats and calculate the sub-metric values. None means "no data".
+        values = vm_contention_values(suite_api_client, vm_ids)
+        values["Highest ESXi Bad Network Packets"] = highest_host_bad_packet_pct(suite_api_client, host_ids)
 
-    compressed = cluster_stats.get("mem|compressed_average", 0.0)
-    swapout = cluster_stats.get("mem|swapout_average", 0.0)
-    consumed = cluster_stats.get("mem|consumed_average", 0.0)
-    sys_usage = cluster_stats.get("mem|sysUsage_average", 0.0)
-    vmmemctl = cluster_stats.get("mem|vmmemctl_average", 0.0)
+        # Drop the sub-metrics with no data.
+        # Round first, so the KPI is computed from exactly the numbers that are published.
+        values = {name: round(value, 2) for name, value in values.items() if value is not None}
 
-    mem_denom = (compressed + swapout + consumed - sys_usage)
-    mem_stress_pct = round(((compressed + swapout) / mem_denom * 100.0) if mem_denom > 0 else 0.0, 2)
+        # Step 3: publish the sub-metrics, then score them and publish the KPI.
+        for name, value in values.items():
+            cluster_obj.with_metric(f"vCommunity|{GROUP}|{name}", value)
 
-    balloon_denom = (vmmemctl + consumed - sys_usage)
-    balloon_pct = round((vmmemctl / balloon_denom * 100.0) if balloon_denom > 0 else 0.0, 2)
+        kpi = kpi_score(METRICS, values)
+        if kpi is not None:
+            cluster_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
 
-    # 2. Bulk Fetch Child VM Metrics
-    vm_res_ids = [vms_by_uuid[getattr(v, "_moId", "")].get_id() for v in getattr(cluster_ref, "vm", []) if getattr(v, "_moId", "") in vms_by_uuid]
-    vm_readies, vm_costops, vm_intentions = [], [], []
+        no_data = [metric.name for metric in METRICS if metric.name not in values]
+        if no_data:
+            logger.info(f"Cluster Performance for {cluster_name}: no data, so left out: {', '.join(no_data)}")
 
-    if vm_res_ids:
-        payload = {
-            "resourceId": vm_res_ids,
-            "statKey": ["cpu|20_sec_peak_readyPct", "cpu|20_sec_peak_costopPct", "mem|20_sec_peak_host_contentionPct"]
-        }
-        res_vm = suite_api_client.post("api/resources/stats/latest", json=payload)
-        if res_vm.status_code == 200:
-            for rstat in res_vm.json().get("values", []):
-                for stat in rstat.get("stat-list", {}).get("stat", []):
-                    k = stat.get("statKey", {}).get("key")
-                    v = float(stat.get("value", 0.0))
-                    if k == "cpu|20_sec_peak_readyPct": vm_readies.append(v)
-                    elif k == "cpu|20_sec_peak_costopPct": vm_costops.append(v)
-                    elif k == "mem|20_sec_peak_host_contentionPct": vm_intentions.append(v)
+        logger.debug(f"Successfully collected vSphere Cluster Performance metrics for the cluster: {cluster_name}")
 
-    avg_ready = round(sum(vm_readies) / len(vm_readies) if vm_readies else 0.0, 2)
-    max_ready = round(max(vm_readies) if vm_readies else 0.0, 2)
-
-    avg_costop = round(sum(vm_costops) / len(vm_costops) if vm_costops else 0.0, 2)
-    max_costop = round(max(vm_costops) if vm_costops else 0.0, 2)
-
-    avg_mem_latc = round(sum(vm_intentions) / len(vm_intentions) if vm_intentions else 0.0, 2)
-    max_mem_latc = round(max(vm_intentions) if vm_intentions else 0.0, 2)
-
-    # 3. Bulk Fetch Child Host Bad Network Packets
-    host_res_ids = [hosts_by_uuid[getattr(h, "_moId", "")].get_id() for h in getattr(cluster_ref, "host", []) if getattr(h, "_moId", "") in hosts_by_uuid]
-    host_bad_nets = []
-
-    if host_res_ids:
-        payload_host = {
-            "resourceId": host_res_ids,
-            "statKey": [
-                "net|errorsRx_summation_sum", "net|errorsTx_summation_sum",
-                "net|droppedRx_summation_sum", "net|droppedTx_summation_sum",
-                "net|packetsRx_summation_sum", "net|packetsTx_summation_sum"
-            ]
-        }
-        res_host = suite_api_client.post("api/resources/stats/latest", json=payload_host)
-        if res_host.status_code == 200:
-            for rstat in res_host.json().get("values", []):
-                h_stats = {s.get("statKey", {}).get("key"): float(s.get("value", 0.0)) for s in rstat.get("stat-list", {}).get("stat", [])}
-                err_rx = h_stats.get("net|errorsRx_summation_sum", 0.0)
-                err_tx = h_stats.get("net|errorsTx_summation_sum", 0.0)
-                drop_rx = h_stats.get("net|droppedRx_summation_sum", 0.0)
-                drop_tx = h_stats.get("net|droppedTx_summation_sum", 0.0)
-                pkt_rx = h_stats.get("net|packetsRx_summation_sum", 0.0)
-                pkt_tx = h_stats.get("net|packetsTx_summation_sum", 0.0)
-                
-                pkt_total = pkt_rx + pkt_tx
-                bad_pct = ((err_rx + err_tx + drop_rx + drop_tx) / pkt_total * 100.0) if pkt_total > 0 else 0.0
-                host_bad_nets.append(bad_pct)
-
-    max_bad_net = round(max(host_bad_nets) if host_bad_nets else 0.0, 2)
-
-    # 4. Emit the 10 individual super metrics under Cluster Performace group
-    sub_metrics = {
-        "ready": avg_ready,
-        "co_stop": avg_costop,
-        "mem_latc": avg_mem_latc,
-        "m_ready": max_ready,
-        "m_co_stop": max_costop,
-        "m_mem_latc": max_mem_latc,
-        "bad_net": max_bad_net,
-        "vmotion": vmotion_pct,
-        "mem_stress": mem_stress_pct,
-        "balloon": balloon_pct,
-    }
-
-    group_prefix = "vCommunity|Cluster Performance"
-    cluster_obj.with_metric(f"{group_prefix}|CPU Ready", avg_ready)
-    cluster_obj.with_metric(f"{group_prefix}|CPU Co-Stop", avg_costop)
-    cluster_obj.with_metric(f"{group_prefix}|Memory Contention", avg_mem_latc)
-    cluster_obj.with_metric(f"{group_prefix}|Worst VM CPU Ready", max_ready)
-    cluster_obj.with_metric(f"{group_prefix}|Worst VM CPU Co-Stop", max_costop)
-    cluster_obj.with_metric(f"{group_prefix}|Worst VM Memory Contention", max_mem_latc)
-    cluster_obj.with_metric(f"{group_prefix}|Worst ESXi Bad Network Packets", max_bad_net)
-    cluster_obj.with_metric(f"{group_prefix}|Total vMotions", vmotion_pct)
-    cluster_obj.with_metric(f"{group_prefix}|Memory Zip Swap", mem_stress_pct)
-    cluster_obj.with_metric(f"{group_prefix}|Memory Ballooned", balloon_pct)
-
-    # 5. Calculate overall Cluster Performance (%) using the 10 created sub-metrics
-    kpi = compute_cluster_performance_kpi(sub_metrics)
-    cluster_obj.with_metric(f"{group_prefix}|Cluster Performance", kpi)
+    except Exception as e:
+        # A failure here must not stop the collection of the other cluster data.
+        logger.warning(f"Failed to retrieve vSphere Cluster Performance metrics for : {cluster_name} - {repr(e)}")

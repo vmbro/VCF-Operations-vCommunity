@@ -15,7 +15,9 @@ from metrics.cluster.drs_metrics import collect_drs_metrics
 from properties.cluster.evc_properties import collect_evc_properties
 from properties.cluster.dpm_properties import collect_dpm_properties
 from properties.cluster.cluster_configuration_properties import collect_cluster_configuration_properties
-from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
+from metrics.cluster.cluster_performance_metrics import (
+    collect_cluster_performance_metrics, powered_on_vms_by_host, resource_ids,
+)
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -49,6 +51,7 @@ def collect_cluster_data(
     propertyPaths.append("configStatus")
     propertyPaths.append("summary.numEffectiveHosts")
     propertyPaths.append("overallStatus")
+    propertyPaths.append("host")
 
     cluster_props = retrieve_properties(content, vim.ClusterComputeResource, propertyPaths)
 
@@ -89,6 +92,10 @@ def collect_cluster_data(
         vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
     }
 
+    # Find the powered-on VMs of each host once, for all clusters. A cluster has no list of its VMs.
+    vm_props = retrieve_properties(content, vim.VirtualMachine, ["runtime.host", "runtime.powerState"])
+    vms_on_host = powered_on_vms_by_host(vm_props)
+
     for cluster_data in cluster_props:
         try:
             cluster_ref = cluster_data.obj
@@ -108,7 +115,14 @@ def collect_cluster_data(
             collect_drs_metrics(cluster_obj, cluster_name, prop_dict)
             collect_dpm_properties(cluster_obj, cluster_name, prop_dict)
             collect_cluster_configuration_properties(cluster_obj, cluster_name, prop_dict)
-            collect_cluster_performance_metrics(cluster_obj, cluster_ref, vms_by_uuid, hosts_by_uuid, suite_api_client)
+
+            host_moids = [host._moId for host in prop_dict.get("host", [])]
+            vm_moids = [vm_moid for host_moid in host_moids for vm_moid in vms_on_host.get(host_moid, [])]
+            collect_cluster_performance_metrics(
+                cluster_obj, cluster_name,
+                resource_ids(vm_moids, vms_by_uuid), resource_ids(host_moids, hosts_by_uuid),
+                suite_api_client,
+            )
 
             result.add_object(cluster_obj)
 

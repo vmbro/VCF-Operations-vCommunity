@@ -6,10 +6,10 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 **On this page:**
 
-- [Cluster](#cluster) (22 items)
+- [Cluster](#cluster) (32 items)
 - [Host](#host) (46 items)
 - [Datastore](#datastore) (9 items)
-- [Virtual Machine](#virtual-machine) (51 items)
+- [Virtual Machine](#virtual-machine) (53 items)
 - [vCenter](#vcenter) (11 items)
 
 ---
@@ -40,6 +40,16 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Enabled` | Whether Enhanced vMotion Compatibility (EVC) mode is enabled on the cluster. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Mode` | If enabled, the EVC mode key the cluster is running (e.g. intel-cascadelake) - determines the exposed CPU feature baseline. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|DPM\|Host Power Action Rate` | If Distributed Power Management (DPM) is enabled, the aggressiveness level (1-5) controlling how fast hosts are powered on/off. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Cluster Performance` | Key Performance Indicator (0-100 %) of the cluster, combining the 9 sub-metrics below. 100 is perfect. See [Cluster Performance KPI](cluster-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any powered-on VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM Memory Latency` | Highest 20-second peak memory contention (%) of any powered-on VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM Disk Latency` | Highest 20-second peak virtual disk latency (ms) of any powered-on VM in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM CPU Ready` | 20-second peak CPU Ready (%) that 90 % of the powered-on VMs in the cluster are at or below. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM CPU Co-Stop` | 20-second peak CPU Co-Stop (%) that 90 % of the powered-on VMs in the cluster are at or below. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs in the cluster are at or below. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs in the cluster are at or below. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets over the last 30 minutes, on the worst host in the cluster. |
 
 [⬆ Back to top](#metrics--properties-reference)
 
@@ -122,6 +132,8 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|VM Performance\|VM Performance` | Key Performance Indicator (0-100 %) of a powered-on VM, combining 14 sub-metrics. 100 is perfect. See [VM Performance KPI](vm-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|VM Performance\|Memory Zip Swap` | Compressed plus swapped memory of the VM, as a share (%) of the memory the guest uses. |
 | ⚪ Property | `vCommunity\|Options\|`<config_path>`` | Value of a VM config field (e.g. config.bootOptions.bootDelay) tracked via the vm_options config file. One property per tracked field; skipped entirely if the value is None. |
 | ⚪ Property | `vCommunity\|Configuration\|Advanced Parameters\|`<key>`` | Value of a VM advanced parameter (extraConfig, e.g. svga.present) tracked via the vm_advanced_parameters config file. |
 | 🟢 Metric | `vCommunity\|Configuration\|SCSI Controllers\|Count` | Number of SCSI controllers attached to the VM. |
@@ -198,4 +210,4 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 ---
 
-**Total: 139 template rows across 5 object types.**
+**Total: 149 template rows across 5 object types.**

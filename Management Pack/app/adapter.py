@@ -17,6 +17,7 @@ from typing import Optional
 from collections import defaultdict
 from aria.ops.adapter_instance import AdapterInstance
 from aria.ops.definition.adapter_definition import AdapterDefinition
+from aria.ops.definition.units import Units
 from aria.ops.object import Object
 from aria.ops.result import CollectResult
 from aria.ops.result import EndpointResult
@@ -31,10 +32,30 @@ from collectors.host.collectHostData import collect_host_data
 from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
+from metrics.cluster import cluster_performance_metrics
+from metrics.vm import vm_performance_metrics
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
 timingLogger = logging.getLogger("[CollectionResult]")
+
+
+# The units used in the KPI tables, as the SDK unit each one stands for. The SDK does not accept plain text.
+KPI_UNITS = {
+    None: None,
+    "%": Units.RATIO.PERCENT,
+    "ms": Units.TIME.MILLISECONDS,
+    "µs": Units.TIME.MICROSECONDS,
+    "MB": Units.DATA_SIZE.MEGABYTE,
+}
+
+
+def define_kpi(vCommunity, kpi) -> None:
+    # kpi is a KPI module, such as cluster_performance_metrics. Its metric list lives in one place: that module.
+    group = vCommunity.define_group(kpi.GROUP, kpi.GROUP)
+    for metric in kpi.PUBLISHED_METRICS:
+        group.define_metric(metric.name, metric.name, unit=KPI_UNITS[metric.unit])
+    group.define_metric(kpi.KPI_NAME, kpi.KPI_NAME, unit=Units.RATIO.PERCENT)
 
 
 def get_adapter_definition() -> AdapterDefinition:
@@ -139,18 +160,7 @@ def get_adapter_definition() -> AdapterDefinition:
         clusterConfiguration.define_metric("Number of Effective Hosts", "Number of Effective Hosts")
         clusterConfiguration.define_string_property("Overall Status", "Overall Status")
 
-        clusterPerformance = vCommunity.define_group("Cluster Performance", "Cluster Performance")
-        clusterPerformance.define_metric("CPU Ready", "CPU Ready", unit="%")
-        clusterPerformance.define_metric("CPU Co-Stop", "CPU Co-Stop", unit="%")
-        clusterPerformance.define_metric("Memory Contention", "Memory Contention", unit="%")
-        clusterPerformance.define_metric("Worst VM CPU Ready", "Worst VM CPU Ready", unit="%")
-        clusterPerformance.define_metric("Worst VM CPU Co-Stop", "Worst VM CPU Co-Stop", unit="%")
-        clusterPerformance.define_metric("Worst VM Memory Contention", "Worst VM Memory Contention", unit="%")
-        clusterPerformance.define_metric("Worst ESXi Bad Network Packets", "Worst ESXi Bad Network Packets", unit="%")
-        clusterPerformance.define_metric("Total vMotions", "Total vMotions", unit="%")
-        clusterPerformance.define_metric("Memory Zip Swap", "Memory Zip Swap", unit="%")
-        clusterPerformance.define_metric("Memory Ballooned", "Memory Ballooned", unit="%")
-        clusterPerformance.define_metric("Cluster Performance", "Cluster Performance", unit="%")
+        define_kpi(vCommunity, cluster_performance_metrics)
 
         vSphereHA = clusterConfiguration.define_group("vSphere HA", "vSphere HA")
         vSphereHA.define_string_property("Host Monitoring", "Host Monitoring")
@@ -284,6 +294,8 @@ def get_adapter_definition() -> AdapterDefinition:
         virtualMachine = definition.define_object_type("Virtual Machine", "Virtual Machine")
         vCommunity = virtualMachine.define_group("vCommunity", "vCommunity")
         configuration = vCommunity.define_group("Configuration", "Configuration")
+
+        define_kpi(vCommunity, vm_performance_metrics)
 
         configuration.define_string_property("CPU Allocation Share Level", "CPU Allocation Share Level")
         configuration.define_string_property("VM Change Version", "VM Change Version")

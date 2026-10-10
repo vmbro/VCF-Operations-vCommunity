@@ -1,0 +1,116 @@
+# Cluster Performance KPI
+
+**Cluster Performance** is a single 0-100 % score for a vSphere cluster. 100 is perfect. It measures actual contention, not potential. It combines 9 sub-metrics, and the worse a sub-metric is, the more it pulls the score down.
+
+Use it to watch many clusters at once. When the score drops, open the 9 sub-metrics on that cluster to see which one caused it.
+
+All 10 metrics are published on the cluster object under `vCommunity|Cluster Performance`.
+
+Code: [`Management Pack/app/metrics/cluster/cluster_performance_metrics.py`](../Management%20Pack/app/metrics/cluster/cluster_performance_metrics.py)
+
+Source of the sub-metrics and limits: [`Complex Metrics/vSphere Cluster Performance metric.png`](Complex%20Metrics/vSphere%20Cluster%20Performance%20metric.png)
+
+## Step 1: Collect the 9 sub-metrics
+
+The sub-metrics answer two questions about the powered-on VMs in the cluster:
+
+- **How deep?** The worst VM. Shows a problem that hits one VM hard.
+- **How broad?** The 90th percentile across the VMs. Shows a problem that many VMs share.
+
+Every sub-metric is "lower is better", and 0 is perfect.
+
+| Group | Sub-metric | How it is calculated |
+| :--- | :--- | :--- |
+| How deep? | Worst VM CPU Ready | Highest `cpu\|20_sec_peak_readyPct` of any VM |
+| How deep? | Worst VM CPU Co-Stop | Highest `cpu\|20_sec_peak_costopPct` of any VM |
+| How deep? | Worst VM Memory Latency | Highest `mem\|20_sec_peak_host_contentionPct` of any VM |
+| How deep? | Worst VM Disk Latency | Highest `virtualDisk\|20_sec_peak_totalLatency_average` of any VM |
+| How broad? | 90th Percentile VM CPU Ready | 90th percentile of `cpu\|20_sec_peak_readyPct` across the VMs |
+| How broad? | 90th Percentile VM CPU Co-Stop | 90th percentile of `cpu\|20_sec_peak_costopPct` across the VMs |
+| How broad? | 90th Percentile VM Memory Latency | 90th percentile of `mem\|20_sec_peak_host_contentionPct` across the VMs |
+| How broad? | 90th Percentile VM Disk Latency | 90th percentile of `virtualDisk\|20_sec_peak_totalLatency_average` across the VMs |
+| ESXi | Highest ESXi Bad Network Packets | Per host: `(errorsRx + errorsTx + droppedRx + droppedTx) / (packetsRx + packetsTx) × 100`, added up over the last 30 minutes. The sub-metric is the highest host. |
+
+Notes:
+
+- **Which VMs count.** The VMs on the cluster's ESXi hosts that are powered on. A powered-off VM is left out, because its last stats are old.
+- **20-second peaks.** The VM stats are the 20-second peaks, not the 5-minute averages. This makes the KPI a leading indicator.
+- **90th percentile.** The value that 90 % of the VMs are at or below. The VMs are sorted, and the one at position 90 % of the count, rounded up, is taken. With 20 VMs that is the 18th lowest. With fewer than 10 VMs it is the highest, the same as the worst VM.
+- **Bad network packets** are added up over 30 minutes because one collection cycle is too noisy. A single burst of drops would otherwise push the sub-metric into the red tier.
+
+## Step 2: Score each sub-metric
+
+Each sub-metric has four limits. They split its values into four tiers. Inside a tier, the score drops in a straight line by 25 points.
+
+| Tier | Value range | Score goes from → to | Weight |
+| :--- | :--- | :--- | :--- |
+| Green | 0 up to the green limit | 100 → 75 | 1 |
+| Yellow | green limit up to the yellow limit | 75 → 50 | 2 |
+| Orange | yellow limit up to the orange limit | 50 → 25 | 4 |
+| Red | orange limit up to the zero-at limit | 25 → 0 | 8 |
+
+Above the zero-at limit the score stays at 0.
+
+## Step 3: Combine
+
+```
+KPI = Σ(score × weight) / Σ(weight)
+```
+
+- This is a weighted average. The weight of each sub-metric depends on the tier it is in.
+- A sub-metric in the red tier counts 8× more than one in the green tier.
+- This is deliberate. One bad sub-metric is not hidden by eight good ones.
+
+## Limits per sub-metric
+
+| Sub-metric | Unit | Green ends at | Yellow ends at | Orange ends at | Score hits 0 at |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Worst VM CPU Ready | % | 4 | 8 | 16 | 32 |
+| Worst VM CPU Co-Stop | % | 2 | 4 | 8 | 16 |
+| Worst VM Memory Latency | % | 1 | 2 | 4 | 8 |
+| Worst VM Disk Latency | ms | 40 | 80 | 160 | 320 |
+| 90th Percentile VM CPU Ready | % | 1 | 2 | 4 | 8 |
+| 90th Percentile VM CPU Co-Stop | % | 0.5 | 1 | 2 | 4 |
+| 90th Percentile VM Memory Latency | % | 0.5 | 1 | 2 | 4 |
+| 90th Percentile VM Disk Latency | ms | 20 | 40 | 60 | 80 |
+| Highest ESXi Bad Network Packets | % | 0.1 * | 0.2 | 0.4 | 0.8 |
+
+The worst-VM rows have higher limits than the 90th-percentile rows, because a single VM peaks far above most of the others.
+
+\* **Assumed limit.** The source table gives green as "0 %" and yellow as "< 0.2". The scoring needs a range for every tier, so green ends at 0.1. Orange and red match the source table.
+
+## Worked examples
+
+- **All 9 sub-metrics are 0.** Each scores 100 with weight 1. KPI = **100**.
+- **Same, except 90th Percentile VM CPU Ready = 5** (red tier):
+  - It is a quarter of the way through red (from 4 to 8), so it scores `25 − (¼ × 25) = 18.75`, with weight 8.
+  - KPI = `(8 × 100 + 18.75 × 8) / (8 + 8)` = `950 / 16` ≈ **59.38**.
+  - A plain average would give about 91.0. The weighting makes the one bad sub-metric show.
+- **One VM has 200 ms disk latency, the others 0.** Worst VM Disk Latency is 200 (orange to red). The 90th percentile stays 0, because one VM is not a broad problem.
+
+The same examples are checked by the tests in [`Management Pack/tests/test_cluster_performance_metrics.py`](../Management%20Pack/tests/test_cluster_performance_metrics.py).
+
+## Missing data
+
+A sub-metric with no data is not published for that collection cycle, and it is left out of the KPI. It is never counted as 0, because 0 means "perfect" and would make the cluster look healthier than it is.
+
+- The adapter log lists the sub-metrics that were left out, per cluster.
+- If no sub-metric has data, the KPI itself is not published.
+
+Common reasons for no data: the cluster has no powered-on VMs, the vCenter adapter has not yet collected the source stat, or the stats request to VCF Operations failed.
+
+## Related KPIs
+
+- [ESXi Performance](esxi-performance-kpi.md) uses the same 9 sub-metrics, for the VMs on one host.
+- [Cluster Risk](cluster-risk-kpi.md) is the leading indicator: how close the cluster is to contention. Memory ballooning and swapping are scored there.
+
+## Changing the KPI
+
+The sub-metrics, their units and their limits are one table, `METRICS`, at the top of the code file.
+
+The tiers and weights are a second table, `TIERS`, in [`Management Pack/app/metrics/kpi_score.py`](../Management%20Pack/app/metrics/kpi_score.py). That file holds the scoring for every KPI, so a change there changes all of them.
+
+- To change a limit, edit the row.
+- To add a VM stat, add a line to `VM_STATS` and its two rows (worst VM and 90th percentile) to `METRICS`.
+
+The adapter definition reads the same table, so there is nothing else to update.
