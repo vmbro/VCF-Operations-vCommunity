@@ -35,6 +35,8 @@ All five are called by a collector and declared in `adapter.py`. The VCF Operati
 | `world/cluster_summary_metrics.py` | 10th percentile and worst Cluster Performance and Cluster Risk, over all clusters of all vCenters, on vSphere World. Not a KPI. See `docs/vsphere-world-metrics.md`, including its known limitations. |
 | `availability/operational_availability.py` | ESXi Host and Cluster Operational Availability, and the worst cluster per vCenter. Not a KPI. See `docs/operational-availability.md`, including its known limitations. |
 | `world/availability_summary_metrics.py` | Worst Cluster and average ESXi Host Operational Availability, over all vCenters, on vSphere World. |
+| `network/network_speed_degradation.py` | Network Speed Degradation per host, and the count of degraded hosts per Datacenter and on vSphere World. Not a KPI. See `docs/network-speed-degradation.md`, including its known limitations. |
+| `vm/vm_shares.py` | Share per vCPU and Share per MB of Memory, on every VM. Not a KPI. See `docs/vm-shares.md`. |
 | `vm_contention.py` | The worst-VM, 90th-percentile and bad-packet formulas, shared by Cluster Performance and ESXi Performance. |
 
 Two files outside this folder belong to the same design:
@@ -215,6 +217,8 @@ python -m pytest tests
 | `test_vm_performance_metrics.py` | VM Performance formulas and worked examples. |
 | `test_vm_guest_os_kpi.py` | VM Guest OS KPI: the average, and the fallback without VMware Tools. |
 | `test_operational_availability.py` | Host and cluster Operational Availability: the three super-metric bugs, N+0 to N+2, missing data, and the vSphere World summary. |
+| `test_network_speed_degradation.py` | Network Speed Degradation: NIC by NIC, NICs that are down or have no configured speed, and the counts. |
+| `test_vm_shares.py` | Share per vCPU and per MB: normal values, the super metric's values, and no division by zero. |
 | `test_cluster_summary_metrics.py` | vSphere World: 10th percentile and worst cluster scores, over the clusters of all vCenters. |
 | `test_cluster_risk_metrics.py` | Cluster Risk formulas and worked examples. |
 | `test_esxi_performance_metrics.py` | ESXi Performance formulas and worked examples. |

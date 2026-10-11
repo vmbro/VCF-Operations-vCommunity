@@ -97,6 +97,8 @@ Bad Network Packets has data from the next collection cycle.
 - [Metrics & Properties Reference](docs/metrics-reference.md)
 - [vSphere World Cluster Metrics](docs/vsphere-world-metrics.md) (read its Known Limitations)
 - [Operational Availability](docs/operational-availability.md) (read its Known Limitations)
+- [Network Speed Degradation](docs/network-speed-degradation.md) (read its Known Limitations)
+- [VM Shares](docs/vm-shares.md) (read its Known Limitations)
 
 ## Tools
 

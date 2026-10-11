@@ -19,6 +19,8 @@ from utils.vi_property_collector import retrieve_properties
 from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host
 from metrics.host.esxi_performance_metrics import read_esxi_performance_stats, collect_esxi_performance_metrics
 from metrics.availability.operational_availability import OperationalAvailability, NO_DATA, HOST_METRIC, publish
+from metrics.network import network_speed_degradation
+from metrics.network.network_speed_degradation import NetworkSpeed
 
 logger = logging.getLogger(__name__)
 
@@ -30,6 +32,7 @@ def collect_host_data(
     esxiAdvSettings,
     esxiVIBDrivers,
     availability: OperationalAvailability = NO_DATA,
+    network_speed: NetworkSpeed = network_speed_degradation.NO_DATA,
 ) -> None:
 
     # 🔥 PropertyCollector ile sadece gereken propertyleri çek
@@ -128,6 +131,8 @@ def collect_host_data(
                 collect_esxi_performance_metrics(host_obj, host_name, ops_host.id, vm_ids, esxi_performance_stats)
                 # Operational Availability, read once per cycle for the whole vCenter by the adapter.
                 publish(host_obj, HOST_METRIC, availability.by_host.get(ops_host.id))
+                network_speed_degradation.publish(
+                    host_obj, network_speed_degradation.HOST_METRIC, network_speed.by_host.get(ops_host.id))
 
             result.add_object(host_obj)
             

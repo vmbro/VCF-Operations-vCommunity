@@ -33,12 +33,15 @@ from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
 from collectors.world.collectWorldData import collect_world_data
+from collectors.datacenter.collectDatacenterData import collect_datacenter_data
 from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
 from metrics.host import esxi_performance_metrics
-from metrics.vm import vm_performance_metrics, guest_os_performance_metrics, vm_guest_os_kpi
+from metrics.vm import vm_performance_metrics, guest_os_performance_metrics, vm_guest_os_kpi, vm_shares
 from metrics.world import cluster_summary_metrics, availability_summary_metrics
 from metrics.availability import operational_availability
 from metrics.availability.operational_availability import read_operational_availability
+from metrics.network import network_speed_degradation
+from metrics.network.network_speed_degradation import read_network_speed
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
@@ -68,6 +71,12 @@ def define_availability(vCommunity, *metric_names: str) -> None:
     group = vCommunity.define_group(operational_availability.GROUP, operational_availability.GROUP)
     for name in metric_names:
         group.define_metric(name, name, unit=Units.RATIO.PERCENT)
+
+
+def define_network_count(vCommunity) -> None:
+    # Total Network Speed Degradation, in the "Network" group. See metrics/network/network_speed_degradation.py.
+    group = vCommunity.define_group(network_speed_degradation.GROUP, network_speed_degradation.GROUP)
+    group.define_metric(network_speed_degradation.COUNT_METRIC, network_speed_degradation.COUNT_METRIC)
 
 
 def get_adapter_definition() -> AdapterDefinition:
@@ -248,6 +257,8 @@ def get_adapter_definition() -> AdapterDefinition:
 
         hostSystemNetwork = vCommunity.define_group("Network", "Network")
         hostSystemNetwork.define_string_property("DHCP", "DHCP")
+        # See metrics/network/network_speed_degradation.py.
+        hostSystemNetwork.define_metric(network_speed_degradation.HOST_METRIC, network_speed_degradation.HOST_METRIC, unit=Units.RATIO.PERCENT)
         hostSystemNetwork.define_string_property("Search Domain", "Search Domain")
 
         networkDevice = hostSystemNetwork.define_instanced_group("Host Network Device", "Host Network Device", instance_required=True)
@@ -318,6 +329,9 @@ def get_adapter_definition() -> AdapterDefinition:
         vCommunity.define_metric(vm_guest_os_kpi.KPI_KEY, vm_guest_os_kpi.KPI_KEY, unit=Units.RATIO.PERCENT)
 
         configuration.define_string_property("CPU Allocation Share Level", "CPU Allocation Share Level")
+        # Normalized shares. See metrics/vm/vm_shares.py.
+        configuration.define_metric(vm_shares.CPU_METRIC, vm_shares.CPU_METRIC)
+        configuration.define_metric(vm_shares.MEMORY_METRIC, vm_shares.MEMORY_METRIC)
         configuration.define_string_property("VM Change Version", "VM Change Version")
         configuration.define_string_property("VM Firmware", "VM Firmware")
         configuration.define_string_property("VM Latency Sensitivity Level", "VM Latency Sensitivity Level")
@@ -417,6 +431,11 @@ def get_adapter_definition() -> AdapterDefinition:
         for name in cluster_summary_metrics.METRICS:
             vCommunity.define_metric(name, name, unit=Units.RATIO.PERCENT)
         define_availability(vCommunity, operational_availability.WORST_CLUSTER_METRIC, availability_summary_metrics.HOSTS_METRIC)
+        define_network_count(vCommunity)
+
+        # Datacenter: the number of hosts with Network Speed Degradation.
+        datacenter = definition.define_object_type("Datacenter", "Datacenter")
+        define_network_count(datacenter.define_group("vCommunity", "vCommunity"))
 
         # vCenter
         vCenter = definition.define_object_type("vCenter", "vCenter")
@@ -609,6 +628,8 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                 # Operational Availability of the hosts and clusters of this vCenter. Read once here, because the
                 # host, cluster and vCenter collections below all publish part of it.
                 availability = read_operational_availability(client, adapter_instance_id)
+                # Network Speed Degradation of the hosts of this vCenter, for the host and Datacenter collections.
+                network_speed = read_network_speed(client, adapter_instance_id)
 
                 start_times = {}
 
@@ -624,7 +645,7 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                     start_times["collect_host_data"] = time.perf_counter()
                     future_host = data_executor.submit(
                         collect_host_data, client, adapter_instance_id, result, content, esxiAdvSettings, esxiVIBDrivers,
-                        availability
+                        availability, network_speed
                     )
 
                     # 3. VM feature definition
@@ -651,8 +672,12 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                     start_times["collect_world_data"] = time.perf_counter()
                     future_world = data_executor.submit(collect_world_data, client, result)
 
+                    # 7. Datacenter: Total Network Speed Degradation of this vCenter's Datacenters
+                    start_times["collect_datacenter_data"] = time.perf_counter()
+                    future_dc = data_executor.submit(collect_datacenter_data, client, adapter_instance_id, result, network_speed)
+
                     # Define main futures
-                    main_futures = [future_cls, future_host, future_vm, future_ds, future_vc, future_world]
+                    main_futures = [future_cls, future_host, future_vm, future_ds, future_vc, future_world, future_dc]
     
                     for future in concurrent.futures.as_completed(main_futures):
                         # Check future function
@@ -666,6 +691,8 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                             func_name = "collect_host_data"
                         elif future == future_world:
                             func_name = "collect_world_data"
+                        elif future == future_dc:
+                            func_name = "collect_datacenter_data"
                         else:
                             func_name = "collect_vm_data"
 

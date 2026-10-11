@@ -32,7 +32,37 @@ def read_latest_stats(
     }
 
 
-def _query_stats(suite_api_client: SuiteApiClient, path: str, query: dict) -> Dict[str, Dict[str, List[float]]]:
+def read_latest_instance_stats(
+    suite_api_client: SuiteApiClient, resource_ids: List[str], stat_keys: List[str]
+) -> Dict[str, Dict[str, Dict[str, float]]]:
+    """Returns {resource id: {stat key: {instance: latest value}}}, one value per instance.
+
+    Asked for "net|speed", VCF Operations also returns one stat per instance, such as "net:vmnic0|speed"
+    for NIC vmnic0. Those are kept here, by instance name. The stat without an instance is left out.
+    """
+    query = {"resourceId": resource_ids, "statKey": stat_keys}
+    samples_by_resource = _query_stats(suite_api_client, LATEST_STATS_PATH, query, keep_instances=True)
+    values = {}
+    for resource_id, samples_by_key in samples_by_resource.items():
+        for full_key, samples in samples_by_key.items():
+            instance, stat_key = split_instance(full_key)
+            if instance is not None:
+                values.setdefault(resource_id, {}).setdefault(stat_key, {})[instance] = samples[-1]
+    return values
+
+
+def split_instance(stat_key: str):
+    """"net:vmnic0|speed" -> ("vmnic0", "net|speed"). A key without an instance -> (None, the key)."""
+    group, separator, rest = stat_key.partition("|")
+    if ":" not in group or not separator:
+        return None, stat_key
+    name, _, instance = group.partition(":")
+    return instance, f"{name}|{rest}"
+
+
+def _query_stats(
+    suite_api_client: SuiteApiClient, path: str, query: dict, keep_instances: bool = False
+) -> Dict[str, Dict[str, List[float]]]:
     """Returns {resource id: {stat key: [samples, oldest first]}}. Resources of a failed request are absent."""
     resource_ids = query["resourceId"]
     requested_keys = set(query["statKey"])
@@ -53,8 +83,10 @@ def _query_stats(suite_api_client: SuiteApiClient, path: str, query: dict) -> Di
                 stat_key = stat.get("statKey", {}).get("key")
                 samples = stat.get("data") or []
                 # VCF Operations also returns every instance of a requested stat, such as
-                # "cpu:26|utilization_average" for CPU thread 26. Only the requested keys are kept.
-                if stat_key in requested_keys and samples:
+                # "cpu:26|utilization_average" for CPU thread 26. Only the requested keys are kept,
+                # and their instances when keep_instances is set.
+                requested = stat_key in requested_keys or (keep_instances and split_instance(stat_key or "")[1] in requested_keys)
+                if requested and samples:
                     samples_by_key[stat_key] = [float(sample) for sample in samples]
     return samples_by_resource
 

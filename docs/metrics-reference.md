@@ -7,11 +7,12 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 **On this page:**
 
 - [Cluster](#cluster) (46 items)
-- [Host](#host) (57 items)
+- [Host](#host) (58 items)
 - [Datastore](#datastore) (9 items)
-- [Virtual Machine](#virtual-machine) (55 items)
+- [Virtual Machine](#virtual-machine) (57 items)
 - [vCenter](#vcenter) (12 items)
-- [vSphere World](#vsphere-world) (6 items)
+- [vSphere World](#vsphere-world) (7 items)
+- [Datacenter](#datacenter) (1 item)
 - [Super metrics replaced by built-in metrics](#super-metrics-replaced-by-built-in-metrics)
 
 ---
@@ -75,6 +76,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|Network\|Network Speed Degradation` | Actual NIC speed as a share (%) of the configured speed, over the physical NICs that can be compared. 100 % means no degradation. See [Network Speed Degradation](network-speed-degradation.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|Availability\|ESXi Host Operational Availability` | 25 % each for powered on, connected, not in maintenance and not in quarantine. A host with no data is 0 %. See [Operational Availability](operational-availability.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Performance Score` | Key Performance Indicator (0-100 %) of the host, combining the 9 sub-metrics below. 100 is perfect. See [ESXi Performance KPI](esxi-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM on the host. |
@@ -161,6 +163,8 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | :--- | :--- | :--- |
 | 🟢 Metric | `vCommunity\|VM Performance\|VM Performance Score` | Key Performance Indicator (0-100 %) of a powered-on VM as a virtual motherboard, combining 9 sub-metrics. 100 is perfect. See [VM Performance KPI](vm-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|VM Performance\|Memory Zip Swap` | Compressed plus swapped memory of the VM, as a share (%) of the memory the guest uses. |
+| 🟢 Metric | `vCommunity\|Configuration\|Share per vCPU` | CPU shares ÷ vCPUs, on every VM. Normal = 1000. See [VM Shares](vm-shares.md). |
+| 🟢 Metric | `vCommunity\|Configuration\|Share per MB of Memory` | Memory shares ÷ configured MB, on every VM. Normal = 10. Replaces "Share per GB of Memory", which was in fact per MB. See [VM Shares](vm-shares.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|VM Guest OS KPI` | Average (0-100 %) of VM Performance Score and Guest OS Performance Score. A VM without VMware Tools has no Guest OS Performance; its VM Guest OS KPI is then its VM Performance Score alone. Replaces the "vSphere VM Performance" super metric. |
 | 🟢 Metric | `vCommunity\|Guest OS Performance\|Guest OS Performance Score` | Key Performance Indicator (0-100 %) of the guest OS of a powered-on VM with VMware Tools, combining 4 sub-metrics. 100 is perfect. See [Guest OS Performance KPI](guest-os-performance-kpi.md) for the formula. |
 | ⚪ Property | `vCommunity\|Options\|`<config_path>`` | Value of a VM config field (e.g. config.bootOptions.bootDelay) tracked via the vm_options config file. One property per tracked field; skipped entirely if the value is None. |
@@ -249,7 +253,18 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|10th Percentile Cluster Risk` | The Cluster Risk score that 90 % of all clusters are at or above. Same limitation. |
 | 🟢 Metric | `vCommunity\|Availability\|Worst Cluster Operational Availability` | The lowest Cluster Operational Availability of all clusters, of all vCenters. Can be up to one collection cycle old. See [Operational Availability](operational-availability.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|Availability\|ESXi Hosts Operational Availability` | The average ESXi Host Operational Availability of all hosts, of all vCenters. Same limitation. |
+| 🟢 Metric | `vCommunity\|Network\|Total Network Speed Degradation` | The number of hosts below 100 % Network Speed Degradation, of all vCenters. Can be up to one collection cycle old. See [Network Speed Degradation](network-speed-degradation.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|Worst Cluster Risk` | The lowest Cluster Risk score of all clusters. Same limitation. |
+
+[⬆ Back to top](#metrics--properties-reference)
+
+---
+
+## Datacenter
+
+| Type | Path | Description |
+| :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|Network\|Total Network Speed Degradation` | The number of hosts of the Datacenter below 100 % Network Speed Degradation, from the same collection cycle. See [Network Speed Degradation](network-speed-degradation.md#known-limitations). |
 
 [⬆ Back to top](#metrics--properties-reference)
 
@@ -280,6 +295,10 @@ These super metrics were removed from `content/supermetrics`. Their dashboards, 
 | ESXi Host Operational Availability ("ESXi Host Availability") | Host | `vCommunity\|Availability\|ESXi Host Operational Availability` |
 | ESXi Hosts Operational Availability ("ESXi Hosts Average Availability") | vSphere World | `vCommunity\|Availability\|ESXi Hosts Operational Availability` |
 | Cluster Operational Availability | Cluster | `vCommunity\|Availability\|Cluster Operational Availability` |
+| Share per vCPU | VM | `vCommunity\|Configuration\|Share per vCPU` |
+| Share per GB of Memory | VM | `vCommunity\|Configuration\|Share per MB of Memory` (same values: it was per MB) |
+| Network Speed Degradation | Host | `vCommunity\|Network\|Network Speed Degradation` |
+| Total Network Speed Degradation | vSphere World, Datacenter | `vCommunity\|Network\|Total Network Speed Degradation` |
 | Worst Cluster Operational Availability | vSphere World, vCenter | `vCommunity\|Availability\|Worst Cluster Operational Availability`. No longer provided on Custom Datacenter. |
 
 - The averages became a percentile, which a super metric cannot calculate: the 90th percentile of VM values, the 10th percentile of cluster scores.
@@ -290,4 +309,4 @@ These super metrics were removed from `content/supermetrics`. Their dashboards, 
 
 ---
 
-**Total: 183 template rows across 6 object types.**
+**Total: 188 template rows across 7 object types.**

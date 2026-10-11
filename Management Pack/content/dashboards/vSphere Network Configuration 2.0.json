@@ -355,8 +355,8 @@
             "title": "Network Speed Degradation",
             "config": {
                "yellowBound": 1,
-               "metricName": "Super Metrics|Total Network Speed Degradation",
-               "metricKey": "Super Metric|sm_3d21df83-083e-46b6-a6c0-5f7f2ae776c5",
+               "metricName": "vCommunity|Network|Total Network Speed Degradation",
+               "metricKey": "vCommunity|Network|Total Network Speed Degradation",
                "relationshipMode": {"relationshipMode": 0},
                "sortByDir": {"orderByDir": "asc"},
                "title": "Network Speed Degradation",

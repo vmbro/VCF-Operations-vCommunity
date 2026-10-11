@@ -47,10 +47,16 @@ class FakeSuiteApi:
         for resource_id in json["resourceId"]:
             stats = [
                 {"statKey": {"key": key}, "timestamps": list(range(len(data))), "data": data}
-                for key, data in self.samples.get(resource_id, {}).items() if key in json["statKey"]
+                for key, data in self.samples.get(resource_id, {}).items() if self._requested(key, json["statKey"])
             ]
             values.append({"resourceId": resource_id, "stat-list": {"stat": stats}})
         return FakeResponse({"values": values}, self.status_code)
+
+    @staticmethod
+    def _requested(key, stat_keys):
+        """Like VCF Operations: a requested stat also returns its instances, such as net:vmnic0|speed for net|speed."""
+        group, _, rest = key.partition("|")
+        return key in stat_keys or f"{group.split(':')[0]}|{rest}" in stat_keys
 
     def _properties(self, json):
         values = []

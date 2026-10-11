@@ -8,6 +8,7 @@ from aria.ops.suite_api_client import SuiteApiClient
 from constants.main import VCENTER_ADAPTER_KIND
 from metrics.world.cluster_summary_metrics import collect_cluster_summary_metrics
 from metrics.world.availability_summary_metrics import collect_availability_summary_metrics
+from metrics.network.network_speed_degradation import collect_world_network_speed
 
 logger = logging.getLogger(__name__)
 
@@ -25,6 +26,7 @@ def collect_world_data(suite_api_client: SuiteApiClient, result: CollectResult) 
         world_obj = worlds[0]
         collect_cluster_summary_metrics(world_obj, suite_api_client)
         collect_availability_summary_metrics(world_obj, suite_api_client)
+        collect_world_network_speed(world_obj, suite_api_client)
         result.add_object(world_obj)
 
     except Exception as e:

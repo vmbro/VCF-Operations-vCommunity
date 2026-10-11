@@ -633,7 +633,7 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_77c9b561-8a30-496c-80bc-4b049bd63b96"/>
+                                    <Property name="attributeKey" value="vCommunity|Configuration|Share per vCPU"/>
                                         
                                     <Property name="isStringAttribute" value="false"/>
                                         
@@ -765,7 +765,7 @@
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_f4184f6d-e711-4dc2-93ca-941754a135e7"/>
+                                    <Property name="attributeKey" value="vCommunity|Configuration|Share per MB of Memory"/>
                                         
                                     <Property name="isStringAttribute" value="false"/>
                                         
@@ -789,7 +789,7 @@
                                         
                                     <Property name="isProperty" value="false"/>
                                         
-                                    <Property name="displayName" value="Share per GB RAM"/>
+                                    <Property name="displayName" value="Share per MB of Memory"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
