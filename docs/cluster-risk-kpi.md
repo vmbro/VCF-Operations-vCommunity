@@ -25,10 +25,10 @@ Every sub-metric is "lower is better".
 | Saturation | Worst ESXi Memory Ballooned | % | 1 | 2 | 4 | 8 |
 | Saturation | Worst ESXi Memory Zip Swap (swapped + compressed) | % | 0.25 | 0.5 | 1 | 2 |
 | Saturation | Worst ESXi Memory Tiering Latency | µs | 150 | 300 | 450 | 600 |
-| Reservation | Highest ESXi CPU Reservation | % | 30 | 60 | 80 | 90 |
-| Reservation | Highest ESXi Memory Reservation | % | 30 | 60 | 80 | 90 |
-| Allocation | Highest ESXi CPU Overcommit Ratio | ratio | 1 | 2 | 3 | 4 |
-| Allocation | Highest ESXi Memory Overcommit Ratio | ratio | 1 | 1.4 | 1.8 | 2.2 |
+| Reservation | Highest ESXi CPU Reservation | % | Excluded (below 10) | 40 | 60 | 80 |
+| Reservation | Highest ESXi Memory Reservation | % | Excluded (below 10) | 40 | 60 | 80 |
+| Allocation | Highest ESXi CPU Overcommit Ratio | ratio | Excluded (below 1) | 2 | 3 | 4 |
+| Allocation | Highest ESXi Memory Overcommit Ratio | ratio | Excluded (below 1) | 1.4 | 1.8 | 2.2 |
 | Monster VM | Highest CPU Monster VM to Host Ratio | ratio | 1 | 2 | 3 | 4 |
 | Monster VM | Highest Memory Monster VM to Host Ratio | ratio | 1 | 2 | 3 | 4 |
 
@@ -38,7 +38,7 @@ The score is 100 at 0 for every row, except CPU Imbalance, where it is 100 at 1 
 
 \* **Assumed limit.** The source table gives red for CPU Imbalance as "2" only, so where red ends is not given. It is set to 2.75, so red is as wide as orange. Confirm or change this value before the KPI is built.
 
-**Excluded.** The green ranges of CPU Thread Utilization and Memory Consumed are marked "Excluded" in the source table. A host that is not busy says nothing about risk. So while they are green, these sub-metrics are left out of the KPI instead of scoring 100. They count once they leave green.
+**Excluded.** Six green ranges are marked "Excluded" in the source table: CPU Thread Utilization, Memory Consumed, CPU and Memory Reservation, and CPU and Memory Overcommit. A host that is not busy, has little reserved or is not overcommitted says nothing about risk. So while they are green, these sub-metrics are left out of the KPI instead of scoring 100. They count once they leave green.
 
 ## How the score is calculated
 

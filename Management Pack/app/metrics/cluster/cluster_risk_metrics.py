@@ -56,12 +56,14 @@ METRICS = [
     Metric("Worst ESXi Memory Tiering Latency",       "µs",  0.0,  150.0, 300.0,  450.0,  600.0),
 
     # --- Reservation: capacity that is promised to VMs, even when they do not use it ---
-    Metric("Highest ESXi CPU Reservation",            "%",   0.0,  30.0,  60.0,   80.0,   90.0),
-    Metric("Highest ESXi Memory Reservation",         "%",   0.0,  30.0,  60.0,   80.0,   90.0),
+    # Green (below 10 %) is "Excluded": little reservation says nothing about risk.
+    Metric("Highest ESXi CPU Reservation",            "%",   0.0,  10.0,  40.0,   60.0,   80.0,   True),
+    Metric("Highest ESXi Memory Reservation",         "%",   0.0,  10.0,  40.0,   60.0,   80.0,   True),
 
     # --- Allocation: configured vCPU and vRAM against what the host has ---
-    Metric("Highest ESXi CPU Overcommit Ratio",       None,  0.0,  1.0,   2.0,    3.0,    4.0),
-    Metric("Highest ESXi Memory Overcommit Ratio",    None,  0.0,  1.0,   1.4,    1.8,    2.2),
+    # Green (below 1, no overcommit) is "Excluded": it says nothing about risk.
+    Metric("Highest ESXi CPU Overcommit Ratio",       None,  0.0,  1.0,   2.0,    3.0,    4.0,    True),
+    Metric("Highest ESXi Memory Overcommit Ratio",    None,  0.0,  1.0,   1.4,    1.8,    2.2,    True),
 
     # --- Monster VM: the largest VM against the size of a host ---
     Metric("Highest CPU Monster VM to Host Ratio",    None,  0.0,  1.0,   2.0,    3.0,    4.0),

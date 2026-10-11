@@ -28,9 +28,10 @@ How it is calculated
 
 Where the limits come from
 --------------------------
-docs/Complex Metrics/Virtual Motherboard Performance metric.png. CPU Run has its
-green range marked "Excluded": a VM that runs below 95 % is left out of the
-KPI rather than scored 100, see "Skip when green" in metrics/kpi_score.py.
+docs/Complex Metrics/Virtual Motherboard Performance metric.png. CPU Overlap,
+Network Dropped Tx and CPU Run have their green range marked "Excluded": while
+green they are left out of the KPI rather than scored 100, see "Skip when green"
+in metrics/kpi_score.py.
 
 Missing data
 ------------
@@ -73,13 +74,15 @@ METRICS = [
     # Time the VM was ready to run but had to wait for a physical CPU.
     Metric("CPU Ready",             "%",    0.0,    2.0,    4.0,    8.0,    16.0),
     # Time the VM was interrupted so that ESXi could do work for something else.
-    Metric("CPU Overlap",           "%",    0.0,    0.5,    1.0,    2.0,    4.0),
+    # Green (below 0.5 %) is "Excluded": some overlap is normal and says nothing about performance.
+    Metric("CPU Overlap",           "%",    0.0,    0.5,    1.0,    2.0,    4.0,     True),
     # Time the VM waited for memory that the host had swapped out or compressed.
     Metric("Memory Contention",     "%",    0.0,    0.5,    1.0,    2.0,    4.0),
     # Read and write latency of the VM's virtual disks.
     Metric("Disk Latency",          "ms",   0.0,    10.0,   20.0,   40.0,   80.0),
     # Packets the VM sent that were dropped, as a share of the packets it sent.
-    Metric("Network Dropped Tx",    "%",    0.0,    0.25,   0.5,    1.0,    2.0),
+    # Green (exactly 0) is "Excluded": dropped packets are rare. Any dropped packet is yellow.
+    Metric("Network Dropped Tx",    "%",    0.0,    0.0,    0.5,    1.0,    2.0,     True),
 
     # --- VM utilization ---
     # Time the VM really ran on a physical CPU. Near 100 % the VM itself is too small.

@@ -38,27 +38,34 @@ The scoring is the same for every KPI. It is described in [Cluster Performance K
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | CPU Co-Stop | % | 1 | 2 | 4 | 8 |
 | CPU Ready | % | 2 | 4 | 8 | 16 |
-| CPU Overlap | % | 0.5 | 1 | 2 | 4 |
+| CPU Overlap | % | Excluded (below 0.5) | 1 | 2 | 4 |
 | Memory Contention | % | 0.5 | 1 | 2 | 4 |
 | Disk Latency | ms | 10 | 20 | 40 | 80 |
-| Network Dropped Tx | % | 0.25 | 0.5 | 1 | 2 |
+| Network Dropped Tx | % | Excluded (exactly 0) | 0.5 | 1 | 2 |
 | CPU Run | % | Excluded (below 95) | 97 | 99 | 100 |
 | Memory Ballooned | % | 2 | 4 | 8 | 16 |
 | Memory Zip Swap | % | 0.25 | 0.5 | 1 | 2 |
 
 Every sub-metric is "lower is better", and 0 is perfect.
 
-**Excluded.** The green range of CPU Run is marked "Excluded" in the source table. A VM that runs below 95 % is not busy, which says nothing about its performance. So while CPU Run is below 95 %, it is left out of the KPI instead of scoring 100. Above 95 %, the VM itself is too small, and CPU Run counts like any other sub-metric.
+**Excluded.** Three green ranges are marked "Excluded" in the source table. While a sub-metric is in its excluded green, it is left out of the KPI instead of scoring 100. Once it leaves green, it counts like any other sub-metric.
+
+- **CPU Overlap below 0.5 %.** Some overlap is normal and says nothing about performance.
+- **Network Dropped Tx at exactly 0.** Dropped packets are rare. Any dropped packet is yellow.
+- **CPU Run below 95 %.** A VM that is not busy says nothing about its performance. Above 95 %, the VM itself is too small.
 
 ## Worked examples
 
-- **Nothing wrong, CPU Run below 95 %.** CPU Run is left out. The other 8 score 100 with weight 1. KPI = **100**.
+- **Nothing wrong.** CPU Overlap, Network Dropped Tx and CPU Run are in their excluded green, so they are left out. The other 6 score 100 with weight 1. KPI = **100**.
 - **Same, except CPU Ready = 10** (red tier):
   - CPU Ready is a quarter of the way through red (from 8 to 16), so it scores `25 − (¼ × 25) = 18.75`, with weight 8.
-  - KPI = `(7 × 100 + 18.75 × 8) / (7 + 8)` = `850 / 15` ≈ **56.67**.
+  - KPI = `(5 × 100 + 18.75 × 8) / (5 + 8)` = `650 / 13` = **50.0**.
 - **Same as the first, except CPU Run = 98 %** (orange tier):
   - It is halfway through orange (from 97 to 99), so it scores `37.5`, with weight 4.
-  - KPI = `(8 × 100 + 37.5 × 4) / (8 + 4)` = `950 / 12` ≈ **79.17**.
+  - KPI = `(6 × 100 + 37.5 × 4) / (6 + 4)` = `750 / 10` = **75.0**.
+- **Same as the first, except 0.25 % dropped packets** (yellow tier):
+  - It is halfway through yellow (from 0 to 0.5), so it scores `62.5`, with weight 2.
+  - KPI = `(6 × 100 + 62.5 × 2) / (6 + 2)` = `725 / 8` ≈ **90.62**.
 
 The same examples are checked by the tests in [`Management Pack/tests/test_vm_performance_metrics.py`](../Management%20Pack/tests/test_vm_performance_metrics.py).
 
@@ -76,6 +83,6 @@ The sub-metrics, their units and their limits are one table, `METRICS`, at the t
 
 - To change a limit, edit the row.
 - To add a sub-metric that is a VM stat as it is, add a row to `METRICS` and a line to `SOURCE_STATS`.
-- To exclude a green range, set the last value of the row to `True`.
+- To exclude a green range, set the last value of the row to `True`. For a green that is exactly 0, also set the green limit to 0.
 
 The adapter definition reads the same table, so there is nothing else to update.

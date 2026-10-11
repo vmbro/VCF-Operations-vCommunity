@@ -129,8 +129,8 @@ Rows with skip when green today, as marked "Excluded" in the source tables:
 | KPI | Sub-metrics |
 | :--- | :--- |
 | Cluster Performance | Highest ESXi Bad Network Packets |
-| VM Performance | CPU Run (below 95 %) |
-| Cluster Risk | Highest ESXi CPU Thread Utilization (below 60 %), Highest ESXi Memory Consumed (below 80 %) |
+| VM Performance | CPU Overlap (below 0.5 %), Network Dropped Tx (exactly 0), CPU Run (below 95 %) |
+| Cluster Risk | Highest ESXi CPU Thread Utilization (below 60 %), Highest ESXi Memory Consumed (below 80 %), Highest ESXi CPU and Memory Reservation (below 10 %), Highest ESXi CPU and Memory Overcommit Ratio (below 1) |
 | ESXi Performance | ESXi Bad Network Packets |
 
 ### Missing data
