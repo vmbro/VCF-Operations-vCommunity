@@ -11,7 +11,7 @@ An always-on health check of vSphere Distributed Switches and distributed port g
 - has no impact on the network, and
 - does not rely on the vSphere Distributed Switch health check feature, whose results are unreliable as an always-on signal (see [Limitations of the current VCF Operations properties](#limitations-of-the-current-vcf-operations-properties)).
 
-It replaces the "Total Network Configuration Issues" and "Total Non-default Settings" super metrics. The properties those use have known limitations, listed below.
+It replaces the "Total Network Configuration Issues" and "Total Non-default Settings" super metrics. Both were removed from the pack because the properties they use are unreliable (see the limitations below). Their dashboard widgets and report columns were removed with them, and are to be added back with the new metrics; see [Content to add back](#content-to-add-back).
 
 ## Decisions already made
 
@@ -134,6 +134,19 @@ They map to the vSphere API port group policy (`DVPortgroupPolicy` and its VMwar
 - The deprecated security flag is replaced by `macManagementOverrideAllowed`, read from vCenter if VCF Operations does not collect it.
 - `port_config_reset_at_disconnect` and `live_port_moving_allowed` are checked as behaviour settings, not as overrides.
 - Detecting the ports that actually override the port group is phase 2. It needs per-port data from vCenter, which can be large on big switches.
+
+## Content to add back
+
+When "Total Network Configuration Issues" (super metric `0c648c9c-cede-4403-b8fe-500067629bf0`) and "Total Non-default Settings" (`f30f298c-385f-4ef8-b511-4092a348a346`) were removed, the content that used them was removed too. Add it back, using the new metrics, when the health check is built.
+
+| Content | What was removed | Super metric it used |
+| :--- | :--- | :--- |
+| Dashboard *vSphere Network Configuration 2.0* | Widget "Configuration Issues" (Health Chart, for the selected Datacenter or vSphere World), and its interaction from the selector widget | Total Network Configuration Issues |
+| Dashboard *vSphere Network Configuration 2.0* | The two columns' saved layout in the "Distributed Switches" view widget | Both |
+| Dashboard *VCF Optimization Assessment/Report: vSphere Network Configuration* (in *Input dashboards*) | Widget "Configuration Issues" (Health Chart) | Total Network Configuration Issues |
+| Report view *View - Set 3* | Columns "Total Network Configuration Issues" and "Non-default Setting" | Both |
+| Report view *View - Set 4* | Columns "Network Configuration Issues" and "Non-default Settings" | Both |
+| Report *Report - VOA - Distributed Switch for CSV export* | Columns "Network Configuration Issues" and "Non-default Settings" | Both |
 
 ## Open questions
 

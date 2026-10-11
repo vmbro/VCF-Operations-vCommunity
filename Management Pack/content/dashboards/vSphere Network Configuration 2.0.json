@@ -56,7 +56,7 @@
             },
             "height": 267,
             "states": [{
-               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Ctotal_number_hosts1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Cversion2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-capability%2525257CnicTeamingPolicy3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_teaming4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_vlan_mtu5%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-Super%25252520Metric%2525257Csm_f30f298c-385f-4ef8-b511-4092a348a3466%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-Super%25252520Metric%2525257Csm_0c648c9c-cede-4403-b8fe-500067629bf07%25255Ehidden%25253Db%2525253A0",
+               "value": "o%3Acolumns%3Da%253Ao%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-0%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Ctotal_number_hosts1%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-summary%2525257Cversion2%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-capability%2525257CnicTeamingPolicy3%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_teaming4%25255Ehidden%25253Db%2525253A0%255Eo%25253Aid%25253Ds%2525253ApermTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0-column-config%2525257Chealth_check_config%2525257Chealth_check_config_vlan_mtu5%25255Ehidden%25253Db%2525253A0",
                "key": "permTableView_widget_769d7441-2926-413a-99cc-7641c0c78b63_a5564515-b723-4263-994b-99982b6037b0"
             }]
          },
@@ -255,60 +255,6 @@
          },
          {
             "collapsed": false,
-            "id": "157f5e61-01c4-4f79-b30e-45aefc2b7630",
-            "gridsterCoords": {
-               "w": 5,
-               "x": 3,
-               "h": 4,
-               "y": 1
-            },
-            "type": "HealthChart",
-            "title": "Configuration Issues",
-            "config": {
-               "yellowBound": 1,
-               "metricName": "Super Metrics|Total Network Configuration Issues",
-               "metricKey": "Super Metric|sm_0c648c9c-cede-4403-b8fe-500067629bf0",
-               "relationshipMode": {"relationshipMode": 0},
-               "sortByDir": {"orderByDir": "asc"},
-               "title": "Configuration Issues",
-               "showResourceName": {"showResourceName": false},
-               "chartHeight": 135,
-               "metricUnit": {
-                  "metricUnitId": -1,
-                  "metricUnitName": "Default Unit"
-               },
-               "mode": "all",
-               "metricType": {"metricType": "custom"},
-               "filterMode": "tagPicker",
-               "tagFilter": null,
-               "paginationNumber": 15,
-               "customFilter": {
-                  "filter": [],
-                  "excludedResources": null,
-                  "includedResources": null
-               },
-               "selectFirstRow": {"selectFirstRow": false},
-               "sortBy": "metricValue",
-               "selfProvider": {"selfProvider": false},
-               "refreshInterval": 300,
-               "resource": [],
-               "refreshContent": {"refreshContent": false},
-               "resourceKindId": "resourceKind:id:0_::_",
-               "orangeBound": 5,
-               "metricFullName": "Super Metrics|Total Network Configuration Issues",
-               "showMetricLabel": {"showMetricLabel": false},
-               "depth": 1,
-               "metricLabel": "",
-               "redBound": 10
-            },
-            "height": 210,
-            "states": [{
-               "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
-               "key": "permDateRange_HealthChart_widget_769d7441-2926-413a-99cc-7641c0c78b63_157f5e61-01c4-4f79-b30e-45aefc2b7630"
-            }]
-         },
-         {
-            "collapsed": false,
             "id": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
             "gridsterCoords": {
                "w": 2,
@@ -430,11 +376,6 @@
             "widgetIdProvider": "a7c91bba-721c-4757-945d-cead46faa813",
             "type": "resourceId",
             "widgetIdReceiver": "54428e56-d55b-41fc-9161-1ef1d1add193"
-         },
-         {
-            "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",
-            "type": "resourceId",
-            "widgetIdReceiver": "157f5e61-01c4-4f79-b30e-45aefc2b7630"
          },
          {
             "widgetIdProvider": "cdb643b9-cfc0-46e6-b3b4-778055645d1f",

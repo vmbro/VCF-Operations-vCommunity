@@ -6864,66 +6864,6 @@
             },
             {
                "collapsed": false,
-               "id": "5f017d99-fd99-42e1-988e-6e39f4d15953",
-               "gridsterCoords": {
-                  "w": 12,
-                  "x": 1,
-                  "h": 5,
-                  "y": 1
-               },
-               "type": "HealthChart",
-               "title": "Configuration Issues",
-               "config": {
-                  "yellowBound": 1,
-                  "metricName": "Super Metrics|Total Network Configuration Issues",
-                  "metricKey": "Super Metric|sm_0c648c9c-cede-4403-b8fe-500067629bf0",
-                  "relationshipMode": {"relationshipMode": 0},
-                  "sortByDir": {"orderByDir": "asc"},
-                  "title": "Configuration Issues",
-                  "showResourceName": {"showResourceName": false},
-                  "chartHeight": 190,
-                  "metricUnit": {
-                     "metricUnitId": -1,
-                     "metricUnitName": "Default Unit"
-                  },
-                  "mode": "all",
-                  "metricType": {"metricType": "custom"},
-                  "filterMode": "tagPicker",
-                  "tagFilter": null,
-                  "paginationNumber": 15,
-                  "customFilter": {
-                     "filter": [],
-                     "excludedResources": null,
-                     "includedResources": null
-                  },
-                  "selectFirstRow": {"selectFirstRow": false},
-                  "sortBy": "metricValue",
-                  "selfProvider": {"selfProvider": false},
-                  "refreshInterval": 300,
-                  "resource": [],
-                  "refreshContent": {"refreshContent": false},
-                  "resourceKindId": "resourceKind:id:0_::_",
-                  "orangeBound": 5,
-                  "metricFullName": "Super Metrics|Total Network Configuration Issues",
-                  "showMetricLabel": {"showMetricLabel": false},
-                  "depth": 1,
-                  "metricLabel": "",
-                  "redBound": 10
-               },
-               "height": 266,
-               "states": [
-                  {
-                     "value": "b%3A1",
-                     "key": "perm_toolbarVisible_widget_ab480d7b-d33d-4488-8bf3-0d926972b89e_5f017d99-fd99-42e1-988e-6e39f4d15953"
-                  },
-                  {
-                     "value": "s%3A%7B%22dateRange%22%3A%22dashboardTime%22%2C%22dateFrom%22%3Anull%2C%22dateTo%22%3Anull%2C%22timeFrom%22%3Anull%2C%22timeTo%22%3Anull%7D",
-                     "key": "permDateRange_HealthChart_widget_ab480d7b-d33d-4488-8bf3-0d926972b89e_5f017d99-fd99-42e1-988e-6e39f4d15953"
-                  }
-               ]
-            },
-            {
-               "collapsed": false,
                "id": "02264491-f615-4262-890f-a66b1f408ce5",
                "gridsterCoords": {
                   "w": 12,
