@@ -47,17 +47,17 @@ Each sub-metric is calculated per host, then the highest (worst) host is kept.
 | Memory Consumed | Consumed memory, as a share of host memory | VCF Operations: `mem\|consumed_average` / `mem\|totalCapacity_average` |
 | Memory Ballooned | Ballooned memory, as a share of host memory | VCF Operations: `mem\|vmmemctl_average` / `mem\|totalCapacity_average` |
 | Memory Zip Swap | Compressed plus swapped memory, as a share of host memory | VCF Operations: (`mem\|compressed_average` + `mem\|swapused_average`) / `mem\|totalCapacity_average` |
-| Memory Tiering Latency | Not available yet: no source stat. Always left out. | — |
+| Memory Tiering Latency | Read latency of the NVMe memory tier. Only hosts with memory tiering have it; for the others it is left out. | VCF Operations: `mem:NVMe\|latency.read_latest` |
 | CPU Reservation | Reserved CPU, as a share of host CPU capacity | VCF Operations: `cpu\|reservedCapacity_average` / `cpu\|totalCapacity_average` |
 | Memory Reservation | Reserved memory, as a share of host memory | VCF Operations: `mem\|reservedCapacity_average` / `mem\|totalCapacity_average` |
 | CPU Overcommit Ratio | vCPUs allocated to the powered-on VMs, per physical core | VCF Operations: `cpu\|vcpus_allocated_on_all_powered_on_vms`, `hardware\|cpuInfo\|numCpuCores` |
 | Memory Overcommit Ratio | Memory allocated to the powered-on VMs, divided by host memory capacity. Both stats are in KB, so they divide directly. | VCF Operations: `mem\|memory_allocated_on_all_powered_on_vms` / `mem\|totalCapacity_average` |
 | CPU Monster VM to Host Ratio | vCPUs of the largest powered-on VM, against the monster size of its host (see below) | VCF Operations: VM `config\|hardware\|numCpu`, host `hardware\|cpuInfo\|numCpuCores` |
-| Memory Monster VM to Host Ratio | Memory of the largest powered-on VM, against the monster size of its host (see below) | VCF Operations: VM `config\|hardware\|memoryKB`. Host DIMM memory: vCenter `hardware.memoryTierInfo` (DRAM tiers), or `hardware.memorySize` without memory tiering. The one input still read from vCenter. |
+| Memory Monster VM to Host Ratio | Memory of the largest powered-on VM, against the monster size of its host (see below) | VCF Operations: VM `config\|hardware\|memoryKB`. Host DIMM memory: `mem:DRAM\|memory_tier_total_capacity`, or `mem\|totalCapacity_average` on a host without memory tiering. |
 
 ### Where each host's data comes from
 
-Everything comes from VCF Operations, read once per collection cycle for all objects, so nothing is collected twice. The one exception is DIMM memory, which still comes from vCenter until its VCF Operations key is decided.
+Everything comes from VCF Operations, read once per collection cycle for all objects, so nothing is collected twice. Nothing is read from vCenter.
 
 | Data | VCF Operations source |
 | :--- | :--- |
@@ -66,6 +66,7 @@ Everything comes from VCF Operations, read once per collection cycle for all obj
 | Physical cores | Host property `hardware\|cpuInfo\|numCpuCores` |
 | Threads | 2 × cores when both `config\|hyperThread\|available` and `config\|hyperThread\|active` are "true". Otherwise the cores. |
 | VM size | VM properties `config\|hardware\|numCpu` and `config\|hardware\|memoryKB` |
+| DIMM memory | Host stat `mem:DRAM\|memory_tier_total_capacity` (the DRAM tier). Without memory tiering, `mem\|totalCapacity_average`. |
 
 Placement is by name, because `summary|parentCluster` and `summary|parentHost` hold the name shown in vCenter, not an id. Names are unique inside one datacenter, so do not mix datacenters in one adapter instance.
 
@@ -92,7 +93,7 @@ The full explanation, with a worked example, is in [Cluster Performance KPI](clu
 Two hosts, each with 32 cores (64 threads) and 512 GB. Each runs four VMs of 4 vCPU and 16 GB. The monster size of these hosts is 16 vCPU (half of 32 cores) and 204.8 GB (40 % of 512 GB, less than 256 GB).
 
 - **Healthy.** Both hosts at 40 % thread and 80 % core utilization (one running thread per running core), 50 % memory consumed, nothing ballooned, swapped or reserved.
-  - Left out: the six rows in their excluded green, and Memory Tiering Latency (no data).
+  - Left out: the six rows in their excluded green, and Memory Tiering Latency (these hosts have no memory tiering).
   - Counted: CPU Imbalance 1 (100), Ballooned 0 (100), Zip Swap 0 (100), CPU Monster VM `4 / 16` = 0.25 (93.75), Memory Monster VM `16 / 204.8` = 0.08 (98).
   - KPI = `(100 + 100 + 100 + 93.75 + 98) / 5` = **98.35**.
 - **One busy host.** Host 1 at 90 % thread and 100 % core utilization. Host 2 at 30 % and 60 %.
@@ -113,6 +114,6 @@ A sub-metric with no data is not published for that cycle, and it is left out of
 
 - **CPU Thread Utilization and CPU Imbalance** read `cpu|utilization_average` and `cpu|coreUtilization_average`, the VCF Operations keys expected for vCenter's `cpu.utilization` and `cpu.coreUtilization`. Confirm the keys on your hosts.
 - **Memory stat keys:** `mem|totalCapacity_average`, `mem|swapused_average` and the two `reservedCapacity_average` keys are the expected names. Confirm they exist on your hosts.
-- **Memory Tiering Latency** needs its stat key. Set `MEM_TIERING_LATENCY` in the code once it is known.
+- **Memory Tiering Latency** reads `mem:NVMe|latency.read_latest` and assumes it is in µs, the unit of the limits.
 - **Overcommit and Monster VM** count powered-on VMs only.
-- **Memory tiering** is read from `hardware.memoryTierInfo`, which needs vCenter 8.0 Update 3 or later. On an older vCenter, all host memory counts as DIMM.
+- **DIMM memory** reads `mem:DRAM|memory_tier_total_capacity` and assumes it is in KB, like `mem|totalCapacity_average`. A host without it (no memory tiering) counts all its memory as DIMM.

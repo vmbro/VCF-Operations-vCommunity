@@ -40,7 +40,6 @@ Two files outside this folder belong to the same design:
 | :--- | :--- |
 | `../utils/ops_stats.py` | Reads resources (with their ids), stats and properties from VCF Operations, for many objects in one request. |
 | `../utils/ops_inventory.py` | Reads from VCF Operations which hosts are in each cluster, which powered-on VMs run on each host, VM sizes, host cores and threads. Once per cycle, by properties. |
-| `../utils/vcenter_inventory.py` | Host DIMM memory, the one KPI input still read from vCenter. |
 | `../adapter.py` | Declares each metric to VCF Operations. `define_kpi()` does this for a KPI. A unit used in a KPI table must be listed in `KPI_UNITS` there. |
 
 ## Where the numbers come from
@@ -52,7 +51,7 @@ This has two consequences:
 - A KPI is at most one collection cycle behind the stats it is built from.
 - If the vCenter adapter has not collected a stat, the KPI has no data for it. See [Missing data](#missing-data).
 
-Every KPI input comes from VCF Operations, never from vCenter, so nothing is collected twice. The one exception today is host DIMM memory, in `utils/vcenter_inventory.py`. The VCF Operations resource id that the Suite API needs comes from `ops_stats.query_resources()`: the SDK objects have no id.
+Every KPI input comes from VCF Operations, never from vCenter, so nothing is collected twice. The VCF Operations resource id that the Suite API needs comes from `ops_stats.query_resources()`: the SDK objects have no id.
 
 Every metric is published under the `vCommunity` group of the object. A KPI gets its own group below that, for example `vCommunity|VM Performance|VM Performance`.
 
@@ -212,7 +211,6 @@ python -m pytest tests
 | `test_cluster_risk_metrics.py` | Cluster Risk formulas and worked examples. |
 | `test_esxi_performance_metrics.py` | ESXi Performance formulas and worked examples. |
 | `test_ops_inventory.py` | Reading placement, power state, sizes, cores and threads from VCF Operations, and the Suite API endpoints used. |
-| `test_vcenter_inventory.py` | Reading host DIMM memory from vCenter answers. |
 | `test_guest_os_performance_metrics.py` | Guest OS Performance formulas and worked examples. |
 
 ## Pages for users

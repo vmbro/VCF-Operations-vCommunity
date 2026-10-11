@@ -23,8 +23,7 @@ How it is calculated
      hosts of the cluster;
    - take its size (cores, threads) and the size of its powered-on VMs from
      VCF Operations properties, which the cluster collector reads once for
-     all objects (utils/ops_inventory.py). DIMM memory still comes from
-     vCenter, see utils/vcenter_inventory.py.
+     all objects (utils/ops_inventory.py).
 2. Calculate every sub-metric for each host (host_risk_values), then keep the
    highest host for each sub-metric (cluster_risk_values).
 3. Score each value and combine the scores into the KPI. This step is the same
@@ -39,8 +38,8 @@ scored 100, see "Skip when green" in metrics/kpi_score.py.
 Missing data
 ------------
 A sub-metric with no data is not published and is left out of the KPI. It is
-never treated as 0, because 0 means "no risk". Memory Tiering Latency has no
-source stat yet, see MEM_TIERING_LATENCY below, so it is always left out.
+never treated as 0, because 0 means "no risk". A host without NVMe memory
+tiering has no Memory Tiering Latency, so that sub-metric is left out for it.
 
 Called from: collectors/cluster/collectClusterData.py, once per cluster.
 Overall approach for all KPIs: metrics/README.md
@@ -120,16 +119,18 @@ MEM_CAPACITY = "mem|totalCapacity_average"
 # Allocated to all powered-on VMs of the host. VCF Operations adds them up, so the code does not have to.
 VCPUS_ALLOCATED = "cpu|vcpus_allocated_on_all_powered_on_vms"            # number of vCPUs
 MEM_ALLOCATED = "mem|memory_allocated_on_all_powered_on_vms"             # KB, like MEM_CAPACITY
-# Memory Tiering Latency: the VCF Operations stat is not known yet. Set the key here once it is,
-# and the sub-metric starts to count. Until then it has no data and is left out of the KPI.
-MEM_TIERING_LATENCY = None
+# DIMM memory of the host, in KB: the DRAM tier, without a memory tier such as NVMe.
+# A host without memory tiering may not have it; then all its memory is DIMM (MEM_CAPACITY).
+MEM_DRAM_TIER_CAPACITY = "mem:DRAM|memory_tier_total_capacity"
+# Read latency of the NVMe memory tier, in µs. Only hosts with memory tiering have it.
+MEM_TIERING_LATENCY = "mem:NVMe|latency.read_latest"
 
-# Every stat that is asked from VCF Operations, for each host. Memory Tiering Latency only once its key is set.
+# Every stat that is asked from VCF Operations, for each host.
 HOST_STATS = [
     CPU_THREAD_UTIL, CPU_CORE_UTIL, CPU_RESERVED, CPU_CAPACITY,
     MEM_CONSUMED, MEM_BALLOONED, MEM_COMPRESSED, MEM_SWAPPED, MEM_RESERVED, MEM_CAPACITY,
-    VCPUS_ALLOCATED, MEM_ALLOCATED,
-] + ([MEM_TIERING_LATENCY] if MEM_TIERING_LATENCY else [])
+    VCPUS_ALLOCATED, MEM_ALLOCATED, MEM_DRAM_TIER_CAPACITY, MEM_TIERING_LATENCY,
+]
 
 
 # When a VM is a monster, on a given host.
@@ -147,7 +148,6 @@ class HostInventory(NamedTuple):
     host_id: str                    # VCF Operations resource id, for the stats API
     cores: Optional[float]          # physical cores
     threads: Optional[float]        # CPU threads
-    dram_mb: Optional[float]        # DIMM memory, without a memory tier such as NVMe
     vms: List[VmInfo]               # its powered-on VMs
 
 
@@ -183,9 +183,7 @@ def memory_zip_swap_pct(stats: Dict[str, float]) -> Optional[float]:
 
 
 def memory_tiering_latency(stats: Dict[str, float]) -> Optional[float]:
-    """None until MEM_TIERING_LATENCY is set: the source stat is not known yet."""
-    if MEM_TIERING_LATENCY is None:
-        return None
+    """Read latency of the NVMe memory tier. None on a host without memory tiering."""
     return stats.get(MEM_TIERING_LATENCY)
 
 
@@ -238,12 +236,19 @@ def cpu_monster_ratio(host: HostInventory) -> Optional[float]:
     return max(vcpus) / monster_vcpus
 
 
-def memory_monster_ratio(host: HostInventory) -> Optional[float]:
+def dimm_memory_mb(stats: Dict[str, float]) -> Optional[float]:
+    """DIMM memory of the host, in MB: the DRAM tier, or all memory on a host without memory tiering."""
+    dimm_kb = stats.get(MEM_DRAM_TIER_CAPACITY) or stats.get(MEM_CAPACITY)
+    return dimm_kb / 1024.0 if dimm_kb else None
+
+
+def memory_monster_ratio(stats: Dict[str, float], host: HostInventory) -> Optional[float]:
     """Memory of the largest VM, against the memory at which a VM becomes a monster on this host."""
     memory = [vm.memory_mb for vm in host.vms if vm.memory_mb]
-    if not host.dram_mb or not memory:
+    dimm_mb = dimm_memory_mb(stats)
+    if not dimm_mb or not memory:
         return None
-    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * host.dram_mb, MONSTER_VM_MEMORY_MB)
+    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * dimm_mb, MONSTER_VM_MEMORY_MB)
     return max(memory) / monster_mb
 
 
@@ -261,7 +266,7 @@ def host_risk_values(host: HostInventory, stats: Dict[str, float]) -> Dict[str, 
         "Highest ESXi CPU Overcommit Ratio": cpu_overcommit(stats, host),
         "Highest ESXi Memory Overcommit Ratio": memory_overcommit(stats),
         "Highest CPU Monster VM to Host Ratio": cpu_monster_ratio(host),
-        "Highest Memory Monster VM to Host Ratio": memory_monster_ratio(host),
+        "Highest Memory Monster VM to Host Ratio": memory_monster_ratio(stats, host),
     }
 
 

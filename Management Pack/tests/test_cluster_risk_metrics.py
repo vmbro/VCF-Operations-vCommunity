@@ -19,9 +19,9 @@ def vm(vcpus, memory_mb):
     return VmInfo("vm", "vm", "vm-1", "host-1", True, vcpus, memory_mb)
 
 
-def host(host_id="host-1", cores=32.0, threads=64.0, dram_mb=512.0 * 1024.0, vms=()):
-    """A host as the cluster collector builds it. By default 32 cores, 64 threads and 512 GB of DIMM."""
-    return cr.HostInventory(host_id, cores, threads, dram_mb, list(vms))
+def host(host_id="host-1", cores=32.0, threads=64.0, vms=()):
+    """A host as the cluster collector builds it. By default 32 cores and 64 threads."""
+    return cr.HostInventory(host_id, cores, threads, list(vms))
 
 
 HOST = host()
@@ -115,7 +115,7 @@ def test_overcommit_uses_what_vcf_operations_allocated_to_the_powered_on_vms():
 
 def big_host(vms):
     """The host of the Monster VM examples: 64 cores (128 threads) and 768 GB of DIMM."""
-    return host(cores=64.0, threads=128.0, dram_mb=768.0 * 1024.0, vms=vms)
+    return host(cores=64.0, threads=128.0, vms=vms)
 
 
 def test_cpu_monster_is_more_than_half_the_physical_cores():
@@ -127,9 +127,13 @@ def test_cpu_monster_is_more_than_half_the_physical_cores():
 
 def test_memory_monster_is_40_percent_of_dimm_or_256_gb():
     # 40 % of 768 GB is 307 GB, more than 256 GB, so 256 GB is the monster size. The NVMe tier does not count.
-    assert cr.memory_monster_ratio(big_host([vm(4.0, 256.0 * 1024.0)])) == 1.0
+    # The host's stats: 768 GB of DIMM in the DRAM tier, 1536 GB in all.
+    tiered = {cr.MEM_DRAM_TIER_CAPACITY: 768.0 * GB_IN_KB, cr.MEM_CAPACITY: 1536.0 * GB_IN_KB}
+    assert cr.memory_monster_ratio(tiered, big_host([vm(4.0, 256.0 * 1024.0)])) == 1.0
     # 40 % of 512 GB is 204.8 GB, less than 256 GB, so 204.8 GB is the monster size.
-    assert cr.memory_monster_ratio(host(vms=[vm(4.0, 204.8 * 1024.0)])) == 1.0
+    # Without memory tiering there is no DRAM tier stat: all 512 GB is DIMM.
+    untiered = {cr.MEM_CAPACITY: 512.0 * GB_IN_KB}
+    assert cr.memory_monster_ratio(untiered, host(vms=[vm(4.0, 204.8 * 1024.0)])) == 1.0
 
 
 def test_memory_shares_are_of_the_host_capacity():
@@ -154,7 +158,7 @@ def test_zip_swap_adds_zipped_and_swapped_per_host_then_takes_the_highest_host()
 
 def test_healthy_cluster():
     published = collect(HEALTHY)
-    # Six rows are in their excluded green, and Memory Tiering Latency has no stat, so they are not scored.
+    # Six rows are in their excluded green, and these hosts have no memory tiering, so they are not scored.
     # Counted: imbalance 1 (100), ballooned 0 (100), zip swap 0 (100),
     # CPU monster 4 vCPU / (half of 32 cores) = 0.25 (93.75),
     # memory monster 16 GB / (40 % of 512 GB) = 0.08 after rounding (98.0).
@@ -181,9 +185,14 @@ def test_a_busy_host_leaves_its_excluded_green_and_counts():
     assert published[cr.KPI_NAME] == 34.59
 
 
-def test_failed_stats_call_still_scores_what_vcenter_knows():
+def test_failed_stats_call_still_scores_what_the_properties_give():
     published = collect(HEALTHY, status_code=500)
-    # Without stats only the vCenter-based rows are left: the two Monster VM ratios.
-    assert set(published) == {
-        "Highest CPU Monster VM to Host Ratio", "Highest Memory Monster VM to Host Ratio", cr.KPI_NAME,
-    }
+    # Without stats only CPU Monster VM is left: it needs only properties (VM vCPUs, host cores).
+    assert set(published) == {"Highest CPU Monster VM to Host Ratio", cr.KPI_NAME}
+
+
+def test_memory_tiering_latency_counts_only_on_hosts_with_memory_tiering():
+    # host-2 has an NVMe memory tier with 300 µs read latency: the start of orange. host-1 has no tier.
+    samples = {"host-1": host_stats(), "host-2": {**host_stats(), cr.MEM_TIERING_LATENCY: [300.0]}}
+    assert collect(samples)["Worst ESXi Memory Tiering Latency"] == 300.0
+    assert "Worst ESXi Memory Tiering Latency" not in collect(HEALTHY)

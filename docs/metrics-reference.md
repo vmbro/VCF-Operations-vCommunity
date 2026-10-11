@@ -56,7 +56,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Consumed` | Consumed memory as a share (%) of host memory, on the fullest host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Ballooned` | Ballooned memory as a share (%) of host memory, on the worst host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Zip Swap` | Compressed plus swapped memory as a share (%) of host memory, on the worst host. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Tiering Latency` | Memory tiering latency (µs) of the worst host. Not published until its source stat is known. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Tiering Latency` | Read latency (µs) of the NVMe memory tier, on the worst host. Published only when a host in the cluster has memory tiering. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Reservation` | Reserved CPU as a share (%) of host CPU capacity, on the highest host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Reservation` | Reserved memory as a share (%) of host memory, on the highest host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Overcommit Ratio` | vCPUs allocated to the powered-on VMs per physical core, on the highest host. |

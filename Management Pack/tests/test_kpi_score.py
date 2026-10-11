@@ -161,7 +161,7 @@ def test_every_kpi_gives_a_value_for_exactly_the_sub_metrics_in_its_table():
     from metrics.host.esxi_performance_metrics import EsxiPerformanceStats
 
     vm = VmInfo("vm", "vm", "vm-1", "host-1", True, 4.0, 512.0)
-    host = cluster_risk_metrics.HostInventory("host-1", 32.0, 64.0, 1024.0, [vm])
+    host = cluster_risk_metrics.HostInventory("host-1", 32.0, 64.0, [vm])
     values_by_kpi = {
         cluster_performance_metrics: {**vm_contention_names(), "Highest ESXi Bad Network Packets": None},
         cluster_risk_metrics: cluster_risk_metrics.host_risk_values(host, {}),

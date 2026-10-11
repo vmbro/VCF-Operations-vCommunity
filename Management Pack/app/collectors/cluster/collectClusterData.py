@@ -18,7 +18,6 @@ from properties.cluster.cluster_configuration_properties import collect_cluster_
 from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
 from metrics.cluster.cluster_risk_metrics import collect_cluster_risk_metrics, HostInventory
 from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host, hosts_by_cluster
-from utils.vcenter_inventory import HOST_MEMORY_PROPERTIES, HOST_MEMORY_TIER_PROPERTIES, host_dram_mb
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -73,11 +72,6 @@ def collect_cluster_data(
     # powered-on VMs run on each host, with their sizes. See utils/ops_inventory.py.
     hosts_in_cluster = hosts_by_cluster(read_hosts(suite_api_client, adapter_instance_id))
     vms_on_host = powered_on_vms_by_host(read_vms(suite_api_client, adapter_instance_id))
-    # DIMM memory of each host: the one KPI input still read from vCenter, see utils/vcenter_inventory.py.
-    dram_by_host = host_dram_mb(
-        retrieve_properties(content, vim.HostSystem, HOST_MEMORY_PROPERTIES),
-        retrieve_properties(content, vim.HostSystem, HOST_MEMORY_TIER_PROPERTIES),
-    )
 
     for cluster_data in cluster_props:
         try:
@@ -109,8 +103,7 @@ def collect_cluster_data(
             )
 
             hosts_inventory = [
-                HostInventory(host.id, host.cores, host.threads, dram_by_host.get(host.moid),
-                              vms_on_host.get(host.name, []))
+                HostInventory(host.id, host.cores, host.threads, vms_on_host.get(host.name, []))
                 for host in cluster_hosts
             ]
             collect_cluster_risk_metrics(cluster_obj, cluster_name, hosts_inventory, suite_api_client)
