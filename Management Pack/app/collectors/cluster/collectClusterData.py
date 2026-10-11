@@ -17,9 +17,8 @@ from properties.cluster.dpm_properties import collect_dpm_properties
 from properties.cluster.cluster_configuration_properties import collect_cluster_configuration_properties
 from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
 from metrics.cluster.cluster_risk_metrics import collect_cluster_risk_metrics, HostInventory
-from utils.vcenter_inventory import (
-    VM_PROPERTIES, HOST_PROPERTIES, HOST_MEMORY_TIER_PROPERTIES, powered_on_vms_by_host, vm_sizes, host_hardware, resource_ids, resource_id,
-)
+from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host, hosts_by_cluster
+from utils.vcenter_inventory import HOST_MEMORY_PROPERTIES, HOST_MEMORY_TIER_PROPERTIES, host_dram_mb
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -53,7 +52,6 @@ def collect_cluster_data(
     propertyPaths.append("configStatus")
     propertyPaths.append("summary.numEffectiveHosts")
     propertyPaths.append("overallStatus")
-    propertyPaths.append("host")
 
     cluster_props = retrieve_properties(content, vim.ClusterComputeResource, propertyPaths)
 
@@ -71,36 +69,13 @@ def collect_cluster_data(
         cluster.get_identifier_value("VMEntityObjectID"): cluster for cluster in clusters
     }
 
-    # Retrieve HostSystem and VirtualMachine resources for bulk metric lookup
-    hosts: List[Object] = suite_api_client.query_for_resources(
-        {
-            "adapterKind": [VCENTER_ADAPTER_KIND],
-            "resourceKind": ["HostSystem"],
-            "adapterInstanceId": [adapter_instance_id],
-        }
-    )
-    hosts_by_uuid: dict[str, Object] = {
-        host.get_identifier_value("VMEntityObjectID"): host for host in hosts
-    }
-
-    vms: List[Object] = suite_api_client.query_for_resources(
-        {
-            "adapterKind": [VCENTER_ADAPTER_KIND],
-            "resourceKind": ["VirtualMachine"],
-            "adapterInstanceId": [adapter_instance_id],
-        }
-    )
-    vms_by_uuid: dict[str, Object] = {
-        vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
-    }
-
-    # Read from vCenter once, for all clusters: the powered-on VMs of each host (a cluster has no list
-    # of its VMs), the size of each VM, and the hardware of each host.
-    vm_props = retrieve_properties(content, vim.VirtualMachine, VM_PROPERTIES)
-    vms_on_host = powered_on_vms_by_host(vm_props)
-    sizes_by_vm = vm_sizes(vm_props)
-    hardware_by_host = host_hardware(
-        retrieve_properties(content, vim.HostSystem, HOST_PROPERTIES),
+    # KPIs: read from VCF Operations once, for all clusters, which hosts are in each cluster and which
+    # powered-on VMs run on each host, with their sizes. See utils/ops_inventory.py.
+    hosts_in_cluster = hosts_by_cluster(read_hosts(suite_api_client, adapter_instance_id))
+    vms_on_host = powered_on_vms_by_host(read_vms(suite_api_client, adapter_instance_id))
+    # DIMM memory of each host: the one KPI input still read from vCenter, see utils/vcenter_inventory.py.
+    dram_by_host = host_dram_mb(
+        retrieve_properties(content, vim.HostSystem, HOST_MEMORY_PROPERTIES),
         retrieve_properties(content, vim.HostSystem, HOST_MEMORY_TIER_PROPERTIES),
     )
 
@@ -124,22 +99,19 @@ def collect_cluster_data(
             collect_dpm_properties(cluster_obj, cluster_name, prop_dict)
             collect_cluster_configuration_properties(cluster_obj, cluster_name, prop_dict)
 
-            host_moids = [host._moId for host in prop_dict.get("host", [])]
-            vm_moids = [vm_moid for host_moid in host_moids for vm_moid in vms_on_host.get(host_moid, [])]
+            # KPIs. Hosts are matched to the cluster by name, as VCF Operations shows it (summary|parentCluster).
+            cluster_hosts = hosts_in_cluster.get(cluster_obj.get_key().name, [])
+            cluster_vms = [vm for host in cluster_hosts for vm in vms_on_host.get(host.name, [])]
             collect_cluster_performance_metrics(
                 cluster_obj, cluster_name,
-                resource_ids(vm_moids, vms_by_uuid), resource_ids(host_moids, hosts_by_uuid),
+                [vm.id for vm in cluster_vms], [host.id for host in cluster_hosts],
                 suite_api_client,
             )
 
-            # Cluster Risk: one entry per host that VCF Operations knows about.
             hosts_inventory = [
-                HostInventory(
-                    resource_id(host_moid, hosts_by_uuid),
-                    hardware_by_host.get(host_moid),
-                    [sizes_by_vm[vm] for vm in vms_on_host.get(host_moid, []) if vm in sizes_by_vm],
-                )
-                for host_moid in host_moids if host_moid in hosts_by_uuid
+                HostInventory(host.id, host.cores, host.threads, dram_by_host.get(host.moid),
+                              vms_on_host.get(host.name, []))
+                for host in cluster_hosts
             ]
             collect_cluster_risk_metrics(cluster_obj, cluster_name, hosts_inventory, suite_api_client)
 

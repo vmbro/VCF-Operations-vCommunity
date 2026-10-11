@@ -143,3 +143,34 @@ def percent(part: float, whole: float) -> Optional[float]:
 def has_all(stats: Dict[str, float], stat_keys: List[str]) -> bool:
     """True when every stat a formula needs has data. A formula with a stat missing must return None."""
     return all(key in stats for key in stat_keys)
+
+
+# ---------------------------------------------------------------------------
+# Publishing. The same last step for every KPI.
+# ---------------------------------------------------------------------------
+
+def publish_kpi(
+    obj, group: str, kpi_name: str, metrics: List[Metric], published_metrics: List[Metric],
+    values: Dict[str, Optional[float]],
+) -> List[str]:
+    """Publishes the sub-metrics and the KPI of one object. Returns the names of the sub-metrics with no data.
+
+    obj is the VCF Operations object: a cluster, host or VM. group, kpi_name, metrics and published_metrics
+    are the GROUP, KPI_NAME, METRICS and PUBLISHED_METRICS of the KPI module.
+    values maps each sub-metric name to its value, None meaning "no data".
+    """
+    # Drop the sub-metrics with no data, and round the others to two decimals.
+    # Round first, so the KPI is computed from exactly the numbers that are published.
+    values = {name: round(value, 2) for name, value in values.items() if value is not None}
+
+    # Publish the sub-metrics that the object does not already have as a stat.
+    for metric in published_metrics:
+        if metric.name in values:
+            obj.with_metric(f"vCommunity|{group}|{metric.name}", values[metric.name])
+
+    # Score them all and publish the KPI. No KPI when no sub-metric has data.
+    score = kpi_score(metrics, values)
+    if score is not None:
+        obj.with_metric(f"vCommunity|{group}|{kpi_name}", score)
+
+    return [metric.name for metric in metrics if metric.name not in values]

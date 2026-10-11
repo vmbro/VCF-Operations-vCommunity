@@ -35,7 +35,7 @@ def collect(samples, host_id="host-1", vm_ids=HOST_1_VMS, status_code=200):
     api = FakeSuiteApi(samples, status_code)
     stats = ep.read_esxi_performance_stats(api, HOST_1_VMS + HOST_2_VMS, ["host-1", "host-2"])
     host_obj = FakeObject(host_id)
-    ep.collect_esxi_performance_metrics(host_obj, host_id, vm_ids, stats)
+    ep.collect_esxi_performance_metrics(host_obj, host_id, host_id, vm_ids, stats)
     return {key.split("|")[-1]: value for key, value in host_obj.metrics.items()}
 
 

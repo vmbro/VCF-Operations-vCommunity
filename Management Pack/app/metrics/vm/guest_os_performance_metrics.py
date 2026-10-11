@@ -37,7 +37,7 @@ Description for people who do not read code: docs/guest-os-performance-kpi.md
 import logging
 from typing import Dict, Optional
 from aria.ops.object import Object
-from metrics.kpi_score import Metric, kpi_score
+from metrics.kpi_score import Metric, publish_kpi
 
 logger = logging.getLogger(__name__)
 
@@ -50,7 +50,7 @@ METRICS = [
     #       name                            unit    best    green   yellow  orange  zero-at
 
     # --- Guest OS contention ---
-    # Threads waiting for a vCPU, per vCPU. Calculated, see cpu_queue_per_vcpu().
+    # Threads waiting for a vCPU, per vCPU. The stat is already per vCPU, so it is used as it is.
     Metric("Guest CPU Run Queue per vCPU",  None,   0.0,    2.0,    4.0,    8.0,    16.0),
     # Disk IOs inside the guest OS that wait to be sent.
     Metric("Guest Disk Queue",              None,   0.0,    20.0,   40.0,   80.0,   160.0),
@@ -70,26 +70,18 @@ PUBLISHED_METRICS = []
 # The VCF Operations stats that the sub-metrics are built from.
 # ---------------------------------------------------------------------------
 
-GUEST_CPU_QUEUE = "guest|20_sec_peak_cpu_queue"
-VCPU_COUNT = "config|hardware|num_Cpu"
+GUEST_CPU_QUEUE = "guest|20_sec_peak_cpu_queue"           # already per vCPU
 GUEST_DISK_QUEUE = "guest|20_sec_peak_disk_queue"
 GUEST_FREE_MEMORY_KB = "guest|mem.free_latest"
 GUEST_PAGE_OUT_RATE = "guest|page.outRate_latest"
 
 # Every stat that is asked from VCF Operations, for each VM. Read by vm_performance_metrics.
-VM_STATS = [GUEST_CPU_QUEUE, VCPU_COUNT, GUEST_DISK_QUEUE, GUEST_FREE_MEMORY_KB, GUEST_PAGE_OUT_RATE]
+VM_STATS = [GUEST_CPU_QUEUE, GUEST_DISK_QUEUE, GUEST_FREE_MEMORY_KB, GUEST_PAGE_OUT_RATE]
 
 
 # ---------------------------------------------------------------------------
 # Sub-metric formulas. Each returns None when it has no data to work with.
 # ---------------------------------------------------------------------------
-
-def cpu_queue_per_vcpu(vm_stats: Dict[str, float]) -> Optional[float]:
-    """Peak CPU run queue of the guest OS, divided by the number of vCPUs."""
-    if GUEST_CPU_QUEUE not in vm_stats or vm_stats.get(VCPU_COUNT, 0) <= 0:
-        return None
-    return vm_stats[GUEST_CPU_QUEUE] / vm_stats[VCPU_COUNT]
-
 
 def guest_free_memory_mb(vm_stats: Dict[str, float]) -> Optional[float]:
     """Free memory inside the guest OS, in MB. The stat is in KB, and the limits in METRICS are in MB."""
@@ -101,7 +93,7 @@ def guest_free_memory_mb(vm_stats: Dict[str, float]) -> Optional[float]:
 def guest_os_performance_values(vm_stats: Dict[str, float]) -> Dict[str, Optional[float]]:
     """Value of every sub-metric in METRICS for one VM. None means "no data"."""
     return {
-        "Guest CPU Run Queue per vCPU": cpu_queue_per_vcpu(vm_stats),
+        "Guest CPU Run Queue per vCPU": vm_stats.get(GUEST_CPU_QUEUE),
         "Guest Disk Queue": vm_stats.get(GUEST_DISK_QUEUE),
         "Guest Free Memory": guest_free_memory_mb(vm_stats),
         "Guest Page-Out Rate": vm_stats.get(GUEST_PAGE_OUT_RATE),
@@ -118,16 +110,13 @@ def collect_guest_os_performance_metrics(vm_obj: Object, vm_name: str, vm_stats:
     vm_stats is the entry of this VM in the result of vm_performance_metrics.read_vm_performance_stats().
     """
     try:
-        # Drop the sub-metrics with no data, and round, as every KPI does.
-        values = {name: round(value, 2) for name, value in guest_os_performance_values(vm_stats).items()
-                  if value is not None}
+        # Step 1 (reading the stats) was done once for all VMs, by vm_performance_metrics.read_vm_performance_stats().
+        # Step 2: calculate the sub-metric values. None means "no data".
+        values = guest_os_performance_values(vm_stats)
 
-        kpi = kpi_score(METRICS, values)
-        if kpi is not None:
-            vm_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
-
+        # Step 3: score them and publish the KPI. The sub-metrics are not published, see PUBLISHED_METRICS.
+        no_data = publish_kpi(vm_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
         # Logged at debug level only: there can be thousands of VMs, and no Tools is a normal case.
-        no_data = [metric.name for metric in METRICS if metric.name not in values]
         if no_data:
             logger.debug(f"Guest OS Performance for {vm_name}: no data, so left out: {', '.join(no_data)}")
 

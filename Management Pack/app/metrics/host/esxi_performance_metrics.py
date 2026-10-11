@@ -48,7 +48,7 @@ import logging
 from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
-from metrics.kpi_score import Metric, kpi_score
+from metrics.kpi_score import Metric, publish_kpi
 from metrics.vm_contention import (
     worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals,
 )
@@ -116,7 +116,7 @@ def read_esxi_performance_stats(
 
 
 # ---------------------------------------------------------------------------
-# Entry point, called once per connected ESXi host.
+# Sub-metric values of one host. The formulas are in metrics/vm_contention.py.
 # ---------------------------------------------------------------------------
 
 def esxi_performance_values(stats: EsxiPerformanceStats, host_id: str, vm_ids: List[str]) -> Dict[str, Optional[float]]:
@@ -126,34 +126,25 @@ def esxi_performance_values(stats: EsxiPerformanceStats, host_id: str, vm_ids: L
     return values
 
 
+# ---------------------------------------------------------------------------
+# Entry point, called once per connected ESXi host.
+# ---------------------------------------------------------------------------
+
 def collect_esxi_performance_metrics(
-    host_obj: Object, host_name: str, vm_ids: List[str], stats: EsxiPerformanceStats
+    host_obj: Object, host_name: str, host_id: str, vm_ids: List[str], stats: EsxiPerformanceStats
 ) -> None:
     """Publishes the sub-metrics in METRICS, then the ESXi Performance KPI computed from them.
 
-    vm_ids are the VCF Operations ids of the powered-on VMs on this host.
+    host_id is the VCF Operations id of this host, vm_ids those of the powered-on VMs on it.
     stats is the result of read_esxi_performance_stats().
     """
     try:
-        if not host_obj or not host_obj.get_id():
-            return
-
+        # Step 1 (reading the stats) was done once for all hosts, by read_esxi_performance_stats().
         # Step 2: calculate the sub-metric values. None means "no data".
-        values = esxi_performance_values(stats, host_obj.get_id(), vm_ids)
-
-        # Drop the sub-metrics with no data.
-        # Round first, so the KPI is computed from exactly the numbers that are published.
-        values = {name: round(value, 2) for name, value in values.items() if value is not None}
+        values = esxi_performance_values(stats, host_id, vm_ids)
 
         # Step 3: publish the sub-metrics, then score them and publish the KPI.
-        for name, value in values.items():
-            host_obj.with_metric(f"vCommunity|{GROUP}|{name}", value)
-
-        kpi = kpi_score(METRICS, values)
-        if kpi is not None:
-            host_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
-
-        no_data = [metric.name for metric in METRICS if metric.name not in values]
+        no_data = publish_kpi(host_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
         if no_data:
             logger.debug(f"ESXi Performance for {host_name}: no data, so left out: {', '.join(no_data)}")
 

@@ -14,6 +14,8 @@ Source of the sub-metrics and limits: [`Complex Metrics/Virtual Motherboard Perf
 
 Eight sub-metrics are stats the VM already has. They are read as they are, and are not published a second time. Memory Zip Swap is calculated.
 
+**Why Memory Zip Swap is divided by Guest OS Used Memory.** It is divided by the memory the guest OS uses, not by the VM's configured memory, to better reflect the risk. Configured memory includes memory the guest OS does not use, so the share would come out smaller and under-report the problem. This is the same formula as the "vSphere VM Memory Zip Swap" super metric.
+
 | Group | Sub-metric | Source |
 | :--- | :--- | :--- |
 | VM contention | CPU Co-Stop | `cpu\|20_sec_peak_costopPct` |
@@ -75,7 +77,7 @@ A sub-metric with no data is left out of the KPI. It is never counted as perfect
 
 - A VM without VMware Tools has no Memory Zip Swap, because that needs `guest|used_memory`. The KPI of such a VM is built from the other sub-metrics.
 - If no sub-metric has data, the KPI is not published.
-- A powered-off VM gets no KPI, because its stats are old.
+- A powered-off VM gets no KPI, because its stats are old. The power state is the VCF Operations property `summary|runtime|powerState`; a VM counts when it is "Powered On".
 
 ## Changing the KPI
 

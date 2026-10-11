@@ -51,11 +51,8 @@ import logging
 from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
-from metrics.kpi_score import Metric, kpi_score
-from metrics.vm_contention import (
-    VM_STATS, HOST_BAD_PACKET_STATS, HOST_PACKET_STATS, BAD_PACKET_WINDOW_MINUTES,
-    percentile_90, worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals,
-)
+from metrics.kpi_score import Metric, publish_kpi
+from metrics.vm_contention import worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals
 
 logger = logging.getLogger(__name__)
 
@@ -109,9 +106,11 @@ def vm_contention_values(suite_api_client: SuiteApiClient, vm_ids: List[str]) ->
 
 
 def highest_host_bad_packet_pct(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Optional[float]:
-    """Highest share of errored or dropped packets on any one host, over BAD_PACKET_WINDOW_MINUTES."""
+    """Highest share of errored or dropped packets on any one host, over the last 30 minutes."""
     totals_by_host = read_host_packet_totals(suite_api_client, host_ids)
-    per_host = [pct for pct in (bad_packet_pct(totals) for totals in totals_by_host.values()) if pct is not None]
+    # The share of each host first, then the highest host.
+    per_host = [bad_packet_pct(totals) for totals in totals_by_host.values()]
+    per_host = [pct for pct in per_host if pct is not None]
     return max(per_host) if per_host else None
 
 
@@ -131,30 +130,14 @@ def collect_cluster_performance_metrics(
     vm_ids are the VCF Operations ids of the cluster's powered-on VMs, host_ids those of its ESXi hosts.
     """
     try:
-        if not cluster_obj or not cluster_obj.get_id():
-            return
-
         # Step 1 and 2: read the stats and calculate the sub-metric values. None means "no data".
         values = vm_contention_values(suite_api_client, vm_ids)
         values["Highest ESXi Bad Network Packets"] = highest_host_bad_packet_pct(suite_api_client, host_ids)
 
-        # Drop the sub-metrics with no data.
-        # Round first, so the KPI is computed from exactly the numbers that are published.
-        values = {name: round(value, 2) for name, value in values.items() if value is not None}
-
         # Step 3: publish the sub-metrics, then score them and publish the KPI.
-        for name, value in values.items():
-            cluster_obj.with_metric(f"vCommunity|{GROUP}|{name}", value)
-
-        kpi = kpi_score(METRICS, values)
-        if kpi is not None:
-            cluster_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
-
-        no_data = [metric.name for metric in METRICS if metric.name not in values]
+        no_data = publish_kpi(cluster_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
         if no_data:
             logger.info(f"Cluster Performance for {cluster_name}: no data, so left out: {', '.join(no_data)}")
-
-        logger.debug(f"Successfully collected vSphere Cluster Performance metrics for the cluster: {cluster_name}")
 
     except Exception as e:
         # A failure here must not stop the collection of the other cluster data.

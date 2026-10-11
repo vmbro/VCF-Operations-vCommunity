@@ -44,7 +44,7 @@ The full explanation, with a worked example, is in [Cluster Performance KPI](clu
 
 They are the same sub-metrics as [Cluster Performance](cluster-performance-kpi.md#step-1-collect-the-9-sub-metrics), measured over the VMs of one host instead of a whole cluster. The formulas exist once, in [`metrics/vm_contention.py`](../Management%20Pack/app/metrics/vm_contention.py).
 
-- The 8 VM sub-metrics are the worst value and the 90th percentile of `cpu|20_sec_peak_readyPct`, `cpu|20_sec_peak_costopPct`, `mem|20_sec_peak_host_contentionPct` and `virtualDisk|20_sec_peak_totalLatency_average`, over the powered-on VMs on the host.
+- The 8 VM sub-metrics are the worst value and the 90th percentile of `cpu|20_sec_peak_readyPct`, `cpu|20_sec_peak_costopPct`, `mem|20_sec_peak_host_contentionPct` and `virtualDisk|20_sec_peak_totalLatency_average`, over the powered-on VMs on the host. A VM runs on the host named in its `summary|parentHost` property, and is powered on when `summary|runtime|powerState` is "Powered On", both read from VCF Operations.
 - Bad network packets are `(errorsRx + errorsTx + droppedRx + droppedTx) / (packetsRx + packetsTx) × 100` of the host, added up over the last 30 minutes.
 
 The stats of all VMs and all hosts are read in bulk, once per collection cycle, not once per host.

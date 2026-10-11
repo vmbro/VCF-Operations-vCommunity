@@ -21,10 +21,12 @@ How it is calculated
 1. For each host of the cluster:
    - read its CPU and memory stats from VCF Operations, in one request for all
      hosts of the cluster;
-   - take its size (cores, memory) and the size of its powered-on VMs from
-     vCenter, which the cluster collector reads once for all objects.
-2. Calculate each sub-metric per host, then keep the highest host. CPU
-   Imbalance compares the busiest host with the average of the hosts.
+   - take its size (cores, threads) and the size of its powered-on VMs from
+     VCF Operations properties, which the cluster collector reads once for
+     all objects (utils/ops_inventory.py). DIMM memory still comes from
+     vCenter, see utils/vcenter_inventory.py.
+2. Calculate every sub-metric for each host (host_risk_values), then keep the
+   highest host for each sub-metric (cluster_risk_values).
 3. Score each value and combine the scores into the KPI. This step is the same
    for every KPI and is explained in metrics/kpi_score.py.
 
@@ -48,9 +50,9 @@ import logging
 from typing import Dict, List, NamedTuple, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
-from metrics.kpi_score import Metric, kpi_score, percent, has_all
+from metrics.kpi_score import Metric, percent, has_all, publish_kpi
 from utils.ops_stats import read_latest_stats
-from utils.vcenter_inventory import HostHardware, VmSize
+from utils.ops_inventory import VmInfo
 
 logger = logging.getLogger(__name__)
 
@@ -69,7 +71,8 @@ METRICS = [
     # Green (below 60 %) and Memory Consumed green (below 80 %) are "Excluded": a host that is not busy
     # says nothing about risk, so it is left out rather than scored 100.
     Metric("Highest ESXi CPU Thread Utilization",     "%",   0.0,  60.0,  80.0,   90.0,   95.0,   True),
-    # The busiest host, divided by the average of the hosts. 1 means the load is spread evenly.
+    # Per host: running CPU threads divided by running CPU cores. 1 means one thread runs on each busy core.
+    # 2 means both hyper-threads run on every busy core. The worst host is kept.
     # Green is exactly 1, as in the source table: any imbalance is yellow.
     Metric("Worst ESXi CPU Imbalance",                None,  1.0,  1.0,   1.3,    1.6,    2.0),
     Metric("Highest ESXi Memory Consumed",            "%",   0.0,  80.0,  90.0,   95.0,   100.0,  True),
@@ -84,7 +87,7 @@ METRICS = [
     Metric("Highest ESXi CPU Reservation",            "%",   0.0,  10.0,  40.0,   60.0,   80.0,   True),
     Metric("Highest ESXi Memory Reservation",         "%",   0.0,  10.0,  40.0,   60.0,   80.0,   True),
 
-    # --- Allocation: configured vCPU and vRAM of the powered-on VMs, against what the host has ---
+    # --- Allocation: vCPU and memory allocated to the powered-on VMs, against what the host has ---
     # Green (below 1, no overcommit) is "Excluded": it says nothing about risk.
     Metric("Highest ESXi CPU Overcommit Ratio",       None,  0.0,  1.0,   2.0,    3.0,    4.0,    True),
     Metric("Highest ESXi Memory Overcommit Ratio",    None,  0.0,  1.0,   1.4,    1.8,    2.2,    True),
@@ -105,6 +108,7 @@ PUBLISHED_METRICS = METRICS
 # ---------------------------------------------------------------------------
 
 CPU_THREAD_UTIL = "cpu|utilization_average"             # cpu.utilization: % of the host's CPU threads in use
+CPU_CORE_UTIL = "cpu|coreUtilization_average"           # cpu.coreUtilization: % of the host's CPU cores in use
 CPU_RESERVED = "cpu|reservedCapacity_average"           # MHz reserved for VMs
 CPU_CAPACITY = "cpu|totalCapacity_average"              # MHz
 MEM_CONSUMED = "mem|consumed_average"
@@ -113,14 +117,19 @@ MEM_COMPRESSED = "mem|compressed_average"
 MEM_SWAPPED = "mem|swapused_average"
 MEM_RESERVED = "mem|reservedCapacity_average"
 MEM_CAPACITY = "mem|totalCapacity_average"
+# Allocated to all powered-on VMs of the host. VCF Operations adds them up, so the code does not have to.
+VCPUS_ALLOCATED = "cpu|vcpus_allocated_on_all_powered_on_vms"            # number of vCPUs
+MEM_ALLOCATED = "mem|memory_allocated_on_all_powered_on_vms"             # KB, like MEM_CAPACITY
 # Memory Tiering Latency: the VCF Operations stat is not known yet. Set the key here once it is,
 # and the sub-metric starts to count. Until then it has no data and is left out of the KPI.
 MEM_TIERING_LATENCY = None
 
-HOST_STATS = [key for key in [
-    CPU_THREAD_UTIL, CPU_RESERVED, CPU_CAPACITY, MEM_CONSUMED, MEM_BALLOONED, MEM_COMPRESSED,
-    MEM_SWAPPED, MEM_RESERVED, MEM_CAPACITY, MEM_TIERING_LATENCY,
-] if key]
+# Every stat that is asked from VCF Operations, for each host. Memory Tiering Latency only once its key is set.
+HOST_STATS = [
+    CPU_THREAD_UTIL, CPU_CORE_UTIL, CPU_RESERVED, CPU_CAPACITY,
+    MEM_CONSUMED, MEM_BALLOONED, MEM_COMPRESSED, MEM_SWAPPED, MEM_RESERVED, MEM_CAPACITY,
+    VCPUS_ALLOCATED, MEM_ALLOCATED,
+] + ([MEM_TIERING_LATENCY] if MEM_TIERING_LATENCY else [])
 
 
 # When a VM is a monster, on a given host.
@@ -134,96 +143,139 @@ MONSTER_VM_MEMORY_MB = 256.0 * 1024.0
 
 
 class HostInventory(NamedTuple):
-    """What the collector knows about one host of the cluster, from vCenter."""
+    """What the collector knows about one host of the cluster. See utils/ops_inventory.py."""
     host_id: str                    # VCF Operations resource id, for the stats API
-    hardware: Optional[HostHardware]
-    vm_sizes: List[VmSize]          # its powered-on VMs
+    cores: Optional[float]          # physical cores
+    threads: Optional[float]        # CPU threads
+    dram_mb: Optional[float]        # DIMM memory, without a memory tier such as NVMe
+    vms: List[VmInfo]               # its powered-on VMs
 
 
 # ---------------------------------------------------------------------------
-# Sub-metric formulas, per host. Each returns None when it has no data to work with.
+# Sub-metric formulas for ONE host. Each returns None when it has no data to work with.
 # ---------------------------------------------------------------------------
 
-def share_of_memory(stats: Dict[str, float], keys: List[str]) -> Optional[float]:
-    """The sum of the memory stats in keys, as a share (%) of the host's memory capacity."""
-    if not has_all(stats, keys + [MEM_CAPACITY]):
+def memory_share(stats: Dict[str, float], memory_kb: float) -> Optional[float]:
+    """memory_kb as a share (%) of the host's memory capacity."""
+    if MEM_CAPACITY not in stats:
         return None
-    return percent(sum(stats[key] for key in keys), stats[MEM_CAPACITY])
+    return percent(memory_kb, stats[MEM_CAPACITY])
+
+
+def memory_consumed_pct(stats: Dict[str, float]) -> Optional[float]:
+    if MEM_CONSUMED not in stats:
+        return None
+    return memory_share(stats, stats[MEM_CONSUMED])
+
+
+def memory_ballooned_pct(stats: Dict[str, float]) -> Optional[float]:
+    if MEM_BALLOONED not in stats:
+        return None
+    return memory_share(stats, stats[MEM_BALLOONED])
+
+
+def memory_zip_swap_pct(stats: Dict[str, float]) -> Optional[float]:
+    """Compressed (zipped) plus swapped memory of the host, added up, as a share of its memory capacity."""
+    if not has_all(stats, [MEM_COMPRESSED, MEM_SWAPPED]):
+        return None
+    zipped_plus_swapped = stats[MEM_COMPRESSED] + stats[MEM_SWAPPED]
+    return memory_share(stats, zipped_plus_swapped)
+
+
+def memory_tiering_latency(stats: Dict[str, float]) -> Optional[float]:
+    """None until MEM_TIERING_LATENCY is set: the source stat is not known yet."""
+    if MEM_TIERING_LATENCY is None:
+        return None
+    return stats.get(MEM_TIERING_LATENCY)
 
 
 def cpu_reservation_pct(stats: Dict[str, float]) -> Optional[float]:
+    """CPU reserved for VMs, as a share of the host's CPU capacity."""
     if not has_all(stats, [CPU_RESERVED, CPU_CAPACITY]):
         return None
     return percent(stats[CPU_RESERVED], stats[CPU_CAPACITY])
 
 
-def cpu_overcommit(host: HostInventory) -> Optional[float]:
-    """vCPUs of the powered-on VMs, per physical core."""
-    if not host.hardware:
+def memory_reservation_pct(stats: Dict[str, float]) -> Optional[float]:
+    """Memory reserved for VMs, as a share of the host's memory capacity."""
+    if MEM_RESERVED not in stats:
         return None
-    return sum(vm.vcpus for vm in host.vm_sizes) / host.hardware.cores
+    return memory_share(stats, stats[MEM_RESERVED])
 
 
-def memory_overcommit(host: HostInventory) -> Optional[float]:
-    """Configured memory of the powered-on VMs, per MB of host memory."""
-    if not host.hardware:
+def cpu_imbalance(stats: Dict[str, float], host: HostInventory) -> Optional[float]:
+    """ESXi CPU Imbalance of one host: count of running CPU threads / count of running CPU cores."""
+    if not host.cores or not host.threads or not has_all(stats, [CPU_THREAD_UTIL, CPU_CORE_UTIL]):
         return None
-    return sum(vm.memory_mb for vm in host.vm_sizes) / host.hardware.memory_mb
+    running_threads = stats[CPU_THREAD_UTIL] / 100.0 * host.threads
+    running_cores = stats[CPU_CORE_UTIL] / 100.0 * host.cores
+    # None when no core is running: an idle host has no imbalance to speak of.
+    if running_cores <= 0:
+        return None
+    return running_threads / running_cores
+
+
+def cpu_overcommit(stats: Dict[str, float], host: HostInventory) -> Optional[float]:
+    """vCPUs allocated to the powered-on VMs, per physical core of the host."""
+    if not host.cores or VCPUS_ALLOCATED not in stats:
+        return None
+    return stats[VCPUS_ALLOCATED] / host.cores
+
+
+def memory_overcommit(stats: Dict[str, float]) -> Optional[float]:
+    """Memory allocated to the powered-on VMs, per unit of host memory capacity. Both are in KB."""
+    if not has_all(stats, [MEM_ALLOCATED, MEM_CAPACITY]) or stats[MEM_CAPACITY] <= 0:
+        return None
+    return stats[MEM_ALLOCATED] / stats[MEM_CAPACITY]
 
 
 def cpu_monster_ratio(host: HostInventory) -> Optional[float]:
     """vCPUs of the largest VM, against the vCPUs at which a VM becomes a monster on this host."""
-    if not host.hardware or not host.vm_sizes:
+    vcpus = [vm.vcpus for vm in host.vms if vm.vcpus]
+    if not host.cores or not vcpus:
         return None
-    monster_vcpus = MONSTER_VM_SHARE_OF_CORES * host.hardware.cores
-    return max(vm.vcpus for vm in host.vm_sizes) / monster_vcpus
+    monster_vcpus = MONSTER_VM_SHARE_OF_CORES * host.cores
+    return max(vcpus) / monster_vcpus
 
 
 def memory_monster_ratio(host: HostInventory) -> Optional[float]:
     """Memory of the largest VM, against the memory at which a VM becomes a monster on this host."""
-    if not host.hardware or not host.vm_sizes:
+    memory = [vm.memory_mb for vm in host.vms if vm.memory_mb]
+    if not host.dram_mb or not memory:
         return None
-    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * host.hardware.dram_mb, MONSTER_VM_MEMORY_MB)
-    return max(vm.memory_mb for vm in host.vm_sizes) / monster_mb
+    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * host.dram_mb, MONSTER_VM_MEMORY_MB)
+    return max(memory) / monster_mb
 
 
-def cpu_imbalance(cpu_util_per_host: List[float]) -> Optional[float]:
-    """The busiest host, divided by the average of the hosts. 1 means an even load."""
-    if not cpu_util_per_host:
-        return None
-    average = sum(cpu_util_per_host) / len(cpu_util_per_host)
-    if average <= 0:
-        return None
-    return max(cpu_util_per_host) / average
-
-
-def highest(numbers: List[Optional[float]]) -> Optional[float]:
-    """The highest of the numbers that have data, or None when none has."""
-    known = [number for number in numbers if number is not None]
-    return max(known) if known else None
+def host_risk_values(host: HostInventory, stats: Dict[str, float]) -> Dict[str, Optional[float]]:
+    """Step 2a: the value of every sub-metric in METRICS for ONE host. None means "no data"."""
+    return {
+        "Highest ESXi CPU Thread Utilization": stats.get(CPU_THREAD_UTIL),
+        "Worst ESXi CPU Imbalance": cpu_imbalance(stats, host),
+        "Highest ESXi Memory Consumed": memory_consumed_pct(stats),
+        "Worst ESXi Memory Ballooned": memory_ballooned_pct(stats),
+        "Worst ESXi Memory Zip Swap": memory_zip_swap_pct(stats),
+        "Worst ESXi Memory Tiering Latency": memory_tiering_latency(stats),
+        "Highest ESXi CPU Reservation": cpu_reservation_pct(stats),
+        "Highest ESXi Memory Reservation": memory_reservation_pct(stats),
+        "Highest ESXi CPU Overcommit Ratio": cpu_overcommit(stats, host),
+        "Highest ESXi Memory Overcommit Ratio": memory_overcommit(stats),
+        "Highest CPU Monster VM to Host Ratio": cpu_monster_ratio(host),
+        "Highest Memory Monster VM to Host Ratio": memory_monster_ratio(host),
+    }
 
 
 def cluster_risk_values(
     hosts: List[HostInventory], stats_by_host: Dict[str, Dict[str, float]]
 ) -> Dict[str, Optional[float]]:
-    """Value of every sub-metric in METRICS for one cluster. None means "no data"."""
-    host_stats = [stats_by_host.get(host.host_id, {}) for host in hosts]
-    cpu_util = [stats[CPU_THREAD_UTIL] for stats in host_stats if CPU_THREAD_UTIL in stats]
+    """Step 2b: the value of every sub-metric for the cluster: the highest host. None means "no data"."""
+    per_host = [host_risk_values(host, stats_by_host.get(host.host_id, {})) for host in hosts]
 
-    return {
-        "Highest ESXi CPU Thread Utilization": highest(cpu_util),
-        "Worst ESXi CPU Imbalance": cpu_imbalance(cpu_util),
-        "Highest ESXi Memory Consumed": highest([share_of_memory(s, [MEM_CONSUMED]) for s in host_stats]),
-        "Worst ESXi Memory Ballooned": highest([share_of_memory(s, [MEM_BALLOONED]) for s in host_stats]),
-        "Worst ESXi Memory Zip Swap": highest([share_of_memory(s, [MEM_COMPRESSED, MEM_SWAPPED]) for s in host_stats]),
-        "Worst ESXi Memory Tiering Latency": highest([s.get(MEM_TIERING_LATENCY) for s in host_stats]),
-        "Highest ESXi CPU Reservation": highest([cpu_reservation_pct(s) for s in host_stats]),
-        "Highest ESXi Memory Reservation": highest([share_of_memory(s, [MEM_RESERVED]) for s in host_stats]),
-        "Highest ESXi CPU Overcommit Ratio": highest([cpu_overcommit(host) for host in hosts]),
-        "Highest ESXi Memory Overcommit Ratio": highest([memory_overcommit(host) for host in hosts]),
-        "Highest CPU Monster VM to Host Ratio": highest([cpu_monster_ratio(host) for host in hosts]),
-        "Highest Memory Monster VM to Host Ratio": highest([memory_monster_ratio(host) for host in hosts]),
-    }
+    cluster_values = {}
+    for metric in METRICS:
+        host_values = [values[metric.name] for values in per_host if values[metric.name] is not None]
+        cluster_values[metric.name] = max(host_values) if host_values else None
+    return cluster_values
 
 
 # ---------------------------------------------------------------------------
@@ -238,28 +290,14 @@ def collect_cluster_risk_metrics(
     hosts holds one HostInventory per ESXi host of the cluster that VCF Operations knows about.
     """
     try:
-        if not cluster_obj or not cluster_obj.get_id():
-            return
-
         # Step 1: read the stats of all hosts of the cluster, in one request.
         stats_by_host = read_latest_stats(suite_api_client, [host.host_id for host in hosts], HOST_STATS)
 
-        # Step 2: calculate the sub-metric values. None means "no data".
+        # Step 2: calculate each sub-metric per host, then keep the highest host.
         values = cluster_risk_values(hosts, stats_by_host)
 
-        # Drop the sub-metrics with no data.
-        # Round first, so the KPI is computed from exactly the numbers that are published.
-        values = {name: round(value, 2) for name, value in values.items() if value is not None}
-
         # Step 3: publish the sub-metrics, then score them and publish the KPI.
-        for name, value in values.items():
-            cluster_obj.with_metric(f"vCommunity|{GROUP}|{name}", value)
-
-        kpi = kpi_score(METRICS, values)
-        if kpi is not None:
-            cluster_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
-
-        no_data = [metric.name for metric in METRICS if metric.name not in values]
+        no_data = publish_kpi(cluster_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
         if no_data:
             logger.info(f"Cluster Risk for {cluster_name}: no data, so left out: {', '.join(no_data)}")
 

@@ -16,7 +16,7 @@ from properties.host.host_licensing import collect_host_licensing_data
 from properties.host.host_uplink import collect_host_uplink
 from properties.host.host_configurations import collect_host_configurations
 from utils.vi_property_collector import retrieve_properties
-from utils.vcenter_inventory import powered_on_vms_by_host, resource_ids
+from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host
 from metrics.host.esxi_performance_metrics import read_esxi_performance_stats, collect_esxi_performance_metrics
 
 logger = logging.getLogger(__name__)
@@ -86,24 +86,15 @@ def collect_host_data(
 
     host_props = retrieve_properties(content, vim.HostSystem, propertyPaths)
 
-    # ESXi Performance: find the powered-on VMs of each host, then read the stats of all of them
-    # and the packet counters of all hosts, in bulk, once for all hosts.
-    vms: List[Object] = suite_api_client.query_for_resources(
-        {
-            "adapterKind": [VCENTER_ADAPTER_KIND],
-            "resourceKind": ["VirtualMachine"],
-            "adapterInstanceId": [adapter_instance_id],
-        }
-    )
-    vms_by_uuid: dict[str, Object] = {vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms}
-    vms_on_host = powered_on_vms_by_host(
-        retrieve_properties(content, vim.VirtualMachine, ["runtime.host", "runtime.powerState"])
-    )
-    vm_ids_by_host = {host_moid: resource_ids(vm_moids, vms_by_uuid) for host_moid, vm_moids in vms_on_host.items()}
+    # ESXi Performance: read from VCF Operations which powered-on VMs run on each host (matched by host
+    # name, summary|parentHost), then the stats of all those VMs and the packet counters of all hosts,
+    # in bulk, once for all hosts. See utils/ops_inventory.py.
+    ops_hosts_by_moid = {host.moid: host for host in read_hosts(suite_api_client, adapter_instance_id)}
+    vms_on_host = powered_on_vms_by_host(read_vms(suite_api_client, adapter_instance_id))
     esxi_performance_stats = read_esxi_performance_stats(
         suite_api_client,
-        [vm_id for vm_ids in vm_ids_by_host.values() for vm_id in vm_ids],
-        [host.get_id() for host in hosts],
+        [vm.id for vms in vms_on_host.values() for vm in vms],
+        [host.id for host in ops_hosts_by_moid.values()],
     )
 
     for host_data in host_props:
@@ -129,9 +120,10 @@ def collect_host_data(
                 collect_host_licensing_data(host_obj, host_name, assigned_licenses)
             collect_host_uplink(host_obj, host_name, prop_dict)
             collect_host_configurations(host_obj, host_name, prop_dict)
-            collect_esxi_performance_metrics(
-                host_obj, host_name, vm_ids_by_host.get(host_ref._moId, []), esxi_performance_stats
-            )
+            ops_host = ops_hosts_by_moid.get(host_ref._moId)
+            if ops_host:
+                vm_ids = [vm.id for vm in vms_on_host.get(ops_host.name, [])]
+                collect_esxi_performance_metrics(host_obj, host_name, ops_host.id, vm_ids, esxi_performance_stats)
 
             result.add_object(host_obj)
             

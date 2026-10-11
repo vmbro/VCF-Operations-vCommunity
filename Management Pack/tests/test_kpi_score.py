@@ -154,6 +154,30 @@ def test_sub_metric_names_are_unique_and_published_ones_exist():
         assert all(metric in kpi.METRICS for metric in kpi.PUBLISHED_METRICS), kpi.KPI_NAME
 
 
+def test_every_kpi_gives_a_value_for_exactly_the_sub_metrics_in_its_table():
+    # The sub-metric names are written twice: in METRICS and in the function that calculates the values.
+    # A typo in one of them would silently leave a sub-metric out. This catches it.
+    from utils.ops_inventory import VmInfo
+    from metrics.host.esxi_performance_metrics import EsxiPerformanceStats
+
+    vm = VmInfo("vm", "vm", "vm-1", "host-1", True, 4.0, 512.0)
+    host = cluster_risk_metrics.HostInventory("host-1", 32.0, 64.0, 1024.0, [vm])
+    values_by_kpi = {
+        cluster_performance_metrics: {**vm_contention_names(), "Highest ESXi Bad Network Packets": None},
+        cluster_risk_metrics: cluster_risk_metrics.host_risk_values(host, {}),
+        esxi_performance_metrics: esxi_performance_metrics.esxi_performance_values(EsxiPerformanceStats({}, {}), "h", []),
+        vm_performance_metrics: vm_performance_metrics.vm_performance_values({}),
+        guest_os_performance_metrics: guest_os_performance_metrics.guest_os_performance_values({}),
+    }
+    for kpi, values in values_by_kpi.items():
+        assert set(values) == {metric.name for metric in kpi.METRICS}, kpi.KPI_NAME
+
+
+def vm_contention_names():
+    from metrics.vm_contention import worst_and_percentile
+    return worst_and_percentile({}, [])
+
+
 # --- Reading stats ----------------------------------------------------------
 
 def test_stats_of_many_resources_are_read_in_batches(monkeypatch):

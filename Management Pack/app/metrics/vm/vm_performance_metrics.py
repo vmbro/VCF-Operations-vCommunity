@@ -52,7 +52,7 @@ import logging
 from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
-from metrics.kpi_score import Metric, kpi_score, percent, has_all
+from metrics.kpi_score import Metric, percent, has_all, publish_kpi
 from metrics.vm import guest_os_performance_metrics
 from utils.ops_stats import read_latest_stats
 
@@ -92,7 +92,7 @@ METRICS = [
     # --- IaaS high utilization: the host is taking memory back from the VM ---
     # VM memory that the host took back through the balloon driver.
     Metric("Memory Ballooned",      "%",    0.0,    2.0,    4.0,    8.0,    16.0),
-    # VM memory that the host compressed or swapped out. Calculated, see memory_compressed_or_swapped_pct().
+    # VM memory that the host compressed or swapped out. Calculated, see memory_zip_swap_pct().
     Metric("Memory Zip Swap",       "%",    0.0,    0.25,   0.5,    1.0,    2.0),
 ]
 
@@ -117,7 +117,8 @@ SOURCE_STATS = {
     "Memory Ballooned":     "mem|balloonPct",
 }
 
-# Stats Memory Zip Swap is built from.
+# Stats Memory Zip Swap is built from. The formula is the one of the "vSphere VM Memory Zip Swap" super metric
+# in content/supermetrics, see memory_zip_swap_pct().
 MEM_COMPRESSED = "mem|compressed_average"
 MEM_SWAPPED = "mem|swapped_average"
 GUEST_USED_MEMORY = "guest|used_memory"
@@ -130,8 +131,11 @@ VM_STATS = list(SOURCE_STATS.values()) + [MEM_COMPRESSED, MEM_SWAPPED, GUEST_USE
 # Sub-metric formulas. Each returns None when it has no data to work with.
 # ---------------------------------------------------------------------------
 
-def memory_compressed_or_swapped_pct(vm_stats: Dict[str, float]) -> Optional[float]:
+def memory_zip_swap_pct(vm_stats: Dict[str, float]) -> Optional[float]:
     """Compressed plus swapped memory, as a share of the memory the guest uses."""
+    # Divided by Guest OS Used Memory, not by VM Configured Memory, to better reflect the risk.
+    # Configured memory includes memory the guest OS does not use, so the share would come out smaller
+    # and under-report the problem. This is the same formula as the "vSphere VM Memory Zip Swap" super metric.
     # guest|used_memory comes from VMware Tools, so a VM without Tools has no Memory Zip Swap.
     if not has_all(vm_stats, [MEM_COMPRESSED, MEM_SWAPPED, GUEST_USED_MEMORY]):
         return None
@@ -143,7 +147,7 @@ def vm_performance_values(vm_stats: Dict[str, float]) -> Dict[str, Optional[floa
     # The eight sub-metrics that are a stat as it is. A stat the VM does not have gives None.
     values = {name: vm_stats.get(stat_key) for name, stat_key in SOURCE_STATS.items()}
     # The calculated one.
-    values["Memory Zip Swap"] = memory_compressed_or_swapped_pct(vm_stats)
+    values["Memory Zip Swap"] = memory_zip_swap_pct(vm_stats)
     return values
 
 
@@ -151,14 +155,14 @@ def vm_performance_values(vm_stats: Dict[str, float]) -> Dict[str, Optional[floa
 # Reading stats from VCF Operations.
 # ---------------------------------------------------------------------------
 
-def read_vm_performance_stats(suite_api_client: SuiteApiClient, vms: List[Object]) -> Dict[str, Dict[str, float]]:
+def read_vm_performance_stats(suite_api_client: SuiteApiClient, vm_ids: List[str]) -> Dict[str, Dict[str, float]]:
     """Returns {VM resource id: {stat key: latest value}} for all VMs, read in bulk instead of one call per VM.
 
     Reads the stats of both per-VM KPIs, VM Performance and Guest OS Performance, in the same request.
     """
     stat_keys = VM_STATS + [key for key in guest_os_performance_metrics.VM_STATS if key not in VM_STATS]
     try:
-        return read_latest_stats(suite_api_client, [vm.get_id() for vm in vms], stat_keys)
+        return read_latest_stats(suite_api_client, vm_ids, stat_keys)
     except Exception as e:
         # Without stats there is no score, but the rest of the VM collection must still run.
         logger.warning(f"Failed to read VM Performance stats, so no VM or Guest OS Performance this cycle - {repr(e)}")
@@ -175,24 +179,13 @@ def collect_vm_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[
     vm_stats is the entry of this VM in the result of read_vm_performance_stats().
     """
     try:
-        # Step 1: calculate the sub-metric values. None means "no data".
+        # Step 1 (reading the stats) was done once for all VMs, by read_vm_performance_stats().
+        # Step 2: calculate the sub-metric values. None means "no data".
         values = vm_performance_values(vm_stats)
 
-        # Drop the sub-metrics with no data.
-        # Round first, so the KPI is computed from exactly the numbers that are published.
-        values = {name: round(value, 2) for name, value in values.items() if value is not None}
-
-        # Step 2: publish the calculated sub-metrics, then score all of them and publish the KPI.
-        for metric in PUBLISHED_METRICS:
-            if metric.name in values:
-                vm_obj.with_metric(f"vCommunity|{GROUP}|{metric.name}", values[metric.name])
-
-        kpi = kpi_score(METRICS, values)
-        if kpi is not None:
-            vm_obj.with_metric(f"vCommunity|{GROUP}|{KPI_NAME}", kpi)
-
+        # Step 3: publish the calculated sub-metric, then score all of them and publish the KPI.
+        no_data = publish_kpi(vm_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
         # Logged at debug level only: there can be thousands of VMs, and no Tools is a normal case.
-        no_data = [metric.name for metric in METRICS if metric.name not in values]
         if no_data:
             logger.debug(f"VM Performance for {vm_name}: no data, so left out: {', '.join(no_data)}")
 

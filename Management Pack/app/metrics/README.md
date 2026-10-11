@@ -25,7 +25,7 @@ All five are called by a collector and declared in `adapter.py`. A few VCF Opera
 
 | File | What it does |
 | :--- | :--- |
-| `kpi_score.py` | The scoring shared by every KPI. It turns sub-metric values into one 0-100 % score. It makes no API calls. |
+| `kpi_score.py` | The scoring shared by every KPI: it turns sub-metric values into one 0-100 % score. Also `publish_kpi()`, the last step of every KPI: round, publish the sub-metrics, publish the KPI. It makes no API calls. |
 | `cluster/cluster_performance_metrics.py` | Cluster Performance KPI. One score per cluster, from 9 sub-metrics. |
 | `cluster/cluster_risk_metrics.py` | Cluster Risk KPI. One score per cluster, from 12 sub-metrics. |
 | `cluster/drs_metrics.py` | DRS Score. A plain metric, not a KPI. |
@@ -38,8 +38,9 @@ Two files outside this folder belong to the same design:
 
 | File | What it does |
 | :--- | :--- |
-| `../utils/ops_stats.py` | Reads stats from VCF Operations, for many objects in one request. |
-| `../utils/vcenter_inventory.py` | Reads from vCenter which VMs run on which host, VM sizes and host hardware, once per cycle. |
+| `../utils/ops_stats.py` | Reads resources (with their ids), stats and properties from VCF Operations, for many objects in one request. |
+| `../utils/ops_inventory.py` | Reads from VCF Operations which hosts are in each cluster, which powered-on VMs run on each host, VM sizes, host cores and threads. Once per cycle, by properties. |
+| `../utils/vcenter_inventory.py` | Host DIMM memory, the one KPI input still read from vCenter. |
 | `../adapter.py` | Declares each metric to VCF Operations. `define_kpi()` does this for a KPI. A unit used in a KPI table must be listed in `KPI_UNITS` there. |
 
 ## Where the numbers come from
@@ -50,6 +51,8 @@ This has two consequences:
 
 - A KPI is at most one collection cycle behind the stats it is built from.
 - If the vCenter adapter has not collected a stat, the KPI has no data for it. See [Missing data](#missing-data).
+
+Every KPI input comes from VCF Operations, never from vCenter, so nothing is collected twice. The one exception today is host DIMM memory, in `utils/vcenter_inventory.py`. The VCF Operations resource id that the Suite API needs comes from `ops_stats.query_resources()`: the SDK objects have no id.
 
 Every metric is published under the `vCommunity` group of the object. A KPI gets its own group below that, for example `vCommunity|VM Performance|VM Performance`.
 
@@ -155,8 +158,7 @@ Each KPI module has a list named `PUBLISHED_METRICS`. The KPI itself is always p
 1. `adapter.py` starts one collector per object type: cluster, host, VM, datastore, vCenter.
 2. The collector asks VCF Operations for the stats it needs, through `utils/ops_stats.py`. It asks for many objects in one request, not one request per object.
 3. For each object, the KPI module calculates the value of every sub-metric.
-4. The values are rounded to two decimals. The KPI is calculated from the rounded values, so it matches the numbers a user sees.
-5. The KPI module publishes the sub-metrics in `PUBLISHED_METRICS`, then the KPI.
+4. `publish_kpi()` in `kpi_score.py` does the rest, the same way for every KPI. It rounds the values to two decimals, publishes the sub-metrics in `PUBLISHED_METRICS`, then scores the rounded values and publishes the KPI. The KPI is calculated from the rounded values, so it matches the numbers a user sees.
 
 A failure in one KPI never stops the collection. Each entry point catches its own errors and writes a warning to the adapter log.
 
@@ -171,9 +173,9 @@ Every KPI module has the same parts, in the same order. Keep to this when you ad
 | `METRICS` | The table of sub-metrics and limits. |
 | `PUBLISHED_METRICS` | The sub-metrics that are published. |
 | Stat keys | The VCF Operations stats the sub-metrics are built from. |
-| Sub-metric formulas | One short function per calculated sub-metric. Each returns `None` when it has no data. |
+| Sub-metric formulas | One short function per calculated sub-metric, named after it, such as `memory_zip_swap_pct()`. Each returns `None` when it has no data. A KPI built from hosts or VMs calculates each sub-metric per host or VM first, then combines them, such as keeping the highest host. |
 | Reading stats | The functions that call `utils/ops_stats.py`. |
-| Entry point | `collect_..._metrics()`, called by the collector once per object. |
+| Entry point | `collect_..._metrics()`, called by the collector once per object. It reads the stats (step 1), calculates the values (step 2) and calls `publish_kpi()` (step 3). |
 
 ## How to change a KPI
 
@@ -204,12 +206,13 @@ python -m pytest tests
 
 | File | What it checks |
 | :--- | :--- |
-| `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI. |
+| `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI. It also checks that each KPI calculates a value for exactly the sub-metrics in its table, so a misspelt name cannot slip through. |
 | `test_cluster_performance_metrics.py` | Cluster Performance formulas and worked examples. |
 | `test_vm_performance_metrics.py` | VM Performance formulas and worked examples. |
 | `test_cluster_risk_metrics.py` | Cluster Risk formulas and worked examples. |
 | `test_esxi_performance_metrics.py` | ESXi Performance formulas and worked examples. |
-| `test_vcenter_inventory.py` | Reading VMs per host, VM sizes and host hardware from vCenter answers. |
+| `test_ops_inventory.py` | Reading placement, power state, sizes, cores and threads from VCF Operations, and the Suite API endpoints used. |
+| `test_vcenter_inventory.py` | Reading host DIMM memory from vCenter answers. |
 | `test_guest_os_performance_metrics.py` | Guest OS Performance formulas and worked examples. |
 
 ## Pages for users

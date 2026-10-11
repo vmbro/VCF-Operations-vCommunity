@@ -19,6 +19,7 @@ from events.vm.collect_windows_event_logs import collect_windows_events
 from metrics.vm.vm_performance_metrics import read_vm_performance_stats, collect_vm_performance_metrics
 from metrics.vm.guest_os_performance_metrics import collect_guest_os_performance_metrics
 from utils.vi_property_collector import retrieve_properties
+from utils.ops_inventory import read_vms
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -81,7 +82,6 @@ def collect_vm_data(
     propertyPaths.append("summary.config.vmPathName")
     propertyPaths.append("config.memoryAllocation.shares.level")
     propertyPaths.append("guest")
-    propertyPaths.append("runtime.powerState")
 
     vm_props = retrieve_properties(content, vim.VirtualMachine, propertyPaths)
 
@@ -99,8 +99,12 @@ def collect_vm_data(
         vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
     }
 
-    # Read the stats of all VMs in bulk, instead of one call per VM
-    vm_performance_stats = read_vm_performance_stats(suite_api_client, vms)
+    # KPIs: read the VMs from VCF Operations, with their power state, then the stats of the powered-on
+    # ones in bulk, instead of one call per VM. See utils/ops_inventory.py.
+    ops_vms_by_moid = {vm.moid: vm for vm in read_vms(suite_api_client, adapter_instance_id)}
+    vm_performance_stats = read_vm_performance_stats(
+        suite_api_client, [vm.id for vm in ops_vms_by_moid.values() if vm.powered_on]
+    )
 
     for vm_data in vm_props:
         try:
@@ -123,9 +127,11 @@ def collect_vm_data(
             collect_vm_disk(vm_obj, prop_dict, vm_name)
             collect_vm_configurations(vm_obj, prop_dict, vm_name)
 
-            # A powered-off VM only has old stats, so it gets no performance score
-            if prop_dict.get("runtime.powerState") == "poweredOn":
-                vm_stats = vm_performance_stats.get(vm_obj.get_id(), {})
+            # A powered-off VM only has old stats, so it gets no performance score.
+            # The power state comes from VCF Operations (summary|runtime|powerState).
+            ops_vm = ops_vms_by_moid.get(vm_moid)
+            if ops_vm and ops_vm.powered_on:
+                vm_stats = vm_performance_stats.get(ops_vm.id, {})
                 collect_vm_performance_metrics(vm_obj, vm_name, vm_stats)
                 collect_guest_os_performance_metrics(vm_obj, vm_name, vm_stats)
 

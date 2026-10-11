@@ -52,9 +52,9 @@ def test_every_sub_metric_has_a_value():
 
 def test_memory_zip_swap():
     stats = {vp.MEM_COMPRESSED: 10.0, vp.MEM_SWAPPED: 10.0, vp.GUEST_USED_MEMORY: 1000.0}
-    assert vp.memory_compressed_or_swapped_pct(stats) == 2.0                              # 20 / 1000
-    assert vp.memory_compressed_or_swapped_pct({**stats, vp.GUEST_USED_MEMORY: 0.0}) is None
-    assert vp.memory_compressed_or_swapped_pct({vp.MEM_COMPRESSED: 10.0}) is None         # stats missing
+    assert vp.memory_zip_swap_pct(stats) == 2.0                              # 20 / 1000
+    assert vp.memory_zip_swap_pct({**stats, vp.GUEST_USED_MEMORY: 0.0}) is None
+    assert vp.memory_zip_swap_pct({vp.MEM_COMPRESSED: 10.0}) is None         # stats missing
 
 
 # --- The KPI ----------------------------------------------------------------
@@ -110,9 +110,9 @@ def test_vm_with_no_stats_publishes_nothing():
 # --- Reading stats ----------------------------------------------------------
 
 def test_stats_of_both_vm_kpis_are_read_for_all_vms_in_one_go():
-    guest_stats = {go.GUEST_DISK_QUEUE: 3.0, go.VCPU_COUNT: 2.0}
+    guest_stats = {go.GUEST_DISK_QUEUE: 3.0, go.GUEST_CPU_QUEUE: 1.0}
     api = FakeSuiteApi({"vm-1": {key: [value] for key, value in {**HEALTHY, **guest_stats}.items()}, "vm-2": {}})
-    stats = vp.read_vm_performance_stats(api, [FakeObject("vm-1"), FakeObject("vm-2")])
+    stats = vp.read_vm_performance_stats(api, ["vm-1", "vm-2"])
     assert api.requests == 1
     assert stats["vm-1"] == {**HEALTHY, **guest_stats}
     assert stats["vm-2"] == {}
@@ -120,4 +120,4 @@ def test_stats_of_both_vm_kpis_are_read_for_all_vms_in_one_go():
 
 def test_failed_stats_call_gives_no_stats():
     api = FakeSuiteApi({"vm-1": {key: [value] for key, value in HEALTHY.items()}}, status_code=500)
-    assert vp.read_vm_performance_stats(api, [FakeObject("vm-1")]) == {}
+    assert vp.read_vm_performance_stats(api, ["vm-1"]) == {}

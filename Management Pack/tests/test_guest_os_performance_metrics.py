@@ -11,10 +11,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 from metrics.vm import guest_os_performance_metrics as go
 from fakes import FakeObject
 
-# A guest OS with nothing wrong: 4 vCPUs, no queues, 2 GB free, no paging.
+# A guest OS with nothing wrong: no queues, 2 GB free, no paging.
 HEALTHY = {
     go.GUEST_CPU_QUEUE: 0.0,
-    go.VCPU_COUNT: 4.0,
     go.GUEST_DISK_QUEUE: 0.0,
     go.GUEST_FREE_MEMORY_KB: 2048.0 * 1024.0,
     go.GUEST_PAGE_OUT_RATE: 0.0,
@@ -36,10 +35,9 @@ def test_limits_match_the_source_table():
     assert limits["Guest Page-Out Rate"] == (0, 1000, 2000, 4000, 8000)
 
 
-def test_cpu_queue_is_per_vcpu():
-    assert go.cpu_queue_per_vcpu({go.GUEST_CPU_QUEUE: 12.0, go.VCPU_COUNT: 4.0}) == 3.0
-    assert go.cpu_queue_per_vcpu({go.GUEST_CPU_QUEUE: 12.0}) is None                     # vCPU count missing
-    assert go.cpu_queue_per_vcpu({go.GUEST_CPU_QUEUE: 12.0, go.VCPU_COUNT: 0.0}) is None
+def test_cpu_queue_is_used_as_it_is():
+    # The stat is already per vCPU: no division by the number of vCPUs.
+    assert go.guest_os_performance_values({go.GUEST_CPU_QUEUE: 3.0})["Guest CPU Run Queue per vCPU"] == 3.0
 
 
 def test_guest_free_memory_is_converted_from_kb_to_mb():
@@ -52,9 +50,9 @@ def test_healthy_guest_scores_100_and_publishes_only_the_kpi():
 
 
 def test_cpu_queue_lowers_the_score():
-    # A queue of 12 on 4 vCPUs is 3 per vCPU, halfway through yellow (2 to 4): 62.5 with weight 2.
+    # A queue of 3 per vCPU is halfway through yellow (2 to 4): 62.5 with weight 2.
     # KPI = (3 x 100 + 62.5 x 2) / (3 + 2) = 425 / 5 = 85.0
-    assert collect({**HEALTHY, go.GUEST_CPU_QUEUE: 12.0})[go.KPI_NAME] == 85.0
+    assert collect({**HEALTHY, go.GUEST_CPU_QUEUE: 3.0})[go.KPI_NAME] == 85.0
 
 
 def test_low_free_memory_lowers_the_score():
@@ -64,5 +62,5 @@ def test_low_free_memory_lowers_the_score():
 
 
 def test_vm_without_tools_gets_no_guest_os_kpi():
-    # Without VMware Tools there are no guest stats. The vCPU count alone gives no sub-metric.
-    assert collect({go.VCPU_COUNT: 4.0}) == {}
+    # Without VMware Tools there are no guest stats.
+    assert collect({}) == {}
