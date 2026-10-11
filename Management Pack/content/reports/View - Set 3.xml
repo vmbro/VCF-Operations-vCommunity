@@ -3064,7 +3064,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Performance|Cluster Performance Score"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -3100,7 +3100,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="ascendingRange" value="true"/>
                                         
-                                    <Property name="displayName" value="Performance"/>
+                                    <Property name="displayName" value="Cluster Performance Score"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -3116,7 +3116,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Performance|Cluster Performance Score"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -3150,7 +3150,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="ascendingRange" value="true"/>
                                         
-                                    <Property name="displayName" value="Worst Performance"/>
+                                    <Property name="displayName" value="Cluster Performance Score"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -3166,7 +3166,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Performance|Cluster Performance Score"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -3202,7 +3202,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                                         
                                     <Property name="ascendingRange" value="true"/>
                                         
-                                    <Property name="displayName" value="95P Performance"/>
+                                    <Property name="displayName" value="Cluster Performance Score"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         

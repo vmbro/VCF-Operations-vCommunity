@@ -449,8 +449,8 @@
             "title": "Overall Performance (%)",
             "config": {
                "yellowBound": 75,
-               "metricName": "Super Metrics|Cluster Performance (%)",
-               "metricKey": "Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60",
+               "metricName": "vCommunity|Cluster Performance|Cluster Performance Score",
+               "metricKey": "vCommunity|Cluster Performance|Cluster Performance Score",
                "relationshipMode": {"relationshipMode": 0},
                "sortByDir": {"orderByDir": "asc"},
                "title": "Overall Performance (%)",

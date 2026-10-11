@@ -1077,7 +1077,7 @@
                "title": "Average Performance of All Clusters",
                "config": {
                   "yellowBound": 75,
-                  "metricName": "Super Metrics|vSphere Clusters Performance (%)",
+                  "metricName": "Super Metrics|vSphere Clusters Performance",
                   "metricKey": "Super Metric|sm_eb874adf-1884-4576-91fd-0cc0fb54e58b",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
@@ -1134,7 +1134,7 @@
                "title": "Count of Clusters not in Green zone",
                "config": {
                   "yellowBound": 1,
-                  "metricName": "Super Metrics|Count of Non-green Clusters",
+                  "metricName": "Super Metrics|vSphere Clusters not Green",
                   "metricKey": "Super Metric|sm_dda97f70-65e0-4c5a-b6f0-7acec936a0bd",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
@@ -5405,8 +5405,8 @@
                   "orangeBound": 70,
                   "depth": 10,
                   "metric": {
-                     "metricKey": "Super Metric|sm_6a8a4c78-d79e-4953-bc85-623b7bfb612e",
-                     "name": "Super Metrics|CPU Reservation (%)"
+                     "metricKey": "vCommunity|Cluster Risk|Highest ESXi CPU Reservation",
+                     "name": "vCommunity|Cluster Risk|Highest ESXi CPU Reservation"
                   },
                   "redBound": 90
                },
@@ -5455,8 +5455,8 @@
                   "orangeBound": 60,
                   "depth": 10,
                   "metric": {
-                     "metricKey": "Super Metric|sm_d60a96a7-d156-46f0-8f55-f608a9f31d86",
-                     "name": "Super Metrics|Memory Reservation (%)"
+                     "metricKey": "vCommunity|Cluster Risk|Highest ESXi Memory Reservation",
+                     "name": "vCommunity|Cluster Risk|Highest ESXi Memory Reservation"
                   },
                   "redBound": 80
                },
@@ -5641,7 +5641,7 @@
                "title": "Average Performance of All Clusters",
                "config": {
                   "yellowBound": 75,
-                  "metricName": "Super Metrics|Average Clusters Performance (%)",
+                  "metricName": "Super Metrics|vSphere Clusters Performance",
                   "metricKey": "Super Metric|sm_eb874adf-1884-4576-91fd-0cc0fb54e58b",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
@@ -5698,7 +5698,7 @@
                "title": "Count of Clusters not in Green zone",
                "config": {
                   "yellowBound": 1,
-                  "metricName": "Super Metrics|Count of Non-green Clusters",
+                  "metricName": "Super Metrics|vSphere Clusters not Green",
                   "metricKey": "Super Metric|sm_dda97f70-65e0-4c5a-b6f0-7acec936a0bd",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
@@ -5832,8 +5832,8 @@
                   "orangeBound": 8,
                   "depth": 10,
                   "metric": {
-                     "metricKey": "Super Metric|sm_309a7820-486f-4309-b8f8-37acec33282a",
-                     "name": "Super Metrics|Memory Ballooned (%)"
+                     "metricKey": "vCommunity|Cluster Risk|Worst ESXi Memory Ballooned",
+                     "name": "vCommunity|Cluster Risk|Worst ESXi Memory Ballooned"
                   },
                   "redBound": 16
                },

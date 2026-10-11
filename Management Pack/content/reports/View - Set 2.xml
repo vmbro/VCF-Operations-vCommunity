@@ -3108,7 +3108,7 @@ The Performance metric is affected, as it shows the 99th percentile. Capacity ma
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_9ee466de-616a-41a9-b573-e8513e646ea3"/>
+                                    <Property name="attributeKey" value="vCommunity|VM Guest OS KPI"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -3144,7 +3144,7 @@ The Performance metric is affected, as it shows the 99th percentile. Capacity ma
                                         
                                     <Property name="ascendingRange" value="true"/>
                                         
-                                    <Property name="displayName" value="Performance (%)"/>
+                                    <Property name="displayName" value="VM Guest OS KPI"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -9878,7 +9878,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_6a8a4c78-d79e-4953-bc85-623b7bfb612e"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Risk|Highest ESXi CPU Reservation"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -9912,7 +9912,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="ascendingRange" value="false"/>
                                         
-                                    <Property name="displayName" value="CPU Reservation"/>
+                                    <Property name="displayName" value="Highest ESXi CPU Reservation"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -9928,7 +9928,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_d60a96a7-d156-46f0-8f55-f608a9f31d86"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Risk|Highest ESXi Memory Reservation"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -9962,7 +9962,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="ascendingRange" value="false"/>
                                         
-                                    <Property name="displayName" value="Memory Reservation"/>
+                                    <Property name="displayName" value="Highest ESXi Memory Reservation"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         

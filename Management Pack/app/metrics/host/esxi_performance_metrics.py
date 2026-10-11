@@ -58,6 +58,9 @@ logger = logging.getLogger(__name__)
 # The names shown in VCF Operations: the group that holds the metrics, and the KPI inside it.
 GROUP = "ESXi Performance"
 KPI_NAME = "ESXi Performance"
+# The key of the KPI metric. It must differ from GROUP: VCF Operations rejects a metric key that equals
+# the key of its group. The metric is still shown as KPI_NAME.
+KPI_KEY = "ESXi Performance Score"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 # Every sub-metric here is "lower is better", and 0 is perfect.
@@ -144,7 +147,7 @@ def collect_esxi_performance_metrics(
         values = esxi_performance_values(stats, host_id, vm_ids)
 
         # Step 3: publish the sub-metrics, then score them and publish the KPI.
-        no_data = publish_kpi(host_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
+        no_data = publish_kpi(host_obj, GROUP, KPI_KEY, METRICS, PUBLISHED_METRICS, values).no_data
         if no_data:
             logger.debug(f"ESXi Performance for {host_name}: no data, so left out: {', '.join(no_data)}")
 

@@ -61,6 +61,9 @@ logger = logging.getLogger(__name__)
 # The names shown in VCF Operations: the group that holds the metrics, and the KPI inside it.
 GROUP = "VM Performance"
 KPI_NAME = "VM Performance"
+# The key of the KPI metric. It must differ from GROUP: VCF Operations rejects a metric key that equals
+# the key of its group. The metric is still shown as KPI_NAME.
+KPI_KEY = "VM Performance Score"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 # A last value True means "skip when green": the source table marks the green range "Excluded",
@@ -117,8 +120,8 @@ SOURCE_STATS = {
     "Memory Ballooned":     "mem|balloonPct",
 }
 
-# Stats Memory Zip Swap is built from. The formula is the one of the "vSphere VM Memory Zip Swap" super metric
-# in content/supermetrics, see memory_zip_swap_pct().
+# Stats Memory Zip Swap is built from. The formula is the one of the former "vSphere VM Memory Zip Swap" super
+# metric, which this metric replaces. See memory_zip_swap_pct().
 MEM_COMPRESSED = "mem|compressed_average"
 MEM_SWAPPED = "mem|swapped_average"
 GUEST_USED_MEMORY = "guest|used_memory"
@@ -135,7 +138,7 @@ def memory_zip_swap_pct(vm_stats: Dict[str, float]) -> Optional[float]:
     """Compressed plus swapped memory, as a share of the memory the guest uses."""
     # Divided by Guest OS Used Memory, not by VM Configured Memory, to better reflect the risk.
     # Configured memory includes memory the guest OS does not use, so the share would come out smaller
-    # and under-report the problem. This is the same formula as the "vSphere VM Memory Zip Swap" super metric.
+    # and under-report the problem. This is the same formula as the former "vSphere VM Memory Zip Swap" super metric.
     # guest|used_memory comes from VMware Tools, so a VM without Tools has no Memory Zip Swap.
     if not has_all(vm_stats, [MEM_COMPRESSED, MEM_SWAPPED, GUEST_USED_MEMORY]):
         return None
@@ -173,8 +176,8 @@ def read_vm_performance_stats(suite_api_client: SuiteApiClient, vm_ids: List[str
 # Entry point, called once per powered-on VM.
 # ---------------------------------------------------------------------------
 
-def collect_vm_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[str, float]) -> None:
-    """Publishes the sub-metrics in PUBLISHED_METRICS, then the VM Performance KPI.
+def collect_vm_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[str, float]) -> Optional[float]:
+    """Publishes the sub-metrics in PUBLISHED_METRICS, then the VM Performance KPI. Returns the KPI, or None.
 
     vm_stats is the entry of this VM in the result of read_vm_performance_stats().
     """
@@ -184,11 +187,13 @@ def collect_vm_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[
         values = vm_performance_values(vm_stats)
 
         # Step 3: publish the calculated sub-metric, then score all of them and publish the KPI.
-        no_data = publish_kpi(vm_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
+        published = publish_kpi(vm_obj, GROUP, KPI_KEY, METRICS, PUBLISHED_METRICS, values)
         # Logged at debug level only: there can be thousands of VMs, and no Tools is a normal case.
-        if no_data:
-            logger.debug(f"VM Performance for {vm_name}: no data, so left out: {', '.join(no_data)}")
+        if published.no_data:
+            logger.debug(f"VM Performance for {vm_name}: no data, so left out: {', '.join(published.no_data)}")
+        return published.score
 
     except Exception as e:
         # A failure here must not stop the collection of the other VM data.
         logger.warning(f"Failed to retrieve VM Performance metrics for : {vm_name} - {repr(e)}")
+        return None

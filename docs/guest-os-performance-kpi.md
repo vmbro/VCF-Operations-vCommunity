@@ -4,7 +4,7 @@
 
 [VM Performance](vm-performance-kpi.md) scores the virtual motherboard. This KPI scores what runs on it.
 
-It is published on every powered-on VM with VMware Tools as `vCommunity|Guest OS Performance|Guest OS Performance`.
+It is published on every powered-on VM with VMware Tools as `vCommunity|Guest OS Performance|Guest OS Performance Score`.
 
 Code: [`Management Pack/app/metrics/vm/guest_os_performance_metrics.py`](../Management%20Pack/app/metrics/vm/guest_os_performance_metrics.py)
 

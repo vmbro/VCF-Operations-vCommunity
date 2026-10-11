@@ -149,14 +149,20 @@ def has_all(stats: Dict[str, float], stat_keys: List[str]) -> bool:
 # Publishing. The same last step for every KPI.
 # ---------------------------------------------------------------------------
 
-def publish_kpi(
-    obj, group: str, kpi_name: str, metrics: List[Metric], published_metrics: List[Metric],
-    values: Dict[str, Optional[float]],
-) -> List[str]:
-    """Publishes the sub-metrics and the KPI of one object. Returns the names of the sub-metrics with no data.
+class PublishedKpi(NamedTuple):
+    """What publish_kpi() published for one object."""
+    score: Optional[float]      # the KPI, or None when no sub-metric had data
+    no_data: List[str]          # names of the sub-metrics with no data, left out of the KPI
 
-    obj is the VCF Operations object: a cluster, host or VM. group, kpi_name, metrics and published_metrics
-    are the GROUP, KPI_NAME, METRICS and PUBLISHED_METRICS of the KPI module.
+
+def publish_kpi(
+    obj, group: str, kpi_key: str, metrics: List[Metric], published_metrics: List[Metric],
+    values: Dict[str, Optional[float]],
+) -> PublishedKpi:
+    """Publishes the sub-metrics and the KPI of one object. Returns the KPI and the sub-metrics with no data.
+
+    obj is the VCF Operations object: a cluster, host or VM. group, kpi_key, metrics and published_metrics
+    are the GROUP, KPI_KEY, METRICS and PUBLISHED_METRICS of the KPI module.
     values maps each sub-metric name to its value, None meaning "no data".
     """
     # Drop the sub-metrics with no data, and round the others to two decimals.
@@ -171,6 +177,6 @@ def publish_kpi(
     # Score them all and publish the KPI. No KPI when no sub-metric has data.
     score = kpi_score(metrics, values)
     if score is not None:
-        obj.with_metric(f"vCommunity|{group}|{kpi_name}", score)
+        obj.with_metric(f"vCommunity|{group}|{kpi_key}", score)
 
-    return [metric.name for metric in metrics if metric.name not in values]
+    return PublishedKpi(score, [metric.name for metric in metrics if metric.name not in values])

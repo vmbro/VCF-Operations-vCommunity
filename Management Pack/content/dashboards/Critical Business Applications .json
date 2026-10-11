@@ -114,8 +114,8 @@
             "title": "Virtual Machines in selected Tier",
             "config": {
                "yellowBound": 75,
-               "metricName": "Super Metrics|VM Performance (%)",
-               "metricKey": "Super Metric|sm_9ee466de-616a-41a9-b573-e8513e646ea3",
+               "metricName": "vCommunity|VM Guest OS KPI",
+               "metricKey": "vCommunity|VM Guest OS KPI",
                "relationshipMode": {"relationshipMode": -1},
                "sortByDir": {"orderByDir": "desc"},
                "title": "Virtual Machines in selected Tier",

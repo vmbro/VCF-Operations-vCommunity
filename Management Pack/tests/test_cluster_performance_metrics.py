@@ -94,8 +94,8 @@ HEALTHY = {
 
 def test_healthy_cluster_publishes_every_metric_and_scores_100():
     published = collect(HEALTHY)
-    assert set(published) == {metric.name for metric in cp.METRICS} | {cp.KPI_NAME}
-    assert published[cp.KPI_NAME] == 100.0
+    assert set(published) == {metric.name for metric in cp.METRICS} | {cp.KPI_KEY}
+    assert published[cp.KPI_KEY] == 100.0
 
 
 def test_vm_stats_give_the_worst_vm_and_the_90th_percentile():
@@ -131,4 +131,4 @@ def test_metrics_without_data_are_not_published():
     assert "Worst VM CPU Ready" not in published
     assert "90th Percentile VM Memory Latency" not in published
     assert published["Highest ESXi Bad Network Packets"] == 0.0
-    assert published[cp.KPI_NAME] == 100.0
+    assert published[cp.KPI_KEY] == 100.0

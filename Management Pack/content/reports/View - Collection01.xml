@@ -9396,7 +9396,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_6a8a4c78-d79e-4953-bc85-623b7bfb612e"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Risk|Highest ESXi CPU Reservation"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -9430,7 +9430,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="ascendingRange" value="false"/>
                                         
-                                    <Property name="displayName" value="CPU Reservation"/>
+                                    <Property name="displayName" value="Highest ESXi CPU Reservation"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         
@@ -9446,7 +9446,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="objectType" value="RESOURCE"/>
                                         
-                                    <Property name="attributeKey" value="Super Metric|sm_d60a96a7-d156-46f0-8f55-f608a9f31d86"/>
+                                    <Property name="attributeKey" value="vCommunity|Cluster Risk|Highest ESXi Memory Reservation"/>
                                         
                                     <Property name="preferredUnitId" value="percent"/>
                                         
@@ -9480,7 +9480,7 @@ Note: this requires Service Discovery adapter.</Description>
                                         
                                     <Property name="ascendingRange" value="false"/>
                                         
-                                    <Property name="displayName" value="Memory Reservation"/>
+                                    <Property name="displayName" value="Highest ESXi Memory Reservation"/>
                                         
                                     <Property name="addTimestampAsColumn" value="false"/>
                                         

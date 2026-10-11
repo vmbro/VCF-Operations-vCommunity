@@ -5,7 +5,7 @@
    }],
    "modificationTime": 1753166106283,
    "name": "Business Application Tier Performance",
-   "formula": "avg(${adaptertype=VMWARE, objecttype=VirtualMachine, attribute=Super Metric|sm_9ee466de-616a-41a9-b573-e8513e646ea3, depth=1})",
+   "formula": "avg(${adaptertype=VMWARE, objecttype=VirtualMachine, attribute=vCommunity|VM Guest OS KPI, depth=1})",
    "description": "Key Performance Indicator (%) of a Tier. A business application is made up of tiers, which in turn have VMs.\n\nLimitation: a business app must have 2 and 2 levels only. Biz App --> Tier --> VM.",
    "unitId": "percent",
    "modifiedBy": "8a399472-453b-435f-b57d-84aa33550d08"

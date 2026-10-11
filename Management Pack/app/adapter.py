@@ -34,7 +34,7 @@ from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
 from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
 from metrics.host import esxi_performance_metrics
-from metrics.vm import vm_performance_metrics, guest_os_performance_metrics
+from metrics.vm import vm_performance_metrics, guest_os_performance_metrics, vm_guest_os_kpi
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
@@ -56,7 +56,7 @@ def define_kpi(vCommunity, kpi) -> None:
     group = vCommunity.define_group(kpi.GROUP, kpi.GROUP)
     for metric in kpi.PUBLISHED_METRICS:
         group.define_metric(metric.name, metric.name, unit=KPI_UNITS[metric.unit])
-    group.define_metric(kpi.KPI_NAME, kpi.KPI_NAME, unit=Units.RATIO.PERCENT)
+    group.define_metric(kpi.KPI_KEY, kpi.KPI_NAME, unit=Units.RATIO.PERCENT)
 
 
 def get_adapter_definition() -> AdapterDefinition:
@@ -301,6 +301,8 @@ def get_adapter_definition() -> AdapterDefinition:
 
         define_kpi(vCommunity, vm_performance_metrics)
         define_kpi(vCommunity, guest_os_performance_metrics)
+        # The average of the two KPIs above. See metrics/vm/vm_guest_os_kpi.py.
+        vCommunity.define_metric(vm_guest_os_kpi.KPI_KEY, vm_guest_os_kpi.KPI_KEY, unit=Units.RATIO.PERCENT)
 
         configuration.define_string_property("CPU Allocation Share Level", "CPU Allocation Share Level")
         configuration.define_string_property("VM Change Version", "VM Change Version")

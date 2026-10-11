@@ -4,7 +4,7 @@
 
 Use it to watch many clusters at once. When the score drops, open the 9 sub-metrics on that cluster to see which one caused it.
 
-All 10 metrics are published on the cluster object under `vCommunity|Cluster Performance`.
+All 10 metrics are published on the cluster object under `vCommunity|Cluster Performance`. The KPI itself is `vCommunity|Cluster Performance|Cluster Performance Score`.
 
 Code: [`Management Pack/app/metrics/cluster/cluster_performance_metrics.py`](../Management%20Pack/app/metrics/cluster/cluster_performance_metrics.py)
 
@@ -36,7 +36,7 @@ Notes:
 - **Which VMs count.** The powered-on VMs on the cluster's ESXi hosts. A powered-off VM is left out, because its last stats are old. All of this is read from VCF Operations properties: a host belongs to the cluster named in its `summary|parentCluster`, a VM runs on the host named in its `summary|parentHost`, and it is powered on when `summary|runtime|powerState` is "Powered On". Placement is by name, so do not mix datacenters in one adapter instance.
 - **20-second peaks.** The VM stats are the 20-second peaks, not the 5-minute averages. This makes the KPI a leading indicator.
 - **90th percentile.** The value that 90 % of the VMs are at or below. The VMs are sorted, and the one at position 90 % of the count, rounded up, is taken. With 20 VMs that is the 18th lowest. With fewer than 10 VMs it is the highest, the same as the worst VM.
-- **Bad network packets** use the last collection cycle (5 minutes), the same as the "Bad Network Packets" super metric. They are never averaged or added up over a longer time, because that would hide a spike. Two of its counters, Total Packets Received and Transmitted, are deactivated by default in VCF Operations. Activate them first: see [Required Policy Settings](../README.md#required-policy-settings).
+- **Bad network packets** use the last collection cycle (5 minutes), the same as the former "Bad Network Packets" super metric, which this metric replaces. They are never averaged or added up over a longer time, because that would hide a spike. Two of its counters, Total Packets Received and Transmitted, are deactivated by default in VCF Operations. Activate them first: see [Required Policy Settings](../README.md#required-policy-settings).
 
 ## Step 2: Score each sub-metric
 

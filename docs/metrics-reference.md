@@ -9,8 +9,9 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 - [Cluster](#cluster) (45 items)
 - [Host](#host) (56 items)
 - [Datastore](#datastore) (9 items)
-- [Virtual Machine](#virtual-machine) (54 items)
+- [Virtual Machine](#virtual-machine) (55 items)
 - [vCenter](#vcenter) (11 items)
+- [Super metrics replaced by built-in metrics](#super-metrics-replaced-by-built-in-metrics)
 
 ---
 
@@ -40,7 +41,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Enabled` | Whether Enhanced vMotion Compatibility (EVC) mode is enabled on the cluster. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|EVC\|Mode` | If enabled, the EVC mode key the cluster is running (e.g. intel-cascadelake) - determines the exposed CPU feature baseline. |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|DPM\|Host Power Action Rate` | If Distributed Power Management (DPM) is enabled, the aggressiveness level (1-5) controlling how fast hosts are powered on/off. |
-| 🟢 Metric | `vCommunity\|Cluster Performance\|Cluster Performance` | Key Performance Indicator (0-100 %) of the cluster, combining the 9 sub-metrics below. 100 is perfect. See [Cluster Performance KPI](cluster-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Cluster Performance Score` | Key Performance Indicator (0-100 %) of the cluster, combining the 9 sub-metrics below. 100 is perfect. See [Cluster Performance KPI](cluster-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM in the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any powered-on VM in the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|Worst VM Memory Latency` | Highest 20-second peak memory contention (%) of any powered-on VM in the cluster. |
@@ -50,7 +51,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets in the last 5 minutes, on the worst host in the cluster. Needs Total Packets Received and Transmitted activated in the policy: see [Required Policy Settings](../README.md#required-policy-settings). |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Cluster Risk` | Key Performance Indicator (0-100 %) of the cluster's risk, combining the 12 sub-metrics below. 100 is no risk. See [Cluster Risk KPI](cluster-risk-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Cluster Risk Score` | Key Performance Indicator (0-100 %) of the cluster's risk, combining the 12 sub-metrics below. 100 is no risk. See [Cluster Risk KPI](cluster-risk-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Thread Utilization` | CPU thread utilization (%, `cpu.utilization`) of the busiest host in the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi CPU Imbalance` | Running CPU threads divided by running CPU cores, on the worst host. 1 is one thread per busy core, 2 is both hyper-threads on every busy core. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Consumed` | Consumed memory as a share (%) of host DRAM, on the fullest host. |
@@ -72,7 +73,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
-| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Performance` | Key Performance Indicator (0-100 %) of the host, combining the 9 sub-metrics below. 100 is perfect. See [ESXi Performance KPI](esxi-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Performance Score` | Key Performance Indicator (0-100 %) of the host, combining the 9 sub-metrics below. 100 is perfect. See [ESXi Performance KPI](esxi-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM on the host. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any powered-on VM on the host. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM Memory Latency` | Highest 20-second peak memory contention (%) of any powered-on VM on the host. |
@@ -155,9 +156,10 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
-| 🟢 Metric | `vCommunity\|VM Performance\|VM Performance` | Key Performance Indicator (0-100 %) of a powered-on VM as a virtual motherboard, combining 9 sub-metrics. 100 is perfect. See [VM Performance KPI](vm-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|VM Performance\|VM Performance Score` | Key Performance Indicator (0-100 %) of a powered-on VM as a virtual motherboard, combining 9 sub-metrics. 100 is perfect. See [VM Performance KPI](vm-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|VM Performance\|Memory Zip Swap` | Compressed plus swapped memory of the VM, as a share (%) of the memory the guest uses. |
-| 🟢 Metric | `vCommunity\|Guest OS Performance\|Guest OS Performance` | Key Performance Indicator (0-100 %) of the guest OS of a powered-on VM with VMware Tools, combining 4 sub-metrics. 100 is perfect. See [Guest OS Performance KPI](guest-os-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|VM Guest OS KPI` | Average (0-100 %) of VM Performance Score and Guest OS Performance Score. A VM without VMware Tools has no Guest OS Performance; its VM Guest OS KPI is then its VM Performance Score alone. Replaces the "vSphere VM Performance" super metric. |
+| 🟢 Metric | `vCommunity\|Guest OS Performance\|Guest OS Performance Score` | Key Performance Indicator (0-100 %) of the guest OS of a powered-on VM with VMware Tools, combining 4 sub-metrics. 100 is perfect. See [Guest OS Performance KPI](guest-os-performance-kpi.md) for the formula. |
 | ⚪ Property | `vCommunity\|Options\|`<config_path>`` | Value of a VM config field (e.g. config.bootOptions.bootDelay) tracked via the vm_options config file. One property per tracked field; skipped entirely if the value is None. |
 | ⚪ Property | `vCommunity\|Configuration\|Advanced Parameters\|`<key>`` | Value of a VM advanced parameter (extraConfig, e.g. svga.present) tracked via the vm_advanced_parameters config file. |
 | 🟢 Metric | `vCommunity\|Configuration\|SCSI Controllers\|Count` | Number of SCSI controllers attached to the VM. |
@@ -234,4 +236,34 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 ---
 
-**Total: 173 template rows across 5 object types.**
+## Super metrics replaced by built-in metrics
+
+These super metrics were removed from `content/supermetrics`. Their dashboards, reports and super metrics in this pack now use the built-in metric. If you built your own dashboards on them, replace them the same way.
+
+| Removed super metric | Object | Replaced by |
+| :--- | :--- | :--- |
+| vSphere Cluster Performance | Cluster | `vCommunity\|Cluster Performance\|Cluster Performance Score` |
+| vSphere Cluster Worst VM CPU Ready | Cluster | `vCommunity\|Cluster Performance\|Worst VM CPU Ready` |
+| vSphere Cluster Worst VM CPU Co-Stop | Cluster | `vCommunity\|Cluster Performance\|Worst VM CPU Co-Stop` |
+| vSphere Cluster Worst VM Memory Contention | Cluster | `vCommunity\|Cluster Performance\|Worst VM Memory Latency` |
+| vSphere Cluster Worst ESXi Bad Network Packets | Cluster | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` |
+| vSphere Cluster CPU Ready (average of the VMs) | Cluster | `vCommunity\|Cluster Performance\|90th Percentile VM CPU Ready` |
+| vSphere Cluster CPU Co-Stop (average of the VMs) | Cluster | `vCommunity\|Cluster Performance\|90th Percentile VM CPU Co-Stop` |
+| vSphere Cluster Memory Contention (average of the VMs) | Cluster | `vCommunity\|Cluster Performance\|90th Percentile VM Memory Latency` |
+| vSphere Cluster Memory Zip Swap (cluster total) | Cluster | `vCommunity\|Cluster Risk\|Worst ESXi Memory Zip Swap` |
+| vSphere Cluster Memory Ballooned (cluster total) | Cluster | `vCommunity\|Cluster Risk\|Worst ESXi Memory Ballooned` |
+| CPU Reservation (cluster total) | Cluster | `vCommunity\|Cluster Risk\|Highest ESXi CPU Reservation` |
+| Memory Reservation (cluster total) | Cluster | `vCommunity\|Cluster Risk\|Highest ESXi Memory Reservation` |
+| ESXi Bad Network Packets | Host | `vCommunity\|ESXi Performance\|ESXi Bad Network Packets` |
+| vSphere VM Memory Zip Swap | VM | `vCommunity\|VM Performance\|Memory Zip Swap` |
+| vSphere VM Performance | VM | `vCommunity\|VM Guest OS KPI` |
+
+- The averages became the 90th percentile, which a super metric cannot calculate.
+- The cluster totals became the worst or highest ESXi host, because one full host can hurt its VMs while the cluster total looks fine.
+- vSphere Clusters Performance, vSphere Clusters not Green and Business Application Tier Performance stay super metrics. They now read the built-in metrics.
+
+[⬆ Back to top](#metrics--properties-reference)
+
+---
+
+**Total: 174 template rows across 5 object types.**

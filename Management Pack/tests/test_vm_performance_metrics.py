@@ -60,7 +60,7 @@ def test_memory_zip_swap():
 # --- The KPI ----------------------------------------------------------------
 
 def test_healthy_vm_scores_100_and_publishes_only_what_the_vm_does_not_have():
-    assert collect(HEALTHY) == {"Memory Zip Swap": 0.0, vp.KPI_NAME: 100.0}
+    assert collect(HEALTHY) == {"Memory Zip Swap": 0.0, vp.KPI_KEY: 100.0}
 
 
 # In HEALTHY, CPU Overlap, Network Dropped Tx and CPU Run are 0, in their excluded green, so they are left out.
@@ -69,27 +69,27 @@ def test_one_red_metric_is_not_hidden_by_five_good_ones():
     # CPU Ready = 10 is a quarter of the way through red (8 to 16): it scores 18.75 with weight 8.
     # The other five that count score 100 with weight 1.
     # KPI = (5 x 100 + 18.75 x 8) / (5 + 8) = 650 / 13 = 50.0. A plain average would give 86.5.
-    assert collect({**HEALTHY, "cpu|20_sec_peak_readyPct": 10.0})[vp.KPI_NAME] == 50.0
+    assert collect({**HEALTHY, "cpu|20_sec_peak_readyPct": 10.0})[vp.KPI_KEY] == 50.0
 
 
 def test_cpu_run_counts_only_above_95_percent():
     # Below 95 % CPU Run is in its excluded green: left out, not scored 100.
-    assert collect({**HEALTHY, "cpu|net_run": 90.0})[vp.KPI_NAME] == 100.0
+    assert collect({**HEALTHY, "cpu|net_run": 90.0})[vp.KPI_KEY] == 100.0
     # 98 % is halfway through orange (97 to 99): it scores 37.5 with weight 4.
     # KPI = (6 x 100 + 37.5 x 4) / (6 + 4) = 750 / 10 = 75.0
-    assert collect({**HEALTHY, "cpu|net_run": 98.0})[vp.KPI_NAME] == 75.0
+    assert collect({**HEALTHY, "cpu|net_run": 98.0})[vp.KPI_KEY] == 75.0
 
 
 def test_any_dropped_packet_is_yellow_and_counts():
     # 0.25 % dropped is halfway through yellow (0 to 0.5): it scores 62.5 with weight 2.
     # KPI = (6 x 100 + 62.5 x 2) / (6 + 2) = 725 / 8 = 90.625, rounded to 90.62
-    assert collect({**HEALTHY, "net|droppedTxPct_max": 0.25})[vp.KPI_NAME] == 90.62
+    assert collect({**HEALTHY, "net|droppedTxPct_max": 0.25})[vp.KPI_KEY] == 90.62
 
 
 def test_disk_latency_uses_the_new_limits():
     # 30 ms is halfway through orange (20 to 40): it scores 37.5 with weight 4.
     # KPI = (5 x 100 + 37.5 x 4) / (5 + 4) = 650 / 9 = 72.22
-    assert collect({**HEALTHY, "virtualDisk|20_sec_peak_totalLatency_average": 30.0})[vp.KPI_NAME] == 72.22
+    assert collect({**HEALTHY, "virtualDisk|20_sec_peak_totalLatency_average": 30.0})[vp.KPI_KEY] == 72.22
 
 
 # --- Missing data -----------------------------------------------------------
@@ -100,7 +100,7 @@ def test_vm_without_tools_is_scored_on_the_stats_it_has():
     # Memory Zip Swap needs a Tools stat, so it has no data. Three more are in their excluded green.
     # That leaves four at 100 and CPU Ready at 18.75 with weight 8.
     # KPI = (4 x 100 + 18.75 x 8) / (4 + 8) = 550 / 12 = 45.83
-    assert published == {vp.KPI_NAME: 45.83}
+    assert published == {vp.KPI_KEY: 45.83}
 
 
 def test_vm_with_no_stats_publishes_nothing():

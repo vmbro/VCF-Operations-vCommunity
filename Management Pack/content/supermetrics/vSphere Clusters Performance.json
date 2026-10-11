@@ -5,7 +5,7 @@
    }],
    "modificationTime": 1732950075751,
    "name": "vSphere Clusters Performance",
-   "formula": "avg(${adaptertype=VMWARE, objecttype=ClusterComputeResource, attribute=Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60, depth=4})",
+   "formula": "avg(${adaptertype=VMWARE, objecttype=ClusterComputeResource, attribute=vCommunity|Cluster Performance|Cluster Performance Score, depth=4})",
    "description": "Part of Operationalize Your World.\n\nAverage of all cluster KPI from all clusters. This number should be stable, or its pattern follows your expectation, in a large environment. A large sudden drop is abnormal.\n\nFor details, see VCF Operations Transformation book and vSphere Metrics book, which are parts of Operationalize Your World.\n",
    "unitId": "percent",
    "modifiedBy": "9124aca9-8198-4ae9-bd45-c0cc82204f83"

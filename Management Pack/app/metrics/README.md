@@ -53,7 +53,9 @@ This has two consequences:
 
 Every KPI input comes from VCF Operations, never from vCenter, so nothing is collected twice. The VCF Operations resource id that the Suite API needs comes from `ops_stats.query_resources()`: the SDK objects have no id.
 
-Every metric is published under the `vCommunity` group of the object. A KPI gets its own group below that, for example `vCommunity|VM Performance|VM Performance`.
+Every metric is published under the `vCommunity` group of the object. A KPI gets its own group below that, for example `vCommunity|VM Performance|VM Performance Score`.
+
+The KPI metric's key ends in " Score" (`KPI_KEY`), because VCF Operations rejects a metric whose key equals the key of its group. It is still shown as `KPI_NAME`, for example "VM Performance".
 
 ## How a KPI works
 
@@ -168,7 +170,7 @@ Every KPI module has the same parts, in the same order. Keep to this when you ad
 | Part | What it is |
 | :--- | :--- |
 | File docstring | What the KPI is, where its limits come from, what is published, how missing data is handled. |
-| `GROUP`, `KPI_NAME` | The names used in VCF Operations. |
+| `GROUP`, `KPI_NAME`, `KPI_KEY` | The names used in VCF Operations. `KPI_KEY` is `KPI_NAME` plus " Score". |
 | `METRICS` | The table of sub-metrics and limits. |
 | `PUBLISHED_METRICS` | The sub-metrics that are published. |
 | Stat keys | The VCF Operations stats the sub-metrics are built from. |
@@ -188,7 +190,7 @@ The adapter definition reads the same tables, so there is nothing to update in `
 ## How to add a KPI
 
 1. Create the module under the folder of its object type, for example `host/host_performance_metrics.py`. Copy the structure of `vm/vm_performance_metrics.py` when every object is scored on its own stats. Copy `cluster/cluster_performance_metrics.py` when the score is built from child objects.
-2. Fill in `GROUP`, `KPI_NAME`, `METRICS` and `PUBLISHED_METRICS`.
+2. Fill in `GROUP`, `KPI_NAME`, `KPI_KEY`, `METRICS` and `PUBLISHED_METRICS`.
 3. Write the formulas and the entry point.
 4. Call the entry point from the collector of that object type, under `../collectors/`. Read the stats once, before the loop over the objects.
 5. Add one line to `adapter.py`: `define_kpi(vCommunity, <your module>)`, in the section of that object type.

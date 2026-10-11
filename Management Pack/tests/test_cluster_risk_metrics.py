@@ -165,7 +165,7 @@ def test_healthy_cluster():
     assert published["Worst ESXi CPU Imbalance"] == 1.0
     assert published["Highest CPU Monster VM to Host Ratio"] == 0.25
     assert "Worst ESXi Memory Tiering Latency" not in published
-    assert published[cr.KPI_NAME] == 98.35
+    assert published[cr.KPI_KEY] == 98.35
 
 
 def test_the_worst_host_is_taken():
@@ -181,13 +181,13 @@ def test_a_busy_host_leaves_its_excluded_green_and_counts():
     assert published["Worst ESXi CPU Imbalance"] == 1.8                  # halfway through red: 12.5 with weight 8
     # The other counted rows: ballooned and zip swap (100), CPU monster (93.75), memory monster (98.0).
     # KPI = (25 x 8 + 12.5 x 8 + 100 + 100 + 93.75 + 98) / (8 + 8 + 4) = 691.75 / 20 = 34.59
-    assert published[cr.KPI_NAME] == 34.59
+    assert published[cr.KPI_KEY] == 34.59
 
 
 def test_failed_stats_call_still_scores_what_the_properties_give():
     published = collect(HEALTHY, status_code=500)
     # Without stats only CPU Monster VM is left: it needs only properties (VM vCPUs, host cores).
-    assert set(published) == {"Highest CPU Monster VM to Host Ratio", cr.KPI_NAME}
+    assert set(published) == {"Highest CPU Monster VM to Host Ratio", cr.KPI_KEY}
 
 
 def test_memory_tiering_latency_counts_only_on_hosts_with_memory_tiering():

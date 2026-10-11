@@ -4,7 +4,9 @@
 
 What happens inside Windows or Linux is scored separately, by [Guest OS Performance](guest-os-performance-kpi.md).
 
-It is published on every powered-on VM as `vCommunity|VM Performance|VM Performance`. A powered-off VM gets no score.
+It is published on every powered-on VM as `vCommunity|VM Performance|VM Performance Score`. A powered-off VM gets no score.
+
+**VM Guest OS KPI.** `vCommunity|VM Guest OS KPI` is the average of this KPI and [Guest OS Performance](guest-os-performance-kpi.md), for one score per VM. A VM without VMware Tools has no Guest OS Performance, so its VM Guest OS KPI is its VM Performance alone. It replaces the "vSphere VM Performance" super metric. Code: [`vm_guest_os_kpi.py`](../Management%20Pack/app/metrics/vm/vm_guest_os_kpi.py).
 
 Code: [`Management Pack/app/metrics/vm/vm_performance_metrics.py`](../Management%20Pack/app/metrics/vm/vm_performance_metrics.py)
 
@@ -14,7 +16,7 @@ Source of the sub-metrics and limits: [`Complex Metrics/Virtual Motherboard Perf
 
 Eight sub-metrics are stats the VM already has. They are read as they are, and are not published a second time. Memory Zip Swap is calculated.
 
-**Why Memory Zip Swap is divided by Guest OS Used Memory.** It is divided by the memory the guest OS uses, not by the VM's configured memory, to better reflect the risk. Configured memory includes memory the guest OS does not use, so the share would come out smaller and under-report the problem. This is the same formula as the "vSphere VM Memory Zip Swap" super metric.
+**Why Memory Zip Swap is divided by Guest OS Used Memory.** It is divided by the memory the guest OS uses, not by the VM's configured memory, to better reflect the risk. Configured memory includes memory the guest OS does not use, so the share would come out smaller and under-report the problem. This is the same formula as the former "vSphere VM Memory Zip Swap" super metric, which this metric replaces.
 
 | Group | Sub-metric | Source |
 | :--- | :--- | :--- |

@@ -52,8 +52,8 @@ def test_limits_match_the_source_table():
 
 def test_healthy_host_publishes_every_metric_and_scores_100():
     published = collect(HEALTHY)
-    assert set(published) == {metric.name for metric in ep.METRICS} | {ep.KPI_NAME}
-    assert published[ep.KPI_NAME] == 100.0
+    assert set(published) == {metric.name for metric in ep.METRICS} | {ep.KPI_KEY}
+    assert published[ep.KPI_KEY] == 100.0
 
 
 def test_only_the_vms_of_this_host_count():
@@ -71,7 +71,7 @@ def test_one_bad_vm_is_deep_but_not_broad():
     published = collect(samples)
     assert published["Worst VM Disk Latency"] == 200.0
     assert published["90th Percentile VM Disk Latency"] == 0.0
-    assert published[ep.KPI_NAME] == 56.67
+    assert published[ep.KPI_KEY] == 56.67
 
 
 def test_bad_packets_are_this_hosts_own():
@@ -84,7 +84,7 @@ def test_bad_packets_are_this_hosts_own():
 def test_host_without_vms_is_scored_on_its_network():
     published = collect(HEALTHY, "host-2", [])
     # No VM sub-metric has data. Bad packets are 0 and skipped. Nothing is wrong, so the KPI is 100.
-    assert published == {"ESXi Bad Network Packets": 0.0, ep.KPI_NAME: 100.0}
+    assert published == {"ESXi Bad Network Packets": 0.0, ep.KPI_KEY: 100.0}
 
 
 def test_failed_stats_calls_publish_nothing():

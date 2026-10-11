@@ -58,6 +58,9 @@ logger = logging.getLogger(__name__)
 # The names shown in VCF Operations: the group that holds the metrics, and the KPI inside it.
 GROUP = "Cluster Risk"
 KPI_NAME = "Cluster Risk"
+# The key of the KPI metric. It must differ from GROUP: VCF Operations rejects a metric key that equals
+# the key of its group. The metric is still shown as KPI_NAME.
+KPI_KEY = "Cluster Risk Score"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 # Every sub-metric here is "lower is better".
@@ -113,7 +116,7 @@ CPU_CAPACITY = "cpu|totalCapacity_average"              # MHz
 MEM_CONSUMED = "mem|consumed_average"
 MEM_BALLOONED = "mem|vmmemctl_average"
 MEM_COMPRESSED = "mem|compressed_average"
-MEM_SWAPPED = "mem|swapout_average"         # as in the "Memory Zip Swap" super metric
+MEM_SWAPPED = "mem|swapout_average"         # as in the former "Memory Zip Swap" super metric
 MEM_RESERVED = "mem|reservedCapacity_average"
 # Allocated to all powered-on VMs of the host. VCF Operations adds them up, so the code does not have to.
 VCPUS_ALLOCATED = "cpu|vcpus_allocated_on_all_powered_on_vms"            # number of vCPUs
@@ -306,7 +309,7 @@ def collect_cluster_risk_metrics(
         values = cluster_risk_values(hosts, stats_by_host)
 
         # Step 3: publish the sub-metrics, then score them and publish the KPI.
-        no_data = publish_kpi(cluster_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
+        no_data = publish_kpi(cluster_obj, GROUP, KPI_KEY, METRICS, PUBLISHED_METRICS, values).no_data
         if no_data:
             logger.info(f"Cluster Risk for {cluster_name}: no data, so left out: {', '.join(no_data)}")
 

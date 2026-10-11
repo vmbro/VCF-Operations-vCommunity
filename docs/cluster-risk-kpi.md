@@ -9,7 +9,7 @@ Every sub-metric takes the highest or worst ESXi host in the cluster. One full h
 
 **Host memory is DRAM only.** Every memory share and ratio is measured against the host's DRAM (the DIMMs), called `MEM_DRAM_CAPACITY`. A memory tier such as NVMe is never added. There is no use case, in Risk or Performance, for comparing against the expanded capacity (DRAM + NVMe). See [Host memory capacity](#host-memory-capacity-mem_dram_capacity).
 
-All 13 metrics are published on the cluster object under `vCommunity|Cluster Risk`.
+All 13 metrics are published on the cluster object under `vCommunity|Cluster Risk`. The KPI itself is `vCommunity|Cluster Risk|Cluster Risk Score`.
 
 Code: [`Management Pack/app/metrics/cluster/cluster_risk_metrics.py`](../Management%20Pack/app/metrics/cluster/cluster_risk_metrics.py)
 

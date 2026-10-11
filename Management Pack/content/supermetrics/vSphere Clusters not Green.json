@@ -5,7 +5,7 @@
    }],
    "modificationTime": 1732959380978,
    "name": "vSphere Clusters not Green",
-   "formula": "count(${adaptertype=VMWARE, objecttype=ClusterComputeResource, attribute=Super Metric|sm_a1b7d29a-c6b8-4137-a4dc-d983e882eb60, depth=4,\nwhere=\"<75\" })",
+   "formula": "count(${adaptertype=VMWARE, objecttype=ClusterComputeResource, attribute=vCommunity|Cluster Performance|Cluster Performance Score, depth=4,\nwhere=\"<75\" })",
    "description": "Count of vSphere Clusters whose Performance (%) values are no longer in the green zone (75 - 100). The values should match your operational expectation.\n\nFor details, see VCF Operations Transformation book and vSphere Metrics book, which are parts of Operationalize Your World.\n\n",
    "unitId": "",
    "modifiedBy": "9124aca9-8198-4ae9-bd45-c0cc82204f83"

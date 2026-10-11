@@ -44,6 +44,9 @@ logger = logging.getLogger(__name__)
 # The names shown in VCF Operations: the group that holds the metrics, and the KPI inside it.
 GROUP = "Guest OS Performance"
 KPI_NAME = "Guest OS Performance"
+# The key of the KPI metric. It must differ from GROUP: VCF Operations rejects a metric key that equals
+# the key of its group. The metric is still shown as KPI_NAME.
+KPI_KEY = "Guest OS Performance Score"
 
 # One row per sub-metric. The five numbers are the values where its score is 100, 75, 50, 25 and 0.
 METRICS = [
@@ -104,8 +107,8 @@ def guest_os_performance_values(vm_stats: Dict[str, float]) -> Dict[str, Optiona
 # Entry point, called once per powered-on VM.
 # ---------------------------------------------------------------------------
 
-def collect_guest_os_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[str, float]) -> None:
-    """Publishes the Guest OS Performance KPI.
+def collect_guest_os_performance_metrics(vm_obj: Object, vm_name: str, vm_stats: Dict[str, float]) -> Optional[float]:
+    """Publishes the Guest OS Performance KPI. Returns it, or None.
 
     vm_stats is the entry of this VM in the result of vm_performance_metrics.read_vm_performance_stats().
     """
@@ -115,11 +118,13 @@ def collect_guest_os_performance_metrics(vm_obj: Object, vm_name: str, vm_stats:
         values = guest_os_performance_values(vm_stats)
 
         # Step 3: score them and publish the KPI. The sub-metrics are not published, see PUBLISHED_METRICS.
-        no_data = publish_kpi(vm_obj, GROUP, KPI_NAME, METRICS, PUBLISHED_METRICS, values)
+        published = publish_kpi(vm_obj, GROUP, KPI_KEY, METRICS, PUBLISHED_METRICS, values)
         # Logged at debug level only: there can be thousands of VMs, and no Tools is a normal case.
-        if no_data:
-            logger.debug(f"Guest OS Performance for {vm_name}: no data, so left out: {', '.join(no_data)}")
+        if published.no_data:
+            logger.debug(f"Guest OS Performance for {vm_name}: no data, so left out: {', '.join(published.no_data)}")
+        return published.score
 
     except Exception as e:
         # A failure here must not stop the collection of the other VM data.
         logger.warning(f"Failed to retrieve Guest OS Performance metrics for : {vm_name} - {repr(e)}")
+        return None

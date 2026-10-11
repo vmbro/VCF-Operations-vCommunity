@@ -18,6 +18,7 @@ from properties.vm.vmOSInformation import collect_vm_os_information_properties
 from events.vm.collect_windows_event_logs import collect_windows_events
 from metrics.vm.vm_performance_metrics import read_vm_performance_stats, collect_vm_performance_metrics
 from metrics.vm.guest_os_performance_metrics import collect_guest_os_performance_metrics
+from metrics.vm.vm_guest_os_kpi import collect_vm_guest_os_kpi
 from utils.vi_property_collector import retrieve_properties
 from utils.ops_inventory import read_vms
 from pyVmomi import vim
@@ -132,8 +133,9 @@ def collect_vm_data(
             ops_vm = ops_vms_by_moid.get(vm_moid)
             if ops_vm and ops_vm.powered_on:
                 vm_stats = vm_performance_stats.get(ops_vm.id, {})
-                collect_vm_performance_metrics(vm_obj, vm_name, vm_stats)
-                collect_guest_os_performance_metrics(vm_obj, vm_name, vm_stats)
+                vm_performance = collect_vm_performance_metrics(vm_obj, vm_name, vm_stats)
+                guest_os_performance = collect_guest_os_performance_metrics(vm_obj, vm_name, vm_stats)
+                collect_vm_guest_os_kpi(vm_obj, vm_name, vm_performance, guest_os_performance)
 
 
             # TODO need to improve data collection 
