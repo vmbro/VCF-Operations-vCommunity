@@ -50,7 +50,7 @@ from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
 from metrics.kpi_score import Metric, publish_kpi
 from metrics.vm_contention import (
-    worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals,
+    worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_stats,
 )
 
 logger = logging.getLogger(__name__)
@@ -79,7 +79,7 @@ METRICS = [
     Metric("90th Percentile VM Disk Latency",         "ms",  0.0,  20.0,  40.0,   60.0,   80.0),
 
     # --- The host itself ---
-    # Errored and dropped packets as a share of all packets, over the last 30 minutes.
+    # Errored and dropped packets as a share of all packets, in the last collection cycle (5 minutes).
     # Green (exactly 0) is "Excluded" in the source table: skipped while 0, because it is rare. Any bad packet is yellow.
     Metric("ESXi Bad Network Packets",                "%",   0.0,  0.0,   0.2,    0.4,    0.8,    True),
 ]
@@ -93,11 +93,11 @@ PUBLISHED_METRICS = METRICS
 # ---------------------------------------------------------------------------
 
 class EsxiPerformanceStats:
-    """The stats of one collection cycle: of every powered-on VM, and the packet totals of every host."""
+    """The stats of one collection cycle: of every powered-on VM, and the packet counters of every host."""
 
-    def __init__(self, vm_stats: Dict[str, Dict[str, float]], host_packet_totals: Dict[str, Dict[str, float]]):
+    def __init__(self, vm_stats: Dict[str, Dict[str, float]], host_packet_stats: Dict[str, Dict[str, float]]):
         self.vm_stats = vm_stats
-        self.host_packet_totals = host_packet_totals
+        self.host_packet_stats = host_packet_stats
 
 
 def read_esxi_performance_stats(
@@ -107,7 +107,7 @@ def read_esxi_performance_stats(
     try:
         return EsxiPerformanceStats(
             read_vm_contention_stats(suite_api_client, vm_ids),
-            read_host_packet_totals(suite_api_client, host_ids),
+            read_host_packet_stats(suite_api_client, host_ids),
         )
     except Exception as e:
         # Without stats there is no score, but the rest of the host collection must still run.
@@ -122,7 +122,7 @@ def read_esxi_performance_stats(
 def esxi_performance_values(stats: EsxiPerformanceStats, host_id: str, vm_ids: List[str]) -> Dict[str, Optional[float]]:
     """Value of every sub-metric in METRICS for one host. None means "no data"."""
     values = worst_and_percentile(stats.vm_stats, vm_ids)
-    values["ESXi Bad Network Packets"] = bad_packet_pct(stats.host_packet_totals.get(host_id, {}))
+    values["ESXi Bad Network Packets"] = bad_packet_pct(stats.host_packet_stats.get(host_id, {}))
     return values
 
 

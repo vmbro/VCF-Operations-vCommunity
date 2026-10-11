@@ -77,17 +77,18 @@ def collect(samples, status_code=200):
     return {key.split("|")[-1]: value for key, value in cluster_obj.metrics.items()}
 
 
-def host_samples(bad_per_cycle, packets_per_cycle):
-    samples = {key: [0.0] * len(bad_per_cycle) for key in vc.HOST_BAD_PACKET_STATS + vc.HOST_PACKET_STATS}
-    samples["net|droppedRx_summation_sum"] = bad_per_cycle
-    samples["net|packetsRx_summation_sum"] = packets_per_cycle
+def host_samples(bad_packets, packets):
+    """The packet counters of one host in the last collection cycle: bad_packets dropped of all packets."""
+    samples = {key: [0.0] for key in vc.HOST_BAD_PACKET_STATS + vc.HOST_PACKET_STATS}
+    samples["net|droppedRx_summation_sum"] = [bad_packets]
+    samples["net|packetsRx_summation_sum"] = [packets]
     return samples
 
 
 HEALTHY = {
     **{vm_id: {key: [0.0] for key in vc.VM_STATS} for vm_id in VM_IDS},
-    "host-1": host_samples([0.0] * 6, [1000.0] * 6),
-    "host-2": host_samples([0.0] * 6, [1000.0] * 6),
+    "host-1": host_samples(0.0, 1000.0),
+    "host-2": host_samples(0.0, 1000.0),
 }
 
 
@@ -114,11 +115,10 @@ def test_one_bad_vm_shows_as_deep_but_not_broad():
     assert published["90th Percentile VM Disk Latency"] == 0.0
 
 
-def test_bad_packets_use_the_whole_window_and_the_worst_host():
-    # host-2 drops 15 of 1000 packets in one cycle (1.5 %, beyond red), then nothing for five cycles.
-    # Over the window that is 15 of 6000 = 0.25 %, which is orange.
-    samples = {**HEALTHY, "host-2": host_samples([15.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1000.0] * 6)}
-    assert collect(samples)["Highest ESXi Bad Network Packets"] == 0.25
+def test_bad_packets_use_the_last_cycle_and_the_worst_host():
+    # host-2 drops 15 of 1000 packets in the last 5 minutes: 1.5 %, beyond red. The spike is not averaged away.
+    samples = {**HEALTHY, "host-2": host_samples(15.0, 1000.0)}
+    assert collect(samples)["Highest ESXi Bad Network Packets"] == 1.5
 
 
 def test_failed_stats_calls_publish_nothing():

@@ -17,17 +17,18 @@ HOST_1_VMS = [f"vm-{n}" for n in range(1, 11)]      # 10 VMs: the 90th percentil
 HOST_2_VMS = ["vm-11"]
 
 
-def host_packets(bad_per_cycle, packets_per_cycle):
-    samples = {key: [0.0] * len(bad_per_cycle) for key in vc.HOST_BAD_PACKET_STATS + vc.HOST_PACKET_STATS}
-    samples["net|droppedRx_summation_sum"] = bad_per_cycle
-    samples["net|packetsRx_summation_sum"] = packets_per_cycle
+def host_packets(bad_packets, packets):
+    """The packet counters of one host in the last collection cycle: bad_packets dropped of all packets."""
+    samples = {key: [0.0] for key in vc.HOST_BAD_PACKET_STATS + vc.HOST_PACKET_STATS}
+    samples["net|droppedRx_summation_sum"] = [bad_packets]
+    samples["net|packetsRx_summation_sum"] = [packets]
     return samples
 
 
 HEALTHY = {
     **{vm_id: {key: [0.0] for key in vc.VM_STATS} for vm_id in HOST_1_VMS + HOST_2_VMS},
-    "host-1": host_packets([0.0] * 6, [1000.0] * 6),
-    "host-2": host_packets([0.0] * 6, [1000.0] * 6),
+    "host-1": host_packets(0.0, 1000.0),
+    "host-2": host_packets(0.0, 1000.0),
 }
 
 
@@ -74,8 +75,8 @@ def test_one_bad_vm_is_deep_but_not_broad():
 
 
 def test_bad_packets_are_this_hosts_own():
-    # host-1 drops 15 of 6000 packets over the window: 0.25 %, orange.
-    samples = {**HEALTHY, "host-1": host_packets([15.0, 0.0, 0.0, 0.0, 0.0, 0.0], [1000.0] * 6)}
+    # host-1 drops 15 of 6000 packets in the last 5 minutes: 0.25 %, orange.
+    samples = {**HEALTHY, "host-1": host_packets(15.0, 6000.0)}
     assert collect(samples)["ESXi Bad Network Packets"] == 0.25
     assert collect(samples, "host-2", HOST_2_VMS)["ESXi Bad Network Packets"] == 0.0
 

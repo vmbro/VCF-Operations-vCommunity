@@ -29,14 +29,14 @@ Every sub-metric is "lower is better", and 0 is perfect.
 | How broad? | 90th Percentile VM CPU Co-Stop | 90th percentile of `cpu\|20_sec_peak_costopPct` across the VMs |
 | How broad? | 90th Percentile VM Memory Latency | 90th percentile of `mem\|20_sec_peak_host_contentionPct` across the VMs |
 | How broad? | 90th Percentile VM Disk Latency | 90th percentile of `virtualDisk\|20_sec_peak_totalLatency_average` across the VMs |
-| ESXi | Highest ESXi Bad Network Packets | Per host: `(errorsRx + errorsTx + droppedRx + droppedTx) / (packetsRx + packetsTx) × 100`, added up over the last 30 minutes. The sub-metric is the highest host. |
+| ESXi | Highest ESXi Bad Network Packets | Per host: `(errorsRx + errorsTx + droppedRx + droppedTx) / (packetsRx + packetsTx) × 100`, in the last collection cycle (5 minutes). The sub-metric is the highest host. |
 
 Notes:
 
 - **Which VMs count.** The powered-on VMs on the cluster's ESXi hosts. A powered-off VM is left out, because its last stats are old. All of this is read from VCF Operations properties: a host belongs to the cluster named in its `summary|parentCluster`, a VM runs on the host named in its `summary|parentHost`, and it is powered on when `summary|runtime|powerState` is "Powered On". Placement is by name, so do not mix datacenters in one adapter instance.
 - **20-second peaks.** The VM stats are the 20-second peaks, not the 5-minute averages. This makes the KPI a leading indicator.
 - **90th percentile.** The value that 90 % of the VMs are at or below. The VMs are sorted, and the one at position 90 % of the count, rounded up, is taken. With 20 VMs that is the 18th lowest. With fewer than 10 VMs it is the highest, the same as the worst VM.
-- **Bad network packets** are added up over 30 minutes because one collection cycle is too noisy. A single burst of drops would otherwise push the sub-metric into the red tier.
+- **Bad network packets** use the last collection cycle (5 minutes), the same as the "Bad Network Packets" super metric. They are never averaged or added up over a longer time, because that would hide a spike. Two of its counters, Total Packets Received and Transmitted, are deactivated by default in VCF Operations. Activate them first: see [Required Policy Settings](../README.md#required-policy-settings).
 
 ## Step 2: Score each sub-metric
 

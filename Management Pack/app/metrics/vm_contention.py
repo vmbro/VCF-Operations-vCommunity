@@ -15,7 +15,7 @@ import math
 from typing import Dict, List, Optional
 from aria.ops.suite_api_client import SuiteApiClient
 from metrics.kpi_score import percent, has_all
-from utils.ops_stats import read_latest_stats, read_stat_totals
+from utils.ops_stats import read_latest_stats
 
 
 # Read from each powered-on VM.
@@ -28,16 +28,13 @@ VM_STATS = {
     "virtualDisk|20_sec_peak_totalLatency_average": ("Worst VM Disk Latency",    "90th Percentile VM Disk Latency"),
 }
 
-# Read from each ESXi host. These are packet counts per collection cycle.
+# Read from each ESXi host. These are packet counts of the last collection cycle (5 minutes).
+# The latest cycle is used, never an average or total over a longer time, so a spike is not missed.
 HOST_BAD_PACKET_STATS = [
     "net|errorsRx_summation_sum", "net|errorsTx_summation_sum",
     "net|droppedRx_summation_sum", "net|droppedTx_summation_sum",
 ]
 HOST_PACKET_STATS = ["net|packetsRx_summation_sum", "net|packetsTx_summation_sum"]
-
-# Bad packets are added up over this window. A single collection cycle is too noisy:
-# one burst of drops would push the sub-metric into the red tier, where its weight is 8.
-BAD_PACKET_WINDOW_MINUTES = 30
 
 
 # ---------------------------------------------------------------------------
@@ -49,11 +46,9 @@ def read_vm_contention_stats(suite_api_client: SuiteApiClient, vm_ids: List[str]
     return read_latest_stats(suite_api_client, vm_ids, list(VM_STATS))
 
 
-def read_host_packet_totals(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Dict[str, Dict[str, float]]:
-    """{host resource id: {stat key: total over BAD_PACKET_WINDOW_MINUTES}} for the packet counters."""
-    return read_stat_totals(
-        suite_api_client, host_ids, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS, BAD_PACKET_WINDOW_MINUTES
-    )
+def read_host_packet_stats(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Dict[str, Dict[str, float]]:
+    """{host resource id: {stat key: latest value}} for the packet counters."""
+    return read_latest_stats(suite_api_client, host_ids, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS)
 
 
 # ---------------------------------------------------------------------------
@@ -84,12 +79,12 @@ def worst_and_percentile(stats_by_vm: Dict[str, Dict[str, float]], vm_ids: List[
     return values
 
 
-def bad_packet_pct(totals: Dict[str, float]) -> Optional[float]:
-    """Share of errored or dropped packets of one host, from its packet totals."""
+def bad_packet_pct(packets: Dict[str, float]) -> Optional[float]:
+    """Share of errored or dropped packets of one host, in the last collection cycle."""
     # A host with one of the six counters missing would give a wrong share.
-    if not has_all(totals, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS):
+    if not has_all(packets, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS):
         return None
-    bad_packets = sum(totals[key] for key in HOST_BAD_PACKET_STATS)
-    all_packets = sum(totals[key] for key in HOST_PACKET_STATS)
+    bad_packets = sum(packets[key] for key in HOST_BAD_PACKET_STATS)
+    all_packets = sum(packets[key] for key in HOST_PACKET_STATS)
     # None when the host sent and received no packets at all.
     return percent(bad_packets, all_packets)

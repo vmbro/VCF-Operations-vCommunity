@@ -49,7 +49,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM CPU Co-Stop` | 20-second peak CPU Co-Stop (%) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs in the cluster are at or below. |
-| 🟢 Metric | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets over the last 30 minutes, on the worst host in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets in the last 5 minutes, on the worst host in the cluster. Needs Total Packets Received and Transmitted activated in the policy: see [Required Policy Settings](../README.md#required-policy-settings). |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Cluster Risk` | Key Performance Indicator (0-100 %) of the cluster's risk, combining the 12 sub-metrics below. 100 is no risk. See [Cluster Risk KPI](cluster-risk-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Thread Utilization` | CPU thread utilization (%, `cpu.utilization`) of the busiest host in the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi CPU Imbalance` | Running CPU threads divided by running CPU cores, on the worst host. 1 is one thread per busy core, 2 is both hyper-threads on every busy core. |
@@ -81,7 +81,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM CPU Co-Stop` | 20-second peak CPU Co-Stop (%) that 90 % of the powered-on VMs on the host are at or below. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs on the host are at or below. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs on the host are at or below. |
-| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets of the host over the last 30 minutes. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets of the host in the last 5 minutes. Needs Total Packets Received and Transmitted activated in the policy: see [Required Policy Settings](../README.md#required-policy-settings). |
 | ⚪ Property | `vCommunity\|Configuration\|Advanced System Settings\|`<setting_name>`` | The value of an ESXi advanced system setting (e.g. Disk.DiskRetryPeriod) tracked via the esxi_advanced_system_settings config file. One property per tracked setting. |
 | ⚪ Property | `vCommunity\|Storage Adapter:`<hba_device>`\|Device` | Device name of the Host Bus Adapter (HBA), e.g. vmhba0. One instance per HBA. |
 | ⚪ Property | `vCommunity\|Storage Adapter:`<hba_device>`\|Bus` | PCI bus number the HBA is attached to. |

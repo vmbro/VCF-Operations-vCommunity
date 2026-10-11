@@ -52,7 +52,7 @@ from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
 from metrics.kpi_score import Metric, publish_kpi
-from metrics.vm_contention import worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals
+from metrics.vm_contention import worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_stats
 
 logger = logging.getLogger(__name__)
 
@@ -106,10 +106,10 @@ def vm_contention_values(suite_api_client: SuiteApiClient, vm_ids: List[str]) ->
 
 
 def highest_host_bad_packet_pct(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Optional[float]:
-    """Highest share of errored or dropped packets on any one host, over the last 30 minutes."""
-    totals_by_host = read_host_packet_totals(suite_api_client, host_ids)
+    """Highest share of errored or dropped packets on any one host, in the last collection cycle (5 minutes)."""
+    packets_by_host = read_host_packet_stats(suite_api_client, host_ids)
     # The share of each host first, then the highest host.
-    per_host = [bad_packet_pct(totals) for totals in totals_by_host.values()]
+    per_host = [bad_packet_pct(packets) for packets in packets_by_host.values()]
     per_host = [pct for pct in per_host if pct is not None]
     return max(per_host) if per_host else None
 

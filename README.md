@@ -61,6 +61,30 @@ Additional Properties & Metrics:
 Login to VMware Hands-on Lab, then test drive [this MP](https://labs.hol.vmware.com/HOL/catalog/lab/26848). [Abhijit Timble](https://www.linkedin.com/in/abhijit-timble-75878514/) has installed it so you can evaluate it before deciding in your environment.
 
 
+## Required Policy Settings
+
+The Bad Network Packets metrics need two ESXi host metrics that are deactivated by default in VCF Operations. Without them, Bad Network Packets has no data. It is then left out of the Cluster Performance and ESXi Performance KPIs, so a host with bad packets is not caught. The super metrics "ESXi Bad Network Packets" and "Bad Network Packets" need them too.
+
+Activate them in the policy that applies to your ESXi hosts. The steps below use the Default Policy.
+
+1. Go to **Administration** > **Configurations** > **Policy Definition**.
+2. Edit the **Default Policy**, and open **Metrics and Properties**.
+3. Set **Select Object Type** to **Host System**.
+4. Expand **Network**.
+5. Set **State** to **Activated** for the two metrics below. **Instanced State** (one value per physical NIC) is optional. The KPIs read only the host total.
+   - **Total Packets Received** (`net|packetsRx_summation_sum`)
+   - **Total Packets Transmitted** (`net|packetsTx_summation_sum`)
+6. Check that these four are also **Activated**. They are by default.
+   - **Total Received Packets Dropped** (`net|droppedRx_summation_sum`)
+   - **Total Transmitted Packets Dropped** (`net|droppedTx_summation_sum`)
+   - **Total Error Packets Received** (`net|errorsRx_summation_sum`)
+   - **Total Error Packets Transmitted** (`net|errorsTx_summation_sum`)
+7. Save the policy.
+
+![Default Policy, Host System, Network: Total Packets Received and Total Packets Transmitted activated](docs/images/policy-host-network-packets.png)
+
+Bad Network Packets has data from the next collection cycle.
+
 ## Documentation
 
 - [Introduction](docs/introduction.md)

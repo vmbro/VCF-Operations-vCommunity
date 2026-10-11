@@ -130,3 +130,7 @@ A sub-metric with no data is not published for that cycle, and it is left out of
 Stats and their units: `cpu|utilization_average` (vCenter `cpu.utilization`), `cpu|coreUtilization_average` (vCenter `cpu.coreUtilization`), `cpu|reservedCapacity_average` (MHz), `mem|reservedCapacity_average` (KB), `mem|swapout_average`, `mem:DRAM|memory_tier_total_capacity` (KB), `mem|host_provisioned` (KB) and `mem:NVMe|latency.read_latest` (µs).
 
 The properties endpoint `POST api/resources/properties/latest/query`, on VCF Operations 9.1.1. A text property comes back under `values`, a number under `data`; the code reads both. Tested with one host (cluster, cores, hyper-threading) and one VM (host, power state "Powered Off", vCPUs, memory). Both responses are kept in `tests/test_ops_inventory.py`.
+
+The latest stats endpoint `POST api/resources/stats/latest/query`, on VCF Operations 9.1.1. Asked for a stat, it also returns every instance of it, such as `cpu:26|utilization_average` for CPU thread 26. The code keeps only the keys it asked for. The response is kept in `tests/test_ops_inventory.py`.
+
+`net|packetsRx_summation_sum` and `net|packetsTx_summation_sum`, used by Bad Network Packets, are deactivated by default: see [Required Policy Settings](../README.md#required-policy-settings).

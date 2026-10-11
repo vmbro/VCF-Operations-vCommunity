@@ -20,7 +20,7 @@ Eight sub-metrics are stats the VM already has. They are read as they are, and a
 | :--- | :--- | :--- |
 | VM contention | CPU Co-Stop | `cpu\|20_sec_peak_costopPct` |
 | VM contention | CPU Ready | `cpu\|20_sec_peak_readyPct` |
-| VM contention | CPU Overlap | `cpu\|20_sec_peak_overlap` |
+| VM contention | CPU Overlap | `cpu\|20_sec_peak_overlap` (%, confirmed) |
 | VM contention | Memory Contention | `mem\|20_sec_peak_host_contentionPct` |
 | VM contention | Disk Latency | `virtualDisk\|20_sec_peak_totalLatency_average` |
 | VM contention | Network Dropped Tx | `net\|droppedTxPct_max` |

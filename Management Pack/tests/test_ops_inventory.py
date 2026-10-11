@@ -125,3 +125,31 @@ def test_a_live_vm_properties_response_is_read_correctly():
     assert vm.powered_on is False
     assert vm.vcpus == 24
     assert vm.memory_mb == 32 * 1024
+
+
+class LiveStatsApi:
+    """Answers the latest stats query as VCF Operations 9.1.1 did in Swagger, shortened to 3 of its 42 stats.
+
+    Asked for "cpu|utilization_average", it also returns one instance per CPU thread, such as "cpu:26|...".
+    """
+    def post(self, path, json):
+        return FakeResponse({"values": [{
+            "resourceId": LIVE_HOST_ID,
+            "stat-list": {"stat": [
+                {"timestamps": [1791707427853], "statKey": {"key": "cpu:26|utilization_average"},
+                 "data": [20.891332626342773]},
+                {"timestamps": [1791707427853], "statKey": {"key": "mem:DRAM|memory_tier_total_capacity"},
+                 "data": [167416224]},
+                {"timestamps": [1791707427853], "statKey": {"key": "cpu|utilization_average"},
+                 "data": [22.457332611083984]},
+            ]},
+        }]})
+
+
+def test_a_live_latest_stats_response_keeps_only_the_requested_keys():
+    stat_keys = ["cpu|utilization_average", "mem:DRAM|memory_tier_total_capacity"]
+    stats = ops_stats.read_latest_stats(LiveStatsApi(), [LIVE_HOST_ID], stat_keys)
+    assert stats == {LIVE_HOST_ID: {
+        "cpu|utilization_average": 22.457332611083984,
+        "mem:DRAM|memory_tier_total_capacity": 167416224.0,
+    }}
