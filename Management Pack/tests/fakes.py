@@ -26,9 +26,11 @@ class FakeSuiteApi:
         self.status_code = status_code
         self.requests = 0
         self.paths = []
+        self.resource_queries = []
 
     def paged_post(self, path, key, json):
         self.paths.append(path)
+        self.resource_queries.append(json)
         resource_list = [
             {"identifier": resource_id, "resourceKey": {"name": name, "resourceIdentifiers": [
                 {"identifierType": {"name": "VMEntityObjectID"}, "value": moid}]}}

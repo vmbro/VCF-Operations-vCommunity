@@ -18,6 +18,7 @@ from properties.host.host_configurations import collect_host_configurations
 from utils.vi_property_collector import retrieve_properties
 from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host
 from metrics.host.esxi_performance_metrics import read_esxi_performance_stats, collect_esxi_performance_metrics
+from metrics.availability.operational_availability import OperationalAvailability, NO_DATA, HOST_METRIC, publish
 
 logger = logging.getLogger(__name__)
 
@@ -27,7 +28,8 @@ def collect_host_data(
     result: CollectResult,
     content: Any,
     esxiAdvSettings,
-    esxiVIBDrivers
+    esxiVIBDrivers,
+    availability: OperationalAvailability = NO_DATA,
 ) -> None:
 
     # 🔥 PropertyCollector ile sadece gereken propertyleri çek
@@ -124,6 +126,8 @@ def collect_host_data(
             if ops_host:
                 vm_ids = [vm.id for vm in vms_on_host.get(ops_host.name, [])]
                 collect_esxi_performance_metrics(host_obj, host_name, ops_host.id, vm_ids, esxi_performance_stats)
+                # Operational Availability, read once per cycle for the whole vCenter by the adapter.
+                publish(host_obj, HOST_METRIC, availability.by_host.get(ops_host.id))
 
             result.add_object(host_obj)
             

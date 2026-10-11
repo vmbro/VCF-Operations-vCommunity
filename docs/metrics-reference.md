@@ -6,11 +6,12 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 **On this page:**
 
-- [Cluster](#cluster) (45 items)
-- [Host](#host) (56 items)
+- [Cluster](#cluster) (46 items)
+- [Host](#host) (57 items)
 - [Datastore](#datastore) (9 items)
 - [Virtual Machine](#virtual-machine) (55 items)
-- [vCenter](#vcenter) (11 items)
+- [vCenter](#vcenter) (12 items)
+- [vSphere World](#vsphere-world) (6 items)
 - [Super metrics replaced by built-in metrics](#super-metrics-replaced-by-built-in-metrics)
 
 ---
@@ -19,6 +20,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|Availability\|Cluster Operational Availability` | min(100, (sum of the host values − the k lowest) ÷ (N − k)), where vSphere HA tolerates k host failures. No failover level counts as N+0. See [Operational Availability](operational-availability.md#known-limitations). |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|Configuration Status` | Overall configuration status of the cluster (green/yellow/red/gray) - vCenter's computed health summary for the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Configuration\|Number of Effective Hosts` | Number of hosts in the cluster that are effectively contributing resources (not in maintenance mode). |
 | ⚪ Property | `vCommunity\|Cluster Configuration\|Overall Status` | Overall health status of the cluster (green/yellow/red) - a combined assessment of its sub-components (hosts, DRS, HA, etc.). |
@@ -73,6 +75,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|Availability\|ESXi Host Operational Availability` | 25 % each for powered on, connected, not in maintenance and not in quarantine. A host with no data is 0 %. See [Operational Availability](operational-availability.md#known-limitations). |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Performance Score` | Key Performance Indicator (0-100 %) of the host, combining the 9 sub-metrics below. 100 is perfect. See [ESXi Performance KPI](esxi-performance-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM on the host. |
 | 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any powered-on VM on the host. |
@@ -220,6 +223,7 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|Availability\|Worst Cluster Operational Availability` | The lowest Cluster Operational Availability of the clusters of this vCenter, from the same collection cycle. See [Operational Availability](operational-availability.md#known-limitations). |
 | ⚪ Property | `vCommunity\|Configuration\|Patch Level` | The applied patch level of the vCenter Server software. |
 | ⚪ Property | `vCommunity\|Configuration\|User Directory Timeout` | Timeout (seconds) for user directory (AD/LDAP) queries. |
 | ⚪ Property | `vCommunity\|Configuration\|Enable MOB` | Whether the vCenter Managed Object Browser (MOB) debug interface is enabled. |
@@ -231,6 +235,21 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | ⚪ Property | `vCommunity\|Configuration\|Runtime\|vCenter managed address` | The managed (published) IP address of the vCenter Server. |
 | ⚪ Property | `vCommunity\|Configuration\|Database\|Maximum Connections` | Maximum number of connections allowed to the vCenter database. |
 | ⚪ Property | `vCommunity\|Configuration\|Log Level` | Configured log level of the vCenter Server (e.g. info, debug, warning). |
+
+[⬆ Back to top](#metrics--properties-reference)
+
+---
+
+## vSphere World
+
+| Type | Path | Description |
+| :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|10th Percentile Cluster Performance` | The Cluster Performance score that 90 % of all clusters, of all vCenters, are at or above. Can be up to one collection cycle old. See [vSphere World Cluster Metrics](vsphere-world-metrics.md#known-limitations). |
+| 🟢 Metric | `vCommunity\|Worst Cluster Performance` | The lowest Cluster Performance score of all clusters. Same limitation. |
+| 🟢 Metric | `vCommunity\|10th Percentile Cluster Risk` | The Cluster Risk score that 90 % of all clusters are at or above. Same limitation. |
+| 🟢 Metric | `vCommunity\|Availability\|Worst Cluster Operational Availability` | The lowest Cluster Operational Availability of all clusters, of all vCenters. Can be up to one collection cycle old. See [Operational Availability](operational-availability.md#known-limitations). |
+| 🟢 Metric | `vCommunity\|Availability\|ESXi Hosts Operational Availability` | The average ESXi Host Operational Availability of all hosts, of all vCenters. Same limitation. |
+| 🟢 Metric | `vCommunity\|Worst Cluster Risk` | The lowest Cluster Risk score of all clusters. Same limitation. |
 
 [⬆ Back to top](#metrics--properties-reference)
 
@@ -257,13 +276,18 @@ These super metrics were removed from `content/supermetrics`. Their dashboards, 
 | ESXi Bad Network Packets | Host | `vCommunity\|ESXi Performance\|ESXi Bad Network Packets` |
 | vSphere VM Memory Zip Swap | VM | `vCommunity\|VM Performance\|Memory Zip Swap` |
 | vSphere VM Performance | VM | `vCommunity\|VM Guest OS KPI` |
+| vSphere Clusters Performance (average of all clusters) | vSphere World | `vCommunity\|10th Percentile Cluster Performance` |
+| ESXi Host Operational Availability ("ESXi Host Availability") | Host | `vCommunity\|Availability\|ESXi Host Operational Availability` |
+| ESXi Hosts Operational Availability ("ESXi Hosts Average Availability") | vSphere World | `vCommunity\|Availability\|ESXi Hosts Operational Availability` |
+| Cluster Operational Availability | Cluster | `vCommunity\|Availability\|Cluster Operational Availability` |
+| Worst Cluster Operational Availability | vSphere World, vCenter | `vCommunity\|Availability\|Worst Cluster Operational Availability`. No longer provided on Custom Datacenter. |
 
-- The averages became the 90th percentile, which a super metric cannot calculate.
+- The averages became a percentile, which a super metric cannot calculate: the 90th percentile of VM values, the 10th percentile of cluster scores.
 - The cluster totals became the worst or highest ESXi host, because one full host can hurt its VMs while the cluster total looks fine.
-- vSphere Clusters Performance, vSphere Clusters not Green and Business Application Tier Performance stay super metrics. They now read the built-in metrics.
+- vSphere Clusters not Green and Business Application Tier Performance stay super metrics. They now read the built-in metrics.
 
 [⬆ Back to top](#metrics--properties-reference)
 
 ---
 
-**Total: 174 template rows across 5 object types.**
+**Total: 183 template rows across 6 object types.**

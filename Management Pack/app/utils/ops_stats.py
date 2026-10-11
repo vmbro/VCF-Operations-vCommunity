@@ -71,13 +71,16 @@ class OpsResource(NamedTuple):
 
 
 def query_resources(
-    suite_api_client: SuiteApiClient, adapter_kind: str, resource_kind: str, adapter_instance_id: str
+    suite_api_client: SuiteApiClient, adapter_kind: str, resource_kind: str, adapter_instance_id: Optional[str]
 ) -> List[OpsResource]:
     """All resources of one kind under one adapter instance, with their VCF Operations ids.
+    With adapter_instance_id None: under every adapter instance, for example the clusters of all vCenters.
 
     The SDK's query_for_resources() drops the resource id, so the query is made here directly.
     """
-    query = {"adapterKind": [adapter_kind], "resourceKind": [resource_kind], "adapterInstanceId": [adapter_instance_id]}
+    query = {"adapterKind": [adapter_kind], "resourceKind": [resource_kind]}
+    if adapter_instance_id is not None:
+        query["adapterInstanceId"] = [adapter_instance_id]
     response = suite_api_client.paged_post(RESOURCES_QUERY_PATH, "resourceList", json=query)
     resources = []
     for resource in response.get("resourceList", []):

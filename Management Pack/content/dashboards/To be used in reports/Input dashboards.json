@@ -1074,14 +1074,14 @@
                   "y": 7
                },
                "type": "HealthChart",
-               "title": "Average Performance of All Clusters",
+               "title": "10th Percentile Performance of All Clusters",
                "config": {
                   "yellowBound": 75,
-                  "metricName": "Super Metrics|vSphere Clusters Performance",
-                  "metricKey": "Super Metric|sm_eb874adf-1884-4576-91fd-0cc0fb54e58b",
+                  "metricName": "vCommunity|10th Percentile Cluster Performance",
+                  "metricKey": "vCommunity|10th Percentile Cluster Performance",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
-                  "title": "Average Performance of All Clusters",
+                  "title": "10th Percentile Performance of All Clusters",
                   "showResourceName": {"showResourceName": false},
                   "chartHeight": 190,
                   "metricUnit": {
@@ -5638,14 +5638,14 @@
                   "y": 1
                },
                "type": "HealthChart",
-               "title": "Average Performance of All Clusters",
+               "title": "10th Percentile Performance of All Clusters",
                "config": {
                   "yellowBound": 75,
-                  "metricName": "Super Metrics|vSphere Clusters Performance",
-                  "metricKey": "Super Metric|sm_eb874adf-1884-4576-91fd-0cc0fb54e58b",
+                  "metricName": "vCommunity|10th Percentile Cluster Performance",
+                  "metricKey": "vCommunity|10th Percentile Cluster Performance",
                   "relationshipMode": {"relationshipMode": 0},
                   "sortByDir": {"orderByDir": "asc"},
-                  "title": "Average Performance of All Clusters",
+                  "title": "10th Percentile Performance of All Clusters",
                   "showResourceName": {"showResourceName": false},
                   "chartHeight": 190,
                   "metricUnit": {

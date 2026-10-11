@@ -161,6 +161,7 @@ def test_no_metric_key_equals_a_group_key():
     from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
     from metrics.host import esxi_performance_metrics
     from metrics.vm import vm_performance_metrics, guest_os_performance_metrics, vm_guest_os_kpi
+    from metrics.availability import operational_availability
     kpis_by_object = [
         [cluster_performance_metrics, cluster_risk_metrics],
         [esxi_performance_metrics],
@@ -170,6 +171,8 @@ def test_no_metric_key_equals_a_group_key():
         keys = [kpi.GROUP for kpi in kpis]
         if vm_performance_metrics in kpis:
             keys.append(vm_guest_os_kpi.KPI_KEY)    # published directly in the VM's "vCommunity" group
+        else:
+            keys.append(operational_availability.GROUP)     # hosts and clusters also have the "Availability" group
         for kpi in kpis:
             keys += [kpi.KPI_KEY] + [metric.name for metric in kpi.PUBLISHED_METRICS]
         assert len(keys) == len(set(keys)), [kpi.GROUP for kpi in kpis]

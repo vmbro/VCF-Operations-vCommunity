@@ -32,6 +32,9 @@ All five are called by a collector and declared in `adapter.py`. The VCF Operati
 | `vm/vm_performance_metrics.py` | VM Performance KPI. One score per powered-on VM, from 9 sub-metrics. Also reads the stats of Guest OS Performance. |
 | `vm/guest_os_performance_metrics.py` | Guest OS Performance KPI. One score per powered-on VM with VMware Tools, from 4 sub-metrics. |
 | `host/esxi_performance_metrics.py` | ESXi Performance KPI. One score per connected ESXi host, from 9 sub-metrics. |
+| `world/cluster_summary_metrics.py` | 10th percentile and worst Cluster Performance and Cluster Risk, over all clusters of all vCenters, on vSphere World. Not a KPI. See `docs/vsphere-world-metrics.md`, including its known limitations. |
+| `availability/operational_availability.py` | ESXi Host and Cluster Operational Availability, and the worst cluster per vCenter. Not a KPI. See `docs/operational-availability.md`, including its known limitations. |
+| `world/availability_summary_metrics.py` | Worst Cluster and average ESXi Host Operational Availability, over all vCenters, on vSphere World. |
 | `vm_contention.py` | The worst-VM, 90th-percentile and bad-packet formulas, shared by Cluster Performance and ESXi Performance. |
 
 Two files outside this folder belong to the same design:
@@ -210,6 +213,9 @@ python -m pytest tests
 | `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI. It also checks that each KPI calculates a value for exactly the sub-metrics in its table, so a misspelt name cannot slip through. |
 | `test_cluster_performance_metrics.py` | Cluster Performance formulas and worked examples. |
 | `test_vm_performance_metrics.py` | VM Performance formulas and worked examples. |
+| `test_vm_guest_os_kpi.py` | VM Guest OS KPI: the average, and the fallback without VMware Tools. |
+| `test_operational_availability.py` | Host and cluster Operational Availability: the three super-metric bugs, N+0 to N+2, missing data, and the vSphere World summary. |
+| `test_cluster_summary_metrics.py` | vSphere World: 10th percentile and worst cluster scores, over the clusters of all vCenters. |
 | `test_cluster_risk_metrics.py` | Cluster Risk formulas and worked examples. |
 | `test_esxi_performance_metrics.py` | ESXi Performance formulas and worked examples. |
 | `test_ops_inventory.py` | Reading placement, power state, sizes, cores and threads from VCF Operations, and the Suite API endpoints used. |

@@ -95,6 +95,8 @@ Bad Network Packets has data from the next collection cycle.
 - [How It Works](docs/how-it-works.md)
 - [Dark Site Installation](docs/dark-site.md)
 - [Metrics & Properties Reference](docs/metrics-reference.md)
+- [vSphere World Cluster Metrics](docs/vsphere-world-metrics.md) (read its Known Limitations)
+- [Operational Availability](docs/operational-availability.md) (read its Known Limitations)
 
 ## Tools
 

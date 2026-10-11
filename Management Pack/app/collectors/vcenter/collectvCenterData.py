@@ -9,6 +9,7 @@ from aria.ops.suite_api_client import SuiteApiClient
 from constants.main import VCENTER_ADAPTER_KIND
 from pyVmomi import vim
 from properties.vcenter.collect_vcenter_properties import collect_vcenter_properties
+from metrics.availability.operational_availability import OperationalAvailability, NO_DATA, WORST_CLUSTER_METRIC, publish
 
 logger = logging.getLogger(__name__)
 
@@ -16,7 +17,8 @@ def collect_vcenter_data(
     suite_api_client: SuiteApiClient,
     adapter_instance_id: str,
     result: CollectResult,
-    content: Any
+    content: Any,
+    availability: OperationalAvailability = NO_DATA,
 ) -> None:
     try:
         about_info = getattr(content, "about", None)
@@ -94,6 +96,9 @@ def collect_vcenter_data(
 
         if settings_dict:
             collect_vcenter_properties(vcenter_obj, vc_name, settings_dict)
+
+        # Operational Availability: the worst cluster of this vCenter, from this cycle's values.
+        publish(vcenter_obj, WORST_CLUSTER_METRIC, availability.worst_cluster())
 
         result.add_object(vcenter_obj)
 

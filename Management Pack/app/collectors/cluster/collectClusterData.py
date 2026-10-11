@@ -18,6 +18,7 @@ from properties.cluster.cluster_configuration_properties import collect_cluster_
 from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
 from metrics.cluster.cluster_risk_metrics import collect_cluster_risk_metrics, HostInventory
 from utils.ops_inventory import read_hosts, read_vms, powered_on_vms_by_host, hosts_by_cluster
+from metrics.availability.operational_availability import OperationalAvailability, NO_DATA, CLUSTER_METRIC, publish
 from pyVmomi import vim
 
 logger = logging.getLogger(__name__)
@@ -27,6 +28,7 @@ def collect_cluster_data(
     adapter_instance_id: str,
     result: CollectResult,
     content: Any,
+    availability: OperationalAvailability = NO_DATA,
 ) -> None:
     
     propertyPaths: List[str] = []
@@ -107,6 +109,9 @@ def collect_cluster_data(
                 for host in cluster_hosts
             ]
             collect_cluster_risk_metrics(cluster_obj, cluster_name, hosts_inventory, suite_api_client)
+
+            # Operational Availability, read once per cycle for the whole vCenter by the adapter.
+            publish(cluster_obj, CLUSTER_METRIC, availability.by_cluster.get(cluster_obj.get_key().name))
 
             result.add_object(cluster_obj)
 

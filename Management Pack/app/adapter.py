@@ -32,9 +32,13 @@ from collectors.host.collectHostData import collect_host_data
 from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
+from collectors.world.collectWorldData import collect_world_data
 from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
 from metrics.host import esxi_performance_metrics
 from metrics.vm import vm_performance_metrics, guest_os_performance_metrics, vm_guest_os_kpi
+from metrics.world import cluster_summary_metrics, availability_summary_metrics
+from metrics.availability import operational_availability
+from metrics.availability.operational_availability import read_operational_availability
 from concurrent.futures import ThreadPoolExecutor
 
 logger = logging.getLogger(__name__)
@@ -57,6 +61,13 @@ def define_kpi(vCommunity, kpi) -> None:
     for metric in kpi.PUBLISHED_METRICS:
         group.define_metric(metric.name, metric.name, unit=KPI_UNITS[metric.unit])
     group.define_metric(kpi.KPI_KEY, kpi.KPI_NAME, unit=Units.RATIO.PERCENT)
+
+
+def define_availability(vCommunity, *metric_names: str) -> None:
+    # Operational Availability metrics, in the "Availability" group. See metrics/availability/operational_availability.py.
+    group = vCommunity.define_group(operational_availability.GROUP, operational_availability.GROUP)
+    for name in metric_names:
+        group.define_metric(name, name, unit=Units.RATIO.PERCENT)
 
 
 def get_adapter_definition() -> AdapterDefinition:
@@ -163,6 +174,7 @@ def get_adapter_definition() -> AdapterDefinition:
 
         define_kpi(vCommunity, cluster_performance_metrics)
         define_kpi(vCommunity, cluster_risk_metrics)
+        define_availability(vCommunity, operational_availability.CLUSTER_METRIC)
 
         vSphereHA = clusterConfiguration.define_group("vSphere HA", "vSphere HA")
         vSphereHA.define_string_property("Host Monitoring", "Host Monitoring")
@@ -198,6 +210,7 @@ def get_adapter_definition() -> AdapterDefinition:
         hostSystemConfiguration = vCommunity.define_group("Configuration", "Configuration")
 
         define_kpi(vCommunity, esxi_performance_metrics)
+        define_availability(vCommunity, operational_availability.HOST_METRIC)
 
         hostSystemConfiguration.define_string_property("Config Status", "Config Status")
         hostSystemConfiguration.define_string_property("Max EVC", "Max EVC")
@@ -398,10 +411,18 @@ def get_adapter_definition() -> AdapterDefinition:
         operatingSystem.define_string_property("OS Release ID", "OS Release ID")
 
 
+        # vSphere World: the cluster summary metrics, over the clusters of all vCenters.
+        vSphereWorld = definition.define_object_type("vSphere World", "vSphere World")
+        vCommunity = vSphereWorld.define_group("vCommunity", "vCommunity")
+        for name in cluster_summary_metrics.METRICS:
+            vCommunity.define_metric(name, name, unit=Units.RATIO.PERCENT)
+        define_availability(vCommunity, operational_availability.WORST_CLUSTER_METRIC, availability_summary_metrics.HOSTS_METRIC)
+
         # vCenter
         vCenter = definition.define_object_type("vCenter", "vCenter")
         vCommunity = vCenter.define_group("vCommunity", "vCommunity")
         vCenterConfiguration = vCommunity.define_group("Configuration", "Configuration")
+        define_availability(vCommunity, operational_availability.WORST_CLUSTER_METRIC)
 
         vCenterConfiguration.define_string_property("Patch Level", "Patch Level")
         vCenterConfiguration.define_string_property("User Directory Timeout", "User Directory Timeout")
@@ -585,6 +606,10 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                 duration = time.perf_counter() - start_time
                 record_timing("main_collect", duration)
 
+                # Operational Availability of the hosts and clusters of this vCenter. Read once here, because the
+                # host, cluster and vCenter collections below all publish part of it.
+                availability = read_operational_availability(client, adapter_instance_id)
+
                 start_times = {}
 
                 with concurrent.futures.ThreadPoolExecutor(max_workers=5) as data_executor:
@@ -592,13 +617,14 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                     # 1. Cluster feature definition
                     start_times["collect_cluster_data"] = time.perf_counter()
                     future_cls = data_executor.submit(
-                        collect_cluster_data, client, adapter_instance_id, result, content
+                        collect_cluster_data, client, adapter_instance_id, result, content, availability
                     )
 
                     # 2. Host feature definition
                     start_times["collect_host_data"] = time.perf_counter()
                     future_host = data_executor.submit(
-                        collect_host_data, client, adapter_instance_id, result, content, esxiAdvSettings, esxiVIBDrivers
+                        collect_host_data, client, adapter_instance_id, result, content, esxiAdvSettings, esxiVIBDrivers,
+                        availability
                     )
 
                     # 3. VM feature definition
@@ -618,11 +644,15 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                     # 5. vCenter feature definition
                     start_times["collect_vcenter_data"] = time.perf_counter()
                     future_vc = data_executor.submit(
-                        collect_vcenter_data, client, adapter_instance_id, result, content
+                        collect_vcenter_data, client, adapter_instance_id, result, content, availability
                     )
 
+                    # 6. vSphere World: cluster summary metrics, over the clusters of all vCenters
+                    start_times["collect_world_data"] = time.perf_counter()
+                    future_world = data_executor.submit(collect_world_data, client, result)
+
                     # Define main futures
-                    main_futures = [future_cls, future_host, future_vm, future_ds, future_vc]
+                    main_futures = [future_cls, future_host, future_vm, future_ds, future_vc, future_world]
     
                     for future in concurrent.futures.as_completed(main_futures):
                         # Check future function
@@ -634,6 +664,8 @@ def collect(adapter_instance: AdapterInstance) -> CollectResult:
                             func_name = "collect_vcenter_data"
                         elif future == future_host:
                             func_name = "collect_host_data"
+                        elif future == future_world:
+                            func_name = "collect_world_data"
                         else:
                             func_name = "collect_vm_data"
 
