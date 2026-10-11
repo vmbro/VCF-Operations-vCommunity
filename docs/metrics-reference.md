@@ -53,16 +53,16 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Cluster Risk` | Key Performance Indicator (0-100 %) of the cluster's risk, combining the 12 sub-metrics below. 100 is no risk. See [Cluster Risk KPI](cluster-risk-kpi.md) for the formula. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Thread Utilization` | CPU thread utilization (%, `cpu.utilization`) of the busiest host in the cluster. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi CPU Imbalance` | Running CPU threads divided by running CPU cores, on the worst host. 1 is one thread per busy core, 2 is both hyper-threads on every busy core. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Consumed` | Consumed memory as a share (%) of host memory, on the fullest host. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Ballooned` | Ballooned memory as a share (%) of host memory, on the worst host. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Zip Swap` | Compressed plus swapped memory as a share (%) of host memory, on the worst host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Consumed` | Consumed memory as a share (%) of host DRAM, on the fullest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Ballooned` | Ballooned memory as a share (%) of host DRAM, on the worst host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Zip Swap` | Compressed plus swapped memory as a share (%) of host DRAM, on the worst host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Tiering Latency` | Read latency (µs) of the NVMe memory tier, on the worst host. Published only when a host in the cluster has memory tiering. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Reservation` | Reserved CPU as a share (%) of host CPU capacity, on the highest host. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Reservation` | Reserved memory as a share (%) of host memory, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Reservation` | Reserved memory as a share (%) of host DRAM, on the highest host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Overcommit Ratio` | vCPUs allocated to the powered-on VMs per physical core, on the highest host. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Overcommit Ratio` | Memory allocated to the powered-on VMs per unit of host memory capacity, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Overcommit Ratio` | Memory allocated to the powered-on VMs per unit of host DRAM, on the highest host. |
 | 🟢 Metric | `vCommunity\|Cluster Risk\|Highest CPU Monster VM to Host Ratio` | vCPUs of the largest powered-on VM against half the physical cores of its host. Above 1 the VM is a monster. |
-| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest Memory Monster VM to Host Ratio` | Memory of the largest powered-on VM against 40 % of its host's DIMM memory or 256 GB, whichever is smaller. Above 1 the VM is a monster. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest Memory Monster VM to Host Ratio` | Memory of the largest powered-on VM against 40 % of its host's DRAM (not DRAM + NVMe) or 256 GB, whichever is smaller. Above 1 the VM is a monster. |
 
 [⬆ Back to top](#metrics--properties-reference)
 

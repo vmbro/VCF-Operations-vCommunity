@@ -113,23 +113,25 @@ CPU_CAPACITY = "cpu|totalCapacity_average"              # MHz
 MEM_CONSUMED = "mem|consumed_average"
 MEM_BALLOONED = "mem|vmmemctl_average"
 MEM_COMPRESSED = "mem|compressed_average"
-MEM_SWAPPED = "mem|swapused_average"
+MEM_SWAPPED = "mem|swapout_average"         # as in the "Memory Zip Swap" super metric
 MEM_RESERVED = "mem|reservedCapacity_average"
-MEM_CAPACITY = "mem|totalCapacity_average"
 # Allocated to all powered-on VMs of the host. VCF Operations adds them up, so the code does not have to.
 VCPUS_ALLOCATED = "cpu|vcpus_allocated_on_all_powered_on_vms"            # number of vCPUs
-MEM_ALLOCATED = "mem|memory_allocated_on_all_powered_on_vms"             # KB, like MEM_CAPACITY
-# DIMM memory of the host, in KB: the DRAM tier, without a memory tier such as NVMe.
-# A host without memory tiering may not have it; then all its memory is DIMM (MEM_CAPACITY).
-MEM_DRAM_TIER_CAPACITY = "mem:DRAM|memory_tier_total_capacity"
-# Read latency of the NVMe memory tier, in µs. Only hosts with memory tiering have it.
+MEM_ALLOCATED = "mem|memory_allocated_on_all_powered_on_vms"             # KB
+# The host's memory capacity, in KB: DRAM (the DIMMs) only, never DRAM plus a memory tier such as NVMe.
+# Every memory share and ratio of this KPI is measured against it. There is no use case, in Risk or
+# Performance, for comparing against the expanded capacity (DRAM + NVMe).
+MEM_DRAM_CAPACITY = "mem:DRAM|memory_tier_total_capacity"
+# Used when MEM_DRAM_CAPACITY returns nothing.
+MEM_DRAM_CAPACITY_FALLBACK = "mem|host_provisioned"                     # KB
+# Read latency of the NVMe memory tier, in µs (confirmed). Only hosts with memory tiering have it.
 MEM_TIERING_LATENCY = "mem:NVMe|latency.read_latest"
 
 # Every stat that is asked from VCF Operations, for each host.
 HOST_STATS = [
     CPU_THREAD_UTIL, CPU_CORE_UTIL, CPU_RESERVED, CPU_CAPACITY,
-    MEM_CONSUMED, MEM_BALLOONED, MEM_COMPRESSED, MEM_SWAPPED, MEM_RESERVED, MEM_CAPACITY,
-    VCPUS_ALLOCATED, MEM_ALLOCATED, MEM_DRAM_TIER_CAPACITY, MEM_TIERING_LATENCY,
+    MEM_CONSUMED, MEM_BALLOONED, MEM_COMPRESSED, MEM_SWAPPED, MEM_RESERVED,
+    MEM_DRAM_CAPACITY, MEM_DRAM_CAPACITY_FALLBACK, VCPUS_ALLOCATED, MEM_ALLOCATED, MEM_TIERING_LATENCY,
 ]
 
 
@@ -137,8 +139,9 @@ HOST_STATS = [
 # CPU: more than half of the host's physical cores. Cores, not threads: on a host with 64 cores and
 # 128 threads, a VM with more than 32 vCPUs is a monster.
 MONSTER_VM_SHARE_OF_CORES = 0.5
-# Memory: more than 40 % of the host's DIMM memory, or 256 GB, whichever is smaller. A memory tier such
-# as NVMe does not count. On a host with 768 GB of DIMM and 768 GB of NVMe, a VM of 256 GB is a monster.
+# Memory: more than 40 % of the host's DRAM (MEM_DRAM_CAPACITY), or 256 GB, whichever is smaller.
+# A memory tier such as NVMe does not count.
+# On a host with 768 GB of DRAM and 768 GB of NVMe, a VM of 256 GB is a monster.
 MONSTER_VM_SHARE_OF_DRAM = 0.4
 MONSTER_VM_MEMORY_MB = 256.0 * 1024.0
 
@@ -155,11 +158,17 @@ class HostInventory(NamedTuple):
 # Sub-metric formulas for ONE host. Each returns None when it has no data to work with.
 # ---------------------------------------------------------------------------
 
+def dram_capacity_kb(stats: Dict[str, float]) -> Optional[float]:
+    """The host's DRAM memory, in KB. Falls back to MEM_DRAM_CAPACITY_FALLBACK when the DRAM stat has nothing."""
+    return stats.get(MEM_DRAM_CAPACITY) or stats.get(MEM_DRAM_CAPACITY_FALLBACK) or None
+
+
 def memory_share(stats: Dict[str, float], memory_kb: float) -> Optional[float]:
-    """memory_kb as a share (%) of the host's memory capacity."""
-    if MEM_CAPACITY not in stats:
+    """memory_kb as a share (%) of the host's DRAM memory."""
+    dram_kb = dram_capacity_kb(stats)
+    if dram_kb is None:
         return None
-    return percent(memory_kb, stats[MEM_CAPACITY])
+    return percent(memory_kb, dram_kb)
 
 
 def memory_consumed_pct(stats: Dict[str, float]) -> Optional[float]:
@@ -221,10 +230,11 @@ def cpu_overcommit(stats: Dict[str, float], host: HostInventory) -> Optional[flo
 
 
 def memory_overcommit(stats: Dict[str, float]) -> Optional[float]:
-    """Memory allocated to the powered-on VMs, per unit of host memory capacity. Both are in KB."""
-    if not has_all(stats, [MEM_ALLOCATED, MEM_CAPACITY]) or stats[MEM_CAPACITY] <= 0:
+    """Memory allocated to the powered-on VMs, per KB of host DRAM memory. Both are in KB."""
+    dram_kb = dram_capacity_kb(stats)
+    if MEM_ALLOCATED not in stats or dram_kb is None:
         return None
-    return stats[MEM_ALLOCATED] / stats[MEM_CAPACITY]
+    return stats[MEM_ALLOCATED] / dram_kb
 
 
 def cpu_monster_ratio(host: HostInventory) -> Optional[float]:
@@ -236,19 +246,13 @@ def cpu_monster_ratio(host: HostInventory) -> Optional[float]:
     return max(vcpus) / monster_vcpus
 
 
-def dimm_memory_mb(stats: Dict[str, float]) -> Optional[float]:
-    """DIMM memory of the host, in MB: the DRAM tier, or all memory on a host without memory tiering."""
-    dimm_kb = stats.get(MEM_DRAM_TIER_CAPACITY) or stats.get(MEM_CAPACITY)
-    return dimm_kb / 1024.0 if dimm_kb else None
-
-
 def memory_monster_ratio(stats: Dict[str, float], host: HostInventory) -> Optional[float]:
     """Memory of the largest VM, against the memory at which a VM becomes a monster on this host."""
     memory = [vm.memory_mb for vm in host.vms if vm.memory_mb]
-    dimm_mb = dimm_memory_mb(stats)
-    if not dimm_mb or not memory:
+    dram_kb = dram_capacity_kb(stats)
+    if dram_kb is None or not memory:
         return None
-    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * dimm_mb, MONSTER_VM_MEMORY_MB)
+    monster_mb = min(MONSTER_VM_SHARE_OF_DRAM * dram_kb / 1024.0, MONSTER_VM_MEMORY_MB)
     return max(memory) / monster_mb
 
 

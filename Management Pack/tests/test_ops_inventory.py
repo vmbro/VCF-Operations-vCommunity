@@ -10,7 +10,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 
 from utils import ops_inventory as inv
 from utils import ops_stats
-from fakes import FakeSuiteApi
+from fakes import FakeResponse, FakeSuiteApi
 
 API = FakeSuiteApi(
     resources={
@@ -74,3 +74,54 @@ def test_as_number():
     assert ops_stats.as_number("4") == 4.0
     assert ops_stats.as_number("Powered On") is None
     assert ops_stats.as_number(None) is None
+
+
+
+# The responses of VCF Operations 9.1.1 to the properties query, as captured in Swagger.
+# Unlike FakeSuiteApi, a number property comes back under "data", as a number, and a text property under "values".
+LIVE_HOST_ID = "03ccaab1-777e-4e06-ad1d-e991ee4d3c5a"
+LIVE_HOST_PROPERTIES = [
+    {"statKey": "config|hyperThread|active", "timestamps": [1775949879539], "values": ["true"]},
+    {"statKey": "config|hyperThread|available", "timestamps": [1775949879539], "values": ["true"]},
+    {"statKey": "hardware|cpuInfo|numCpuCores", "timestamps": [1791204748498], "data": [20]},
+    {"statKey": "summary|parentCluster", "timestamps": [1775949879539], "values": ["vcf-m02-cl01"]},
+]
+LIVE_VM_ID = "00aa08dd-32a2-4184-a64b-6dbafffab037"
+LIVE_VM_PROPERTIES = [
+    {"statKey": "config|hardware|memoryKB", "timestamps": [1788025940524], "data": [33554432]},
+    {"statKey": "config|hardware|numCpu", "timestamps": [1788025940524], "data": [24]},
+    {"statKey": "summary|parentHost", "timestamps": [1788025940524], "values": ["sun05-esxi48.acepod.com"]},
+    {"statKey": "summary|runtime|powerState", "timestamps": [1791372935387], "values": ["Powered Off"]},
+]
+
+
+class LivePropertiesApi:
+    """Answers the properties query with the captured response of one resource."""
+    def __init__(self, resource_id, property_content):
+        self.resource_id = resource_id
+        self.property_content = property_content
+
+    def post(self, path, json):
+        return FakeResponse({"values": [{
+            "resourceId": self.resource_id,
+            "property-contents": {"property-content": self.property_content},
+        }]})
+
+
+def test_a_live_host_properties_response_is_read_correctly():
+    api = LivePropertiesApi(LIVE_HOST_ID, LIVE_HOST_PROPERTIES)
+    properties = ops_stats.read_latest_properties(api, [LIVE_HOST_ID], inv.HOST_PROPERTY_KEYS)
+    host = inv.host_info(ops_stats.OpsResource(LIVE_HOST_ID, "sun05-esxi45.acepod.com", "host-1"), properties[LIVE_HOST_ID])
+    assert host.cluster_name == "vcf-m02-cl01"
+    assert host.cores == 20
+    assert host.threads == 40
+
+
+def test_a_live_vm_properties_response_is_read_correctly():
+    api = LivePropertiesApi(LIVE_VM_ID, LIVE_VM_PROPERTIES)
+    properties = ops_stats.read_latest_properties(api, [LIVE_VM_ID], inv.VM_PROPERTY_KEYS)
+    vm = inv.vm_info(ops_stats.OpsResource(LIVE_VM_ID, "vm-1", "vm-1"), properties[LIVE_VM_ID])
+    assert vm.host_name == "sun05-esxi48.acepod.com"
+    assert vm.powered_on is False
+    assert vm.vcpus == 24
+    assert vm.memory_mb == 32 * 1024

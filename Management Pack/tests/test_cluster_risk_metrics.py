@@ -40,7 +40,7 @@ def host_stats(cpu_util=40.0, core_util=80.0, consumed_gb=256.0, ballooned_gb=0.
         cr.MEM_COMPRESSED: [zip_swap_gb * GB_IN_KB],
         cr.MEM_SWAPPED: [0.0],
         cr.MEM_RESERVED: [mem_reserved_gb * GB_IN_KB],
-        cr.MEM_CAPACITY: [512.0 * GB_IN_KB],
+        cr.MEM_DRAM_CAPACITY: [512.0 * GB_IN_KB],
         cr.VCPUS_ALLOCATED: [vcpus_allocated],
         cr.MEM_ALLOCATED: [mem_allocated_gb * GB_IN_KB],
     }
@@ -100,7 +100,7 @@ def test_cpu_imbalance_without_data():
 
 
 def test_overcommit_uses_what_vcf_operations_allocated_to_the_powered_on_vms():
-    stats = {cr.VCPUS_ALLOCATED: 64.0, cr.MEM_ALLOCATED: 1024.0 * GB_IN_KB, cr.MEM_CAPACITY: 512.0 * GB_IN_KB}
+    stats = {cr.VCPUS_ALLOCATED: 64.0, cr.MEM_ALLOCATED: 1024.0 * GB_IN_KB, cr.MEM_DRAM_CAPACITY: 512.0 * GB_IN_KB}
     assert cr.cpu_overcommit(stats, HOST) == 2.0          # 64 vCPU on 32 cores
     assert cr.memory_overcommit(stats) == 2.0                      # 1 TB on 512 GB
     assert cr.cpu_overcommit(stats, host(cores=None)) is None      # cores unknown
@@ -127,17 +127,16 @@ def test_cpu_monster_is_more_than_half_the_physical_cores():
 
 def test_memory_monster_is_40_percent_of_dimm_or_256_gb():
     # 40 % of 768 GB is 307 GB, more than 256 GB, so 256 GB is the monster size. The NVMe tier does not count.
-    # The host's stats: 768 GB of DIMM in the DRAM tier, 1536 GB in all.
-    tiered = {cr.MEM_DRAM_TIER_CAPACITY: 768.0 * GB_IN_KB, cr.MEM_CAPACITY: 1536.0 * GB_IN_KB}
+    # The host's DRAM is 768 GB. Its 768 GB NVMe tier does not count.
+    tiered = {cr.MEM_DRAM_CAPACITY: 768.0 * GB_IN_KB}
     assert cr.memory_monster_ratio(tiered, big_host([vm(4.0, 256.0 * 1024.0)])) == 1.0
     # 40 % of 512 GB is 204.8 GB, less than 256 GB, so 204.8 GB is the monster size.
-    # Without memory tiering there is no DRAM tier stat: all 512 GB is DIMM.
-    untiered = {cr.MEM_CAPACITY: 512.0 * GB_IN_KB}
+    untiered = {cr.MEM_DRAM_CAPACITY: 512.0 * GB_IN_KB}
     assert cr.memory_monster_ratio(untiered, host(vms=[vm(4.0, 204.8 * 1024.0)])) == 1.0
 
 
 def test_memory_shares_are_of_the_host_capacity():
-    stats = {cr.MEM_BALLOONED: 5.12 * GB_IN_KB, cr.MEM_CAPACITY: 512.0 * GB_IN_KB}
+    stats = {cr.MEM_BALLOONED: 5.12 * GB_IN_KB, cr.MEM_DRAM_CAPACITY: 512.0 * GB_IN_KB}
     assert cr.memory_ballooned_pct(stats) == 1.0
     assert cr.memory_ballooned_pct({cr.MEM_BALLOONED: 1.0}) is None      # capacity missing
 
@@ -146,8 +145,8 @@ def test_zip_swap_adds_zipped_and_swapped_per_host_then_takes_the_highest_host()
     # host-1: 3 GB zipped + 2 GB swapped = 5 GB of 100 GB = 5 %. host-2: 4 GB zipped + 0 swapped = 4 %.
     # Taking the highest of zipped and swapped separately would give 4 GB. Adding them per host gives 5 %.
     gb = GB_IN_KB
-    host_1 = {cr.MEM_COMPRESSED: 3 * gb, cr.MEM_SWAPPED: 2 * gb, cr.MEM_CAPACITY: 100 * gb}
-    host_2 = {cr.MEM_COMPRESSED: 4 * gb, cr.MEM_SWAPPED: 0.0, cr.MEM_CAPACITY: 100 * gb}
+    host_1 = {cr.MEM_COMPRESSED: 3 * gb, cr.MEM_SWAPPED: 2 * gb, cr.MEM_DRAM_CAPACITY: 100 * gb}
+    host_2 = {cr.MEM_COMPRESSED: 4 * gb, cr.MEM_SWAPPED: 0.0, cr.MEM_DRAM_CAPACITY: 100 * gb}
     assert cr.memory_zip_swap_pct(host_1) == 5.0
     assert cr.memory_zip_swap_pct(host_2) == 4.0
     hosts = [host("host-1"), host("host-2")]
@@ -196,3 +195,12 @@ def test_memory_tiering_latency_counts_only_on_hosts_with_memory_tiering():
     samples = {"host-1": host_stats(), "host-2": {**host_stats(), cr.MEM_TIERING_LATENCY: [300.0]}}
     assert collect(samples)["Worst ESXi Memory Tiering Latency"] == 300.0
     assert "Worst ESXi Memory Tiering Latency" not in collect(HEALTHY)
+
+
+def test_dram_capacity_falls_back_to_host_provisioned_memory():
+    assert cr.dram_capacity_kb({cr.MEM_DRAM_CAPACITY: 768.0, cr.MEM_DRAM_CAPACITY_FALLBACK: 1536.0}) == 768.0
+    assert cr.dram_capacity_kb({cr.MEM_DRAM_CAPACITY_FALLBACK: 512.0}) == 512.0     # DRAM stat missing
+    assert cr.dram_capacity_kb({cr.MEM_DRAM_CAPACITY: 0.0, cr.MEM_DRAM_CAPACITY_FALLBACK: 512.0}) == 512.0
+    assert cr.dram_capacity_kb({}) is None
+    # The memory shares use the fallback too: 5.12 GB ballooned of 512 GB is 1 %.
+    assert cr.memory_ballooned_pct({cr.MEM_BALLOONED: 5.12 * GB_IN_KB, cr.MEM_DRAM_CAPACITY_FALLBACK: 512.0 * GB_IN_KB}) == 1.0

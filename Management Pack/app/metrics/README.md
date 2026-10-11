@@ -19,7 +19,7 @@ All five use the same scoring, in `kpi_score.py`. Each has its own table of sub-
 | Cluster Risk | Cluster | 12 | Working | `docs/Complex Metrics/vSphere Cluster Risk metric.png` |
 | ESXi Performance | ESXi host | 9 | Working | `docs/Complex Metrics/vSphere ESXi Performance metric.png` |
 
-All five are called by a collector and declared in `adapter.py`. A few VCF Operations stat keys still need to be confirmed on a live system. Each user page lists them under "To verify on a live system".
+All five are called by a collector and declared in `adapter.py`. A few VCF Operations keys and one endpoint still need to be confirmed on a live system. They are listed under "To verify on a live system" on the [Cluster Risk page](../../../docs/cluster-risk-kpi.md#to-verify-on-a-live-system).
 
 ## What is in this folder
 
