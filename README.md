@@ -100,6 +100,10 @@ Bad Network Packets has data from the next collection cycle.
 - [Network Speed Degradation](docs/network-speed-degradation.md) (read its Known Limitations)
 - [VM Shares](docs/vm-shares.md) (read its Known Limitations)
 
+**Planned (future work, not built):**
+
+- [Distributed Switch Health Check](docs/planning/distributed-switch-health-check.md)
+
 ## Tools
 
 - **[Bulk Adapter Instance Importer](tools/importer/importer.md)** — Onboard many vCenters at once from a CSV file instead of configuring each Adapter Instance manually.
