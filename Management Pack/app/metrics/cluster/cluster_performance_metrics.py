@@ -40,19 +40,22 @@ never treated as 0, because 0 means "perfect".
 How to change it
 ----------------
 To re-tune a sub-metric, edit its row in METRICS. To add a VM stat, add a line
-to VM_STATS and its two rows to METRICS.
+to VM_STATS in metrics/vm_contention.py and its two rows to METRICS here and in
+host/esxi_performance_metrics.py.
 
 Called from: collectors/cluster/collectClusterData.py, once per cluster.
 Overall approach for all KPIs: metrics/README.md
 Description for people who do not read code: docs/cluster-performance-kpi.md
 """
 import logging
-import math
 from typing import Dict, List, Optional
 from aria.ops.object import Object
 from aria.ops.suite_api_client import SuiteApiClient
-from metrics.kpi_score import Metric, kpi_score, percent, has_all
-from utils.ops_stats import read_latest_stats, read_stat_totals
+from metrics.kpi_score import Metric, kpi_score
+from metrics.vm_contention import (
+    VM_STATS, HOST_BAD_PACKET_STATS, HOST_PACKET_STATS, BAD_PACKET_WINDOW_MINUTES,
+    percentile_90, worst_and_percentile, bad_packet_pct, read_vm_contention_stats, read_host_packet_totals,
+)
 
 logger = logging.getLogger(__name__)
 
@@ -95,106 +98,21 @@ PUBLISHED_METRICS = METRICS
 
 
 # ---------------------------------------------------------------------------
-# The VCF Operations stats that the sub-metrics are built from.
+# Sub-metric formulas. The worst-VM, 90th-percentile and bad-packet formulas are shared
+# with ESXi Performance, so they are in metrics/vm_contention.py.
 # ---------------------------------------------------------------------------
-
-# Read from each powered-on VM in the cluster.
-# VM stat -> (sub-metric holding the worst VM, sub-metric holding the 90th percentile).
-# The 20-second peak stats are used instead of the 5-minute averages so the KPI is a leading indicator.
-VM_STATS = {
-    "cpu|20_sec_peak_readyPct":                     ("Worst VM CPU Ready",       "90th Percentile VM CPU Ready"),
-    "cpu|20_sec_peak_costopPct":                    ("Worst VM CPU Co-Stop",     "90th Percentile VM CPU Co-Stop"),
-    "mem|20_sec_peak_host_contentionPct":           ("Worst VM Memory Latency",  "90th Percentile VM Memory Latency"),
-    "virtualDisk|20_sec_peak_totalLatency_average": ("Worst VM Disk Latency",    "90th Percentile VM Disk Latency"),
-}
-
-# Read from each ESXi host in the cluster. These are packet counts per collection cycle.
-HOST_BAD_PACKET_STATS = [
-    "net|errorsRx_summation_sum", "net|errorsTx_summation_sum",
-    "net|droppedRx_summation_sum", "net|droppedTx_summation_sum",
-]
-HOST_PACKET_STATS = ["net|packetsRx_summation_sum", "net|packetsTx_summation_sum"]
-
-# Bad packets are added up over this window. A single collection cycle is too noisy:
-# one burst of drops would push the sub-metric into the red tier, where its weight is 8.
-BAD_PACKET_WINDOW_MINUTES = 30
-
-
-# ---------------------------------------------------------------------------
-# Sub-metric formulas. Each returns None when it has no data to work with.
-# ---------------------------------------------------------------------------
-
-def percentile_90(numbers: List[float]) -> Optional[float]:
-    """The value that 90 % of the numbers are at or below. None when the list is empty.
-
-    Nearest-rank method: sort the numbers and take the one at position 90 % of the count, rounded up.
-    With 20 VMs that is the 18th lowest. With fewer than 10 VMs it is the highest.
-    """
-    if not numbers:
-        return None
-    position = math.ceil(0.9 * len(numbers))
-    return sorted(numbers)[position - 1]
-
 
 def vm_contention_values(suite_api_client: SuiteApiClient, vm_ids: List[str]) -> Dict[str, Optional[float]]:
-    """Worst-VM and 90th-percentile value of each stat in VM_STATS."""
+    """Worst-VM and 90th-percentile value of each stat in VM_STATS, over the cluster's VMs."""
     # One request for all VMs of the cluster.
-    latest_by_vm = read_latest_stats(suite_api_client, vm_ids, list(VM_STATS))
-    values = {}
-
-    for stat_key, (worst_name, percentile_name) in VM_STATS.items():
-        # A VM that does not have this stat is left out.
-        per_vm = [vm_stats[stat_key] for vm_stats in latest_by_vm.values() if stat_key in vm_stats]
-        values[worst_name] = max(per_vm) if per_vm else None
-        values[percentile_name] = percentile_90(per_vm)
-    return values
+    return worst_and_percentile(read_vm_contention_stats(suite_api_client, vm_ids), vm_ids)
 
 
 def highest_host_bad_packet_pct(suite_api_client: SuiteApiClient, host_ids: List[str]) -> Optional[float]:
     """Highest share of errored or dropped packets on any one host, over BAD_PACKET_WINDOW_MINUTES."""
-    totals_by_host = read_stat_totals(
-        suite_api_client, host_ids, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS, BAD_PACKET_WINDOW_MINUTES
-    )
-    per_host = []
-
-    for totals in totals_by_host.values():
-        # A host with one of the six counters missing would give a wrong share, so it is skipped.
-        if not has_all(totals, HOST_BAD_PACKET_STATS + HOST_PACKET_STATS):
-            continue
-        bad_packets = sum(totals[key] for key in HOST_BAD_PACKET_STATS)
-        all_packets = sum(totals[key] for key in HOST_PACKET_STATS)
-        # None when the host sent and received no packets at all.
-        bad_pct = percent(bad_packets, all_packets)
-        if bad_pct is not None:
-            per_host.append(bad_pct)
-
+    totals_by_host = read_host_packet_totals(suite_api_client, host_ids)
+    per_host = [pct for pct in (bad_packet_pct(totals) for totals in totals_by_host.values()) if pct is not None]
     return max(per_host) if per_host else None
-
-
-# ---------------------------------------------------------------------------
-# Finding the cluster's VMs and hosts.
-# ---------------------------------------------------------------------------
-
-def powered_on_vms_by_host(vm_props) -> Dict[str, List[str]]:
-    """{host MoRef id: [MoRef ids of the powered-on VMs on that host]}.
-
-    vm_props is the vCenter answer for every VM, with the properties runtime.host and runtime.powerState.
-    A powered-off VM is left out: its last stats in VCF Operations are old and would skew the KPI.
-    """
-    vms_by_host = {}
-    for vm_data in vm_props:
-        props = {prop.name: prop.val for prop in vm_data.propSet}
-        host = props.get("runtime.host")
-        if host is None or props.get("runtime.powerState") != "poweredOn":
-            continue
-        vms_by_host.setdefault(host._moId, []).append(vm_data.obj._moId)
-    return vms_by_host
-
-
-def resource_ids(moids: List[str], objects_by_moid: Dict[str, Object]) -> List[str]:
-    """VCF Operations resource ids of the vCenter objects (VMs or hosts) that VCF Operations knows about."""
-    # vCenter names an object by its MoRef id. VCF Operations uses its own id, which the stats API needs.
-    return [objects_by_moid[moid].get_id() for moid in moids if moid in objects_by_moid]
 
 
 # ---------------------------------------------------------------------------

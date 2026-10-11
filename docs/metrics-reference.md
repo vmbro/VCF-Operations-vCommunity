@@ -6,8 +6,8 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 **On this page:**
 
-- [Cluster](#cluster) (32 items)
-- [Host](#host) (46 items)
+- [Cluster](#cluster) (45 items)
+- [Host](#host) (56 items)
 - [Datastore](#datastore) (9 items)
 - [Virtual Machine](#virtual-machine) (54 items)
 - [vCenter](#vcenter) (11 items)
@@ -50,6 +50,19 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs in the cluster are at or below. |
 | 🟢 Metric | `vCommunity\|Cluster Performance\|Highest ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets over the last 30 minutes, on the worst host in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Cluster Risk` | Key Performance Indicator (0-100 %) of the cluster's risk, combining the 12 sub-metrics below. 100 is no risk. See [Cluster Risk KPI](cluster-risk-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Thread Utilization` | CPU thread utilization (%, `cpu.utilization`) of the busiest host in the cluster. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi CPU Imbalance` | CPU thread utilization of the busiest host, divided by the average of the cluster's hosts. 1 is an even load. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Consumed` | Consumed memory as a share (%) of host memory, on the fullest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Ballooned` | Ballooned memory as a share (%) of host memory, on the worst host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Zip Swap` | Compressed plus swapped memory as a share (%) of host memory, on the worst host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Worst ESXi Memory Tiering Latency` | Memory tiering latency (µs) of the worst host. Not published until its source stat is known. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Reservation` | Reserved CPU as a share (%) of host CPU capacity, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Reservation` | Reserved memory as a share (%) of host memory, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi CPU Overcommit Ratio` | vCPUs of the powered-on VMs per physical core, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest ESXi Memory Overcommit Ratio` | Configured memory of the powered-on VMs per MB of host memory, on the highest host. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest CPU Monster VM to Host Ratio` | vCPUs of the largest powered-on VM against half the physical cores of its host. Above 1 the VM is a monster. |
+| 🟢 Metric | `vCommunity\|Cluster Risk\|Highest Memory Monster VM to Host Ratio` | Memory of the largest powered-on VM against 40 % of its host's DIMM memory or 256 GB, whichever is smaller. Above 1 the VM is a monster. |
 
 [⬆ Back to top](#metrics--properties-reference)
 
@@ -59,6 +72,16 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 | Type | Path | Description |
 | :--- | :--- | :--- |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Performance` | Key Performance Indicator (0-100 %) of the host, combining the 9 sub-metrics below. 100 is perfect. See [ESXi Performance KPI](esxi-performance-kpi.md) for the formula. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Ready` | Highest 20-second peak CPU Ready (%) of any powered-on VM on the host. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM CPU Co-Stop` | Highest 20-second peak CPU Co-Stop (%) of any powered-on VM on the host. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM Memory Latency` | Highest 20-second peak memory contention (%) of any powered-on VM on the host. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|Worst VM Disk Latency` | Highest 20-second peak virtual disk latency (ms) of any powered-on VM on the host. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM CPU Ready` | 20-second peak CPU Ready (%) that 90 % of the powered-on VMs on the host are at or below. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM CPU Co-Stop` | 20-second peak CPU Co-Stop (%) that 90 % of the powered-on VMs on the host are at or below. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM Memory Latency` | 20-second peak memory contention (%) that 90 % of the powered-on VMs on the host are at or below. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|90th Percentile VM Disk Latency` | 20-second peak virtual disk latency (ms) that 90 % of the powered-on VMs on the host are at or below. |
+| 🟢 Metric | `vCommunity\|ESXi Performance\|ESXi Bad Network Packets` | Errored and dropped packets as a share (%) of all packets of the host over the last 30 minutes. |
 | ⚪ Property | `vCommunity\|Configuration\|Advanced System Settings\|`<setting_name>`` | The value of an ESXi advanced system setting (e.g. Disk.DiskRetryPeriod) tracked via the esxi_advanced_system_settings config file. One property per tracked setting. |
 | ⚪ Property | `vCommunity\|Storage Adapter:`<hba_device>`\|Device` | Device name of the Host Bus Adapter (HBA), e.g. vmhba0. One instance per HBA. |
 | ⚪ Property | `vCommunity\|Storage Adapter:`<hba_device>`\|Bus` | PCI bus number the HBA is attached to. |
@@ -211,4 +234,4 @@ Every property and metric the vCommunity Management Pack pushes to VCF Operation
 
 ---
 
-**Total: 150 template rows across 5 object types.**
+**Total: 173 template rows across 5 object types.**

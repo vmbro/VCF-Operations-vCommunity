@@ -1,15 +1,15 @@
 # ESXi Performance KPI
 
-> **Status: planned.** The sub-metrics and limits below are final. The code that collects them is not written yet, so VCF Operations does not show this KPI.
-
 **ESXi Performance** is a single 0-100 % score for an ESXi host. 100 is perfect. It measures actual contention, not potential. It shows how bad the contention is, not why it happens.
 
-It answers two questions about the VMs on the host:
+It answers two questions about the powered-on VMs on the host:
 
 - **How deep?** The worst VM. Shows a problem that hits one VM hard.
 - **How broad?** The 90th percentile across the VMs. Shows a problem that many VMs share. 90 % of the VMs are at or below this value.
 
-Code (stub): [`Management Pack/app/metrics/host/esxi_performance_metrics.py`](../Management%20Pack/app/metrics/host/esxi_performance_metrics.py)
+All 10 metrics are published on the host object under `vCommunity|ESXi Performance`.
+
+Code: [`Management Pack/app/metrics/host/esxi_performance_metrics.py`](../Management%20Pack/app/metrics/host/esxi_performance_metrics.py)
 
 Source of the limits: [`Complex Metrics/vSphere ESXi Performance metric.png`](Complex%20Metrics/vSphere%20ESXi%20Performance%20metric.png)
 
@@ -40,14 +40,23 @@ The same way as every KPI:
 
 The full explanation, with a worked example, is in [Cluster Performance KPI](cluster-performance-kpi.md#step-2-score-each-sub-metric). The code is [`kpi_score.py`](../Management%20Pack/app/metrics/kpi_score.py).
 
-## Same sub-metrics as Cluster Performance
+## How each sub-metric is calculated
 
-[Cluster Performance](cluster-performance-kpi.md) has the same 9 sub-metrics, measured across the cluster instead of one host. ESXi Performance can reuse its code that reads the VM stats and calculates the worst VM and the 90th percentile.
+They are the same sub-metrics as [Cluster Performance](cluster-performance-kpi.md#step-1-collect-the-9-sub-metrics), measured over the VMs of one host instead of a whole cluster. The formulas exist once, in [`metrics/vm_contention.py`](../Management%20Pack/app/metrics/vm_contention.py).
 
-## Still to do
+- The 8 VM sub-metrics are the worst value and the 90th percentile of `cpu|20_sec_peak_readyPct`, `cpu|20_sec_peak_costopPct`, `mem|20_sec_peak_host_contentionPct` and `virtualDisk|20_sec_peak_totalLatency_average`, over the powered-on VMs on the host.
+- Bad network packets are `(errorsRx + errorsTx + droppedRx + droppedTx) / (packetsRx + packetsTx) × 100` of the host, added up over the last 30 minutes.
 
-- Decide which VCF Operations stat each sub-metric is read from, and write the formulas, including the 90th percentile.
-- Call the entry point from the host collector.
-- Declare the KPI in `adapter.py` with `define_kpi()`.
-- Add a test file with worked examples.
-- Add the published metrics to the [Metrics & Properties Reference](metrics-reference.md).
+The stats of all VMs and all hosts are read in bulk, once per collection cycle, not once per host.
+
+## Worked examples
+
+- **Nothing wrong.** Bad packets are 0, in their excluded green, so they are left out. The other 8 score 100. KPI = **100**.
+- **One VM with 200 ms disk latency.** Worst VM Disk Latency is a quarter of the way through red (160 to 320): 18.75 with weight 8. The 90th percentile stays 0, because one VM is not a broad problem. KPI = `(7 × 100 + 18.75 × 8) / (7 + 8)` ≈ **56.67**.
+- **A host with no powered-on VMs.** No VM sub-metric has data. Bad packets are 0 and left out. Nothing is wrong, so the KPI is **100**.
+
+The same examples are checked by the tests in [`Management Pack/tests/test_esxi_performance_metrics.py`](../Management%20Pack/tests/test_esxi_performance_metrics.py).
+
+## Missing data
+
+A sub-metric with no data is not published for that cycle, and it is left out of the KPI. It is never counted as 0. A host that is not connected gets no KPI.

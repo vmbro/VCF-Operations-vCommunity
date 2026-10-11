@@ -16,10 +16,10 @@ All five use the same scoring, in `kpi_score.py`. Each has its own table of sub-
 | Cluster Performance | Cluster | 9 | Working | `docs/Complex Metrics/vSphere Cluster Performance metric.png` |
 | VM Performance | VM | 9 | Working | `docs/Complex Metrics/Virtual Motherboard Performance metric.png` |
 | Guest OS Performance | VM | 4 | Working | `docs/Complex Metrics/Guest OS Performance metric.png` |
-| Cluster Risk | Cluster | 12 | Stub. Table done, collection not written. | `docs/Complex Metrics/vSphere Cluster Risk metric.png` |
-| ESXi Performance | ESXi host | 9 | Stub. Table done, collection not written. | `docs/Complex Metrics/vSphere ESXi Performance metric.png` |
+| Cluster Risk | Cluster | 12 | Working | `docs/Complex Metrics/vSphere Cluster Risk metric.png` |
+| ESXi Performance | ESXi host | 9 | Working | `docs/Complex Metrics/vSphere ESXi Performance metric.png` |
 
-A stub has its final `METRICS` table, so the table tests check it. Its entry point publishes nothing, and it is not yet called by a collector or declared in `adapter.py`. One limit is an assumption: where red ends for CPU Imbalance in Cluster Risk, because the source table gives red as a single value. It is marked in the code and on the user page.
+All five are called by a collector and declared in `adapter.py`. A few VCF Operations stat keys still need to be confirmed on a live system. Each user page lists them under "To verify on a live system".
 
 ## What is in this folder
 
@@ -27,17 +27,19 @@ A stub has its final `METRICS` table, so the table tests check it. Its entry poi
 | :--- | :--- |
 | `kpi_score.py` | The scoring shared by every KPI. It turns sub-metric values into one 0-100 % score. It makes no API calls. |
 | `cluster/cluster_performance_metrics.py` | Cluster Performance KPI. One score per cluster, from 9 sub-metrics. |
-| `cluster/cluster_risk_metrics.py` | Cluster Risk KPI. Stub. One score per cluster, from 12 sub-metrics. |
+| `cluster/cluster_risk_metrics.py` | Cluster Risk KPI. One score per cluster, from 12 sub-metrics. |
 | `cluster/drs_metrics.py` | DRS Score. A plain metric, not a KPI. |
 | `vm/vm_performance_metrics.py` | VM Performance KPI. One score per powered-on VM, from 9 sub-metrics. Also reads the stats of Guest OS Performance. |
 | `vm/guest_os_performance_metrics.py` | Guest OS Performance KPI. One score per powered-on VM with VMware Tools, from 4 sub-metrics. |
-| `host/esxi_performance_metrics.py` | ESXi Performance KPI. Stub. One score per ESXi host, from 9 sub-metrics. |
+| `host/esxi_performance_metrics.py` | ESXi Performance KPI. One score per connected ESXi host, from 9 sub-metrics. |
+| `vm_contention.py` | The worst-VM, 90th-percentile and bad-packet formulas, shared by Cluster Performance and ESXi Performance. |
 
 Two files outside this folder belong to the same design:
 
 | File | What it does |
 | :--- | :--- |
 | `../utils/ops_stats.py` | Reads stats from VCF Operations, for many objects in one request. |
+| `../utils/vcenter_inventory.py` | Reads from vCenter which VMs run on which host, VM sizes and host hardware, once per cycle. |
 | `../adapter.py` | Declares each metric to VCF Operations. `define_kpi()` does this for a KPI. A unit used in a KPI table must be listed in `KPI_UNITS` there. |
 
 ## Where the numbers come from
@@ -202,9 +204,12 @@ python -m pytest tests
 
 | File | What it checks |
 | :--- | :--- |
-| `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI, stubs included. |
+| `test_kpi_score.py` | The scoring, the batching of stats requests, and the tables of every KPI. |
 | `test_cluster_performance_metrics.py` | Cluster Performance formulas and worked examples. |
 | `test_vm_performance_metrics.py` | VM Performance formulas and worked examples. |
+| `test_cluster_risk_metrics.py` | Cluster Risk formulas and worked examples. |
+| `test_esxi_performance_metrics.py` | ESXi Performance formulas and worked examples. |
+| `test_vcenter_inventory.py` | Reading VMs per host, VM sizes and host hardware from vCenter answers. |
 | `test_guest_os_performance_metrics.py` | Guest OS Performance formulas and worked examples. |
 
 ## Pages for users
@@ -212,6 +217,6 @@ python -m pytest tests
 - [Cluster Performance KPI](../../../docs/cluster-performance-kpi.md)
 - [VM Performance KPI](../../../docs/vm-performance-kpi.md)
 - [Guest OS Performance KPI](../../../docs/guest-os-performance-kpi.md)
-- [Cluster Risk KPI](../../../docs/cluster-risk-kpi.md) (planned)
-- [ESXi Performance KPI](../../../docs/esxi-performance-kpi.md) (planned)
+- [Cluster Risk KPI](../../../docs/cluster-risk-kpi.md)
+- [ESXi Performance KPI](../../../docs/esxi-performance-kpi.md)
 - [Metrics & Properties Reference](../../../docs/metrics-reference.md)

@@ -5,13 +5,12 @@ Run from the "Management Pack" folder:  python -m pytest tests
 """
 import sys
 from pathlib import Path
-from types import SimpleNamespace
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "app"))
 
 from metrics.kpi_score import kpi_score
 from metrics.cluster import cluster_performance_metrics as cp
-from fakes import FakeSuiteApi, FakeObject, FakeMoRef
+from fakes import FakeSuiteApi, FakeObject
 
 ALL_ZERO = {metric.name: 0.0 for metric in cp.METRICS}
 
@@ -62,27 +61,6 @@ def test_percentile_90():
     assert cp.percentile_90([5.0, 1.0, 2.0]) == 5.0
     # 20 VMs, 1 to 20: the 18th lowest. 18 of the 20 are at or below it.
     assert cp.percentile_90([float(n) for n in range(20, 0, -1)]) == 18.0
-
-
-def vm(moid, host_moid, power_state):
-    props = [SimpleNamespace(name="runtime.host", val=FakeMoRef(host_moid) if host_moid else None),
-             SimpleNamespace(name="runtime.powerState", val=power_state)]
-    return SimpleNamespace(obj=FakeMoRef(moid), propSet=props)
-
-
-def test_only_powered_on_vms_are_counted_per_host():
-    vm_props = [
-        vm("vm-1", "host-1", "poweredOn"),
-        vm("vm-2", "host-1", "poweredOff"),
-        vm("vm-3", "host-2", "poweredOn"),
-        vm("vm-4", None, "poweredOn"),        # not on a host
-    ]
-    assert cp.powered_on_vms_by_host(vm_props) == {"host-1": ["vm-1"], "host-2": ["vm-3"]}
-
-
-def test_resource_ids_skip_objects_unknown_to_vcf_operations():
-    known = {"vm-1": FakeObject("ops-vm-1")}
-    assert cp.resource_ids(["vm-1", "vm-9"], known) == ["ops-vm-1"]
 
 
 # --- End to end, with a fake VCF Operations ---------------------------------

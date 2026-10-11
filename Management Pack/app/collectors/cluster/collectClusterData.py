@@ -15,8 +15,10 @@ from metrics.cluster.drs_metrics import collect_drs_metrics
 from properties.cluster.evc_properties import collect_evc_properties
 from properties.cluster.dpm_properties import collect_dpm_properties
 from properties.cluster.cluster_configuration_properties import collect_cluster_configuration_properties
-from metrics.cluster.cluster_performance_metrics import (
-    collect_cluster_performance_metrics, powered_on_vms_by_host, resource_ids,
+from metrics.cluster.cluster_performance_metrics import collect_cluster_performance_metrics
+from metrics.cluster.cluster_risk_metrics import collect_cluster_risk_metrics, HostInventory
+from utils.vcenter_inventory import (
+    VM_PROPERTIES, HOST_PROPERTIES, HOST_MEMORY_TIER_PROPERTIES, powered_on_vms_by_host, vm_sizes, host_hardware, resource_ids, resource_id,
 )
 from pyVmomi import vim
 
@@ -92,9 +94,15 @@ def collect_cluster_data(
         vm.get_identifier_value("VMEntityObjectID"): vm for vm in vms
     }
 
-    # Find the powered-on VMs of each host once, for all clusters. A cluster has no list of its VMs.
-    vm_props = retrieve_properties(content, vim.VirtualMachine, ["runtime.host", "runtime.powerState"])
+    # Read from vCenter once, for all clusters: the powered-on VMs of each host (a cluster has no list
+    # of its VMs), the size of each VM, and the hardware of each host.
+    vm_props = retrieve_properties(content, vim.VirtualMachine, VM_PROPERTIES)
     vms_on_host = powered_on_vms_by_host(vm_props)
+    sizes_by_vm = vm_sizes(vm_props)
+    hardware_by_host = host_hardware(
+        retrieve_properties(content, vim.HostSystem, HOST_PROPERTIES),
+        retrieve_properties(content, vim.HostSystem, HOST_MEMORY_TIER_PROPERTIES),
+    )
 
     for cluster_data in cluster_props:
         try:
@@ -123,6 +131,17 @@ def collect_cluster_data(
                 resource_ids(vm_moids, vms_by_uuid), resource_ids(host_moids, hosts_by_uuid),
                 suite_api_client,
             )
+
+            # Cluster Risk: one entry per host that VCF Operations knows about.
+            hosts_inventory = [
+                HostInventory(
+                    resource_id(host_moid, hosts_by_uuid),
+                    hardware_by_host.get(host_moid),
+                    [sizes_by_vm[vm] for vm in vms_on_host.get(host_moid, []) if vm in sizes_by_vm],
+                )
+                for host_moid in host_moids if host_moid in hosts_by_uuid
+            ]
+            collect_cluster_risk_metrics(cluster_obj, cluster_name, hosts_inventory, suite_api_client)
 
             result.add_object(cluster_obj)
 

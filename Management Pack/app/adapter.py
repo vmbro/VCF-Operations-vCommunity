@@ -32,7 +32,8 @@ from collectors.host.collectHostData import collect_host_data
 from collectors.vm.collectVMData import collect_vm_data
 from collectors.datastore.collectDatastoreData import collect_datastore_data
 from collectors.vcenter.collectvCenterData import collect_vcenter_data
-from metrics.cluster import cluster_performance_metrics
+from metrics.cluster import cluster_performance_metrics, cluster_risk_metrics
+from metrics.host import esxi_performance_metrics
 from metrics.vm import vm_performance_metrics, guest_os_performance_metrics
 from concurrent.futures import ThreadPoolExecutor
 
@@ -161,6 +162,7 @@ def get_adapter_definition() -> AdapterDefinition:
         clusterConfiguration.define_string_property("Overall Status", "Overall Status")
 
         define_kpi(vCommunity, cluster_performance_metrics)
+        define_kpi(vCommunity, cluster_risk_metrics)
 
         vSphereHA = clusterConfiguration.define_group("vSphere HA", "vSphere HA")
         vSphereHA.define_string_property("Host Monitoring", "Host Monitoring")
@@ -194,6 +196,8 @@ def get_adapter_definition() -> AdapterDefinition:
         hostSystem = definition.define_object_type("Host System", "Host System")
         vCommunity = hostSystem.define_group("vCommunity", "vCommunity")
         hostSystemConfiguration = vCommunity.define_group("Configuration", "Configuration")
+
+        define_kpi(vCommunity, esxi_performance_metrics)
 
         hostSystemConfiguration.define_string_property("Config Status", "Config Status")
         hostSystemConfiguration.define_string_property("Max EVC", "Max EVC")
