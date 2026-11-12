@@ -3,7 +3,7 @@
         
     <Views>
                 
-        <ViewDef id="fc20d8a6-9f74-4b78-9022-7441c6d877e9">
+        <ViewDef id="8f50f651-58b8-4545-9711-ba8fd07e003c">
                         
             <Title>VM Network Top Talkers</Title>
                         
@@ -753,7 +753,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="5c3441f2-4619-441c-ad02-0b01ead34813">
+        <ViewDef id="65ad9e7b-a972-48f4-9d0f-f59e03f27d99">
                         
             <Title>VM Memory to reclaim (idle)</Title>
                         
@@ -928,7 +928,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="3ede5e0a-2121-4579-a250-26648589cb4a">
+        <ViewDef id="76e2cd25-11ac-4923-a4a2-0deb5ed794a7">
                         
             <Title>VM Memory Contention Distribution for Profiling</Title>
                         
@@ -1190,7 +1190,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="49b13b68-dee2-483d-8df8-1b6d7957d01c">
+        <ViewDef id="1be018ca-1588-40c4-9bc4-9dfc4849d6a5">
                         
             <Title>vSphere Port Group Configuration </Title>
                         
@@ -2164,7 +2164,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="94b25c6a-bc08-4b7f-83e5-d55d4b6d89e1">
+        <ViewDef id="f1096f58-89ab-464e-beab-c81738a706e3">
                         
             <Title>vSphere Cluster DRS Automation Status</Title>
                         
@@ -2260,7 +2260,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="fcab0100-1881-48b6-bd07-aaeaa3ee669e">
+        <ViewDef id="825a660e-b021-46ad-b905-f88a519dab8d">
                         
             <Title>vSphere Cluster DRS Status</Title>
                         
@@ -2540,105 +2540,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="0a898851-197b-4e82-baf6-a2a89acd600a">
-                        
-            <Title>vSphere Port Group MAC Address Change</Title>
-                        
-            <Description>Count of distributed port group that allows network MAC address to be changed. Minimize this as it allows MAC address impersonation. If allowed, ESXi host does not drop the packet when the Guest OS MAC address does not match the VM MAC address.</Description>
-                        
-            <SubjectType adapterKind="VMWARE" filter="[[{&quot;filterType&quot;:&quot;properties&quot;,&quot;metricKey&quot;:&quot;config|policies|security|mac_changes&quot;,&quot;condition&quot;:&quot;EQUALS&quot;,&quot;metricValue&quot;:{&quot;value&quot;:&quot;true&quot;,&quot;isStringMetric&quot;:true}}]]" resourceKind="DistributedVirtualPortgroup" type="descendant"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_820" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="DAYS"/>
-                                        
-                    <Property name="count" value="7"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_821" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|policies|security|mac_changes"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="DistributedVirtualPortgroup"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="."/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="buckets-control_id_822" type="buckets-control" visible="false">
-                                        
-                    <Property name="dynamicCalcFunction" value="DISCRETE"/>
-                                        
-                    <Property name="isDynamic" value="true"/>
-                                        
-                    <Property name="isSum" value="false"/>
-                                    
-                </Control>
-                                
-                <Control id="metadata_id_823" type="metadata" visible="false">
-                                        
-                    <Property name="maxPointsCount" value="5000"/>
-                                        
-                    <Property name="distributionColor" value="F57600"/>
-                                        
-                    <Property name="hideObjectNameColumn" value="false"/>
-                                        
-                    <Property name="listTopResultSize" value="-1"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="distribution-view" id="distribution-view_id_819"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="bar-chart"/>
-                    
-        </ViewDef>
-                
-        <ViewDef id="e041c79b-910f-477b-9d7a-d84e495119cb">
+        <ViewDef id="9ebf801c-6e49-4aab-a462-3db925de984e">
                         
             <Title>vSphere Cluster HA Status</Title>
                         
@@ -2746,7 +2648,7 @@ True = enabled.
                     
         </ViewDef>
                 
-        <ViewDef id="6d865efb-5dcd-496f-9a07-ced99f530142">
+        <ViewDef id="f3dc056c-bd52-42f4-b821-bd8e37bd092b">
                         
             <Title>ESXi on Maintenance Mode</Title>
                         
@@ -3028,7 +2930,7 @@ True = enabled.
                     
         </ViewDef>
                 
-        <ViewDef id="f83a4c60-9931-4305-95f9-93f724be86fe">
+        <ViewDef id="cb5ca3cc-1fda-4216-99e3-72d5565bfd59">
                         
             <Title>vSphere Cluster Memory Reservation</Title>
                         
@@ -3158,7 +3060,7 @@ Memory should use a lower threshold than what CPU has as memory is sticky. The r
                     
         </ViewDef>
                 
-        <ViewDef id="e0e0972a-2da0-4544-a53f-9e55b09c74a3">
+        <ViewDef id="ded11263-20b6-48fc-9879-87cc5790cd30">
                         
             <Title>VM Virtual Disks counts</Title>
                         
@@ -3363,7 +3265,7 @@ Memory should use a lower threshold than what CPU has as memory is sticky. The r
                     
         </ViewDef>
                 
-        <ViewDef id="680f4627-e5c6-4ac5-8c54-87f02ad2b122">
+        <ViewDef id="4e41a54d-a13c-409b-8c97-06e028f72bcc">
                         
             <Title>ESXi NTP Running</Title>
                         
@@ -3457,7 +3359,7 @@ Memory should use a lower threshold than what CPU has as memory is sticky. The r
                     
         </ViewDef>
                 
-        <ViewDef id="5c20ba39-9d8b-4272-b01d-8dbafeded995">
+        <ViewDef id="203336f6-7ecf-46b6-bfd1-1f746e6ce117">
                         
             <Title>ESXi Distribution by Memory Size </Title>
                         
@@ -3709,7 +3611,7 @@ Source: vSphere Adapter</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="524d0468-8f9d-460b-a2a5-95c2d8846661">
+        <ViewDef id="1190d0fc-a95d-434b-84c5-d932a66ab1ea">
                         
             <Title>ESXi Distribution by Versions </Title>
                         
@@ -3863,7 +3765,7 @@ Source: vSphere Adapter</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="40b1d206-8616-47e2-9bee-6142b4427180">
+        <ViewDef id="506b9eae-b51c-4467-abfb-890bbd824117">
                         
             <Title>VM with Hot Add CPU</Title>
                         
@@ -3962,7 +3864,7 @@ Source: vSphere Adapter</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="ad2f56bc-3a78-4045-b2b5-c953781b5c76">
+        <ViewDef id="36f0222e-a1b2-4260-a286-b17fdbdc6c9e">
                         
             <Title>VM Distribution by CPU to add</Title>
                         
@@ -4295,301 +4197,7 @@ Source: vSphere Adapter</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="42f8a97e-048a-4cb2-82cc-db121958722c">
-                        
-            <Title>ESXi Network Properties</Title>
-                        
-            <Description>List the summary of the network properties associated with the Distributed Virtual Switch for the selected Host System in your environment.</Description>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="HostSystem" type="descendant"/>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="HostSystem" type="self"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_1135" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="DAYS"/>
-                                        
-                    <Property name="count" value="7"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_1136" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|network|nnic"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="NICs"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|network|linkspeed"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Speed"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="summary|parentCluster"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Cluster"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="summary|parentDatacenter"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Datacenter"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="summary|parentVcenter"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="vCenter"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="net|mgmt_address"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Mgmt IP Address"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="pagination-control_id_1137" type="pagination-control" visible="true">
-                                        
-                    <Property name="start" value="0"/>
-                                        
-                    <Property name="size" value="50"/>
-                                    
-                </Control>
-                                
-                <Control id="metadata_id_1138" type="metadata" visible="false">
-                                        
-                    <Property name="maxPointsCount" value="5000"/>
-                                        
-                    <Property name="distributionColor" value="6870C4"/>
-                                        
-                    <Property name="hideObjectNameColumn" value="false"/>
-                                        
-                    <Property name="listTopResultSize" value="-1"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="list-view" id="list-view_id_1134"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="list"/>
-                    
-        </ViewDef>
-                
-        <ViewDef id="40c5bbc9-db9d-468c-8094-2137d22e53a7">
+        <ViewDef id="dcafd7ee-a0f7-4963-bbb1-b30f4043511a">
                         
             <Title>VM Distribution by CPU Share</Title>
                         
@@ -5505,7 +5113,7 @@ Source: vSphere Adapter</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="0ef97d2c-770b-4c74-9c82-28a766164a39">
+        <ViewDef id="8140bbaf-f202-4e0d-b66e-778ed9061722">
                         
             <Title>VM Disk Latency Distribution</Title>
                         
@@ -5745,7 +5353,7 @@ Write latency is used as read latency tends to be much lower due to cache. </Des
                     
         </ViewDef>
                 
-        <ViewDef id="8161f003-c456-47b2-9ce3-b88affa8c7d1">
+        <ViewDef id="eadc211b-772e-4178-863a-b1fe018929ae">
                         
             <Title>VM Distribution by Reclaimable Disk</Title>
                         
@@ -5932,7 +5540,7 @@ Write latency is used as read latency tends to be much lower due to cache. </Des
                     
         </ViewDef>
                 
-        <ViewDef id="9a77a4b5-0329-459c-9f42-7087f0d911a6">
+        <ViewDef id="f0a5f04e-17c3-4c6d-817c-eb65e296c9cd">
                         
             <Title>VM Configuration </Title>
                         
@@ -5956,7 +5564,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                         
             <Controls>
                                 
-                <Control id="time-interval-selector_id_107" type="time-interval-selector" visible="false">
+                <Control id="time-interval-selector_id_67" type="time-interval-selector" visible="false">
                                         
                     <Property name="advancedTimeMode" value="false"/>
                                         
@@ -5966,7 +5574,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                                     
                 </Control>
                                 
-                <Control id="attributes-selector_id_108" type="attributes-selector" visible="false">
+                <Control id="attributes-selector_id_68" type="attributes-selector" visible="false">
                                         
                     <Property name="attributeInfos">
                                                 
@@ -6381,6 +5989,90 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                                 </Value>
                                                             
                             </Item>
+                                                        
+                            <Item>
+                                
+                                <Value>
+                                        
+                                    <Property name="objectType" value="RESOURCE"/>
+                                        
+                                    <Property name="attributeKey" value="config|encryptionState"/>
+                                        
+                                    <Property name="isStringAttribute" value="true"/>
+                                        
+                                    <Property name="adapterKind" value="VMWARE"/>
+                                        
+                                    <Property name="resourceKind" value="VirtualMachine"/>
+                                        
+                                    <Property name="rollUpCount" value="0"/>
+                                        
+                                    <Property name="transformations">
+                                                
+                                        <List>
+                                                        
+                                            <Item value="CURRENT"/>
+                                                    
+                                        </List>
+                                            
+                                    </Property>
+                                        
+                                    <Property name="isProperty" value="true"/>
+                                        
+                                    <Property name="redBound" value="none"/>
+                                        
+                                    <Property name="ascendingRange" value="true"/>
+                                        
+                                    <Property name="displayName" value="Encryption"/>
+                                        
+                                    <Property name="addTimestampAsColumn" value="false"/>
+                                        
+                                    <Property name="isShowRelativeTimestamp" value="false"/>
+                                    
+                                </Value>
+                                                            
+                            </Item>
+                                                        
+                            <Item>
+                                
+                                <Value>
+                                        
+                                    <Property name="objectType" value="RESOURCE"/>
+                                        
+                                    <Property name="attributeKey" value="config|disk_consolidation_needed"/>
+                                        
+                                    <Property name="isStringAttribute" value="true"/>
+                                        
+                                    <Property name="adapterKind" value="VMWARE"/>
+                                        
+                                    <Property name="resourceKind" value="VirtualMachine"/>
+                                        
+                                    <Property name="rollUpCount" value="0"/>
+                                        
+                                    <Property name="transformations">
+                                                
+                                        <List>
+                                                        
+                                            <Item value="CURRENT"/>
+                                                    
+                                        </List>
+                                            
+                                    </Property>
+                                        
+                                    <Property name="isProperty" value="true"/>
+                                        
+                                    <Property name="redBound" value="true"/>
+                                        
+                                    <Property name="ascendingRange" value="true"/>
+                                        
+                                    <Property name="displayName" value="Snapshot Consolidation"/>
+                                        
+                                    <Property name="addTimestampAsColumn" value="false"/>
+                                        
+                                    <Property name="isShowRelativeTimestamp" value="false"/>
+                                    
+                                </Value>
+                                                            
+                            </Item>
                                                     
                         </List>
                                             
@@ -6388,7 +6080,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                                     
                 </Control>
                                 
-                <Control id="pagination-control_id_109" type="pagination-control" visible="true">
+                <Control id="pagination-control_id_69" type="pagination-control" visible="true">
                                         
                     <Property name="start" value="0"/>
                                         
@@ -6396,7 +6088,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                                     
                 </Control>
                                 
-                <Control id="metadata_id_110" type="metadata" visible="false">
+                <Control id="metadata_id_70" type="metadata" visible="false">
                                         
                     <Property name="maxPointsCount" value="5000"/>
                                         
@@ -6410,7 +6102,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                         
             <DataProviders>
                                 
-                <DataProvider dataType="list-view" id="list-view_id_106"/>
+                <DataProvider dataType="list-view" id="list-view_id_66"/>
                             
             </DataProviders>
                         
@@ -6418,7 +6110,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="23b3812d-fac8-449a-acb7-488a388a0716">
+        <ViewDef id="eefb0c9f-31d1-4971-800e-00f480abc919">
                         
             <Title>VM Distribution by Memory Share</Title>
                         
@@ -6528,7 +6220,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="41127d01-e62b-4d46-89d4-7293ed86103c">
+        <ViewDef id="2a643d45-6706-43f4-86d6-d68419f9b9e4">
                         
             <Title>ESXi Distribution by CPU Socket </Title>
                         
@@ -6706,7 +6398,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="7e913396-7712-438c-a22f-97140fea9892">
+        <ViewDef id="b1d06f85-bef9-42c2-89ca-bddf5a5613ef">
                         
             <Title>VM Distribution by Reclaimable Memory</Title>
                         
@@ -6892,7 +6584,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="86d58689-64de-4faf-9a53-2425decfe6a6">
+        <ViewDef id="43b5dc53-b296-4eb7-87fa-7a435386488f">
                         
             <Title>vSphere Data Center Network List</Title>
                         
@@ -7222,7 +6914,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="e2d1f3c7-336f-4eeb-80a1-144d1252bc5e">
+        <ViewDef id="43b5a59e-d45b-4cef-b5a3-debb9a4e566f">
                         
             <Title>ESXi Distribution by CPU GHz</Title>
                         
@@ -7516,7 +7208,7 @@ The properties exclude storage, as there is a separate dashboard for storage rel
                     
         </ViewDef>
                 
-        <ViewDef id="3a88e1a7-511c-440d-868b-65df4a2c7898">
+        <ViewDef id="2b76463b-40e5-41ea-b575-8d03736239ee">
                         
             <Title>vSphere Data Centers Inventory</Title>
                         
@@ -8100,7 +7792,7 @@ The vCenter column is required as the cluster name in VMware-based cloud is not 
                     
         </ViewDef>
                 
-        <ViewDef id="614c2d3f-98f0-4862-8dcd-fd6b0b4c799d">
+        <ViewDef id="23acd23f-1310-46ce-88fd-9ee7a5783635">
                         
             <Title>ESXi Distribution by Hardware Model</Title>
                         
@@ -8633,7 +8325,7 @@ Note: this requires Service Discovery adapter.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="f752ddef-406d-4868-bd78-8b00aaa425cc">
+        <ViewDef id="c2a9ba5f-747d-4284-a09b-d63b40a49728">
                         
             <Title>VM Distribution by Memory Reservation</Title>
                         
@@ -8750,7 +8442,7 @@ Note: this requires Service Discovery adapter.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="b5f3660a-082c-4af9-b89e-bc670d932e99">
+        <ViewDef id="7cec1e92-feb7-40a5-996f-ccc06bff1581">
                         
             <Title>vSphere Cluster Distribution by CPU Reservation</Title>
                         
@@ -8879,7 +8571,7 @@ Note: this requires Service Discovery adapter.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="7bcb4d10-700f-4bee-94f1-03ffada5ae65">
+        <ViewDef id="d78a2e36-e12f-4d98-9b49-71c8043822fa">
                         
             <Title>VM Distribution by Snapshots Age</Title>
                         
@@ -9053,7 +8745,7 @@ Note: this requires Service Discovery adapter.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="97e71e70-094d-435d-b4f4-99da4e489ec2">
+        <ViewDef id="7609bc5e-ef78-414e-9d6c-7f7119545bf6">
                         
             <Title>VM with no Guest counters</Title>
                         
@@ -9528,7 +9220,7 @@ Note: this requires Service Discovery adapter.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="45281acb-5643-4a0c-b4d2-300548289b89">
+        <ViewDef id="bc0cd2ec-f609-4c91-8ff6-2c87e37de38a">
                         
             <Title>ESXi Distribution by Core Counts</Title>
                         
@@ -9714,7 +9406,7 @@ Typical ESXi sports 1 TB RAM. Using typical 4:1 Ratio for RAM:vCPU, this gives a
                     
         </ViewDef>
                 
-        <ViewDef id="ea6cf8d9-087a-4882-b98b-9acd2d4021ed">
+        <ViewDef id="8b84e50a-7040-4648-93b5-a4012ab39062">
                         
             <Title>VM with Hot Remove CPU</Title>
                         
@@ -9812,7 +9504,7 @@ Typical ESXi sports 1 TB RAM. Using typical 4:1 Ratio for RAM:vCPU, this gives a
                     
         </ViewDef>
                 
-        <ViewDef id="24bd3eec-5fe8-4a90-9ad9-fa570b791973">
+        <ViewDef id="ae763586-1fb7-4328-9c0a-d9290114766c">
                         
             <Title>vSphere Port Group Promiscuous Mode Allowed</Title>
                         
@@ -10118,7 +9810,7 @@ Typical ESXi sports 1 TB RAM. Using typical 4:1 Ratio for RAM:vCPU, this gives a
                     
         </ViewDef>
                 
-        <ViewDef id="5fc79159-ddc9-4f38-8dc6-461c79b379f4">
+        <ViewDef id="a2f50231-b339-4cd0-98dd-8ed4a25a57a9">
                         
             <Title>Local Datastore with VM</Title>
                         
@@ -10370,7 +10062,7 @@ Typical ESXi sports 1 TB RAM. Using typical 4:1 Ratio for RAM:vCPU, this gives a
                     
         </ViewDef>
                 
-        <ViewDef id="617644c5-bb68-43e0-b388-057358525ec6">
+        <ViewDef id="dde0721f-7e54-4233-a29c-5558636b5301">
                         
             <Title>ESXi Unavailable</Title>
                         
@@ -10739,7 +10431,7 @@ Oowered off ESXi should be taken out of vCenter and physically decommissioned. T
                     
         </ViewDef>
                 
-        <ViewDef id="8d497409-b506-4027-bc22-27cda696116e">
+        <ViewDef id="9b1f2a63-57bb-4eb3-8420-af311d165bf5">
                         
             <Title>vSphere Distributed Switch Inventory</Title>
                         
@@ -11087,7 +10779,7 @@ Oowered off ESXi should be taken out of vCenter and physically decommissioned. T
                     
         </ViewDef>
                 
-        <ViewDef id="51ea3aa0-2671-44da-ac00-8c265767ad83">
+        <ViewDef id="31b26c6d-5c86-46db-b6be-0385af92bafc">
                         
             <Title>ESXi Distribution by Storage Path Counts</Title>
                         
@@ -11192,7 +10884,7 @@ Oowered off ESXi should be taken out of vCenter and physically decommissioned. T
                     
         </ViewDef>
                 
-        <ViewDef id="850c16a9-3fa6-416a-a4e2-35a6509928aa">
+        <ViewDef id="217aafe0-9e16-4f47-b98b-31f99273312c">
                         
             <Title>VM Distribution by CPU Size </Title>
                         
@@ -11300,7 +10992,7 @@ Oowered off ESXi should be taken out of vCenter and physically decommissioned. T
                     
         </ViewDef>
                 
-        <ViewDef id="c655b25c-42be-4512-9c9b-8b4d6beefd71">
+        <ViewDef id="72a85fd6-5824-444f-9ae9-f91408e4fcbe">
                         
             <Title>VM Distribution by Disk Size</Title>
                         

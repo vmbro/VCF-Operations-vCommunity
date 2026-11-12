@@ -91,7 +91,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Utilization (%)",
-               "viewDefinitionId": "b8af9e79-a062-4e3b-8501-7bbc64a6a3f9"
+               "viewDefinitionId": "cd47bb2a-0514-468d-b79c-b2ca3ee969c6"
             },
             "height": 381,
             "states": [
@@ -337,7 +337,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Run Queue",
-               "viewDefinitionId": "fa10900c-2d88-41d6-86c9-046349ccc5bf"
+               "viewDefinitionId": "ac9078f7-cca4-402c-a837-66531a1e83e8"
             },
             "height": 381
          },
@@ -362,7 +362,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Memory Paging",
-               "viewDefinitionId": "df2e3054-5db5-478f-bb7d-fbcaccd7960e"
+               "viewDefinitionId": "79879a4a-e36e-4854-9c61-d21332a2ddab"
             },
             "height": 381
          },
@@ -393,7 +393,7 @@
                "selectFirstRow": {"selectFirstRow": true},
                "selfProvider": {"selfProvider": true},
                "title": "Datacenters",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 324,
             "states": [{
@@ -565,7 +565,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Disk Consumption",
-               "viewDefinitionId": "72cefd21-9a01-45e6-a33c-ea2a6897ac5d"
+               "viewDefinitionId": "0babc727-6938-4e90-b91d-5e13a3d8b564"
             },
             "height": 324,
             "states": [{

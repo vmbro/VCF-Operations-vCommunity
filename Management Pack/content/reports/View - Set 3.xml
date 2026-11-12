@@ -3,7 +3,7 @@
         
     <Views>
                 
-        <ViewDef id="a3849f91-76c6-4791-81d7-65245e321233">
+        <ViewDef id="4f798a43-fc5b-4760-b744-1b159644f9a9">
                         
             <Title>VM Memory Size Distribution</Title>
                         
@@ -260,7 +260,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="7bb1bf81-8895-4008-b770-5c7fc106c22a">
+        <ViewDef id="ec868fe4-b7b4-4620-8e20-38f23667b21f">
                         
             <Title>VM Hardware Version</Title>
                         
@@ -363,7 +363,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="4d71034d-6368-4284-be94-94887f87eddc">
+        <ViewDef id="6f55b53b-5d64-4ee8-9f7f-0969d6d3d090">
                         
             <Title>VM Snapshot Size</Title>
                         
@@ -644,7 +644,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="2788178d-7df4-47d7-81de-016f7a1cd18d">
+        <ViewDef id="f31188cc-6862-4885-9bfc-67c644a12cba">
                         
             <Title>vSphere Resource Pool Configuration</Title>
                         
@@ -1219,7 +1219,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="dadb69af-f77f-4644-8355-588f41c2f4f0">
+        <ViewDef id="23c3c66b-cc72-4070-a67b-326841e7e5dd">
                         
             <Title>vSphere Cluster Configuration List</Title>
                         
@@ -2065,7 +2065,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="16d4447f-ae24-4d6d-b4ef-c5f2a3321351">
+        <ViewDef id="21302225-dc45-4938-9123-f1422480cdca">
                         
             <Title>ESXi BIOS Versions</Title>
                         
@@ -2159,7 +2159,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="72cefd21-9a01-45e6-a33c-ea2a6897ac5d">
+        <ViewDef id="0babc727-6938-4e90-b91d-5e13a3d8b564">
                         
             <Title>Guest OS Partition List</Title>
                         
@@ -2758,7 +2758,7 @@ Configuration \ VM</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="a8b54a14-038c-4f1b-ab93-1cc0a6f4bc00">
+        <ViewDef id="f9047c09-a372-4f0a-95c2-7bc0eefaace4">
                         
             <Title>VM Disk Latency Distribution for Profiling</Title>
                         
@@ -3021,7 +3021,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="cd6c06c5-7ac5-4edc-a2c8-5b8777512d59">
+        <ViewDef id="ae50759f-16c4-4465-a735-36043f7e9767">
                         
             <Title>vSphere Cluster Performance List 1</Title>
                         
@@ -3577,7 +3577,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="27f6a2e8-ddac-4dc2-b3bf-5f222af701db">
+        <ViewDef id="c87c6499-8beb-4caa-89c4-b6865d5692ea">
                         
             <Title>vSphere Cluster Admission Control Policy</Title>
                         
@@ -3691,7 +3691,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="87399ea9-d93a-4591-b15b-d30a9003972e">
+        <ViewDef id="28042bb1-5d32-455c-86c0-b65af38c02ac">
                         
             <Title>vSphere ESXi Memory Utilization</Title>
                         
@@ -3911,7 +3911,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="7888104e-2210-4539-a589-8cefa7a0361d">
+        <ViewDef id="82883181-5199-4666-aa3e-4c5521086ab1">
                         
             <Title>vSphere Port Group Inventory</Title>
                         
@@ -4177,7 +4177,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="02230501-23d6-4512-858e-381d60876e73">
+        <ViewDef id="a54e74b2-06dc-4645-a64d-5040e5ba4c3d">
                         
             <Title>VM Storage Heavy Hitters</Title>
                         
@@ -4501,149 +4501,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="40152c12-1d12-440c-b79e-e9d172deb9a1">
-                        
-            <Title>Guest OS Memory Utilization</Title>
-                        
-            <Description>Trend line of VM memory utilization. Value is in GB, so the actual quantity is known. It's used in Capacity Management context, hence it's showing 3 months time horizon and the value is daily averaged to show the big picture. Total and Memory Needed are shown. Memory Needed is used as it does not measure what the Guest OS uses, but what it needs. Windows/Linux uses cache as part of memory management, and this needs to be accounted for in sizing.</Description>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="VirtualMachine" type="descendant"/>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="VirtualMachine" type="self"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_5950" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="MONTHS"/>
-                                        
-                    <Property name="count" value="3"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_5951" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="mem|guest_provisioned"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="AVG"/>
-                                        
-                                    <Property name="rollUpUnit" value="HOURS"/>
-                                        
-                                    <Property name="rollUpCount" value="1"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="NONE"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="Configured"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="guest|mem.needed_latest"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="AVG"/>
-                                        
-                                    <Property name="rollUpUnit" value="HOURS"/>
-                                        
-                                    <Property name="rollUpCount" value="1"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="NONE"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="Needed"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="pagination-control_id_5952" type="pagination-control" visible="true">
-                                        
-                    <Property name="start" value="0"/>
-                                        
-                    <Property name="size" value="25"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="trend-view" id="trend-view_id_5949"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="line-chart"/>
-                    
-        </ViewDef>
-                
-        <ViewDef id="2486078e-790e-485b-8ab5-70c1da351a0d">
+        <ViewDef id="bfe9ee51-4b55-448f-ab45-9ef42c7370f4">
                         
             <Title>Datastore Type</Title>
                         
@@ -4740,7 +4598,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="9911f98d-0e2a-4d4f-aefe-973e28ecf1cc">
+        <ViewDef id="1045bd7c-eae6-441b-99c8-ac2fc102336f">
                         
             <Title>vSphere Performance Profiling</Title>
                         
@@ -4998,7 +4856,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="40e416d0-0ee4-4aa2-9ad6-93d162f668a0">
+        <ViewDef id="d94478fc-f741-4508-87f9-962ad34ae8ed">
                         
             <Title>VM with many Network Cards</Title>
                         
@@ -5317,7 +5175,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="bf0d0ad1-53d5-42d7-a1a1-67f908642d5d">
+        <ViewDef id="77cb575f-e70d-4549-9779-281203327307">
                         
             <Title>VM Snapshot by Size</Title>
                         
@@ -5914,144 +5772,6 @@ Known issue: due to rounding limitation, CPU with very similar speed is shown as
                     
         </ViewDef>
                 
-        <ViewDef id="7bcdb50d-c015-4237-9014-832a74f07f91">
-                        
-            <Title>vSphere ESXi CPU Utilization</Title>
-                        
-            <Description>Trend line of ESXi CPU utilization. Both the Thread Utilization and Core Utilization. As the context is capacity, focus on thread.</Description>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="HostSystem" type="descendant"/>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="HostSystem" type="self"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_6169" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="WEEKS"/>
-                                        
-                    <Property name="count" value="1"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_6170" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="cpu|coreUtilization_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="percent"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="NONE"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="Core Utilization"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="cpu|utilization_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="percent"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="HostSystem"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="NONE"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="Thread Utilization"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="pagination-control_id_6171" type="pagination-control" visible="true">
-                                        
-                    <Property name="start" value="0"/>
-                                        
-                    <Property name="size" value="25"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="trend-view" id="trend-view_id_6168"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="line-chart"/>
-                    
-        </ViewDef>
-                
         <ViewDef id="38896046-e276-47f0-9c78-fd0e1c74b364">
                         
             <Title>ESXi CPU Models</Title>
@@ -6192,7 +5912,7 @@ Known issue: due to rounding limitation, CPU with very similar speed is shown as
                     
         </ViewDef>
                 
-        <ViewDef id="df2e3054-5db5-478f-bb7d-fbcaccd7960e">
+        <ViewDef id="79879a4a-e36e-4854-9c61-d21332a2ddab">
                         
             <Title>Guest OS Memory Paging Trend</Title>
                         
@@ -6334,736 +6054,6 @@ Known issue: due to rounding limitation, CPU with very similar speed is shown as
                     
         </ViewDef>
                 
-        <ViewDef id="c9fe7a11-79e3-4e98-9cba-8d732b15d150">
-                        
-            <Title>VM Performance</Title>
-                        
-            <Description>List of VMs and their utilization. It's used in Performance, not Capacity Management context. To support proactive operations, the worst value in the last 1 day is shown. 
-
-As this focuses on performance, powered off VMs are excluded.</Description>
-                        
-            <SubjectType adapterKind="VMWARE" filter="[[{&quot;condition&quot;:&quot;EQUALS&quot;,&quot;transform&quot;:&quot;CURRENT&quot;,&quot;metricKey&quot;:&quot;summary|running&quot;,&quot;metricValue&quot;:{&quot;isStringMetric&quot;:false,&quot;value&quot;:1},&quot;businessHours&quot;:false,&quot;filterType&quot;:&quot;metrics&quot;}]]" resourceKind="VirtualMachine" type="descendant"/>
-                        
-            <SubjectType adapterKind="VMWARE" filter="[[{&quot;condition&quot;:&quot;EQUALS&quot;,&quot;transform&quot;:&quot;CURRENT&quot;,&quot;metricKey&quot;:&quot;summary|running&quot;,&quot;metricValue&quot;:{&quot;isStringMetric&quot;:false,&quot;value&quot;:1},&quot;businessHours&quot;:false,&quot;filterType&quot;:&quot;metrics&quot;}]]" resourceKind="VirtualMachine" type="self"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_5858" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="DAYS"/>
-                                        
-                    <Property name="count" value="1"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_5859" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|hardware|numCpu"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="yellowBound" value="12"/>
-                                        
-                                    <Property name="orangeBound" value="24"/>
-                                        
-                                    <Property name="redBound" value="48"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="vCPU"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="cpu|usagemhz_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="ghz"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="MAX"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="10"/>
-                                        
-                                    <Property name="orangeBound" value="20"/>
-                                        
-                                    <Property name="redBound" value="40"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="CPU Usage"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|cpuAllocation|limit"/>
-                                        
-                                    <Property name="preferredUnitId" value="ghz"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="yellowBound" value=".1"/>
-                                        
-                                    <Property name="orangeBound" value=".2"/>
-                                        
-                                    <Property name="redBound" value=".3"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="CPU Limit"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|hardware|memoryKB"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="yellowBound" value="32"/>
-                                        
-                                    <Property name="orangeBound" value="64"/>
-                                        
-                                    <Property name="redBound" value="128"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Memory"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|memoryAllocation|limit"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="yellowBound" value=".1"/>
-                                        
-                                    <Property name="orangeBound" value=".2"/>
-                                        
-                                    <Property name="redBound" value=".3"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Memory Limit"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="mem|balloonPct"/>
-                                        
-                                    <Property name="preferredUnitId" value="percent"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="2.5"/>
-                                        
-                                    <Property name="orangeBound" value="5"/>
-                                        
-                                    <Property name="redBound" value="10"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Balloon"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="mem|consumed_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="32"/>
-                                        
-                                    <Property name="orangeBound" value="64"/>
-                                        
-                                    <Property name="redBound" value="128"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Consumed"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="mem|compressed_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value=".5"/>
-                                        
-                                    <Property name="orangeBound" value="1"/>
-                                        
-                                    <Property name="redBound" value="2"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Compressed"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="net|usage_average"/>
-                                        
-                                    <Property name="preferredUnitId" value="mbitsps"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="MAX"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="250"/>
-                                        
-                                    <Property name="orangeBound" value="500"/>
-                                        
-                                    <Property name="redBound" value="1000"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Network Usage"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="virtualDisk:Aggregate of all instances|usage"/>
-                                        
-                                    <Property name="preferredUnitId" value="mbitsps"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="MAX"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="250"/>
-                                        
-                                    <Property name="orangeBound" value="500"/>
-                                        
-                                    <Property name="redBound" value="1000"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Disk Throughput"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="virtualDisk:Aggregate of all instances|commandsAveraged_average"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="MAX"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="yellowBound" value="250"/>
-                                        
-                                    <Property name="orangeBound" value="500"/>
-                                        
-                                    <Property name="redBound" value="1000"/>
-                                        
-                                    <Property name="ascendingRange" value="false"/>
-                                        
-                                    <Property name="displayName" value="Disk IOPS"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="summary|guest|fullName"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Guest OS"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|version"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="Hardware Version"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="summary|guest|toolsRunningStatus"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="redBound" value="Guest Tools Not Running"/>
-                                        
-                                    <Property name="ascendingRange" value="true"/>
-                                        
-                                    <Property name="displayName" value="Tools"/>
-                                        
-                                    <Property name="addTimestampAsColumn" value="false"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="pagination-control_id_5860" type="pagination-control" visible="true">
-                                        
-                    <Property name="start" value="0"/>
-                                        
-                    <Property name="size" value="30"/>
-                                    
-                </Control>
-                                
-                <Control id="metadata_id_5861" type="metadata" visible="false">
-                                        
-                    <Property name="maxPointsCount" value="5000"/>
-                                        
-                    <Property name="hideObjectNameColumn" value="false"/>
-                                        
-                    <Property name="listTopResultSize" value="-1"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="list-view" id="list-view_id_5857"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="list"/>
-                    
-        </ViewDef>
-                
         <ViewDef id="cbc201a7-8e51-4e97-8736-6e6550352cad">
                         
             <Title>vSphere Cluster CPU Utilization</Title>
@@ -7172,7 +6162,7 @@ As this focuses on performance, powered off VMs are excluded.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="81ef5dfc-b519-4981-8a8e-ee1dbb516aca">
+        <ViewDef id="6ec4c367-a145-420e-b205-95247739a82c">
                         
             <Title>VM Tools States</Title>
                         
@@ -7325,105 +6315,6 @@ As this focuses on performance, powered off VMs are excluded.</Description>
             </DataProviders>
                         
             <Presentation type="donut-chart"/>
-                    
-        </ViewDef>
-                
-        <ViewDef id="6dbbe2bc-2593-4288-9d4c-23995e28009d">
-                        
-            <Title>vSphere Port Group Forged Transmit Allowed</Title>
-                        
-            <Description>Count of distributed port groups that allow forged transmit. Minimize this for security reason, and only use for the use case it's designed for.
-</Description>
-                        
-            <SubjectType adapterKind="VMWARE" filter="[[{&quot;filterType&quot;:&quot;properties&quot;,&quot;metricKey&quot;:&quot;config|policies|security|forged_transmits&quot;,&quot;condition&quot;:&quot;EQUALS&quot;,&quot;metricValue&quot;:{&quot;value&quot;:&quot;true&quot;,&quot;isStringMetric&quot;:true}}]]" resourceKind="DistributedVirtualPortgroup" type="descendant"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_835" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="DAYS"/>
-                                        
-                    <Property name="count" value="7"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_836" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="config|policies|security|forged_transmits"/>
-                                        
-                                    <Property name="isStringAttribute" value="true"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="DistributedVirtualPortgroup"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="isProperty" value="true"/>
-                                        
-                                    <Property name="displayName" value="."/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="buckets-control_id_837" type="buckets-control" visible="false">
-                                        
-                    <Property name="dynamicCalcFunction" value="DISCRETE"/>
-                                        
-                    <Property name="isDynamic" value="true"/>
-                                        
-                    <Property name="isSum" value="false"/>
-                                    
-                </Control>
-                                
-                <Control id="metadata_id_838" type="metadata" visible="false">
-                                        
-                    <Property name="maxPointsCount" value="5000"/>
-                                        
-                    <Property name="distributionColor" value="F57600"/>
-                                        
-                    <Property name="hideObjectNameColumn" value="false"/>
-                                        
-                    <Property name="listTopResultSize" value="-1"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="distribution-view" id="distribution-view_id_834"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="bar-chart"/>
                     
         </ViewDef>
                 
@@ -7737,7 +6628,7 @@ It's used in Capacity Management context, hence it's showing 3 months time horiz
                     
         </ViewDef>
                 
-        <ViewDef id="c20dadab-e990-4917-aa75-04d8433da27e">
+        <ViewDef id="3c9878e2-f570-4309-8093-8b8de7c5c81b">
                         
             <Title>vSphere Cluster Performance Profiling</Title>
                         
@@ -8110,7 +7001,7 @@ Shared datastores with at least 1 active VM only</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="fa10900c-2d88-41d6-86c9-046349ccc5bf">
+        <ViewDef id="ac9078f7-cca4-402c-a837-66531a1e83e8">
                         
             <Title>Guest OS CPU Queue Trend</Title>
                         
@@ -8216,7 +7107,7 @@ Shared datastores with at least 1 active VM only</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="f129ab04-a919-4b80-b0ad-39783db28adf">
+        <ViewDef id="1304ea60-5615-4a71-9454-68140418006f">
                         
             <Title>VM Network Card Configuration</Title>
                         
@@ -8464,7 +7355,7 @@ Shared datastores with at least 1 active VM only</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="de1ff68b-1a78-4939-996d-600b0abef33e">
+        <ViewDef id="093a55c0-332c-486a-a346-4b549fc63a21">
                         
             <Title>VM Memory Contention Distribution</Title>
                         
@@ -8703,7 +7594,7 @@ The bar chart is segregated into different buckets. Each bucket is color coded, 
                     
         </ViewDef>
                 
-        <ViewDef id="74639bd8-2ece-4032-b22f-ffc23e65598f">
+        <ViewDef id="cc809d78-008b-4715-a603-4a43d4c274da">
                         
             <Title>ESXi HyperThread Capability</Title>
                         
@@ -8798,7 +7689,7 @@ The bar chart is segregated into different buckets. Each bucket is color coded, 
                     
         </ViewDef>
                 
-        <ViewDef id="493527e2-d992-4e56-98ae-d9245c255174">
+        <ViewDef id="a7131dd9-a7e0-460e-b372-69150892a7e7">
                         
             <Title>ESXi Utilization List</Title>
                         
@@ -9434,7 +8325,7 @@ The bar chart is segregated into different buckets. Each bucket is color coded, 
                     
         </ViewDef>
                 
-        <ViewDef id="6f0a54e7-c3a5-42bb-a989-fda47cf1c50a">
+        <ViewDef id="f62618d5-7f91-47cf-a3b1-172d7da0b7da">
                         
             <Title>ESXi Switch property</Title>
                         
@@ -9774,7 +8665,7 @@ The bar chart is segregated into different buckets. Each bucket is color coded, 
                     
         </ViewDef>
                 
-        <ViewDef id="3b6b0e60-7924-4d26-9a11-5fdde36e8a77">
+        <ViewDef id="a4c37007-25d1-4ab8-a197-e2418142cc06">
                         
             <Title>VM CPU Ready Distribution for Profiling</Title>
                         
@@ -10037,201 +8928,7 @@ The 99th value of the monitoring period is shown (as opposed to the worst). The 
                     
         </ViewDef>
                 
-        <ViewDef id="11dd432d-6c6f-4872-8c0a-2d9975856f66">
-                        
-            <Title>VM Distribution by Capacity Remaining</Title>
-                        
-            <Description>Count of VMs, grouped by the capacity remaining. The view is color coded for quick analysis</Description>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="VirtualMachine" type="descendant"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_5893" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="DAYS"/>
-                                        
-                    <Property name="count" value="1"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_5894" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="OnlineCapacityAnalytics|capacityRemainingPercentage"/>
-                                        
-                                    <Property name="preferredUnitId" value="percent"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="CURRENT"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="Capacity Remaining"/>
-                                        
-                                    <Property name="isShowRelativeTimestamp" value="false"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="buckets-control_id_5895" type="buckets-control" visible="false">
-                                        
-                    <Property name="maxValue" value="0"/>
-                                        
-                    <Property name="minValue" value="0"/>
-                                        
-                    <Property name="dynamicCalcFunction" value="SIMPLEMAXMIN"/>
-                                        
-                    <Property name="bucketInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="startValue" value="0"/>
-                                        
-                                    <Property name="endValue" value="1"/>
-                                        
-                                    <Property name="bucketColor" value="ED186F"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="startValue" value="1"/>
-                                        
-                                    <Property name="endValue" value="5"/>
-                                        
-                                    <Property name="bucketColor" value="FF681C"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="startValue" value="5"/>
-                                        
-                                    <Property name="endValue" value="10"/>
-                                        
-                                    <Property name="bucketColor" value="FAC400"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="startValue" value="10"/>
-                                        
-                                    <Property name="endValue" value="80"/>
-                                        
-                                    <Property name="bucketColor" value="62A420"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="startValue" value="80"/>
-                                        
-                                    <Property name="endValue" value="100"/>
-                                        
-                                    <Property name="bucketColor" value="A89E95"/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                        
-                    <Property name="isDynamic" value="false"/>
-                                        
-                    <Property name="isSum" value="false"/>
-                                    
-                </Control>
-                                
-                <Control id="metadata_id_5896" type="metadata" visible="false">
-                                        
-                    <Property name="maxPointsCount" value="5000"/>
-                                        
-                    <Property name="hideObjectNameColumn" value="false"/>
-                                        
-                    <Property name="listTopResultSize" value="-1"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="distribution-view" id="distribution-view_id_5892"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="bar-chart"/>
-                    
-        </ViewDef>
-                
-        <ViewDef id="f1474ada-0abe-4e6b-937a-ec4e7d82e420">
+        <ViewDef id="415075d8-dadd-4f7a-890f-b49ee1674344">
                         
             <Title>VMware Tools Version </Title>
                         
@@ -10388,7 +9085,7 @@ Enhance this widget by filtering out up to date versions.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="ba5d47b2-2a6d-4f19-8e11-105fb13c5bf9">
+        <ViewDef id="d53cbf8a-6b5a-4ce2-8f0f-15babc4a6e30">
                         
             <Title>vSphere Distributed Switch Configuration </Title>
                         
@@ -10753,107 +9450,6 @@ Enhance this widget by filtering out up to date versions.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="c0b7e702-f550-4223-808c-aa14b35117a9">
-                        
-            <Title>VM Snapshot Trend</Title>
-                        
-            <Description>vSphere VM snapshot over time. If this has been going on for days, it could be forgotten snapshot. 
-</Description>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="VirtualMachine" type="descendant"/>
-                        
-            <SubjectType adapterKind="VMWARE" resourceKind="VirtualMachine" type="self"/>
-                        
-            <Usage>dashboard</Usage>
-                        
-            <Usage>report</Usage>
-                        
-            <Usage>details</Usage>
-                        
-            <Usage>content</Usage>
-                        
-            <Controls>
-                                
-                <Control id="time-interval-selector_id_607" type="time-interval-selector" visible="false">
-                                        
-                    <Property name="advancedTimeMode" value="false"/>
-                                        
-                    <Property name="unit" value="MONTHS"/>
-                                        
-                    <Property name="count" value="1"/>
-                                    
-                </Control>
-                                
-                <Control id="attributes-selector_id_608" type="attributes-selector" visible="false">
-                                        
-                    <Property name="attributeInfos">
-                                                
-                        <List>
-                                                        
-                            <Item>
-                                
-                                <Value>
-                                        
-                                    <Property name="objectType" value="RESOURCE"/>
-                                        
-                                    <Property name="attributeKey" value="diskspace|snapshot"/>
-                                        
-                                    <Property name="preferredUnitId" value="gb"/>
-                                        
-                                    <Property name="isStringAttribute" value="false"/>
-                                        
-                                    <Property name="adapterKind" value="VMWARE"/>
-                                        
-                                    <Property name="resourceKind" value="VirtualMachine"/>
-                                        
-                                    <Property name="rollUpType" value="NONE"/>
-                                        
-                                    <Property name="rollUpCount" value="0"/>
-                                        
-                                    <Property name="transformations">
-                                                
-                                        <List>
-                                                        
-                                            <Item value="NONE"/>
-                                                    
-                                        </List>
-                                            
-                                    </Property>
-                                        
-                                    <Property name="isProperty" value="false"/>
-                                        
-                                    <Property name="displayName" value="."/>
-                                    
-                                </Value>
-                                                            
-                            </Item>
-                                                    
-                        </List>
-                                            
-                    </Property>
-                                    
-                </Control>
-                                
-                <Control id="pagination-control_id_609" type="pagination-control" visible="true">
-                                        
-                    <Property name="start" value="0"/>
-                                        
-                    <Property name="size" value="25"/>
-                                    
-                </Control>
-                            
-            </Controls>
-                        
-            <DataProviders>
-                                
-                <DataProvider dataType="trend-view" id="trend-view_id_606"/>
-                            
-            </DataProviders>
-                        
-            <Presentation type="line-chart"/>
-                    
-        </ViewDef>
-                
         <ViewDef id="e77a32c0-16f4-4d3e-aabe-0d1354154d4b">
                         
             <Title>ESXi Network Cards List</Title>
@@ -11064,7 +9660,7 @@ Enhance this widget by filtering out up to date versions.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="9030cd79-ee63-42a2-9f03-7b2ac3f56d22">
+        <ViewDef id="eb16757e-5f8d-46c3-a990-f84c22273f74">
                         
             <Title>vSphere Cluster DPM Status</Title>
                         
@@ -11222,7 +9818,7 @@ Enhance this widget by filtering out up to date versions.</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="fc64c67a-d5b0-4a03-a10b-767b9b247120">
+        <ViewDef id="4e1d6191-5a75-4e7f-b8c5-c48a5576347e">
                         
             <Title>vSphere Cluster HA Admission Control status</Title>
                         
@@ -11322,7 +9918,7 @@ true = enabled</Description>
                     
         </ViewDef>
                 
-        <ViewDef id="3a424415-c06f-4b5b-b742-5b8d25c7e5ba">
+        <ViewDef id="561d5ce1-c473-401a-bfc6-47472a305412">
                         
             <Title>VM Virtual Disk Distribution</Title>
                         

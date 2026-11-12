@@ -67,7 +67,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VMs Performance in selected Datacenter",
-               "viewDefinitionId": "3c32ba9d-e71c-4f2c-bf46-844d1b07857f"
+               "viewDefinitionId": "ba5453bc-3da3-4b4c-b63a-ad3649fcd8a0"
             },
             "height": 1179,
             "states": [
@@ -120,7 +120,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Datacenters",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 324,
             "states": [
@@ -159,7 +159,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Are VMs facing Memory Contention?",
-               "viewDefinitionId": "de1ff68b-1a78-4939-996d-600b0abef33e"
+               "viewDefinitionId": "093a55c0-332c-486a-a346-4b549fc63a21"
             },
             "height": 324,
             "states": [
@@ -194,7 +194,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Are VMs facing CPU Ready?",
-               "viewDefinitionId": "3b0e097b-b3f1-453f-adc9-ad47c9c5ca4c"
+               "viewDefinitionId": "02184055-983a-4242-b105-a04d94999ada"
             },
             "height": 324,
             "states": [
@@ -229,7 +229,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Are VMs facing Disk Latency?",
-               "viewDefinitionId": "0ef97d2c-770b-4c74-9c82-28a766164a39"
+               "viewDefinitionId": "8140bbaf-f202-4e0d-b66e-778ed9061722"
             },
             "height": 324,
             "states": [
