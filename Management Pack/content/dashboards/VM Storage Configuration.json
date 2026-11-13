@@ -40,7 +40,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Disks: Size",
-               "viewDefinitionId": "c655b25c-42be-4512-9c9b-8b4d6beefd71"
+               "viewDefinitionId": "72a85fd6-5824-444f-9ae9-f91408e4fcbe"
             },
             "height": 324
          },
@@ -67,7 +67,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Disks: Count",
-               "viewDefinitionId": "e0e0972a-2da0-4544-a53f-9e55b09c74a3"
+               "viewDefinitionId": "ded11263-20b6-48fc-9879-87cc5790cd30"
             },
             "height": 324
          },
@@ -133,7 +133,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Snapshots",
-               "viewDefinitionId": "4d71034d-6368-4284-be94-94887f87eddc"
+               "viewDefinitionId": "6f55b53b-5d64-4ee8-9f7f-0969d6d3d090"
             },
             "height": 324
          },
@@ -164,7 +164,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Datacenters",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 666,
             "states": [{
@@ -222,7 +222,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Virtual Disks of selected VM",
-               "viewDefinitionId": "56abf797-0534-4b73-bc27-693317a206ac"
+               "viewDefinitionId": "7ccaaa23-fb7c-4d4d-9258-e2f018681d60"
             },
             "height": 324,
             "states": [{
@@ -251,7 +251,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Snapshots of selected VM",
-               "viewDefinitionId": "7d0d858d-628d-49e9-b076-4fb15d757cc3"
+               "viewDefinitionId": "7ae0e346-6f45-41e6-84df-8bfd94f04223"
             },
             "height": 324,
             "states": [
@@ -286,7 +286,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Guest OS Partitions of selected VM",
-               "viewDefinitionId": "72cefd21-9a01-45e6-a33c-ea2a6897ac5d"
+               "viewDefinitionId": "0babc727-6938-4e90-b91d-5e13a3d8b564"
             },
             "height": 324,
             "states": [

@@ -179,7 +179,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="fc20d8a6-9f74-4b78-9022-7441c6d877e9">
+        <ViewDef id="8f50f651-58b8-4545-9711-ba8fd07e003c">
                         
             <Title>VM Network Top Talkers</Title>
                         
@@ -929,7 +929,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="5c3441f2-4619-441c-ad02-0b01ead34813">
+        <ViewDef id="65ad9e7b-a972-48f4-9d0f-f59e03f27d99">
                         
             <Title>VM Memory to reclaim (idle)</Title>
                         
@@ -1104,7 +1104,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="3ede5e0a-2121-4579-a250-26648589cb4a">
+        <ViewDef id="76e2cd25-11ac-4923-a4a2-0deb5ed794a7">
                         
             <Title>VM Memory Contention Distribution for Profiling</Title>
                         
@@ -1366,7 +1366,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="49b13b68-dee2-483d-8df8-1b6d7957d01c">
+        <ViewDef id="1be018ca-1588-40c4-9bc4-9dfc4849d6a5">
                         
             <Title>vSphere Port Group Configuration </Title>
                         
@@ -2340,7 +2340,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="d4ba9e73-bc26-4f5f-8cef-504a37cfc988">
+        <ViewDef id="182a4bfa-b9c9-448d-a41a-5982673f33dc">
                         
             <Title>ESXi Distribution by NIC Speed</Title>
                         
@@ -2444,7 +2444,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="94b25c6a-bc08-4b7f-83e5-d55d4b6d89e1">
+        <ViewDef id="f1096f58-89ab-464e-beab-c81738a706e3">
                         
             <Title>vSphere Cluster DRS Automation Status</Title>
                         
@@ -2540,7 +2540,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="6c06a467-d9b3-4965-8164-4e5c43940924">
+        <ViewDef id="68de2830-eeaf-49df-aeda-a60fadc2b9e9">
                         
             <Title>VM Distribution by Reclaimable CPU</Title>
                         
@@ -2724,7 +2724,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="fcab0100-1881-48b6-bd07-aaeaa3ee669e">
+        <ViewDef id="825a660e-b021-46ad-b905-f88a519dab8d">
                         
             <Title>vSphere Cluster DRS Status</Title>
                         
@@ -2822,7 +2822,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="8d44e30e-9bb1-4df1-bf1f-8d2f44276af4">
+        <ViewDef id="88914dd5-ad98-45d9-85e0-6dd1bb8f5f5a">
                         
             <Title>VM Distribution by CPU Reservation</Title>
                         
@@ -3364,7 +3364,7 @@
                     
         </ViewDef>
                 
-        <ViewDef id="95416c42-b863-415c-88b8-c5294f43daa1">
+        <ViewDef id="2c7a6092-6c3f-427f-87c5-5a7a2cccb9cf">
                         
             <Title>VM Distribution by Memory to add</Title>
                         

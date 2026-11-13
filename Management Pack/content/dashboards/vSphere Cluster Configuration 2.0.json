@@ -59,7 +59,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Clusters Configuration",
-               "viewDefinitionId": "dadb69af-f77f-4644-8355-588f41c2f4f0"
+               "viewDefinitionId": "23c3c66b-cc72-4070-a67b-326841e7e5dd"
             },
             "height": 324,
             "states": [
@@ -94,7 +94,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "ESXi Hosts in the selected cluster",
-               "viewDefinitionId": "9a556ea6-db06-4ad5-b1a1-84bb1ae7032e"
+               "viewDefinitionId": "16b9b05c-c0e0-4c1c-b7d5-7232d0a64687"
             },
             "height": 438,
             "states": [{
@@ -123,7 +123,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "HA Enabled?",
-               "viewDefinitionId": "e041c79b-910f-477b-9d7a-d84e495119cb"
+               "viewDefinitionId": "9ebf801c-6e49-4aab-a462-3db925de984e"
             },
             "height": 210
          },
@@ -148,7 +148,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "DPM Enabled?",
-               "viewDefinitionId": "9030cd79-ee63-42a2-9f03-7b2ac3f56d22"
+               "viewDefinitionId": "eb16757e-5f8d-46c3-a990-f84c22273f74"
             },
             "height": 210
          },
@@ -198,7 +198,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Clusters by number of ESXi hosts",
-               "viewDefinitionId": "de04afbf-832d-4bb9-a13c-c7680356c00f"
+               "viewDefinitionId": "58383fdc-6074-4310-aa1e-b0aa577e23df"
             },
             "height": 324
          },
@@ -248,7 +248,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "DRS Migration Threshold",
-               "viewDefinitionId": "9e427b59-a30a-475c-bafc-a1943d9f2f0d"
+               "viewDefinitionId": "818ca87d-feb3-4b3c-8534-ba47cfeaf610"
             },
             "height": 210
          },
@@ -273,7 +273,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "DRS Enabled?",
-               "viewDefinitionId": "fcab0100-1881-48b6-bd07-aaeaa3ee669e"
+               "viewDefinitionId": "825a660e-b021-46ad-b905-f88a519dab8d"
             },
             "height": 210
          },
@@ -298,7 +298,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "HA Admission Control enabled",
-               "viewDefinitionId": "fc64c67a-d5b0-4a03-a10b-767b9b247120"
+               "viewDefinitionId": "4e1d6191-5a75-4e7f-b8c5-c48a5576347e"
             },
             "height": 210
          },
@@ -323,7 +323,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "DRS Automated?",
-               "viewDefinitionId": "94b25c6a-bc08-4b7f-83e5-d55d4b6d89e1"
+               "viewDefinitionId": "f1096f58-89ab-464e-beab-c81738a706e3"
             },
             "height": 210
          },
@@ -348,7 +348,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "vSphere Cluster HA Admission Control Policies",
-               "viewDefinitionId": "27f6a2e8-ddac-4dc2-b3bf-5f222af701db"
+               "viewDefinitionId": "c87c6499-8beb-4caa-89c4-b6865d5692ea"
             },
             "height": 210
          },
@@ -379,7 +379,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Datacenters",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 666,
             "states": [{

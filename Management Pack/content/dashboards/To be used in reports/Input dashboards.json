@@ -80,7 +80,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Hardware Models",
-                  "viewDefinitionId": "614c2d3f-98f0-4862-8dcd-fd6b0b4c799d"
+                  "viewDefinitionId": "23acd23f-1310-46ce-88fd-9ee7a5783635"
                },
                "height": 438,
                "states": [{
@@ -142,7 +142,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "CPU Sockets",
-                  "viewDefinitionId": "41127d01-e62b-4d46-89d4-7293ed86103c"
+                  "viewDefinitionId": "2a643d45-6706-43f4-86d6-d68419f9b9e4"
                },
                "height": 267,
                "states": [{
@@ -200,7 +200,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Active Storage Paths",
-                  "viewDefinitionId": "51ea3aa0-2671-44da-ac00-8c265767ad83"
+                  "viewDefinitionId": "31b26c6d-5c86-46db-b6be-0385af92bafc"
                },
                "height": 267,
                "states": [{
@@ -229,7 +229,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "NIC Speed (Mbps)",
-                  "viewDefinitionId": "d4ba9e73-bc26-4f5f-8cef-504a37cfc988"
+                  "viewDefinitionId": "182a4bfa-b9c9-448d-a41a-5982673f33dc"
                },
                "height": 267,
                "states": [{
@@ -319,7 +319,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "ESXi Versions",
-                  "viewDefinitionId": "524d0468-8f9d-460b-a2a5-95c2d8846661"
+                  "viewDefinitionId": "1190d0fc-a95d-434b-84c5-d932a66ab1ea"
                },
                "height": 438,
                "states": [{
@@ -457,7 +457,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Hyper Threading Capability",
-                  "viewDefinitionId": "74639bd8-2ece-4032-b22f-ffc23e65598f"
+                  "viewDefinitionId": "cc809d78-008b-4715-a603-4a43d4c274da"
                },
                "height": 267,
                "states": [{
@@ -486,7 +486,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "BIOS Versions",
-                  "viewDefinitionId": "16d4447f-ae24-4d6d-b4ef-c5f2a3321351"
+                  "viewDefinitionId": "21302225-dc45-4938-9123-f1422480cdca"
                },
                "height": 438,
                "states": [{
@@ -937,7 +937,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Clusters by VM Count",
-                  "viewDefinitionId": "8986cc9d-5a60-407d-bdbf-25a1bc082b18"
+                  "viewDefinitionId": "5f3896e4-6823-4a66-9aa0-d477f2182dc1"
                },
                "height": 437,
                "states": [{
@@ -968,7 +968,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Memory distribution",
-                  "viewDefinitionId": "a3849f91-76c6-4791-81d7-65245e321233"
+                  "viewDefinitionId": "4f798a43-fc5b-4760-b744-1b159644f9a9"
                },
                "height": 438,
                "states": [{
@@ -999,7 +999,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM CPU distribution",
-                  "viewDefinitionId": "ccfc42fb-aaf3-439e-8111-3a0f1bf7713a"
+                  "viewDefinitionId": "fef92c3c-3c4f-4313-b457-ea93668ee64b"
                },
                "height": 437,
                "states": [{
@@ -1028,7 +1028,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Clusters by number of ESXi hosts",
-                  "viewDefinitionId": "de04afbf-832d-4bb9-a13c-c7680356c00f"
+                  "viewDefinitionId": "58383fdc-6074-4310-aa1e-b0aa577e23df"
                },
                "height": 438,
                "states": [{
@@ -1199,7 +1199,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Contention at 99th Percentile",
-                  "viewDefinitionId": "9911f98d-0e2a-4d4f-aefe-973e28ecf1cc"
+                  "viewDefinitionId": "1045bd7c-eae6-441b-99c8-ac2fc102336f"
                },
                "height": 323,
                "states": [
@@ -1291,7 +1291,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Hardware Models",
-                  "viewDefinitionId": "614c2d3f-98f0-4862-8dcd-fd6b0b4c799d"
+                  "viewDefinitionId": "23acd23f-1310-46ce-88fd-9ee7a5783635"
                },
                "height": 438,
                "states": [{
@@ -1351,7 +1351,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Operating Systems",
-                  "viewDefinitionId": "9d5498ba-848f-4d23-8b6e-765a566a0659"
+                  "viewDefinitionId": "3dae7fec-9531-45df-8e0b-8e6615e235e6"
                },
                "height": 438,
                "states": [{
@@ -1380,7 +1380,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Datastore Type",
-                  "viewDefinitionId": "2486078e-790e-485b-8ab5-70c1da351a0d"
+                  "viewDefinitionId": "bfe9ee51-4b55-448f-ab45-9ef42c7370f4"
                },
                "height": 438,
                "states": [{
@@ -1439,7 +1439,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Idle VMs Distribution by Memory Footprint",
-                  "viewDefinitionId": "5c3441f2-4619-441c-ad02-0b01ead34813"
+                  "viewDefinitionId": "65ad9e7b-a972-48f4-9d0f-f59e03f27d99"
                },
                "height": 495,
                "states": [{
@@ -1468,7 +1468,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Powered-off VMs Distribution by Size",
-                  "viewDefinitionId": "8161f003-c456-47b2-9ce3-b88affa8c7d1"
+                  "viewDefinitionId": "eadc211b-772e-4178-863a-b1fe018929ae"
                },
                "height": 495,
                "states": [{
@@ -1779,7 +1779,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Guest OS from VM Tools",
-                  "viewDefinitionId": "19729c38-20e3-4fea-bb9f-0576126c25ec"
+                  "viewDefinitionId": "cc508013-e7d0-4fbf-98e2-d22c881b7812"
                },
                "height": 551,
                "states": [
@@ -1814,7 +1814,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMware Tools: States",
-                  "viewDefinitionId": "81ef5dfc-b519-4981-8a8e-ee1dbb516aca"
+                  "viewDefinitionId": "6ec4c367-a145-420e-b205-95247739a82c"
                },
                "height": 324,
                "states": [
@@ -1851,7 +1851,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMware Tools: Versions",
-                  "viewDefinitionId": "f1474ada-0abe-4e6b-937a-ec4e7d82e420"
+                  "viewDefinitionId": "415075d8-dadd-4f7a-890f-b49ee1674344"
                },
                "height": 324,
                "states": [
@@ -1953,7 +1953,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Snapshots Distribution by Size",
-                  "viewDefinitionId": "bf0d0ad1-53d5-42d7-a1a1-67f908642d5d"
+                  "viewDefinitionId": "77cb575f-e70d-4549-9779-281203327307"
                },
                "height": 380,
                "states": [{
@@ -1982,7 +1982,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Snapshots by Age",
-                  "viewDefinitionId": "7bcb4d10-700f-4bee-94f1-03ffada5ae65"
+                  "viewDefinitionId": "d78a2e36-e12f-4d98-9b49-71c8043822fa"
                },
                "height": 381,
                "states": [{
@@ -2011,7 +2011,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Idle VMs Distribution by Memory Footprint",
-                  "viewDefinitionId": "5c3441f2-4619-441c-ad02-0b01ead34813"
+                  "viewDefinitionId": "65ad9e7b-a972-48f4-9d0f-f59e03f27d99"
                },
                "height": 324,
                "states": [{
@@ -2040,7 +2040,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Powered-off VMs Distribution by Size",
-                  "viewDefinitionId": "8161f003-c456-47b2-9ce3-b88affa8c7d1"
+                  "viewDefinitionId": "eadc211b-772e-4178-863a-b1fe018929ae"
                },
                "height": 324,
                "states": [{
@@ -2442,7 +2442,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM counts by CPU to reclaim",
-                  "viewDefinitionId": "6c06a467-d9b3-4965-8164-4e5c43940924"
+                  "viewDefinitionId": "68de2830-eeaf-49df-aeda-a60fadc2b9e9"
                },
                "height": 438,
                "states": [{
@@ -2471,7 +2471,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM counts by Memory to reclaim",
-                  "viewDefinitionId": "7e913396-7712-438c-a22f-97140fea9892"
+                  "viewDefinitionId": "b1d06f85-bef9-42c2-89ca-bddf5a5613ef"
                },
                "height": 438,
                "states": [{
@@ -2500,7 +2500,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM counts by CPU to add",
-                  "viewDefinitionId": "ad2f56bc-3a78-4045-b2b5-c953781b5c76"
+                  "viewDefinitionId": "36f0222e-a1b2-4260-a286-b17fdbdc6c9e"
                },
                "height": 438,
                "states": [{
@@ -2529,7 +2529,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM counts by Memory to add",
-                  "viewDefinitionId": "95416c42-b863-415c-88b8-c5294f43daa1"
+                  "viewDefinitionId": "2c7a6092-6c3f-427f-87c5-5a7a2cccb9cf"
                },
                "height": 438,
                "states": [{
@@ -2591,7 +2591,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Idle VMs Distribution by Memory Footprint",
-                  "viewDefinitionId": "5c3441f2-4619-441c-ad02-0b01ead34813"
+                  "viewDefinitionId": "65ad9e7b-a972-48f4-9d0f-f59e03f27d99"
                },
                "height": 894,
                "states": [{
@@ -2620,7 +2620,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Powered-off VMs Distribution by Disk Size",
-                  "viewDefinitionId": "8161f003-c456-47b2-9ce3-b88affa8c7d1"
+                  "viewDefinitionId": "eadc211b-772e-4178-863a-b1fe018929ae"
                },
                "height": 894,
                "states": [{
@@ -2684,7 +2684,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with Memory Hot Add",
-                  "viewDefinitionId": "2805f0a4-e58b-432b-861d-cffe1604fbfc"
+                  "viewDefinitionId": "b69238ce-fc85-40a7-80c7-800549985196"
                },
                "height": 381,
                "states": [
@@ -2721,7 +2721,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Hardware Versions",
-                  "viewDefinitionId": "7bb1bf81-8895-4008-b770-5c7fc106c22a"
+                  "viewDefinitionId": "ec868fe4-b7b4-4620-8e20-38f23667b21f"
                },
                "height": 495,
                "states": [
@@ -2758,7 +2758,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM with > 1 Network Cards",
-                  "viewDefinitionId": "40e416d0-0ee4-4aa2-9ad6-93d162f668a0"
+                  "viewDefinitionId": "d94478fc-f741-4508-87f9-962ad34ae8ed"
                },
                "height": 495,
                "states": [
@@ -2795,7 +2795,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with CPU Hot Add",
-                  "viewDefinitionId": "40b1d206-8616-47e2-9bee-6142b4427180"
+                  "viewDefinitionId": "506b9eae-b51c-4467-abfb-890bbd824117"
                },
                "height": 381,
                "states": [
@@ -2830,7 +2830,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with no Guest OS counters",
-                  "viewDefinitionId": "97e71e70-094d-435d-b4f4-99da4e489ec2"
+                  "viewDefinitionId": "7609bc5e-ef78-414e-9d6c-7f7119545bf6"
                },
                "height": 381,
                "states": [
@@ -2867,7 +2867,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with CPU Hot Remove",
-                  "viewDefinitionId": "ea6cf8d9-087a-4882-b98b-9acd2d4021ed"
+                  "viewDefinitionId": "8b84e50a-7040-4648-93b5-a4012ab39062"
                },
                "height": 381,
                "states": [
@@ -2904,7 +2904,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with CPU Limit",
-                  "viewDefinitionId": "0f5cd0c6-a06c-4be0-9af1-16adc6eac7ac"
+                  "viewDefinitionId": "dd0b0eb1-f968-423f-914f-515d5629fc95"
                },
                "height": 381,
                "states": [
@@ -2939,7 +2939,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VMs with Memory Limit",
-                  "viewDefinitionId": "6db204b2-0315-4488-8cbc-bbe33c74dac9"
+                  "viewDefinitionId": "223a2177-e1a6-4e2b-a207-b28db8339245"
                },
                "height": 381,
                "states": [
@@ -3004,7 +3004,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM CPU Share",
-                  "viewDefinitionId": "40c5bbc9-db9d-468c-8094-2137d22e53a7"
+                  "viewDefinitionId": "dcafd7ee-a0f7-4963-bbb1-b30f4043511a"
                },
                "height": 438,
                "states": [{
@@ -3033,7 +3033,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Memory Share",
-                  "viewDefinitionId": "23b3812d-fac8-449a-acb7-488a388a0716"
+                  "viewDefinitionId": "eefb0c9f-31d1-4971-800e-00f480abc919"
                },
                "height": 438,
                "states": [{
@@ -3062,7 +3062,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM CPU Reservation",
-                  "viewDefinitionId": "8d44e30e-9bb1-4df1-bf1f-8d2f44276af4"
+                  "viewDefinitionId": "88914dd5-ad98-45d9-85e0-6dd1bb8f5f5a"
                },
                "height": 437,
                "states": [{
@@ -3091,7 +3091,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Memory Reservation",
-                  "viewDefinitionId": "f752ddef-406d-4868-bd78-8b00aaa425cc"
+                  "viewDefinitionId": "c2a9ba5f-747d-4284-a09b-d63b40a49728"
                },
                "height": 438,
                "states": [{
@@ -3183,7 +3183,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Operating Systems",
-                  "viewDefinitionId": "9d5498ba-848f-4d23-8b6e-765a566a0659"
+                  "viewDefinitionId": "3dae7fec-9531-45df-8e0b-8e6615e235e6"
                },
                "height": 381,
                "states": [
@@ -3218,7 +3218,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Popular CPU Size",
-                  "viewDefinitionId": "850c16a9-3fa6-416a-a4e2-35a6509928aa"
+                  "viewDefinitionId": "217aafe0-9e16-4f47-b98b-31f99273312c"
                },
                "height": 381,
                "states": [
@@ -3253,7 +3253,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Popular Memory Size",
-                  "viewDefinitionId": "bf6bb2c6-12e3-417e-916f-70ab5ec411ad"
+                  "viewDefinitionId": "62f0a9c3-bef0-4c27-8f3c-da3f08b169b8"
                },
                "height": 381,
                "states": [
@@ -4007,7 +4007,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "CPU Performance",
-                  "viewDefinitionId": "3b6b0e60-7924-4d26-9a11-5fdde36e8a77"
+                  "viewDefinitionId": "a4c37007-25d1-4ab8-a197-e2418142cc06"
                },
                "height": 495,
                "states": [
@@ -4046,7 +4046,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Memory Performance",
-                  "viewDefinitionId": "3ede5e0a-2121-4579-a250-26648589cb4a"
+                  "viewDefinitionId": "76e2cd25-11ac-4923-a4a2-0deb5ed794a7"
                },
                "height": 495,
                "states": [
@@ -4081,7 +4081,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Contention at 99th Percentile",
-                  "viewDefinitionId": "9911f98d-0e2a-4d4f-aefe-973e28ecf1cc"
+                  "viewDefinitionId": "1045bd7c-eae6-441b-99c8-ac2fc102336f"
                },
                "height": 324,
                "states": [
@@ -4179,7 +4179,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Storage Performance",
-                  "viewDefinitionId": "a8b54a14-038c-4f1b-ab93-1cc0a6f4bc00"
+                  "viewDefinitionId": "f9047c09-a372-4f0a-95c2-7bc0eefaace4"
                },
                "height": 894,
                "states": [{
@@ -4353,7 +4353,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Memory distribution",
-                  "viewDefinitionId": "a3849f91-76c6-4791-81d7-65245e321233"
+                  "viewDefinitionId": "4f798a43-fc5b-4760-b744-1b159644f9a9"
                },
                "height": 437,
                "states": [{
@@ -4384,7 +4384,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM Virtual Disks",
-                  "viewDefinitionId": "e0e0972a-2da0-4544-a53f-9e55b09c74a3"
+                  "viewDefinitionId": "ded11263-20b6-48fc-9879-87cc5790cd30"
                },
                "height": 437,
                "states": [{
@@ -4415,7 +4415,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "VM CPU distribution",
-                  "viewDefinitionId": "ccfc42fb-aaf3-439e-8111-3a0f1bf7713a"
+                  "viewDefinitionId": "fef92c3c-3c4f-4313-b457-ea93668ee64b"
                },
                "height": 381,
                "states": [{
@@ -4474,7 +4474,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "HA Enabled?",
-                  "viewDefinitionId": "e041c79b-910f-477b-9d7a-d84e495119cb"
+                  "viewDefinitionId": "9ebf801c-6e49-4aab-a462-3db925de984e"
                },
                "height": 267,
                "states": [{
@@ -4503,7 +4503,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Clusters by number of ESXi hosts",
-                  "viewDefinitionId": "de04afbf-832d-4bb9-a13c-c7680356c00f"
+                  "viewDefinitionId": "58383fdc-6074-4310-aa1e-b0aa577e23df"
                },
                "height": 324,
                "states": [{
@@ -4532,7 +4532,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "DRS Migration Threshold",
-                  "viewDefinitionId": "9e427b59-a30a-475c-bafc-a1943d9f2f0d"
+                  "viewDefinitionId": "818ca87d-feb3-4b3c-8534-ba47cfeaf610"
                },
                "height": 267,
                "states": [{
@@ -4561,7 +4561,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "DRS Enabled?",
-                  "viewDefinitionId": "fcab0100-1881-48b6-bd07-aaeaa3ee669e"
+                  "viewDefinitionId": "825a660e-b021-46ad-b905-f88a519dab8d"
                },
                "height": 267,
                "states": [{
@@ -4590,7 +4590,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "HA Admission Control enabled",
-                  "viewDefinitionId": "fc64c67a-d5b0-4a03-a10b-767b9b247120"
+                  "viewDefinitionId": "4e1d6191-5a75-4e7f-b8c5-c48a5576347e"
                },
                "height": 267,
                "states": [{
@@ -4619,7 +4619,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "DRS Automated?",
-                  "viewDefinitionId": "94b25c6a-bc08-4b7f-83e5-d55d4b6d89e1"
+                  "viewDefinitionId": "f1096f58-89ab-464e-beab-c81738a706e3"
                },
                "height": 267,
                "states": [{
@@ -4648,7 +4648,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "HA Admission Control Policies",
-                  "viewDefinitionId": "27f6a2e8-ddac-4dc2-b3bf-5f222af701db"
+                  "viewDefinitionId": "c87c6499-8beb-4caa-89c4-b6865d5692ea"
                },
                "height": 267,
                "states": [{
@@ -5132,7 +5132,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "ESXi by Memory Capacity (TB)",
-                  "viewDefinitionId": "5c20ba39-9d8b-4272-b01d-8dbafeded995"
+                  "viewDefinitionId": "203336f6-7ecf-46b6-bfd1-1f746e6ce117"
                },
                "height": 438,
                "states": [{
@@ -5163,7 +5163,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "ESXi by CPU Capacity (cores)",
-                  "viewDefinitionId": "45281acb-5643-4a0c-b4d2-300548289b89"
+                  "viewDefinitionId": "bc0cd2ec-f609-4c91-8ff6-2c87e37de38a"
                },
                "height": 437,
                "states": [{
@@ -5192,7 +5192,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "ESXi by CPU Capacity (GHz)",
-                  "viewDefinitionId": "e2d1f3c7-336f-4eeb-80a1-144d1252bc5e"
+                  "viewDefinitionId": "43b5a59e-d45b-4cef-b5a3-debb9a4e566f"
                },
                "height": 438,
                "states": [{
@@ -5221,7 +5221,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Clusters by ESXi Counts",
-                  "viewDefinitionId": "de04afbf-832d-4bb9-a13c-c7680356c00f"
+                  "viewDefinitionId": "58383fdc-6074-4310-aa1e-b0aa577e23df"
                },
                "height": 438,
                "states": [{
@@ -6233,7 +6233,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Server Vendor",
-                  "viewDefinitionId": "998cf7f2-b636-4ac5-96b2-833c81f3097c"
+                  "viewDefinitionId": "3bd0917a-f9cb-4097-a640-d81dc24da94a"
                },
                "height": 267,
                "states": [
@@ -6268,7 +6268,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Server Model",
-                  "viewDefinitionId": "614c2d3f-98f0-4862-8dcd-fd6b0b4c799d"
+                  "viewDefinitionId": "23acd23f-1310-46ce-88fd-9ee7a5783635"
                },
                "height": 267,
                "states": [
@@ -6303,7 +6303,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Datastore Type",
-                  "viewDefinitionId": "2486078e-790e-485b-8ab5-70c1da351a0d"
+                  "viewDefinitionId": "bfe9ee51-4b55-448f-ab45-9ef42c7370f4"
                },
                "height": 266,
                "states": [
@@ -6702,7 +6702,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": false},
                   "title": "Clusters by VM Count",
-                  "viewDefinitionId": "8986cc9d-5a60-407d-bdbf-25a1bc082b18"
+                  "viewDefinitionId": "5f3896e4-6823-4a66-9aa0-d477f2182dc1"
                },
                "height": 380,
                "states": [{
@@ -6854,7 +6854,7 @@
                   "selectFirstRow": {"selectFirstRow": false},
                   "selfProvider": {"selfProvider": true},
                   "title": "Distributed Switch Version",
-                  "viewDefinitionId": "1fa18cd9-f908-4120-9c81-797282a3db37"
+                  "viewDefinitionId": "4b68ff93-9213-418c-8b7a-ee389e360979"
                },
                "height": 381,
                "states": [{

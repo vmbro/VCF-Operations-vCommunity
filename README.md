@@ -49,6 +49,10 @@ Reports:
 Reports were designed to replace all the existing vSphere adapter reports. They were designed top down, as a set.
 They are also purpose-built. The PDF format and the CSV format is targetted for their specific use cases.
 
+Built-in views:
+Versions 0.1.5 to 0.3.1 ship views under the ids of views built into VCF Operations (41 of the 117 in 0.1.5, all 117 from 0.1.6), so installing one of them overwrites those built-in views. This version stops doing that: of the 117, 98 have new ids of their own, and 19 (identical to the built-in view, or differing only in title or description) are no longer shipped; the dashboards use the built-in views instead.
+On an instance that has one of those older versions: uninstalling the old version removes those built-in views. Upgrading to this version also removes them on 9.x, and the stock dashboards that use them show missing views. On 8.18 an upgrade removes nothing: the built-in ids keep the old version's modified copies, and some of the new views get a " 1" appended to their title because of the duplicate titles, until the pack is uninstalled, which then removes the old copies as well. An export taken from that instance beforehand does not help, because it contains the pack's copies. To restore the built-in views, import the view definitions from a content export of an instance running the same VCF Operations version that has never had this pack installed (on 8.18 this overwrites the lingering old copies). A fresh install of this version, and its uninstall, do not touch built-in views. Tested on VCF Operations 8.18.7, 9.0.2 and 9.1.1.
+
 Super Metrics:
 They are used in the dashboards. Super Metrics can be found [here](https://github.com/vmbro/VCF-Operations-vCommunity/tree/main/Management%20Pack/content/supermetrics). You can bulk enable them in Policy, after Management Pack installation.
 

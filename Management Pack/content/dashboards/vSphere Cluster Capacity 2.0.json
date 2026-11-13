@@ -340,7 +340,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "ESXi Hosts in the Cluster",
-               "viewDefinitionId": "493527e2-d992-4e56-98ae-d9245c255174"
+               "viewDefinitionId": "a7131dd9-a7e0-460e-b372-69150892a7e7"
             },
             "height": 438,
             "states": [
@@ -375,7 +375,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Memory Utilization (GB)",
-               "viewDefinitionId": "87399ea9-d93a-4591-b15b-d30a9003972e"
+               "viewDefinitionId": "28042bb1-5d32-455c-86c0-b65af38c02ac"
             },
             "height": 381,
             "states": [

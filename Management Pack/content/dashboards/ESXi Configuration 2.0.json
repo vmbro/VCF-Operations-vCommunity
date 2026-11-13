@@ -40,7 +40,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "BIOS Version",
-               "viewDefinitionId": "c94b11bf-18c5-41c4-80fe-26ae5882dd45"
+               "viewDefinitionId": "6db76c99-efb6-4643-9ff2-4501ccecc7f4"
             },
             "height": 267
          },
@@ -104,7 +104,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "All ESXi Configuration",
-               "viewDefinitionId": "4d9b6ad6-3325-42ff-8593-77793e547a4d"
+               "viewDefinitionId": "34fd21d0-0853-4f9c-b3f2-e52216842d91"
             },
             "height": 723,
             "states": [
@@ -139,7 +139,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "NIC Speeds (Mbps)",
-               "viewDefinitionId": "d4ba9e73-bc26-4f5f-8cef-504a37cfc988"
+               "viewDefinitionId": "182a4bfa-b9c9-448d-a41a-5982673f33dc"
             },
             "height": 210
          },
@@ -164,7 +164,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Hyper Threading enabled?",
-               "viewDefinitionId": "74639bd8-2ece-4032-b22f-ffc23e65598f"
+               "viewDefinitionId": "cc809d78-008b-4715-a603-4a43d4c274da"
             },
             "height": 210
          },
@@ -189,7 +189,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Active Storage Paths",
-               "viewDefinitionId": "51ea3aa0-2671-44da-ac00-8c265767ad83"
+               "viewDefinitionId": "31b26c6d-5c86-46db-b6be-0385af92bafc"
             },
             "height": 210
          },
@@ -214,7 +214,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Throughput (GHz)",
-               "viewDefinitionId": "e2d1f3c7-336f-4eeb-80a1-144d1252bc5e"
+               "viewDefinitionId": "43b5a59e-d45b-4cef-b5a3-debb9a4e566f"
             },
             "height": 324
          },
@@ -241,7 +241,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Memory Capacity (TB)",
-               "viewDefinitionId": "5c20ba39-9d8b-4272-b01d-8dbafeded995"
+               "viewDefinitionId": "203336f6-7ecf-46b6-bfd1-1f746e6ce117"
             },
             "height": 324
          },
@@ -268,7 +268,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Capacity (cores)",
-               "viewDefinitionId": "45281acb-5643-4a0c-b4d2-300548289b89"
+               "viewDefinitionId": "bc0cd2ec-f609-4c91-8ff6-2c87e37de38a"
             },
             "height": 324
          },
@@ -295,7 +295,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "ESXi Versions",
-               "viewDefinitionId": "524d0468-8f9d-460b-a2a5-95c2d8846661"
+               "viewDefinitionId": "1190d0fc-a95d-434b-84c5-d932a66ab1ea"
             },
             "height": 267
          },
@@ -322,7 +322,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Sockets",
-               "viewDefinitionId": "41127d01-e62b-4d46-89d4-7293ed86103c"
+               "viewDefinitionId": "2a643d45-6706-43f4-86d6-d68419f9b9e4"
             },
             "height": 267
          },
@@ -415,7 +415,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Select a DC or World",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 267,
             "states": [{

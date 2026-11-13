@@ -125,7 +125,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM CPU Share",
-               "viewDefinitionId": "40c5bbc9-db9d-468c-8094-2137d22e53a7"
+               "viewDefinitionId": "dcafd7ee-a0f7-4963-bbb1-b30f4043511a"
             },
             "height": 267
          },
@@ -150,7 +150,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Memory Share",
-               "viewDefinitionId": "23b3812d-fac8-449a-acb7-488a388a0716"
+               "viewDefinitionId": "eefb0c9f-31d1-4971-800e-00f480abc919"
             },
             "height": 267
          },
@@ -175,7 +175,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Resource Pools",
-               "viewDefinitionId": "2788178d-7df4-47d7-81de-016f7a1cd18d"
+               "viewDefinitionId": "f31188cc-6862-4885-9bfc-67c644a12cba"
             },
             "height": 552,
             "states": [{
@@ -263,7 +263,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM CPU Reservation",
-               "viewDefinitionId": "8d44e30e-9bb1-4df1-bf1f-8d2f44276af4"
+               "viewDefinitionId": "88914dd5-ad98-45d9-85e0-6dd1bb8f5f5a"
             },
             "height": 267
          },
@@ -288,7 +288,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Memory Reservation",
-               "viewDefinitionId": "f752ddef-406d-4868-bd78-8b00aaa425cc"
+               "viewDefinitionId": "c2a9ba5f-747d-4284-a09b-d63b40a49728"
             },
             "height": 267
          },
@@ -313,7 +313,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Cluster CPU Reservation",
-               "viewDefinitionId": "b5f3660a-082c-4af9-b89e-bc670d932e99"
+               "viewDefinitionId": "7cec1e92-feb7-40a5-996f-ccc06bff1581"
             },
             "height": 324
          },
@@ -338,7 +338,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Cluster Memory Reservation",
-               "viewDefinitionId": "f83a4c60-9931-4305-95f9-93f724be86fe"
+               "viewDefinitionId": "cb5ca3cc-1fda-4216-99e3-72d5565bfd59"
             },
             "height": 324
          },
@@ -369,7 +369,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Data Centers",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 323,
             "states": [{
@@ -400,7 +400,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Memory Size",
-               "viewDefinitionId": "a3849f91-76c6-4791-81d7-65245e321233"
+               "viewDefinitionId": "4f798a43-fc5b-4760-b744-1b159644f9a9"
             },
             "height": 267,
             "states": [{
@@ -431,7 +431,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM CPU Size",
-               "viewDefinitionId": "ccfc42fb-aaf3-439e-8111-3a0f1bf7713a"
+               "viewDefinitionId": "fef92c3c-3c4f-4313-b457-ea93668ee64b"
             },
             "height": 267,
             "states": [{
@@ -462,7 +462,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM CPU Limit",
-               "viewDefinitionId": "0f5cd0c6-a06c-4be0-9af1-16adc6eac7ac"
+               "viewDefinitionId": "dd0b0eb1-f968-423f-914f-515d5629fc95"
             },
             "height": 267
          },
@@ -487,7 +487,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VM Memory Limit",
-               "viewDefinitionId": "6db204b2-0315-4488-8cbc-bbe33c74dac9"
+               "viewDefinitionId": "223a2177-e1a6-4e2b-a207-b28db8339245"
             },
             "height": 267
          },

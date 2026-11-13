@@ -1209,7 +1209,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "CPU Shares Distribution",
-               "viewDefinitionId": "40c5bbc9-db9d-468c-8094-2137d22e53a7"
+               "viewDefinitionId": "dcafd7ee-a0f7-4963-bbb1-b30f4043511a"
             },
             "height": 210,
             "states": [{
@@ -1238,7 +1238,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Memory Shares Distribution",
-               "viewDefinitionId": "23b3812d-fac8-449a-acb7-488a388a0716"
+               "viewDefinitionId": "eefb0c9f-31d1-4971-800e-00f480abc919"
             },
             "height": 210,
             "states": [{
@@ -2476,7 +2476,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Resource Pools in the cluster",
-               "viewDefinitionId": "6efeb9b2-3c38-4842-8ee9-88f6b25e5460"
+               "viewDefinitionId": "a746c425-7fd0-4106-bdb1-c7684081d1ba"
             },
             "height": 267,
             "states": [

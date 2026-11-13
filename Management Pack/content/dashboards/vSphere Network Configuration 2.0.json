@@ -52,7 +52,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Distributed Switches",
-               "viewDefinitionId": "ba5d47b2-2a6d-4f19-8e11-105fb13c5bf9"
+               "viewDefinitionId": "d53cbf8a-6b5a-4ce2-8f0f-15babc4a6e30"
             },
             "height": 267,
             "states": [{
@@ -81,7 +81,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Port Group: Allow Promiscuous Mode",
-               "viewDefinitionId": "24bd3eec-5fe8-4a90-9ad9-fa570b791973"
+               "viewDefinitionId": "ae763586-1fb7-4328-9c0a-d9290114766c"
             },
             "height": 267
          },
@@ -106,7 +106,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Port Groups",
-               "viewDefinitionId": "49b13b68-dee2-483d-8df8-1b6d7957d01c"
+               "viewDefinitionId": "1be018ca-1588-40c4-9bc4-9dfc4849d6a5"
             },
             "height": 438,
             "states": [
@@ -191,7 +191,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "Switch Version",
-               "viewDefinitionId": "1fa18cd9-f908-4120-9c81-797282a3db37"
+               "viewDefinitionId": "4b68ff93-9213-418c-8b7a-ee389e360979"
             },
             "height": 267
          },
@@ -216,7 +216,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "ESXi Hosts",
-               "viewDefinitionId": "6f0a54e7-c3a5-42bb-a989-fda47cf1c50a"
+               "viewDefinitionId": "f62618d5-7f91-47cf-a3b1-172d7da0b7da"
             },
             "height": 438,
             "states": [{
@@ -245,7 +245,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": false},
                "title": "VMs",
-               "viewDefinitionId": "f982ee15-5502-49e2-8efc-0a405b5bfa83"
+               "viewDefinitionId": "f22f2ab7-f504-4718-9bb8-9d24d51e72ba"
             },
             "height": 438,
             "states": [{
@@ -334,7 +334,7 @@
                "selectFirstRow": {"selectFirstRow": false},
                "selfProvider": {"selfProvider": true},
                "title": "Select a DC or World",
-               "viewDefinitionId": "3a88e1a7-511c-440d-868b-65df4a2c7898"
+               "viewDefinitionId": "2b76463b-40e5-41ea-b575-8d03736239ee"
             },
             "height": 495,
             "states": [{
